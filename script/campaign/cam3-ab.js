@@ -186,7 +186,7 @@ function eventResearched(research, structure, player)
 	{
 		camSetNexusState(false);
 	}
-	if (research.name === "R-Sys-Resistance-Upgrade02")
+	if (research.name === "R-Sys-Resistance-Upgrade03")
 	{
 		winFlag = true;
 	}
