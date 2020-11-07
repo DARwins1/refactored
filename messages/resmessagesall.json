@@ -327,5 +327,27 @@
             "Automatically targets enemies within sensor range",
             "Defensive Strength: High"
         ]
+    },
+    "RES_EMP_LANTOW": {
+        "id": "RES_EMP_LANTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Lancer AT Rocket",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_EMP_PULSETOW": {
+        "id": "RES_EMP_PULSETOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Pulse Laser",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Medium"
+        ]
     }
 }

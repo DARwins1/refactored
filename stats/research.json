@@ -1408,6 +1408,22 @@
         ],
         "statID": "PillBox6"
     },
+    "R-Defense-LancerTower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-Tower06",
+        "msgName": "RES_EMP_LANTOW",
+        "name": "Lancer Tower",
+        "requiredResearch": [
+            "R-Defense-HardcreteWall",
+            "R-Wpn-Rocket01-LtAT"
+        ],
+        "researchPoints": 2400,
+        "researchPower": 75,
+        "resultStructures": [
+            "GuardTower5"
+        ],
+        "statID": "GuardTower5"
+    },
     "R-Defense-TankTrap01": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-TankTrap01",
@@ -6698,6 +6714,21 @@
             "Emplacement-PulseLaser"
         ],
         "statID": "Emplacement-PulseLaser"
+    },
+    "R-Defense-PulseLasTower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-PulseLas",
+        "msgName": "RES_EMP_PULSETOW",
+        "name": "Pulse Laser Tower",
+        "requiredResearch": [
+            "R-Wpn-Laser02"
+        ],
+        "researchPoints": 14400,
+        "researchPower": 450,
+        "resultStructures": [
+            "GuardTower-BeamLas"
+        ],
+        "statID": "GuardTower-BeamLas"
     },
     "R-Defense-Rail2": {
         "iconID": "IMAGE_RES_DEFENCE",
