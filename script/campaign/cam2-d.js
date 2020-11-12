@@ -184,7 +184,10 @@ function eventStartLevel()
 	truckDefense();
 	hackAddMessage("C2D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
 
-	camEnableFactory("COHeavyFactory");
+	camEnableFactory("COHeavyFactoryA");
+	camEnableFactory("COHeavyFactoryB");
+	camEnableFactory("COHeavyFactoryC");
+	camEnableFactory("COHeavyFactoryD");
 	camEnableFactory("COSouthCyborgFactory");
 
 	queue("vtolAttack", camMinutesToMilliseconds(2));
