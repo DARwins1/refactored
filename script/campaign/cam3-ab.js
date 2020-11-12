@@ -14,6 +14,8 @@ const NEXUS_RES = [
 ];
 var edgeMapCounter; //how many Nexus reinforcement runs have happened.
 var winFlag;
+var edgeTimer = 1.5; // Default attack delay 1.5 minutes.
+var delayMultiplier; // Modifier for how quickly enemy attacks occur.
 
 //Remove Nexus VTOL droids.
 camAreaEvent("vtolRemoveZone", function(droid)
@@ -56,11 +58,7 @@ function sendEdgeMapDroids()
 		}
 	);
 
-	var edgeTimer = 1.5; // Default to 1.5 minutes.
-	if (winFlag)
-	{
-		edgeTimer = edgeTimer / 2; // Send units twice as fast if winFlag is true.
-	}
+	edgeTimer = edgeTimer * delayMultiplier; // Send units faster if circuits mk2 is researched
 
 	edgeMapCounter += 1;
 	queue("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(edgeTimer)));
@@ -186,6 +184,10 @@ function eventResearched(research, structure, player)
 	{
 		camSetNexusState(false);
 	}
+	if (research.name === "R-Sys-Resistance-Upgrade02")
+	{
+		delayMultiplier = 0.5;
+	}
 	if (research.name === "R-Sys-Resistance-Upgrade03")
 	{
 		winFlag = true;
@@ -242,6 +244,7 @@ function eventStartLevel()
 
 	enableResearch("R-Sys-Resistance-Upgrade01", CAM_HUMAN_PLAYER);
 	winFlag = false;
+	delayMultiplier = 1;
 
 	vtolAttack();
 
