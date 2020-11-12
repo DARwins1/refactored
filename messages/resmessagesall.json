@@ -349,5 +349,16 @@
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Medium"
         ]
+    },
+    "RES_DEF_ASSTOW": {
+        "id": "RES_DEF_ASSTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Assault Gun",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Medium"
+        ]
     }
 }

@@ -299,7 +299,7 @@ function eventStartLevel()
 				repair: 45,
 				count: -1,
 			},
-			templates: [cTempl.nxmheapv, cTempl.nxlscouv]
+			templates: [cTempl.nxmheapv, cTempl.nxlscouv, cTempl.nxhrailv]
 		},
 		"NX-VtolFactory2": {
 			assembly: "NX-VtolFactory2Assembly",

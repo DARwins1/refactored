@@ -111,7 +111,7 @@ function tankAttack()
 	var northTankAssembly = {"x": 95, "y": 3};
 	//var westTankAssembly = {"x": 3, "y": 112}; //This was unused.
 
-	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt];
+	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt, cTempl.comrlt];
 	var pos = [];
 	pos.push(northTankAssembly);
 

@@ -52,7 +52,7 @@ function getDroidsForCOLZ()
 
 	if (camRand(100) < 50)
 	{
-		templates = [cTempl.npcybm, cTempl.commgt, cTempl.npcybc, cTempl.npcybr, cTempl.npcybg, cTempl.comrlt];
+		templates = [cTempl.npcybm, cTempl.commgt, cTempl.npcybc, cTempl.npcybr, cTempl.npcybg, cTempl.copodt];
 	}
 	else
 	{
@@ -133,7 +133,7 @@ function sendPlayerTransporter()
 function mapEdgeDroids()
 {
 	var TankNum = 8 + camRand(6);
-	var list = [cTempl.npcybm, cTempl.npcybr, cTempl.npcybg, cTempl.comct, cTempl.cohct];
+	var list = [cTempl.npcybm, cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.comct, cTempl.cohct, cTempl.copodt];
 
 	var droids = [];
 	for (var i = 0; i < TankNum; ++i)

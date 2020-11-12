@@ -231,8 +231,8 @@ function eventStartLevel()
 			},
 			groupSize: 4, // sic! scouts, at most
 			maxSize: 20,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.nppod, cTempl.nphmg, cTempl.npsmc ]
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			templates: [ cTempl.nppod, cTempl.nphmg, cTempl.npsmc, cTempl.npflam ]
 		},
 	});
 

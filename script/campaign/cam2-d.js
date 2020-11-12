@@ -128,7 +128,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryB": {
 			assembly: "COHeavyFactoryAssembly",
@@ -140,7 +140,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryC": {
 			assembly: "COHeavyFactoryAssembly",
@@ -152,7 +152,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
@@ -164,7 +164,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
 		},
 		"COSouthCyborgFactory": {
 			assembly: "COSouthCyborgFactoryAssembly",
@@ -184,7 +184,10 @@ function eventStartLevel()
 	truckDefense();
 	hackAddMessage("C2D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
 
-	camEnableFactory("COHeavyFactory");
+	camEnableFactory("COHeavyFactoryA");
+	camEnableFactory("COHeavyFactoryB");
+	camEnableFactory("COHeavyFactoryC");
+	camEnableFactory("COHeavyFactoryD");
 	camEnableFactory("COSouthCyborgFactory");
 
 	queue("vtolAttack", camMinutesToMilliseconds(2));
