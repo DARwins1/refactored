@@ -58,10 +58,8 @@ function sendEdgeMapDroids()
 		}
 	);
 
-	edgeTimer = edgeTimer * delayMultiplier; // Send units faster if circuits mk2 is researched
-
 	edgeMapCounter += 1;
-	queue("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(edgeTimer)));
+	queue("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(edgeTimer * delayMultiplier))); // Send units faster if circuits mk2 is researched
 }
 
 //Setup Nexus VTOL hit and runners. NOTE: These do not go away in this mission.
