@@ -3752,7 +3752,7 @@
     "R-Defense-RotMG": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-RotMG",
-        "msgName": "RES_DEF_RotMG",
+        "msgName": "RES_DEF_ASSTOW",
         "name": "Assault Gun Tower",
         "requiredResearch": [
             "R-Wpn-MG4"
