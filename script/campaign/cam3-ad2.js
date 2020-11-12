@@ -60,7 +60,7 @@ function randomTemplates(list)
 //Chose a random spawn point for the VTOLs.
 function vtolAttack()
 {
-	var list = [cTempl.nxmheapv, cTempl.nxlpulsev];
+	var list = [cTempl.nxmheapv, cTempl.nxlpulsev, cTempl.nxhrailv, cTempl.nxlscouv];
 	camSetVtolData(NEXUS, VTOL_POSITIONS, "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)));
 }
 
