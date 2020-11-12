@@ -58,6 +58,8 @@ comct: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon2A-TMk1" },
 comorb: { body: "Body6SUPP", prop: "HalfTrack", weap: "Mortar2Mk1" },
 colcbv: { body: "Body2SUP", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" },
 colatv: { body: "Body2SUP", prop: "V-Tol", weap: "Rocket-VTOL-LtA-T" },
+copodt: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-Pod" }, // Light Mini-Rocket Pod Tank
+coscymc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Mcannon" }, // Super Heavy-Gunner
 prtruck: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" },
 prhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // HPV cannon tank (Swapped with Heavy Cannon)
 prltat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" },
@@ -69,10 +71,8 @@ comatt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-LtA-T" },
 comit: { body: "Body6SUPP", prop: "tracked01", weap: "Flame2" },
 comrept: { body: "Body6SUPP", prop: "tracked01", weap: "LightRepair1" },
 comorbt: { body: "Body6SUPP", prop: "tracked01", weap: "Mortar2Mk1" },
-coscymc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Mcannon" }, // Super Heavy-Gunner
 cocybtf: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Thermite" }, // Thermite Flamer Cyborg
 comrlt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-MRL" }, // Medium Mini-Rocket Array Tank
-copodt: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-Pod" }, // Light Mini-Rocket Pod Tank
 
 // CAM_2_2
 comtath: { body: "Body6SUPP", prop: "hover01", weap: "Rocket-LtA-T" },
