@@ -186,7 +186,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			maxSize: 6,         // this one was exclusively producing trucks
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),    // but we simplify this out
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),    // but we simplify this out
 			templates: [ cTempl.npmmct, cTempl.npsmct, cTempl.npsmc ]
 		},
 		"MediumNPFactory": {

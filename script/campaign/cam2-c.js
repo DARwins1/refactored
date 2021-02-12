@@ -331,7 +331,7 @@ function eventStartLevel()
 			assembly: "COHeavyFac-UpgradeAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: false,
 				repair: 20,
@@ -343,7 +343,7 @@ function eventStartLevel()
 			assembly: "COHeavyFac-LeopardAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: false,
 				repair: 20,
@@ -355,7 +355,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryLAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
 				regroup: false,
 				repair: 40,
@@ -367,7 +367,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryRAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
 				regroup: false,
 				repair: 40,
@@ -378,7 +378,7 @@ function eventStartLevel()
 		"COVtolFacLeft-Prop": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: false,
 				count: -1,
@@ -388,7 +388,7 @@ function eventStartLevel()
 		"COVtolFacRight": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: false,
 				count: -1,

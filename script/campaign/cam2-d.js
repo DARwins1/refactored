@@ -44,8 +44,13 @@ function truckDefense()
 //Attacks every 2 minutes until HQ is destroyed.
 function vtolAttack()
 {
-	var list = [cTempl.colatv, cTempl.commorvt];
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter");
+	var list = [cTempl.colatv, cTempl.commorvt, cTempl.colatv, cTempl.commorv];
+	var ext = {
+		limit: [4, 2, 4, 2],
+		alternate: true,
+		altIdx: 0
+	};
+	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
 }
 
 //The project captured the uplink.
@@ -121,50 +126,50 @@ function eventStartLevel()
 		"COHeavyFactoryA": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct]
 		},
 		"COHeavyFactoryB": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			groupSize: 2,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct]
 		},
 		"COHeavyFactoryC": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			groupSize: 2,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COSouthCyborgFactory": {
 			assembly: "COSouthCyborgFactoryAssembly",
@@ -190,5 +195,5 @@ function eventStartLevel()
 	camEnableFactory("COHeavyFactoryD");
 	camEnableFactory("COSouthCyborgFactory");
 
-	queue("vtolAttack", camMinutesToMilliseconds(2));
+	queue("vtolAttack", camMinutesToMilliseconds(3));
 }

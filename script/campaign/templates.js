@@ -63,13 +63,13 @@ coscymc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Mcanno
 prtruck: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" },
 prhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // HPV cannon tank (Swapped with Heavy Cannon)
 prltat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" },
-prrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" },
+prrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, 
 
 // CAM_2_B
 cotruck: { body: "Body6SUPP", prop: "tracked01", weap: "Spade1Mk1" },
 comatt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-LtA-T" },
 comit: { body: "Body6SUPP", prop: "tracked01", weap: "Flame2" },
-comrept: { body: "Body6SUPP", prop: "tracked01", weap: "LightRepair1" },
+comrept: { body: "Body6SUPP", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Tracks
 comorbt: { body: "Body6SUPP", prop: "tracked01", weap: "Mortar2Mk1" },
 cocybtf: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Thermite" }, // Thermite Flamer Cyborg
 comrlt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-MRL" }, // Medium Mini-Rocket Array Tank

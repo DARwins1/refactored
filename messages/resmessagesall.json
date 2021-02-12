@@ -360,5 +360,16 @@
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Medium"
         ]
+    },
+    "RES_REPTUHVY": {
+        "id": "RES_REPTUHVY",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_systech.ogg",
+        "text": [
+            "New Systems Turret Available",
+            "Heavy repair unit",
+            "Automatically Repairs Damaged Units",
+            "Or damaged units may be selected as target"
+        ]
     }
 }
