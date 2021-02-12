@@ -9057,5 +9057,20 @@
             "RailGun3Mk1"
         ],
         "statID": "RailGun3Mk1"
+    },
+    "R-Sys-MobileRepairTurretHvy": {
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Sys-MobileRepairTurretHvy",
+        "msgName": "RES_REPTUHVY",
+        "name": "Heavy Repair Turret",
+        "requiredResearch": [
+            "R-Struc-Research-Upgrade06"
+        ],
+        "researchPoints": 600,
+        "researchPower": 18,
+        "resultComponents": [
+            "HeavyRepair"
+        ],
+        "statID": "HeavyRepair"
     }
 }
