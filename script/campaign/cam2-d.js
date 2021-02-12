@@ -44,13 +44,13 @@ function truckDefense()
 //Attacks every 2 minutes until HQ is destroyed.
 function vtolAttack()
 {
-	var list = [cTempl.colatv, cTempl.commorvt];
+	var list = [cTempl.colatv, cTempl.commorvt, cTempl.colatv, cTempl.commorv];
 	var ext = {
-		limit: 4,
+		limit: [4, 2, 4, 2],
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
+	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
 }
 
 //The project captured the uplink.
@@ -126,7 +126,7 @@ function eventStartLevel()
 		"COHeavyFactoryA": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
+			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
@@ -138,7 +138,7 @@ function eventStartLevel()
 		"COHeavyFactoryB": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
+			groupSize: 2,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
@@ -150,7 +150,7 @@ function eventStartLevel()
 		"COHeavyFactoryC": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
+			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
@@ -162,7 +162,7 @@ function eventStartLevel()
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 5,
+			groupSize: 2,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
@@ -195,5 +195,5 @@ function eventStartLevel()
 	camEnableFactory("COHeavyFactoryD");
 	camEnableFactory("COSouthCyborgFactory");
 
-	queue("vtolAttack", camMinutesToMilliseconds(2));
+	queue("vtolAttack", camMinutesToMilliseconds(3));
 }

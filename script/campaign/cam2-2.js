@@ -109,7 +109,7 @@ function vtolAttack()
 		alternate: false,
 		altIdx: 0
 	};
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPoint", "vtolRemovePoint", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
+	camSetVtolData(THE_COLLECTIVE, "vtolAppearPoint", "vtolRemovePoint", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter", ext);
 }
 
 //Order the truck to build some defenses.
