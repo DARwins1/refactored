@@ -103,8 +103,13 @@ camAreaEvent("failZone", function(droid)
 
 function vtolAttack()
 {
-	var list = [cTempl.colatv, cTempl.colatv];
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPoint", "vtolRemovePoint", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "COCommandCenter");
+	var list = [cTempl.colatv];
+	var ext = {
+		limit: 4,
+		alternate: false,
+		altIdx: 0
+	};
+	camSetVtolData(THE_COLLECTIVE, "vtolAppearPoint", "vtolRemovePoint", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
 }
 
 //Order the truck to build some defenses.
@@ -199,7 +204,7 @@ function eventStartLevel()
 			assembly: camMakePos("eastAssembly"),
 			order: CAM_ORDER_ATTACK,
 			groupSize: 6,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			data: {
 				regroup: false,
 				repair: 40,
@@ -211,7 +216,7 @@ function eventStartLevel()
 			assembly: camMakePos("westAssembly"),
 			order: CAM_ORDER_DEFEND,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				pos: camMakePos("westAssembly"),
 				regroup: false,

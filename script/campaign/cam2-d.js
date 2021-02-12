@@ -45,7 +45,12 @@ function truckDefense()
 function vtolAttack()
 {
 	var list = [cTempl.colatv, cTempl.commorvt];
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter");
+	var ext = {
+		limit: 4,
+		alternate: true,
+		altIdx: 0
+	};
+	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
 }
 
 //The project captured the uplink.
@@ -122,49 +127,49 @@ function eventStartLevel()
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct]
 		},
 		"COHeavyFactoryB": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(140)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct]
 		},
 		"COHeavyFactoryC": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COSouthCyborgFactory": {
 			assembly: "COSouthCyborgFactoryAssembly",

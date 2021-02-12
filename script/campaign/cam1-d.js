@@ -223,7 +223,7 @@ function eventStartLevel()
 			assembly: "NPFactoryNEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: false,
 				repair: 33,
