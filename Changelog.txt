@@ -1,1 +1,90 @@
-A changelog (LOL)
+Changelog:
+
+refactored v1.2
+
+General Changes:
+Fixed Assault Gun Tower giving incorrect research message.
+
+Level Specific Changes:
+Alpha 5 (Incoming transmissions):
+- New Paradigm factory now produces flamer units occasionally.
+- Slowed down New Paradigm factory slightly.
+Alpha Final:
+- New Paradigm produces flamer units occasionally.
+Beta 1:
+- Rocket pod units are now part of attacking groups (both overland and transporter brought).
+- Super Cyborgs now attack from the north.
+Beta 7 (NASDA Central):
+- Added rocket pod units to the factory pools.
+- Fixed the vehicle factories not actually functioning (woops).
+Beta 10 (Safe Haven):
+- Added Mini-Rocket Array and Assault Gun units to the factory pools.
+Beta Final:
+- Added Mini-Rocket Array units to the north attack group pool.
+Gamma 2 (Nuclear Missile Launch):
+- Reduced transport arrival time to 2 minutes (from 3).
+Gamma 5 (NEXUS Intrusion):
+- Ground attack waves appear twice as fast after NEXUS Resistance Circuits Mk 2 is researched.
+Gamma 8 (Missile Silo Defense):
+- VTOL attacks now include Scourge and (previously unused) heavy Rail Gun VTOLs.
+Gamma Final:
+- NEXUS now occasionally produces heavy Rail Gun VTOLs.
+
+refactored v1.1
+General Changes:
+- Allow the player to research the Lancer Tower after getting the Lancer.
+- Allow the player to research the Pulse Laser Tower after getting the Pulse Laser.
+
+Level Specific Changes:
+Gamma 3 (Gamma Team Base):
+- The Flashlight Towers outside of Gamma base are now Pulse Laser Towers.
+Gamma 5 (NEXUS Intrusion):
+- The player has to research NEXUS Resistance Circuits Mk 3 to complete Gamma 3 again.
+
+refactored v1.0 (Some things may have been forgotten/left out!)
+General Changes:
+- Nearly all base weapon stats have been altered to be identical to MP/Skirmish. (With exceptions including the Cyclone, NEXUS Link and LasSat)
+- The Cyclone has it's damage and projectile speed increased to fit in.
+- Weapon damage modifiers have been altered to be identical to MP/Skirmish.
+- Bodies and propulsions have been altered to be identical to MP/Skirmish. (The only noticeable difference is that hovers are faster.)
+- Added ALL Cyborg varients and dispersed them throughout the Campaign progression. (Super Cyborgs start appearing in Beta Campaign)
+- Added Hardcrete Gates.
+- Hardcrete Gates have been added to every level where they would make sense to be.
+- A lot of technology has been moved around the Campaign for balancing purposes. (See below for more details.)
+- New templates used by enemy factions.
+
+Tech Tree Changes:
+- In general, weapon upgrades are more dispersed than before. (ex. getting the Mortar no longer leads to HE Mortar Shells Mk 3)
+- The Light Cannon and Heavy Machinegun have swapped places. The Light Cannon is now found in Alpha 3 (Pre-Collapse Ruins) while the Heavy Machinegun is found in Alpha 5 (Incoming Transmissions).
+- Researching the Mini-Rocket Pod no longer unlocks the Lancer/Bunker Buster, but instead unlocks the Mini-Rocket Array.
+- The lancer can be researched after getting the Research Module.
+- The Bunker Buster can now be found in an artifact in Alpha 8 (LZ 2 Mission).
+- Combat Engineers, Cyborg Mechanics, and Cyborg Grenadiers can be researched after aquireing the Synaptic Link.
+- The Hyper Velocity Cannon and Heavy Cannon have swapped places. The Hyper Velocity Cannon can now be found in Alpha 11 (Intercept Artifact Mission), while the Heavy Cannon can now be found in Beta 6 (Nuclear Plant).
+- The Super-Heavy Gunner Cyborg artifact can be found in Beta 3 (Northern Bases).
+- The Whirlwind can no longer be researched after getting the Assault Gun artifact, it is now found in Beta 9 (SAM Sites).
+- The Avenger SAM can now be found in Gamma 1 (Arrival).
+- The Needle Gun can now be found in Gamma 3 (Gamma Team Base).
+- The Plasmite Flamer can be found in Gamma 6 (Reunited).
+- The Vindicator SAM can no longer be researched after picking up the Scourge Missile artifact, it is now found in Gamma 7 (Missile Silos).
+
+Level Specific Changes:
+- The New Paradigm now builds flamer units starting in Alpha 6 (Assault on the Plateu).
+- New Paradigm transports arrive faster if the player has built a base on the Plateu in Alpha 7.
+- The New Paradigm produces Mini-Rocket Array hovers and Cyborg Grenadiers on Alhpa Final.
+- Collective Super-Heavy Gunners, Mini-Rocket Pod and Mini-Rocket Array units appear beginning in Beta 3 (Northern Bases).
+- The Collective builds Thermite Cyborgs starting in Beta 5 (Air Base Assault).
+- Collective Super Auto-Cannon and Super Tank-Killer Cyborgs appear starting at Beta 8 (Satellite Uplink).
+- Collective Assault Cannon VTOLs appear starting at Beta 9 (SAM Sites).
+- Due to Seraph (previously "Angel") Missile Arrays now having short range, Archangel Missile Batteries begin appearing starting from Gamma 2 (Nuclear Missile Launch).
+- NEXUS starts using Plasmite Flamer units at Gamma 3 (Gamma Team Base).
+- Gamma Base is now populated by more Gamma Team Units, and contains some Hellstorm Emplacements.
+- Gamma 5 (NEXUS Intrusion) can now only requires NEXUS Resistance Circuits Mk 2 to be researched to complete.
+- NEXUS VTOLs now attack more frequently and fly from the north-east corner of the map on Gamma 5.
+- The ledge with the sensor tower next to the Gamma Team outpost on Gamma 6 (Reunited) is now accesible.
+- Due to a bug involving transferred buildings in 3.4.x, the Factory in the Gamma Team outpost has been replaced with a research facility.
+- NEXUS VTOLs now attack more frequently and fly from the northern parts of the map on Gamma 8 (Missile Silo Defense).
+- NEXUS no longer builds VTOL Strike Units on Gamma Final.
+- NEXUS now builds heavy Seraph Missile units on Gamma Final.
+- Significantly slowed down all factory outputs on Gamma Final.
+- Due to getting Flamer upgrades, the Heavy Plasma Launcher on Gamma Final is much stronger now.
