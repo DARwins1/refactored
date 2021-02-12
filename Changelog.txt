@@ -1,5 +1,30 @@
 Changelog:
 
+refactored v1.3
+
+General Changes:
+- Added the Heavy Repair Turret.
+- The Heavy Repair Turret can be researched after picking up the Dedicated Synaptic Link Data Analysis artifact in Beta 7 (NASDA Central).
+- The Collective will occasionally build Heavy Repair units starting from Beta 6 (Nuclear Plant).
+
+Level Specific Changes:
+Alpha 8 (LZ 2 Mission):
+- Halved the rate at which NP heavy tanks are produced.
+Alpha Final:
+- Reduced the production speed of the three vehicle factories, halving the north-east one that produces only heavies.
+Beta 4 (Commander Interception):
+- Slightly reduced the rate at which lancer hovers are produced in the north-west base.
+- Lancer VTOLs now attack more frequently, but only in groups of four.
+- VTOL strikes can now be stopped by destroying the HQ in the north-east base, as instead of the north-west.
+Beta 5 (Air Base Assault):
+- Doubled the production time for all VTOL and vehicle factories.
+Beta 7 (NASDA Central):
+- Significantly increased the production time for the four vehicle factories.
+- Diversified the outputs of the vehicle factories a bit.
+- Tanks built from these factories now attack more frequently in smaller groups.
+- Collective VTOL attacks now alternate between groups of Lancers, Thermite Bomb Bays, and HEAP Bomb Bays.
+- Lancer VTOLs attack in groups of four, while bombers attack in groups of two.
+
 refactored v1.2
 
 General Changes:
@@ -76,7 +101,7 @@ Level Specific Changes:
 - The Collective builds Thermite Cyborgs starting in Beta 5 (Air Base Assault).
 - Collective Super Auto-Cannon and Super Tank-Killer Cyborgs appear starting at Beta 8 (Satellite Uplink).
 - Collective Assault Cannon VTOLs appear starting at Beta 9 (SAM Sites).
-- Due to Seraph (previously "Angel") Missile Arrays now having short range, Archangel Missile Batteries begin appearing starting from Gamma 2 (Nuclear Missile Launch).
+- Due to Seraph (formerly "Angel") Missile Arrays now having short range, Archangel Missile Batteries begin appearing starting from Gamma 2 (Nuclear Missile Launch).
 - NEXUS starts using Plasmite Flamer units at Gamma 3 (Gamma Team Base).
 - Gamma Base is now populated by more Gamma Team Units, and contains some Hellstorm Emplacements.
 - Gamma 5 (NEXUS Intrusion) can now only requires NEXUS Resistance Circuits Mk 2 to be researched to complete.
