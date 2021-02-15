@@ -96,21 +96,21 @@ function phantomFactoryNE()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(6, "NE-PhantomFactory", list);
-	queue("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	queue("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(3)));
 }
 
 function phantomFactorySW()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(8, "SW-PhantomFactory", list);
-	queue("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(4)));
 }
 
 function phantomFactorySE()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmplash];
 	sendEdgeMapDroids(10 + camRand(6), "SE-PhantomFactory", list); //10-15 units
-	queue("phantomFactorySE", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("phantomFactorySE", camChangeOnDiff(camMinutesToMilliseconds(5)));
 }
 
 function sendEdgeMapDroids(droidCount, location, list)

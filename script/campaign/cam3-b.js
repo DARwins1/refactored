@@ -125,7 +125,7 @@ function sendNXTransporter()
 			exit: { x: 62, y: 4 }
 		});
 
-		queue("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(3)));
+		queue("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	}
 }
 
@@ -143,7 +143,7 @@ function sendNXlandReinforcements()
 		}
 	);
 
-	queue("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(6)));
 }
 
 function transferPower()
@@ -228,7 +228,7 @@ function setupCapture()
 
 function eventAttacked(victim, attacker)
 {
-	if (!trapActive && gammaAttackCount > 4)
+	if (!trapActive && gammaAttackCount > 16)
 	{
 		camCallOnce("setupCapture");
 	}
@@ -299,7 +299,7 @@ function eventStartLevel()
 			assembly: "gammaFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				regroup: false,
 				repair: 45,
@@ -312,7 +312,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			group: camMakeGroup("gammaBaseCleanup"),
 			groupSize: 6,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
 				regroup: false,
 				repair: 40,
