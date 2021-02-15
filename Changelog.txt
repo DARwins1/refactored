@@ -1,5 +1,21 @@
 Changelog:
 
+refactored v1.4
+
+General Changes:
+- Removed health bonuses from Hover, VTOL and Cyborg propulsion II relative to their normal counterparts.
+- All NEXUS units now have their max HP reduced due to this change.
+- Hover II and VTOL II keep their speed bonuses.
+
+Level Specific Changes:
+Gamma 3 (Gamma Team Base):
+- Significantly increased times between NEXUS ground reinforcements.
+- Slightly increased Gamma Base factory production times.
+- Increased the delay between when Gamma Base is discovered and when it is absorbed.
+Gamma 4 (Alpha Team Rescue):
+- Increased the delays for NEXUS cyborg spawns.
+
+
 refactored v1.3
 
 General Changes:
@@ -24,6 +40,7 @@ Beta 7 (NASDA Central):
 - Tanks built from these factories now attack more frequently in smaller groups.
 - Collective VTOL attacks now alternate between groups of Lancers, Thermite Bomb Bays, and HEAP Bomb Bays.
 - Lancer VTOLs attack in groups of four, while bombers attack in groups of two.
+
 
 refactored v1.2
 
@@ -55,7 +72,9 @@ Gamma 8 (Missile Silo Defense):
 Gamma Final:
 - NEXUS now occasionally produces heavy Rail Gun VTOLs.
 
+
 refactored v1.1
+
 General Changes:
 - Allow the player to research the Lancer Tower after getting the Lancer.
 - Allow the player to research the Pulse Laser Tower after getting the Pulse Laser.
