@@ -1,5 +1,10 @@
 Changelog:
 
+refactored v1.4.1
+
+- Fixed NEXUS VTOLs not dissappearing after the the NX Command Center is destroyed.
+
+
 refactored v1.4
 
 General Changes:
@@ -120,6 +125,7 @@ Level Specific Changes:
 - The Collective builds Thermite Cyborgs starting in Beta 5 (Air Base Assault).
 - Collective Super Auto-Cannon and Super Tank-Killer Cyborgs appear starting at Beta 8 (Satellite Uplink).
 - Collective Assault Cannon VTOLs appear starting at Beta 9 (SAM Sites).
+- Reduced some of the defenses around the south-west NEXUS base in Gamma 1.
 - Due to Seraph (formerly "Angel") Missile Arrays now having short range, Archangel Missile Batteries begin appearing starting from Gamma 2 (Nuclear Missile Launch).
 - NEXUS starts using Plasmite Flamer units at Gamma 3 (Gamma Team Base).
 - Gamma Base is now populated by more Gamma Team Units, and contains some Hellstorm Emplacements.
