@@ -172,8 +172,6 @@ function eventStartLevel()
 	camPlayVideos(["MB2_DII_MSG", "MB2_DII_MSG2"]);
 
 	vtolAttack();
-	tankAttack();
-	cyborgAttack();
 	setTimer("cyborgAttack", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	setTimer("tankAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
