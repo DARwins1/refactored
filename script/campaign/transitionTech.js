@@ -86,7 +86,7 @@ const BETA_TECH = [
 	"Cannon4AUTO-VTOL", "Cannon4AUTOMk1", "Cannon5Vulcan-VTOL", "Cannon5VulcanMk1",
 	"Flame2", "Howitzer105Mk1", "Howitzer150Mk1", "MG4ROTARY-VTOL", "MG4ROTARYMk1",
 	"Mortar3ROTARYMk1", "Rocket-HvyA-T", "Rocket-IDF", "Rocket-VTOL-HvyA-T",
-	"QuadRotAAGun",
+	"QuadRotAAGun", "HeavyRepair",
 ];
 
 const STRUCTS_GAMMA = [
@@ -123,13 +123,14 @@ const PLAYER_RES_GAMMA = [
 	"R-Wpn-Mortar-Acc03", "R-Wpn-Mortar-ROF03", "R-Wpn-Mortar-ROF02", "R-Wpn-Rocket-Damage06",
 	"R-Wpn-RocketSlow-ROF03", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Struc-Power-Upgrade01", "R-Sys-Sensor-Upgrade01", "R-Wpn-AAGun-Accuracy02",
-	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Damage01", "R-Wpn-Bomb03",
+	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Damage02", "R-Wpn-Bomb03",
 	"R-Wpn-Howitzer-ROF03", "R-Sys-CBSensor-Turret01", "R-Sys-VTOLStrike-Turret01",
 	"R-Cyborg-Wpn-RotMG", "R-Defense-AASite-QuadRotMg", "R-Defense-Emplacement-HPVcannon",
 	"R-Defense-Howitzer", "R-Defense-HvyFlamer", "R-Defense-RotMG", "R-Defense-Wall-VulcanCan",
 	"R-Defense-WallTower-HPVcannon", "R-Defense-HvyHowitzer", "R-Defense-Wall-RotMg",
 	"R-Defense-IDFRocket", "R-Wpn-Bomb04", "R-Defense-Pillbox-RotMG",
 	"R-Defense-WallTower04", "R-Cyb-Wpn-Thermite", "R-Cyborg-Hvywpn-HPV", "R-Cyborg-Hvywpn-Acannon",
+	"R-Sys-MobileRepairTurretHvy", 
 ];
 
 //This is used for giving allies in Gamma technology (3-b/3-2/3-c)
