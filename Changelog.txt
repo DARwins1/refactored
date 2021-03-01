@@ -27,7 +27,7 @@ Gamma 6 (Reunited):
 - Restored the factory in Gamma Outpost to it's rightful place.
 - Replaced the Lancer Hardpoints in Gamma Outpost with Tank Killers, and added two Whirwind Emplacements.
 Gamma Final:
-- NEXUS now occasionally builds sensor hovers in the south-west factory.
+- NEXUS now occasionally builds sensor hovers in the south-east factory.
 
 refactored v1.4.1
 
