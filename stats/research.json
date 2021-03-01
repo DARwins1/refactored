@@ -4813,9 +4813,9 @@
         ],
         "statID": "QuadRotAAGun"
     },
-    "R-Wpn-Bomb-Accuracy01": {
+    "R-Wpn-Bomb-Damage01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
-        "id": "R-Wpn-Bomb-Accuracy01",
+        "id": "R-Wpn-Bomb-Damage01",
         "imdName": "trlvtlhe.PIE",
         "msgName": "RES_W_BAC1",
         "name": "HE Bomb Shells",
@@ -4850,15 +4850,15 @@
         ],
         "subgroupIconID": "IMAGE_RES_GRPDAM"
     },
-    "R-Wpn-Bomb-Accuracy02": {
+    "R-Wpn-Bomb-Damage02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
-        "id": "R-Wpn-Bomb-Accuracy02",
+        "id": "R-Wpn-Bomb-Damage02",
 		"keyTopic": 1,
         "imdName": "trlvtlhe.PIE",
         "msgName": "RES_W_BAC2",
         "name": "Improved Bomb Warhead",
         "requiredResearch": [
-            "R-Wpn-Bomb-Accuracy01"
+            "R-Wpn-Bomb-Damage01"
         ],
         "researchPoints": 9200,
         "researchPower": 287,
@@ -4911,7 +4911,7 @@
         "name": "HEAP Bomb Bay",
         "requiredResearch": [
             "R-Wpn-Bomb01",
-            "R-Wpn-Bomb-Accuracy01"
+            "R-Wpn-Bomb-Damage01"
         ],
         "researchPoints": 7200,
         "researchPower": 225,
@@ -7558,15 +7558,15 @@
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
     },
-    "R-Wpn-Bomb-Accuracy03": {
+    "R-Wpn-Bomb-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
-        "id": "R-Wpn-Bomb-Accuracy03",
+        "id": "R-Wpn-Bomb-Damage03",
         "keyTopic": 1,
         "imdName": "trlvtlhe.PIE",
         "msgName": "RES_W_BAC3",
         "name": "Advanced Bomb Warhead",
         "requiredResearch": [
-			"R-Wpn-Bomb-Accuracy02"
+			"R-Wpn-Bomb-Damage02"
         ],
         "researchPoints": 11200,
         "researchPower": 350,
@@ -7677,7 +7677,7 @@
         "name": "HVAPFSDS Cannon Rounds Mk3",
         "requiredResearch": [
             "R-Wpn-Cannon-Damage08",
-            "R-Wpn-Bomb-Accuracy03"
+            "R-Wpn-Bomb-Damage03"
         ],
         "researchPoints": 12000,
         "researchPower": 375,
@@ -8106,7 +8106,7 @@
         "name": "HEAP Howitzer Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Howitzer-Damage05",
-            "R-Wpn-Bomb-Accuracy03"
+            "R-Wpn-Bomb-Damage03"
         ],
         "researchPoints": 14000,
         "researchPower": 437,
