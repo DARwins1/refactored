@@ -14,7 +14,7 @@ const cyborgPatrolList = [
 const NEW_PARADIGM_RES = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
 	"R-Struc-Materials02", "R-Struc-Factory-Upgrade02",
-	"R-Struc-Factory-Cyborg-Upgrade02", "R-Vehicle-Engine02",
+	"R-Vehicle-Engine02",
 	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Accuracy01",
 	"R-Wpn-Cannon-Damage03", "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01",
@@ -124,12 +124,15 @@ function sendTransport()
 
 	if (index === 5)
 	{
+		removeTimer("sendTransport");
 		return;
 	}
-	else
-	{
-		queue("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(1)));
-	}
+}
+
+function startTransporterAttack()
+{
+	sendTransport();
+	setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(1)));
 }
 
 function eventStartLevel()
@@ -160,5 +163,5 @@ function eventStartLevel()
 	index = 0;
 	switchLZ = 0;
 
-	queue("sendTransport", camSecondsToMilliseconds(10));
+	queue("startTransporterAttack", camSecondsToMilliseconds(10));
 }

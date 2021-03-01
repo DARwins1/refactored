@@ -8,7 +8,7 @@ const ALPHA_RESEARCH = [
 	"R-Struc-PowerModuleMk1", "R-Wpn-MG2Mk1",
 	"R-Wpn-MG3Mk1", "R-Wpn-Cannon1Mk1", "R-Defense-WallUpgrade03",
 	"R-Struc-Factory-Upgrade03","R-Vehicle-Metals03", "R-Cyborg-Wpn-MG",
-	"R-Cyborg-Metals03", "R-Struc-Factory-Cyborg-Upgrade03",
+	"R-Cyborg-Metals03",
 	"R-Struc-Materials03", "R-Struc-Research-Upgrade03",
 	"R-Struc-RprFac-Upgrade03", "R-Wpn-MG-ROF01",
 	"R-Wpn-Cannon-Damage03", "R-Wpn-Rocket05-MiniPod", "R-Wpn-Rocket-Damage03",
@@ -28,7 +28,7 @@ const ALPHA_RESEARCH = [
 	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Mortar-Acc01",
 	"R-Wpn-Mortar-ROF01", "R-Defense-HvyMor", "R-Wpn-Rocket03-HvAT",
 	"R-Defense-HardcreteGate", "R-Cyb-Sys-Construct", "R-Cyb-Sys-Repair",
-	"R-Cyb-Wpn-Grenade",
+	"R-Cyb-Wpn-Grenade", "R-Defense-LancerTower",
 ];
 
 //BETA 2-A
@@ -58,7 +58,7 @@ const STRUCTS_ALPHA = [
 const PLAYER_RES_BETA = [
 	"R-Wpn-MG1Mk1", "R-Sys-Engineering01", "R-Cyborg-Legs01",
 	"R-Vehicle-Metals03", "R-Cyborg-Metals03", "R-Defense-WallUpgrade03",
-	"R-Struc-Factory-Upgrade03", "R-Struc-Factory-Cyborg-Upgrade03",
+	"R-Struc-Factory-Upgrade03",
 	"R-Struc-Materials03", "R-Struc-Research-Upgrade03",
 	"R-Struc-RprFac-Upgrade03", "R-Wpn-MG-ROF01",
 	"R-Sys-MobileRepairTurret01", "R-Wpn-Cannon-Damage03",
@@ -86,7 +86,7 @@ const BETA_TECH = [
 	"Cannon4AUTO-VTOL", "Cannon4AUTOMk1", "Cannon5Vulcan-VTOL", "Cannon5VulcanMk1",
 	"Flame2", "Howitzer105Mk1", "Howitzer150Mk1", "MG4ROTARY-VTOL", "MG4ROTARYMk1",
 	"Mortar3ROTARYMk1", "Rocket-HvyA-T", "Rocket-IDF", "Rocket-VTOL-HvyA-T",
-	"QuadRotAAGun",
+	"QuadRotAAGun", "HeavyRepair",
 ];
 
 const STRUCTS_GAMMA = [
@@ -109,7 +109,7 @@ const STRUCTS_GAMMA = [
 const PLAYER_RES_GAMMA = [
 	"R-Wpn-MG1Mk1", "R-Sys-Engineering02", "R-Cyborg-Legs01",
 	"R-Vehicle-Metals06", "R-Cyborg-Metals06", "R-Defense-WallUpgrade06",
-	"R-Struc-Factory-Upgrade06", "R-Struc-Factory-Cyborg-Upgrade06",
+	"R-Struc-Factory-Upgrade06",
 	"R-Struc-Materials06", "R-Struc-Research-Upgrade06",
 	"R-Struc-RprFac-Upgrade06", "R-Wpn-MG-ROF03",
 	"R-Sys-MobileRepairTurret01", "R-Wpn-Cannon-Damage06",
@@ -121,16 +121,16 @@ const PLAYER_RES_GAMMA = [
 	"R-Sys-Sensor-Tower02", "R-Defense-MRL", "R-Wpn-Cannon-Accuracy02",
 	"R-Wpn-Cannon-ROF03", "R-Wpn-Howitzer-Accuracy02", "R-Wpn-Howitzer-Damage03",
 	"R-Wpn-Mortar-Acc03", "R-Wpn-Mortar-ROF03", "R-Wpn-Mortar-ROF02", "R-Wpn-Rocket-Damage06",
-	"R-Wpn-RocketSlow-ROF03", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
-	"R-Struc-VTOLFactory-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Wpn-RocketSlow-ROF03", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Struc-Power-Upgrade01", "R-Sys-Sensor-Upgrade01", "R-Wpn-AAGun-Accuracy02",
-	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Accuracy01", "R-Wpn-Bomb03",
+	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Damage02", "R-Wpn-Bomb03",
 	"R-Wpn-Howitzer-ROF03", "R-Sys-CBSensor-Turret01", "R-Sys-VTOLStrike-Turret01",
 	"R-Cyborg-Wpn-RotMG", "R-Defense-AASite-QuadRotMg", "R-Defense-Emplacement-HPVcannon",
 	"R-Defense-Howitzer", "R-Defense-HvyFlamer", "R-Defense-RotMG", "R-Defense-Wall-VulcanCan",
 	"R-Defense-WallTower-HPVcannon", "R-Defense-HvyHowitzer", "R-Defense-Wall-RotMg",
 	"R-Defense-IDFRocket", "R-Wpn-Bomb04", "R-Defense-Pillbox-RotMG",
 	"R-Defense-WallTower04", "R-Cyb-Wpn-Thermite", "R-Cyborg-Hvywpn-HPV", "R-Cyborg-Hvywpn-Acannon",
+	"R-Sys-MobileRepairTurretHvy", 
 ];
 
 //This is used for giving allies in Gamma technology (3-b/3-2/3-c)
@@ -143,11 +143,10 @@ const GAMMA_ALLY_RES = [
 	"R-Wpn-RocketSlow-Accuracy03", "R-Wpn-RocketSlow-Damage06", "R-Wpn-RocketSlow-ROF03",
 	"R-Vehicle-Armor-Heat02", "R-Vehicle-Engine06", "R-Vehicle-Metals06", "R-Cyborg-Metals06",
 	"R-Cyborg-Armor-Heat02", "R-Defense-WallUpgrade06", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade03",
 	"R-Struc-VTOLPad-Upgrade03", "R-Struc-Materials06", "R-Struc-Power-Upgrade01",
 	"R-Struc-Research-Upgrade06", "R-Struc-RprFac-Upgrade06", "R-Sys-Engineering02",
 	"R-Sys-MobileRepairTurret01", "R-Sys-Sensor-Upgrade01", "R-Wpn-AAGun-Accuracy02",
-	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Accuracy02",
+	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03", "R-Wpn-Bomb-Damage02",
 ];
 
 //...

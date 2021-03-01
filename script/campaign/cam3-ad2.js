@@ -5,11 +5,10 @@ const Y_SCROLL_LIMIT = 137;
 const LASSAT_FIRING = "pcv650.ogg"; // LASER SATELLITE FIRING!!!
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals09",
 	"R-Cyborg-Metals09", "R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
 	"R-Wpn-Energy-ROF03", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage02",
 	"R-Wpn-Rail-Accuracy01", "R-Wpn-Rail-Damage03", "R-Wpn-Rail-ROF03",
 	"R-Sys-Sensor-Upgrade01", "R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage09", "R-Wpn-Flamer-ROF03",
@@ -39,7 +38,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 function randomTemplates(list)
 {
 	var i = 0;
-	var extras = [cTempl.nxmstrike, cTempl.nxmsamh];
+	var extras = [cTempl.nxmsens, cTempl.nxmsamh];
 	var droids = [];
 	var size = 5 + camRand(4); //Max of 8.
 
@@ -48,7 +47,7 @@ function randomTemplates(list)
 		droids.push(list[camRand(list.length)]);
 	}
 
-	//Vtol strike sensor and vindicator hovers.
+	//Sensor and vindicator hovers.
 	for (i = 0; i < 4; ++i)
 	{
 		droids.push(extras[camRand(extras.length)]);
@@ -95,8 +94,6 @@ function phantomFactorySpawn()
 			data: { regroup: false, count: -1, },
 		});
 	}
-
-	queue("phantomFactorySpawn", camChangeOnDiff(camMinutesToMilliseconds(2)));
 }
 
 //Choose a target to fire the LasSat at. Automatically increases the limits
@@ -155,7 +152,10 @@ function vaporizeTarget()
 			mapLimit = mapLimit + 0.33; //sector clear; move closer
 		}
 		laserSatFuzzyStrike(target);
-		queue("vaporizeTarget", camSecondsToMilliseconds(10));
+	}
+	else
+	{
+		removeTimer("vaporizeTarget");
 	}
 }
 
@@ -242,12 +242,12 @@ function checkTime()
 	{
 		camPlayVideos("MB3_AD2_MSG2");
 		setMissionTime(camHoursToSeconds(1));
+
 		phantomFactorySpawn();
 		queue("vaporizeTarget", camSecondsToMilliseconds(2));
-	}
-	else
-	{
-		queue("checkTime", camSecondsToMilliseconds(0.2));
+		setTimer("vaporizeTarget", camSecondsToMilliseconds(10));
+		setTimer("phantomFactorySpawn", camChangeOnDiff(camMinutesToMilliseconds(2)));
+		removeTimer("checkTime");
 	}
 }
 
@@ -305,6 +305,6 @@ function eventStartLevel()
 	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
 	camPlayVideos("MB3_AD2_MSG");
 
-	queue("checkTime", camSecondsToMilliseconds(0.2));
+	setTimer("checkTime", camSecondsToMilliseconds(0.2));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
 }

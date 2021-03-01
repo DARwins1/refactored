@@ -5,11 +5,10 @@ const SILO_PLAYER = 1;
 const LASSAT_FIRING = "pcv650.ogg"; // LASER SATELLITE FIRING!!!
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals08",
 	"R-Cyborg-Metals08", "R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
 	"R-Wpn-Energy-ROF03", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage02",
 	"R-Wpn-Rail-Accuracy01", "R-Wpn-Rail-Damage03", "R-Wpn-Rail-ROF03",
 	"R-Sys-Sensor-Upgrade01", "R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage09", "R-Wpn-Flamer-ROF03",
@@ -124,7 +123,6 @@ function vaporizeTarget()
 		mapLimit = mapLimit + 0.36; //sector clear; move closer
 	}
 	laserSatFuzzyStrike(target);
-	queue("vaporizeTarget", camSecondsToMilliseconds(10));
 }
 
 //A simple way to fire the LasSat with a chance of missing.
@@ -284,7 +282,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.nxmrailh, cTempl.nxmscouh, cTempl.nxmpulseh, cTempl.nxmlinkh, cTempl.nxmplash]
+			templates: [cTempl.nxmrailh, cTempl.nxmscouh, cTempl.nxmpulseh, cTempl.nxmlinkh]
 		},
 		"NXcyborgFac1": {
 			assembly: "NXcyborgFac1Assembly",
@@ -320,4 +318,6 @@ function eventStartLevel()
 	queue("vaporizeTarget", camSecondsToMilliseconds(2));
 	queue("setupGroups", camSecondsToMilliseconds(5));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(5)));
+
+	setTimer("vaporizeTarget", camSecondsToMilliseconds(10));
 }

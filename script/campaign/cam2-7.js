@@ -3,8 +3,7 @@ include("script/campaign/templates.js");
 
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade05", "R-Struc-Materials05",
-	"R-Struc-Factory-Upgrade05", "R-Struc-Factory-Cyborg-Upgrade05",
-	"R-Struc-VTOLFactory-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-Factory-Upgrade05", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
 	"R-Vehicle-Armor-Heat02", "R-Cyborg-Armor-Heat02",
 	"R-Sys-Engineering02", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage05",
@@ -111,7 +110,8 @@ function eventStartLevel()
 	camSetArtifacts({
 		"COHeavyFac-Arti-b2": { tech: "R-Wpn-Cannon5" },
 		"COTankKillerHardpoint": { tech: "R-Wpn-RocketSlow-ROF03" },
-		"COHeavyFac-b4": { tech: "R-Wpn-AAGun04" },
+		"COVtolFactory-b4": { tech: "R-Wpn-Bomb-Damage02" },
+		"COHeavyFac-b4": { tech: "R-Wpn-AAGun04" }, // Whirlwind
 	});
 
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);

@@ -82,26 +82,27 @@ function sendTransport()
 	// This emulates wzcam's droid count distribution.
 	var count = [ 2, 3, 4, 4, 4, 4, 4, 4, 4 ][camRand(9)];
 
-	// Time, in minutes, until the next transport. (Default to 3 minutes.)
-	var transportTime = 3;
+	var transportTime = 3; // Time, in minutes, until the next transport. (Default to 3 minutes.)
+	
 	// Cut transport arrival time in half if structures on plateu are built.
 	if (!blipActive)
 	{
 		transportTime = transportTime / 2;
 	}
 
+	removeTimer("sendTransport"); // Remove the old timer, so we can update it's time below
 
 	var templates;
 	if (lastHeavy)
 	{
 		lastHeavy = false;
-		queue("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime / 2))); // 1.5 min if blipActive
+		setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime / 2))); // 1.5 min if blipActive
 		templates = [ cTempl.nppod, cTempl.nphmg, cTempl.npmrl, cTempl.npsmc ];
 	}
 	else
 	{
 		lastHeavy = true;
-		queue("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime))); // 3 min if blipActive
+		setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime))); // 3 min if blipActive
 		templates = [ cTempl.npsmct, cTempl.npmor, cTempl.npsmc, cTempl.npmmct, cTempl.npmrl, cTempl.nphmg, cTempl.npsbb ];
 	}
 
@@ -123,6 +124,11 @@ function sendTransport()
 	});
 
 	totalTransportLoads = totalTransportLoads + 1;
+}
+
+function startTransporterAttack()
+{
+	sendTransport();
 }
 
 function eventStartLevel()
@@ -152,6 +158,6 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	camPlayVideos("MB1CA_MSG");
 
-	// first transport after 10 seconds; will re-queue itself
-	queue('sendTransport', camSecondsToMilliseconds(10));
+	// first transport after 10 seconds
+	queue("startTransporterAttack", camSecondsToMilliseconds(10));
 }

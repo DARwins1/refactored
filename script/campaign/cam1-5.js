@@ -4,8 +4,7 @@ include("script/campaign/templates.js");
 
 const NEW_PARADIGM_RES = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
-	"R-Struc-Materials02", "R-Struc-Factory-Upgrade02",
-	"R-Struc-Factory-Cyborg-Upgrade02", "R-Vehicle-Engine02",
+	"R-Struc-Materials02", "R-Struc-Factory-Upgrade02", "R-Vehicle-Engine02",
 	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Damage03",
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Mortar-Damage03",
 	"R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Damage03",
@@ -76,6 +75,7 @@ camAreaEvent("NPFactoryTrigger", function(droid)
 camAreaEvent("NPLZTrigger", function()
 {
 	sendNPTransport();
+	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
 });
 
 function sendNPTransport()
@@ -83,7 +83,7 @@ function sendNPTransport()
 	var tPos = getObject("NPTransportPos");
 	var nearbyDefense = enumRange(tPos.x, tPos.y, 6, NEW_PARADIGM, false);
 
-	if (nearbyDefense.length)
+	if (nearbyDefense.length > 0)
 	{
 		var list = getDroidsForNPLZ();
 		camSendReinforcement(NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
@@ -97,8 +97,10 @@ function sendNPTransport()
 				repair: 66,
 			},
 		});
-
-		queue("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	}
+	else
+	{
+		removeTimer("sendNPTransport");
 	}
 }
 

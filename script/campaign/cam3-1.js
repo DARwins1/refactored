@@ -4,11 +4,10 @@ include("script/campaign/templates.js");
 const NEXUS_RES = [
 	"R-Sys-Engineering03", "R-Defense-WallUpgrade07",
 	"R-Struc-Materials07", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals06",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02", "R-Cyborg-Legs02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
 	"R-Sys-Sensor-Upgrade01", "R-Sys-NEXUSrepair", "R-Wpn-Rail-Damage01",
 	"R-Wpn-Rail-ROF01", "R-Wpn-Rail-Accuracy01", "R-Wpn-Flamer-Damage06",
 ];
@@ -171,10 +170,7 @@ function setupNextMission()
 		hackAddMessage("CM31_HIDE_LOC", PROX_MSG, CAM_HUMAN_PLAYER);
 
 		setReinforcementTime(-1);
-	}
-	else
-	{
-		queue("setupNextMission", camSecondsToMilliseconds(2));
+		removeTimer("setupNextMission");
 	}
 }
 
@@ -212,8 +208,6 @@ function getCountdown()
 			break;
 		}
 	}
-
-	queue("getCountdown", camSecondsToMilliseconds(0.4));
 }
 
 function enableAllFactories()
@@ -292,7 +286,7 @@ function eventStartLevel()
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM_3B", {
 		area: "RTLZ",
-		reinforcements: camMinutesToSeconds(2),
+		reinforcements: camMinutesToSeconds(3),
 		callback: "unitsInValley"
 	});
 
@@ -367,7 +361,8 @@ function eventStartLevel()
 	cyborgAttack();
 	getCountdown();
 
-	queue("setupNextMission", camSecondsToMilliseconds(8));
+	setTimer("getCountdown", camSecondsToMilliseconds(0.4));
+	setTimer("setupNextMission", camSecondsToMilliseconds(2));
 	queue("hoverAttack", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(5)));

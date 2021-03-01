@@ -93,6 +93,7 @@ function sendPlayerTransporter()
 
 	if (index === transportLimit)
 	{
+		removeTimer("sendPlayerTransporter");
 		return;
 	}
 
@@ -113,7 +114,6 @@ function sendPlayerTransporter()
 	);
 
 	index = index + 1;
-	queue("sendPlayerTransporter", camMinutesToMilliseconds(5));
 }
 
 //Setup Nexus VTOL hit and runners.
@@ -156,18 +156,6 @@ function groupPatrolNoTrigger()
 	camManageGroup(camMakeGroup("NAmbushCyborgs"), CAM_ORDER_ATTACK);
 }
 
-//Build defenses.
-function truckDefense()
-{
-	if (enumDroid(NEXUS, DROID_CONSTRUCT).length > 0)
-	{
-		queue("truckDefense", camSecondsToMilliseconds(160));
-	}
-
-	const DEFENSE = ["NX-Tower-Rail1", "NX-Tower-ATMiss"];
-	camQueueBuilding(NEXUS, DEFENSE[camRand(DEFENSE.length)]);
-}
-
 //Gives starting tech and research.
 function cam3Setup()
 {
@@ -176,11 +164,10 @@ function cam3Setup()
 	const NEXUS_RES = [
 		"R-Wpn-MG1Mk1", "R-Sys-Engineering03", "R-Defense-WallUpgrade07",
 		"R-Struc-Materials07", "R-Struc-Factory-Upgrade06",
-		"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 		"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals07",
 		"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
 		"R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02", "R-Cyborg-Legs02",
-		"R-Wpn-Bomb-Accuracy03", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
+		"R-Wpn-Bomb-Damage03", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
 		"R-Sys-Sensor-Upgrade01", "R-Sys-NEXUSrepair", "R-Wpn-Rail-Damage01",
 		"R-Wpn-Rail-ROF01", "R-Wpn-Rail-Accuracy01", "R-Wpn-Flamer-Damage06",
 	];
@@ -339,16 +326,16 @@ function eventStartLevel()
 	});
 
 	camManageTrucks(NEXUS);
-	truckDefense();
-	camPlayVideos(["MB3A_MSG", "MB3A_MSG2"]);
+	camPlayVideos(["CAM3_INT", "MB3A_MSG2"]);
 	startedFromMenu = false;
 
 	//Only if starting Gamma directly rather than going through Beta
-	if (enumDroid(CAM_HUMAN_PLAYER, DROID_TRANSPORTER).length === 0)
+	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
 	{
 		startedFromMenu = true;
 		setReinforcementTime(LZ_COMPROMISED_TIME);
 		sendPlayerTransporter();
+		setTimer("sendPlayerTransporter", camMinutesToMilliseconds(5));
 	}
 	else
 	{

@@ -140,7 +140,7 @@ nxmplash: { body: "Body7ABT", prop: "hover02", weap: "PlasmiteFlamer" }, // Plas
 nxlflash: { body: "Body3MBT", prop: "hover02", weap: "Laser3BEAMMk1" },
 
 // CAM_3_A_B
-nxmstrike: { body: "Body7ABT", prop: "hover02", weap: "Sys-VstrikeTurret01" },
+nxmsens: { body: "Body7ABT", prop: "hover02", weap: "SensorTurret1Mk1" },
 
 // CAM_3_A_D_1
 nxmpulseh: { body: "Body7ABT", prop: "hover02", weap: "Laser2PULSEMk1" },

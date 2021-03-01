@@ -3,8 +3,7 @@ include("script/campaign/templates.js");
 
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade03", "R-Struc-Materials05",
-	"R-Struc-Factory-Upgrade05", "R-Struc-Factory-Cyborg-Upgrade05",
-	"R-Struc-VTOLFactory-Upgrade02", "R-Struc-VTOLPad-Upgrade01",
+	"R-Struc-Factory-Upgrade05", "R-Struc-VTOLPad-Upgrade01",
 	"R-Vehicle-Engine04", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
 	"R-Sys-Engineering02", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04",
 	"R-Wpn-Cannon-ROF02", "R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF03",
@@ -112,7 +111,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"NuclearReactor": { tech: "R-Struc-Power-Upgrade01" },
-		"COMediumFactory": { tech: "R-Wpn-Cannon3Mk1" },
+		"COMediumFactory": { tech: "R-Wpn-Cannon3Mk1" }, // Heavy Cannon
 		"COCyborgFactoryL": { tech: "R-Wpn-MG4" },
 		"COTankKillerHardpoint": { tech: "R-Wpn-RocketSlow-ROF02" },
 	});
@@ -145,7 +144,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comct, cTempl.comatt, cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comrept, cTempl.comct, cTempl.comatt, cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COCyborgFactoryL": {
 			assembly: "COCyborgFactoryLAssembly",
