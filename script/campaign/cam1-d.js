@@ -5,7 +5,7 @@ include("script/campaign/templates.js");
 const NEW_PARADIGM_RES = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade03",
 	"R-Struc-Materials03", "R-Struc-Factory-Upgrade03",
-	"R-Struc-Factory-Cyborg-Upgrade03", "R-Vehicle-Engine03",
+	"R-Vehicle-Engine03",
 	"R-Vehicle-Metals03", "R-Cyborg-Metals03", "R-Wpn-Cannon-Accuracy01",
 	"R-Wpn-Cannon-Damage03", "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01",
@@ -199,7 +199,7 @@ function eventStartLevel()
 			assembly: "NPFactoryWAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
 			data: {
 				regroup: false,
 				repair: 66,
@@ -211,7 +211,7 @@ function eventStartLevel()
 			assembly: "NPFactoryEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(85)),
 			data: {
 				regroup: false,
 				repair: 33,
