@@ -7,11 +7,10 @@ var gammaAttackCount;
 const GAMMA = 1; // Player 1 is Gamma team.
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals06",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage01",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage01",
 	"R-Wpn-Energy-ROF01", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage01",
 	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF02", "R-Sys-Sensor-Upgrade01",
 	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage07", "R-Wpn-Flamer-ROF03",
@@ -124,8 +123,10 @@ function sendNXTransporter()
 			entry: { x: 62, y: 4 },
 			exit: { x: 62, y: 4 }
 		});
-
-		queue("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(5)));
+	}
+	else
+	{
+		removeTimer("sendNXTransporter");
 	}
 }
 
@@ -134,6 +135,7 @@ function sendNXlandReinforcements()
 {
 	if (!enumArea("NXWestBaseCleanup", NEXUS, false).length)
 	{
+		removeTimer("sendNXlandReinforcements");
 		return;
 	}
 
@@ -142,8 +144,6 @@ function sendNXlandReinforcements()
 			data: {regroup: true, count: -1,},
 		}
 	);
-
-	queue("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(6)));
 }
 
 function transferPower()
@@ -197,15 +197,6 @@ function activateNexusGroups()
 //Take everything Gamma has and donate to Nexus.
 function trapSprung()
 {
-	if (!trapActive)
-	{
-		playSound("pcv455.ogg"); //Incoming message.
-		trapActive = true;
-		setAlliance(GAMMA, NEXUS, false);
-		queue("trapSprung", camSecondsToMilliseconds(2)); //call this a few seconds later
-		return;
-	}
-
 	setAlliance(GAMMA, NEXUS, true);
 	setAlliance(GAMMA, CAM_HUMAN_PLAYER, false);
 	camPlayVideos("MB3_B_MSG3");
@@ -215,15 +206,21 @@ function trapSprung()
 	camCallOnce("activateNexusGroups");
 	enableAllFactories();
 
-	queue("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	sendNXTransporter();
 	changePlayerColour(GAMMA, NEXUS); // Black painting.
 	playSound(SYNAPTICS_ACTIVATED);
+
+	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	setTimer("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(5)));
 }
 
 function setupCapture()
 {
-	trapSprung();
+	trapActive = true;
+	playSound("pcv455.ogg"); //Incoming message.
+	setAlliance(GAMMA, NEXUS, false);
+
+	queue("trapSprung", camSecondsToMilliseconds(2)); //call this a few seconds later
 }
 
 function eventAttacked(victim, attacker)
@@ -267,7 +264,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"NXCommandCenter": { tech: "R-Struc-Research-Upgrade07" },
 		"NXBeamTowerArti": { tech: "R-Wpn-Laser01" },
-		"gammaResLabArti": { tech: "R-Wpn-Bomb-Accuracy03" },
+		"gammaResLabArti": { tech: "R-Wpn-Bomb-Damage03" },
 		"gammaCommandArti": { tech: "R-Vehicle-Body03" }, //retalitation
 		"gammaFactory": { tech: "R-Wpn-Cannon-ROF04" },
 		"gammaCyborgFactory": { tech: "R-Wpn-RailGun01" },

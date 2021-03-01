@@ -3,19 +3,16 @@ include("script/campaign/templates.js");
 
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals07",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage02",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage02",
 	"R-Wpn-Energy-ROF02", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage02",
 	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF02", "R-Sys-Sensor-Upgrade01",
 	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage08", "R-Wpn-Flamer-ROF03",
 ];
 var edgeMapCounter; //how many Nexus reinforcement runs have happened.
 var winFlag;
-var edgeTimer = 1.5; // Default attack delay 1.5 minutes.
-var delayMultiplier; // Modifier for how quickly enemy attacks occur.
 
 //Remove Nexus VTOL droids.
 camAreaEvent("vtolRemoveZone", function(droid)
@@ -38,7 +35,7 @@ function sendEdgeMapDroids()
 	var list = [
 		cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas,
 		cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh,
-		cTempl.nxmscouh, cTempl.nxmsamh, cTempl.nxmstrike, cTempl.nxmplash,
+		cTempl.nxmscouh, cTempl.nxmsamh, cTempl.nxmsens, cTempl.nxmplash,
 	];
 	var droids = [];
 
@@ -59,7 +56,6 @@ function sendEdgeMapDroids()
 	);
 
 	edgeMapCounter += 1;
-	queue("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(edgeTimer * delayMultiplier))); // Send units faster if circuits mk2 is researched
 }
 
 //Setup Nexus VTOL hit and runners. NOTE: These do not go away in this mission.
@@ -71,7 +67,7 @@ function vtolAttack()
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
 }
 
 // Order any absorbed trucks to start building defenses near themselves.
@@ -184,7 +180,8 @@ function eventResearched(research, structure, player)
 	}
 	if (research.name === "R-Sys-Resistance-Upgrade02")
 	{
-		delayMultiplier = 0.5;
+		removeTimer("sendEdgeMapDroids");
+		setTimer("sendEdgeMapDroids", camChangeOnDiff(camSecondsToMilliseconds(45))); // Waves start coming faster
 	}
 	if (research.name === "R-Sys-Resistance-Upgrade03")
 	{
@@ -194,11 +191,13 @@ function eventResearched(research, structure, player)
 
 function hackPlayer()
 {
-	camHackIntoPlayer(CAM_HUMAN_PLAYER, NEXUS);
-	if (camGetNexusState())
+	if (!camGetNexusState())
 	{
-		queue("hackPlayer", camSecondsToMilliseconds(5));
+		removeTimer("hackPlayer");
+		return;
 	}
+
+	camHackIntoPlayer(CAM_HUMAN_PLAYER, NEXUS);
 }
 
 function synapticsSound()
@@ -242,15 +241,15 @@ function eventStartLevel()
 
 	enableResearch("R-Sys-Resistance-Upgrade01", CAM_HUMAN_PLAYER);
 	winFlag = false;
-	delayMultiplier = 1;
 
 	vtolAttack();
 
 	queue("powerTransfer", camSecondsToMilliseconds(0.8));
 	queue("synapticsSound", camSecondsToMilliseconds(2.5));
-	queue("hackPlayer", camSecondsToMilliseconds(8));
 	queue("sendEdgeMapDroids", camSecondsToMilliseconds(15));
 
 	setTimer("truckDefense", camSecondsToMilliseconds(2));
+	setTimer("hackPlayer", camSecondsToMilliseconds(8));
 	setTimer("nexusManufacture", camSecondsToMilliseconds(10));
+	setTimer("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(1.5)));
 }

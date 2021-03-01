@@ -5,16 +5,16 @@ include("script/campaign/transitionTech.js");
 const GAMMA = 1; //Gamma is player one.
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals08",
 	"R-Cyborg-Metals08", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage03",
 	"R-Wpn-Energy-ROF03", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage02",
 	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF02", "R-Sys-Sensor-Upgrade01",
 	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage08", "R-Wpn-Flamer-ROF03",
 ];
 var reunited;
+var betaUnitIds;
 
 camAreaEvent("gammaBaseTrigger", function(droid) {
 	discoverGammaBase();
@@ -88,6 +88,18 @@ function discoverGammaBase()
 	enableAllFactories();
 }
 
+function findBetaUnitIds()
+{
+	var droids = enumArea("betaUnits", CAM_HUMAN_PLAYER, false).filter(function(obj) {
+		return obj.type === DROID;
+	});
+
+	for (var i = 0, len = droids.length; i < len; ++i)
+	{
+		betaUnitIds.push(droids[i].id);
+	}
+}
+
 function betaAlive()
 {
 	if (reunited)
@@ -95,15 +107,14 @@ function betaAlive()
 		return true; //Don't need to see if Beta is still alive if reunited with base.
 	}
 
-	const BETA_DROID_IDS = [536, 1305, 1306, 1307, 540, 541,];
 	var alive = false;
 	var myDroids = enumDroid(CAM_HUMAN_PLAYER);
 
-	for (var i = 0, l = BETA_DROID_IDS.length; i < l; ++i)
+	for (var i = 0, l = betaUnitIds.length; i < l; ++i)
 	{
 		for (var x = 0, c = myDroids.length; x < c; ++x)
 		{
-			if (myDroids[x].id === BETA_DROID_IDS[i])
+			if (myDroids[x].id === betaUnitIds[i])
 			{
 				alive = true;
 				break;
@@ -129,6 +140,9 @@ function eventStartLevel()
 	var startpos = getObject("startPosition");
 	var limboLZ = getObject("limboDroidLZ");
 	reunited = false;
+	betaUnitIds = [];
+
+	findBetaUnitIds();
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "CAM3A-D1", {
 		callback: "betaAlive"
@@ -152,7 +166,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"NXbase1HeavyFacArti": { tech: "R-Vehicle-Body07" }, //retribution
 		"NXcybFacArti": { tech: "R-Wpn-Missile2A-T" },
-		"NXvtolFacArti": { tech: "R-Struc-VTOLFactory-Upgrade04" },
+		"NXvtolFacArti": { tech: "R-Struc-VTOLPad-Upgrade04" },
 		"NXcommandCenter": { tech: "R-Wpn-Plasmite-Flamer" },
 	});
 

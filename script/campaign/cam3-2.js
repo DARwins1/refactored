@@ -5,11 +5,10 @@ include("script/campaign/transitionTech.js");
 const ALPHA = 1; //Team alpha units belong to player 1.
 const NEXUS_RES = [
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08", "R-Struc-Factory-Upgrade06",
-	"R-Struc-Factory-Cyborg-Upgrade06", "R-Struc-VTOLFactory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals07",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Accuracy03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage02",
+	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage02",
 	"R-Wpn-Energy-ROF02", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage01",
 	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF02", "R-Sys-Sensor-Upgrade01",
 	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage07", "R-Wpn-Flamer-ROF03",
@@ -47,7 +46,10 @@ camAreaEvent("rescueTrigger", function(droid)
 	phantomFactorySE();
 	setAlliance(ALPHA, NEXUS, false);
 	camAbsorbPlayer(ALPHA, CAM_HUMAN_PLAYER);
+
 	queue("getAlphaUnitIDs", camSecondsToMilliseconds(2));
+	setTimer("phantomFactorySE", camChangeOnDiff(camMinutesToMilliseconds(5)));
+
 	camPlayVideos("MB3_2_MSG4");
 });
 
@@ -96,21 +98,18 @@ function phantomFactoryNE()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(6, "NE-PhantomFactory", list);
-	queue("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(3)));
 }
 
 function phantomFactorySW()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(8, "SW-PhantomFactory", list);
-	queue("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(4)));
 }
 
 function phantomFactorySE()
 {
 	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmplash];
 	sendEdgeMapDroids(10 + camRand(6), "SE-PhantomFactory", list); //10-15 units
-	queue("phantomFactorySE", camChangeOnDiff(camMinutesToMilliseconds(5)));
 }
 
 function sendEdgeMapDroids(droidCount, location, list)
@@ -291,4 +290,7 @@ function eventStartLevel()
 	hackAddMessage("C3-2_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 	queue("setAlphaExp", camSecondsToMilliseconds(2));
 	queue("setupPatrolGroups", camSecondsToMilliseconds(15));
+
+	setTimer("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	setTimer("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(4)));
 }
