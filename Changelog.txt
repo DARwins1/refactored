@@ -1,5 +1,30 @@
 Changelog:
 
+refactored v2.0
+
+This version is designed to work with Warzone 2100 4.0.0-beta1!
+
+General Changes:
+- Rewrote all script files based on the updated ones from 4.0.0-beta1.
+- Needle cyborgs and Super Rail-Gunners now penetrate targets.
+- Reduced the range of the Command Center sensor.
+- NEXUS now builds sensor units instead of VTOL Strike Units.
+
+Level Specific Changes:
+Beta 5 (Airbase Assault):
+- Slightly increased the rate at which Collective tanks are produced (but still slower than original speeds).
+Beta 9 (SAM Sites):
+- Improved Bomb Warhead can now be found here.
+Gamma 3 (Gamma Team Base):
+- Slightly decreased times between NEXUS ground reinforcements (but still slower than original speeds).
+Gamma 5 (NEXUS Intrusion):
+- VTOL strikes occur slightly more frequently.
+Gamma 6 (Reunited):
+- Restored the factory in Gamma Outpost to it's rightful place.
+- Replaced the Lancer Hardpoints in Gamma Outpost with Tank Killers, and added two Whirwind Emplacements.
+Gamma Final:
+- NEXUS now occasionally builds sensor hovers in the south-west factory.
+
 refactored v1.4.1
 
 - Fixed NEXUS VTOLs not dissappearing after the the NX Command Center is destroyed.
