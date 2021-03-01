@@ -3,8 +3,7 @@ include("script/campaign/templates.js");
 
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade05", "R-Struc-Materials06",
-	"R-Struc-Factory-Upgrade06", "R-Struc-Factory-Cyborg-Upgrade06",
-	"R-Struc-VTOLFactory-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-Factory-Upgrade06", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals06",
 	"R-Vehicle-Armor-Heat02", "R-Cyborg-Armor-Heat02",
 	"R-Sys-Engineering02", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage05",
@@ -75,9 +74,10 @@ function enableFactories()
 
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length > 0)
+	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
-		queue("truckDefense", camMinutesToMilliseconds(2));
+		removeTimer("truckDefense");
+		return;
 	}
 
 	var list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG"];
@@ -155,7 +155,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comhpv, cTempl.cohact, cTempl.comagt]
+			templates: [cTempl.comhpv, cTempl.cohact, cTempl.comagt, cTempl.comrept]
 		},
 		"COHeavyFacR-b2": {
 			assembly: "COHeavyFacR-b2Assembly",
@@ -167,7 +167,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comrotmh, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.comrept, cTempl.comrotmh, cTempl.cohct, cTempl.comrlt]
 		},
 		"COVtolFac-b3": {
 			order: CAM_ORDER_ATTACK,
@@ -187,4 +187,5 @@ function eventStartLevel()
 	queue("setupLandGroups", camSecondsToMilliseconds(50));
 	queue("vtolAttack", camMinutesToMilliseconds(1));
 	queue("enableFactories", camChangeOnDiff(camMinutesToMilliseconds(1.5)));
+	setTimer("truckDefense", camMinutesToMilliseconds(2));
 }

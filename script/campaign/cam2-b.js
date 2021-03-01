@@ -3,7 +3,6 @@ include("script/campaign/templates.js");
 
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade03", "R-Struc-Materials04", "R-Struc-Factory-Upgrade04",
-	"R-Struc-Factory-Cyborg-Upgrade04", "R-Struc-VTOLFactory-Upgrade01",
 	"R-Struc-VTOLPad-Upgrade01", "R-Vehicle-Engine04", "R-Vehicle-Metals04",
 	"R-Cyborg-Metals04", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04", "R-Wpn-Cannon-ROF02",
 	"R-Wpn-Flamer-Damage05", "R-Wpn-Flamer-ROF02", "R-Wpn-MG-Damage05",
@@ -19,7 +18,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 	{
 		camSafeRemoveObject(droid, false);
 	}
-	resetLabel("vtolRemoveZone");
+	resetLabel("vtolRemoveZone", THE_COLLECTIVE);
 });
 
 camAreaEvent("factoryTrigger", function(droid)
@@ -95,9 +94,10 @@ function vtolAttack()
 
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length > 0)
+	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
-		queue("truckDefense", camSecondsToMilliseconds(160));
+		removeTimer("truckDefense");
+		return;
 	}
 
 	const list = ["CO-Tower-MG3", "CO-Tower-LtATRkt", "CO-Tower-MdCan", "CO-Tower-LtATRkt"];
@@ -244,4 +244,5 @@ function eventStartLevel()
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	queue("activateBase1Defenders2", camChangeOnDiff(camMinutesToMilliseconds(20)));
 	queue("activateBase1Defenders", camChangeOnDiff(camMinutesToMilliseconds(30)));
+	setTimer("truckDefense", camSecondsToMilliseconds(160));
 }

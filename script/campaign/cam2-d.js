@@ -4,8 +4,7 @@ include("script/campaign/templates.js");
 const UPLINK = 1; //The satellite uplink player number.
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade04", "R-Struc-Materials05",
-	"R-Struc-Factory-Upgrade05", "R-Struc-Factory-Cyborg-Upgrade05",
-	"R-Struc-VTOLFactory-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-Factory-Upgrade05", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
 	"R-Vehicle-Armor-Heat02", "R-Cyborg-Armor-Heat02",
 	"R-Sys-Engineering02", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage05",
@@ -26,15 +25,16 @@ camAreaEvent("vtolRemoveZone", function(droid)
 		camSafeRemoveObject(droid, false);
 	}
 
-	resetLabel("vtolRemoveZone");
+	resetLabel("vtolRemoveZone", THE_COLLECTIVE);
 });
 
 //Order the truck to build some defenses.
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length > 0)
+	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
-		queue("truckDefense", camSecondsToMilliseconds(160));
+		removeTimer("truckDefense");
+		return;
 	}
 
 	var list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG", "CO-Tower-HvFlame"];
@@ -151,25 +151,25 @@ function eventStartLevel()
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(100)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comrept, cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 2,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(100)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt, cTempl.comrept]
 		},
 		"COSouthCyborgFactory": {
 			assembly: "COSouthCyborgFactoryAssembly",
@@ -196,4 +196,5 @@ function eventStartLevel()
 	camEnableFactory("COSouthCyborgFactory");
 
 	queue("vtolAttack", camMinutesToMilliseconds(3));
+	setTimer("truckDefense", camSecondsToMilliseconds(160));
 }

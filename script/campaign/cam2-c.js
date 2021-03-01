@@ -8,8 +8,7 @@ var shepardGroup; //Enemy group that protects civilians.
 var lastSoundTime; //Only play the "civilian rescued" sound every so often.
 const COLLECTIVE_RES = [
 	"R-Defense-WallUpgrade03", "R-Struc-Materials04",
-	"R-Struc-Factory-Upgrade04", "R-Struc-VTOLFactory-Upgrade01",
-	"R-Struc-VTOLPad-Upgrade01", "R-Struc-Factory-Cyborg-Upgrade04",
+	"R-Struc-Factory-Upgrade04", "R-Struc-VTOLPad-Upgrade01",
 	"R-Vehicle-Engine04", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
 	"R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04",
 	"R-Wpn-Cannon-ROF03", "R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF03",
@@ -18,7 +17,7 @@ const COLLECTIVE_RES = [
 	"R-Wpn-Rocket-Accuracy02", "R-Wpn-Rocket-Damage06",
 	"R-Wpn-Rocket-ROF03", "R-Wpn-RocketSlow-Accuracy03",
 	"R-Wpn-RocketSlow-Damage05", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-VTOLFactory-Upgrade01", "R-Struc-VTOLPad-Upgrade01",
+	"R-Struc-VTOLPad-Upgrade01",
 	"R-Sys-Engineering02", "R-Wpn-Howitzer-Accuracy02",
 	"R-Wpn-Howitzer-Damage02", "R-Wpn-RocketSlow-ROF02",
 ];
@@ -30,8 +29,8 @@ function videoTrigger()
 	camSetExtraObjectiveMessage(_("Rescue the civilians from The Collective before too many are captured"));
 
 	setMissionTime(getMissionTime() + camChangeOnDiff(camMinutesToSeconds(30)));
-	civilianOrders();
-	captureCivilians();
+	setTimer("civilianOrders", camSecondsToMilliseconds(2));
+	setTimer("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(10)));
 
 	hackRemoveMessage("C2C_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 	camPlayVideos("MB2_C_MSG2");
@@ -123,9 +122,10 @@ function activateGroups()
 
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length > 0)
+	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
-		queue("truckDefense", camSecondsToMilliseconds(160));
+		removeTimer("truckDefense");
+		return;
 	}
 
 	const LIST = ["CO-Tower-LtATRkt", "PillBox1", "CO-Tower-MdCan"];
@@ -144,7 +144,7 @@ function captureCivilians()
 	var currPos = getObject(wayPoints[civilianPosIndex]);
 	var shepardDroids = enumGroup(shepardGroup);
 
-	if (shepardDroids.length)
+	if (shepardDroids.length > 0)
 	{
 		//add some civs
 		var i = 0;
@@ -176,7 +176,10 @@ function captureCivilians()
 			queue("sendCOTransporter", camSecondsToMilliseconds(6));
 		}
 		civilianPosIndex = (civilianPosIndex > 6) ? 0 : (civilianPosIndex + 1);
-		queue("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(10)));
+	}
+	else
+	{
+		removeTimer("captureCivilians");
 	}
 }
 
@@ -210,8 +213,6 @@ function civilianOrders()
 		lastSoundTime = gameTime;
 		playSound(rescueSound);
 	}
-
-	queue("civilianOrders", camSecondsToMilliseconds(2));
 }
 
 //Capture civilans.
@@ -331,7 +332,7 @@ function eventStartLevel()
 			assembly: "COHeavyFac-UpgradeAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
 			data: {
 				regroup: false,
 				repair: 20,
@@ -343,13 +344,13 @@ function eventStartLevel()
 			assembly: "COHeavyFac-LeopardAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
 			data: {
 				regroup: false,
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comsens, cTempl.cohbbt, cTempl.comhpv, cTempl.cohct, cTempl.comit, cTempl.comorb, cTempl.copodt]
+			templates: [cTempl.comsens, cTempl.cohbbt, cTempl.comhpv, cTempl.cohct, cTempl.comit, cTempl.comorb, cTempl.comrlt]
 		},
 		"COCyborgFactoryL": {
 			assembly: "COCyborgFactoryLAssembly",
@@ -409,4 +410,5 @@ function eventStartLevel()
 	hackAddMessage("C2C_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
 
 	queue("activateGroups", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	setTimer("truckDefense", camSecondsToMilliseconds(160));
 }
