@@ -4,11 +4,15 @@ refactored v2.0
 
 This version is designed to work with Warzone 2100 4.0.0-beta1!
 
+All script files have been rewritten based on the updated ones from 4.0.0-beta1. This causes the notable changes below:
+
 General Changes:
-- Rewrote all script files based on the updated ones from 4.0.0-beta1.
 - Needle cyborgs and Super Rail-Gunners now penetrate targets.
 - Reduced the range of the Command Center sensor.
 - NEXUS now builds sensor units instead of VTOL Strike Units.
+- Transporters are now destructable.
+- The Assault Gun Hardpoint now no longer builds super fast.
+- Cyborg/VTOL factory upgrades have been removed (they didn't actually do anything).
 
 Level Specific Changes:
 Beta 5 (Airbase Assault):
