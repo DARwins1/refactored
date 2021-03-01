@@ -1,5 +1,10 @@
 Changelog:
 
+refactored v2.0.1
+
+Very small hotfix that makes ground forces not spawn immeadiately on Beta Final.
+
+
 refactored v2.0
 
 This version is designed to work with Warzone 2100 4.0.0-beta1!
