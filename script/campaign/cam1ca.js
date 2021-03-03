@@ -90,7 +90,10 @@ function sendTransport()
 		transportTime = transportTime / 2;
 	}
 
-	removeTimer("sendTransport"); // Remove the old timer, so we can update it's time below
+	if (totalTransportLoads > 0)
+	{
+		removeTimer("sendTransport"); // Remove the old timer, so we can update it's time below
+	}
 
 	var templates;
 	if (lastHeavy)
