@@ -1,5 +1,15 @@
 Changelog:
 
+refactored v2.1.0
+
+This version is designed for 4.0.0-beta2, but it should be compatible with 4.0.0-beta1 (and vise versa).
+
+Changes:
+- The main base enterance in Alpha Final has been widened. 
+- Added Mini-Rocket Batteries around Alpha Final.
+- The "H" in "HVAPFSDS" now means Hyper.
+
+
 refactored v2.0.2
 
 Hotfix that fixes an error related to timers on Alpha 7 (Plateau Defense).
