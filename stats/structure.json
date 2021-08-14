@@ -1111,7 +1111,7 @@
         "name": "Ground Shaker Emplacement",
         "resistance": 150,
         "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
+        "strength": "HARD",
         "structureModel": [
             "Blhowmnt.PIE"
         ],
@@ -1157,7 +1157,7 @@
         "name": "Tank Killer Emplacement",
         "resistance": 150,
         "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
+        "strength": "HARD",
         "structureModel": [
             "Blhowmnt.PIE"
         ],
@@ -1984,7 +1984,7 @@
         "name": "Avenger SAM Site",
         "resistance": 150,
         "sensorID": "NavGunSensor",
-        "strength": "HARD",
+        "strength": "MEDIUM",
         "structureModel": [
             "Blaamnt1.PIE"
         ],
