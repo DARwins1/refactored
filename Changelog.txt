@@ -1,26 +1,59 @@
 Changelog:
 
-refactored v2.1.0
+Refactored v2.2.1
+
+Hotfix to quell an issue where Rate-Of-Fire upgrades. For one reason or another, ROF upgrades seemed to apply 2x their intended effect. This would cause situations where weapons would either fire WAY faster than they should or not fire at all because the game couldn't handle a fire delay equal to 0. Solution? Make all ROF upgrades half as effective. I'm such a genius.
+
+Changes:
+- ROF upgrades no longer break the game after a certain point. They should now be equivalent to pre-v2.2.0 ROF upgrades in terms of effectiveness.
+
+
+Refactored v2.2.0
+
+This version is designed for 4.1.3, but should be compatible with any future bugfix updates to the game, assuming no massive changes to libcampaign are made.
+
+Changes:
+- Most weapons and bodies have have been updated to 4.1.3 MP balance (excluding the Cyclone and the NEXUS Link Turret).
+- Buffed the "damage" of the NEXUS Link Turret.
+- Reduced the weight of the Cyclone to match the weight of the Whirlwind.
+- Made research logs in the Intelligence Display slightly more informative and accurate to the new balancing.
+- Most levels have been left the same as previous versions of Refactored with the following exceptions:
+
+Level Specific Changes:
+Alpha 1 (Alpha Base Startup)
+- The positions of the Engineering artifact and the Flamer artifact have been swapped (the Flamer is now found in the last base, while Engineering is found in the second).
+Alpha 3 (Pre-Collapse Ruins)
+- This level includes a couple extra flamer towers compared to earlier versions of Refactored.
+Alpha 6 (Assault On The Plateau)
+- Removed some walls in the northeast NP base.
+Beta Final
+- Implemented extra attacks from cambalance for harder difficulties.
+Gamma 5 (NEXUS Intrusion) and Gamma Final
+- Implemented NEXUS Intruder Program progression for Gamma 5, and "suprise attack" in Gamma Final
+- The NEXUS Intruder Program should now never absorb Hero-ranked units randomly in these levels
+
+
+Refactored v2.1.0
 
 This version is designed for 4.0.0-beta2, but it should be compatible with 4.0.0-beta1 (and vise versa).
 
 Changes:
-- The main base enterance in Alpha Final has been widened. 
+- The main base entrance in Alpha Final has been widened. 
 - Added Mini-Rocket Batteries around Alpha Final.
 - The "H" in "HVAPFSDS" now means Hyper.
 
 
-refactored v2.0.2
+Refactored v2.0.2
 
 Hotfix that fixes an error related to timers on Alpha 7 (Plateau Defense).
 
 
-refactored v2.0.1
+Refactored v2.0.1
 
 Very small hotfix that makes ground forces not spawn immeadiately on Beta Final.
 
 
-refactored v2.0
+Refactored v2.0
 
 This version is designed to work with Warzone 2100 4.0.0-beta1!
 
@@ -49,12 +82,12 @@ Gamma 6 (Reunited):
 Gamma Final:
 - NEXUS now occasionally builds sensor hovers in the south-east factory.
 
-refactored v1.4.1
+Refactored v1.4.1
 
 - Fixed NEXUS VTOLs not dissappearing after the the NX Command Center is destroyed.
 
 
-refactored v1.4
+Refactored v1.4
 
 General Changes:
 - Removed health bonuses from Hover, VTOL and Cyborg propulsion II relative to their normal counterparts.
@@ -70,7 +103,7 @@ Gamma 4 (Alpha Team Rescue):
 - Increased the delays for NEXUS cyborg spawns.
 
 
-refactored v1.3
+Refactored v1.3
 
 General Changes:
 - Added the Heavy Repair Turret.
@@ -96,7 +129,7 @@ Beta 7 (NASDA Central):
 - Lancer VTOLs attack in groups of four, while bombers attack in groups of two.
 
 
-refactored v1.2
+Refactored v1.2
 
 General Changes:
 Fixed Assault Gun Tower giving incorrect research message.
@@ -127,7 +160,7 @@ Gamma Final:
 - NEXUS now occasionally produces heavy Rail Gun VTOLs.
 
 
-refactored v1.1
+Refactored v1.1
 
 General Changes:
 - Allow the player to research the Lancer Tower after getting the Lancer.
@@ -139,7 +172,7 @@ Gamma 3 (Gamma Team Base):
 Gamma 5 (NEXUS Intrusion):
 - The player has to research NEXUS Resistance Circuits Mk 3 to complete Gamma 3 again.
 
-refactored v1.0 (Some things may have been forgotten/left out!)
+Refactored v1.0 (Some things may have been forgotten/left out!)
 General Changes:
 - Nearly all base weapon stats have been altered to be identical to MP/Skirmish. (With exceptions including the Cyclone, NEXUS Link and LasSat)
 - The Cyclone has it's damage and projectile speed increased to fit in.
