@@ -2,6 +2,8 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
+//New base blip, new base area, new factory data
+
 const NEW_PARADIGM_RES = [
 	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade01",
 	"R-Struc-Materials01", "R-Struc-Factory-Upgrade01",
@@ -31,11 +33,6 @@ camAreaEvent("NorthConvoyTrigger", function(droid)
 
 camAreaEvent("SouthConvoyTrigger", function(droid)
 {
-	camEnableFactory("ScavFactory");
-	camManageGroup(camMakeGroup("SouthConvoyForce"), CAM_ORDER_DEFEND, {
-		pos: camMakePos("SouthConvoyLoc"),
-		radius: 6,
-	});
 	var scout = getObject("ScoutDroid");
 	if (camDef(scout) && scout)
 	{
@@ -56,7 +53,13 @@ camAreaEvent("WestConvoyTrigger", function(droid)
 function enableNP(args)
 {
 	camEnableFactory("ScavFactory");
+	camEnableFactory("ScavFactorySouth");
 	camEnableFactory("NPFactory");
+
+	if (difficulty === INSANE)
+	{
+		queue("NPReinforce", camSecondsToMilliseconds(10));
+	}
 
 	camManageGroup(NPScoutGroup, CAM_ORDER_COMPROMISE, {
 		pos: camMakePos("RTLZ"),
@@ -76,6 +79,29 @@ function enableNP(args)
 	});
 
 	camPlayVideos(["pcv455.ogg", "SB1_3_MSG4"]);
+}
+
+function NPReinforce()
+{
+	if (getObject("NPHQ") !== null)
+	{
+		var list = [];
+		var count = 5 + camRand(5);
+		var scouts = [cTempl.nphmg, cTempl.npblc, cTempl.nppod, cTempl.nphmg, cTempl.npblc];
+
+		for (var i = 0; i < count; ++i)
+		{
+			list.push(scouts[camRand(scouts.length)]);
+		}
+		camSendReinforcement(NEW_PARADIGM, camMakePos("NPReinforcementPos"), list, CAM_REINFORCE_GROUND, {
+			data: {
+				regroup: false,
+				repair: 66,
+				count: -1,
+			},
+		});
+		queue("NPReinforce", camSecondsToMilliseconds(180));
+	}
 }
 
 function sendScouts()
@@ -126,6 +152,16 @@ function enableReinforcements()
 function camEnemyBaseDetected_ScavBaseGroup()
 {
 	queue("camCallOnce", camSecondsToMilliseconds(1), "enableReinforcements");
+}
+
+function camEnemyBaseDetected_ScavBaseGroupSouth()
+{
+	camEnableFactory("ScavFactory");
+	camEnableFactory("ScavFactorySouth");
+	camManageGroup(camMakeGroup("SouthConvoyForce"), CAM_ORDER_COMPROMISE, {
+		pos: camMakePos("SouthConvoyLoc"),
+		regroup: false, //true when movement gets better. Very big group this one is.
+	});
 }
 
 function camEnemyBaseEliminated_ScavBaseGroup()
@@ -198,6 +234,12 @@ function eventStartLevel()
 			detectSnd: "pcv379.ogg",
 			eliminateSnd: "pcv394.ogg"
 		},
+		"ScavBaseGroupSouth": {
+			cleanup: "SouthScavBase",
+			detectMsg: "C1-3_OBJ2",
+			detectSnd: "pcv374.ogg",
+			eliminateSnd: "pcv392.ogg"
+		},
 	});
 
 	hackAddMessage("C1-3_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); // south-west beacon
@@ -205,7 +247,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"ScavFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"NPFactory": { tech: "R-Struc-Factory-Module" },
-		"NPHQ": { tech: "R-Defense-HardcreteWall" },
+		"NPLab": { tech: "R-Defense-HardcreteWall" },
 		"NPCRC": { tech: "R-Struc-CommandRelay" },
 	});
 
@@ -231,8 +273,20 @@ function eventStartLevel()
 			},
 			groupSize: 4, // sic! scouts, at most
 			maxSize: 20,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
 			templates: [ cTempl.nppod, cTempl.nphmg, cTempl.npsmc, cTempl.npflam ]
+		},
+		"ScavFactorySouth": {
+			assembly: "ScavAssemblySouth",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				regroup: false,
+				count: -1,
+			},
+			groupSize: 4,
+			maxSize: 10,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
+			templates: [ cTempl.rbjeep, cTempl.buscan, cTempl.rbuggy, cTempl.firecan ]
 		},
 	});
 

@@ -199,9 +199,9 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"base1ArtifactPos": { tech: "R-Wpn-MG-Damage01" },
-		"base2Factory": { tech: "R-Wpn-Flamer01Mk1" },
+		"base2Factory": { tech: "R-Sys-Engineering01" },
 		"base3Factory": { tech: "R-Defense-Tower01" },
-		"base4Factory": { tech: "R-Sys-Engineering01" },
+		"base4Factory": { tech: "R-Wpn-Flamer01Mk1" },
 	});
 
 	camSetFactories({

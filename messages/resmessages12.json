@@ -7,7 +7,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Heavy Machinegun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_MRL": {
@@ -18,7 +18,7 @@
             "New Defensive Structure Available",
             "Mini-rocket armored strongpoint",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_Mpit": {
@@ -50,7 +50,7 @@
         "text": [
             "New Weapon Turret Available",
             ".50-calibre heavy machinegun",
-            "Best Targets: Infantry, base structures, wheeled vehicles",
+            "Best Targets: Infantry and Wheeled Vehicles",
             "Body Points: Medium"
         ]
     },
@@ -84,7 +84,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Lancer AT missile",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_W_CNAC1": {
@@ -138,7 +138,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "May be assigned to a sensor",
-            "Best Targets: Base structures, infantry, wheeled vehicles",
+            "Best Targets: Base structures, Infantry and Wheeled Vehicles",
             "Body Points: Very Low"
         ]
     },
@@ -193,7 +193,7 @@
         "text": [
             "New Rocket Available",
             "Rocket artillery; can be assigned to a sensor",
-            "Best Targets: Vehicles and Emplacements",
+            "Best Targets: Base Structures and Infantry",
             "Body Points: Very Low"
         ]
     },
@@ -204,7 +204,7 @@
         "text": [
             "New Rocket Available",
             "Fires salvoes of mini-rockets",
-            "Best Targets: Base structures",
+            "Best Targets: Base Structures, Infantry and Wheeled Vehicles",
             "Body Points: Very Low"
         ]
     },

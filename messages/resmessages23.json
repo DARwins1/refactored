@@ -106,7 +106,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Hyper-Velocity Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_W_AAAC2": {
@@ -138,7 +138,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops incendiary bombs",
-            "Best Targets: Bunkers and Hardpoints",
+            "Best Targets: Structures, Vehicles and Infantry",
             "Body Points: Low"
         ]
     },
@@ -149,7 +149,7 @@
         "text": [
             "New Weapon Turret Available",
             "Multi-barrel, rapid-fire machinegun",
-            "Best Targets: Infantry, base structures, wheeled vehicles",
+            "Best Targets: Infantry, Wheeled and Hover Vehicles",
             "Replaces all machineguns"
         ]
     },
@@ -182,7 +182,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "105mm multi-barrel Howitzer may be assigned to a sensor",
-            "Best Targets: Base Structures, infantry, wheeled vehicles",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Low"
         ]
     }
