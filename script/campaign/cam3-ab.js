@@ -12,6 +12,7 @@ const NEXUS_RES = [
 	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage08", "R-Wpn-Flamer-ROF03",
 ];
 var edgeMapCounter; //how many Nexus reinforcement runs have happened.
+var hackFailChance; //chance the Nexus Intruder Program will fail
 var winFlag;
 
 //Remove Nexus VTOL droids.
@@ -30,12 +31,12 @@ camAreaEvent("vtolRemoveZone", function(droid)
 
 function sendEdgeMapDroids()
 {
-	const COUNT = 6 + camRand(5); // 6 - 10.
+	const unitCount = 6 + camRand(5); // 6 - 10.
 	const EDGE = ["SWPhantomFactory", "NWPhantomFactory"];
 	var list = [
 		cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas,
 		cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh,
-		cTempl.nxmscouh, cTempl.nxmsamh, cTempl.nxmsens, cTempl.nxmplash,
+		cTempl.nxmscouh, cTempl.nxmsamh, cTempl.nxmplash,
 	];
 	var droids = [];
 
@@ -44,10 +45,12 @@ function sendEdgeMapDroids()
 		edgeMapCounter = 0;
 	}
 
-	for (var i = 0; i < COUNT; ++i)
+	for (var i = 0; i < unitCount; ++i)
 	{
 		droids.push(list[camRand(list.length)]);
 	}
+
+	droids = droids.concat(cTempl.nxmsens);
 
 	camSendReinforcement(NEXUS, camMakePos(EDGE[camRand(EDGE.length)]), droids,
 		CAM_REINFORCE_GROUND, {
@@ -67,7 +70,7 @@ function vtolAttack()
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
+	camSetVtolData(NEXUS, (difficulty === INSANE) ? undefined : "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
 }
 
 // Order any absorbed trucks to start building defenses near themselves.
@@ -134,7 +137,6 @@ function nexusManufacture()
 	queue("manualGrouping", camSecondsToMilliseconds(1.5));
 }
 
-function manualGrouping()
 {
 	var vtols = enumDroid(NEXUS).filter(function(obj) {
 		return obj.group === null && isVTOL(obj);
@@ -176,16 +178,18 @@ function eventResearched(research, structure, player)
 {
 	if (research.name === "R-Sys-Resistance-Upgrade01")
 	{
-		camSetNexusState(false);
+		hackFailChance = 55;
 	}
-	if (research.name === "R-Sys-Resistance-Upgrade02")
+	else if (research.name === "R-Sys-Resistance-Upgrade02")
 	{
-		removeTimer("sendEdgeMapDroids");
-		setTimer("sendEdgeMapDroids", camChangeOnDiff(camSecondsToMilliseconds(45))); // Waves start coming faster
+		hackFailChance = 80;
 	}
-	if (research.name === "R-Sys-Resistance-Upgrade03")
+	else if (research.name === "R-Sys-Resistance-Upgrade03")
 	{
 		winFlag = true;
+		camSetNexusState(false);
+		removeTimer("sendEdgeMapDroids");
+		setTimer("sendEdgeMapDroids", camChangeOnDiff(camSecondsToMilliseconds(45))); // Waves start coming faster (if the player hasn't already won)
 	}
 }
 
@@ -194,6 +198,10 @@ function hackPlayer()
 	if (!camGetNexusState())
 	{
 		removeTimer("hackPlayer");
+		return;
+	}
+	if (camRand(100) < hackFailChance)
+	{
 		return;
 	}
 
@@ -241,6 +249,7 @@ function eventStartLevel()
 
 	enableResearch("R-Sys-Resistance-Upgrade01", CAM_HUMAN_PLAYER);
 	winFlag = false;
+	hackFailChance = 30;
 
 	vtolAttack();
 
@@ -249,7 +258,7 @@ function eventStartLevel()
 	queue("sendEdgeMapDroids", camSecondsToMilliseconds(15));
 
 	setTimer("truckDefense", camSecondsToMilliseconds(2));
-	setTimer("hackPlayer", camSecondsToMilliseconds(8));
+	setTimer("hackPlayer", camSecondsToMilliseconds((difficulty <= HARD) ? 8 : 5));
 	setTimer("nexusManufacture", camSecondsToMilliseconds(10));
 	setTimer("sendEdgeMapDroids", camChangeOnDiff(camMinutesToMilliseconds(1.5)));
 }
