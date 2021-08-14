@@ -179,8 +179,20 @@ function eventStartLevel()
 		setNoGoArea(ph.x, ph.y, ph.x2, ph.y2, i + 1);
 	}
 
+	if (difficulty === HARD)
+	{
+		setMissionTime(camMinutesToSeconds(100));
+	}
+	else if (difficulty === INSANE)
+	{
+		setMissionTime(camMinutesToSeconds(90));
+	}
+	else
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
+
 	setReinforcementTime(-1);
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	setAlliance(NEW_PARADIGM, SCAV_7, true);
 	camCompleteRequiredResearch(NEW_PARADIGM_RES, NEW_PARADIGM);
 	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
