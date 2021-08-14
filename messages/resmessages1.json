@@ -6,7 +6,7 @@
         "text": [
             "New Weapon Turret Available",
             "Light Cannon firing 40mm rounds",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: Medium"
         ]
     },
@@ -17,7 +17,7 @@
         "text": [
             "New Weapon Turret Available",
             "Medium Cannon firing 76mm rounds",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: Medium"
         ]
     },
@@ -28,7 +28,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy Cannon firing 120 mm rounds",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: High"
         ]
     },
@@ -117,7 +117,7 @@
             "New Defensive Structure Available",
             "Armored bunker with Machinegun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_DF_WU1": {
@@ -149,7 +149,7 @@
         "text": [
             "New Weapon Turret Available",
             "Flame-thrower firing Propylene Oxide gel",
-            "Best Targets: Bunkers, wheeled and hover vehicles",
+            "Best Targets: Bunkers, Vehicles and Infantry",
             "Body Points: Very low"
         ]
     },
@@ -171,7 +171,7 @@
         "text": [
             "New Weapon Turret Available",
             "7.62mm machinegun",
-            "Best Targets: Infantry, base structures, wheeled vehicles",
+            "Best Targets: Infantry and Wheeled Vehicles",
             "Body Points: Low"
         ]
     },
@@ -182,7 +182,7 @@
         "text": [
             "New Weapon Turret Available",
             "Twin 7.62mm machineguns",
-            "Best Targets: Infantry, base structures, wheeled vehicles",
+            "Best Targets: Infantry and Wheeled Vehicles",
             "Body Points: Low"
         ]
     },
@@ -193,7 +193,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "May be targeted directly or assigned to a sensor turret or tower",
-            "Best Targets: Base structures, infantry, wheeled vehicles",
+            "Best Targets: Base Structures, Infantry and Wheeled Vehicles",
             "Body Points: Very Low"
         ]
     },
@@ -205,7 +205,7 @@
             "New Defensive Structure Available",
             "Armored bunker with Lancer AT rocket",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_PB_FL": {
@@ -216,7 +216,7 @@
             "New Defensive Structure Available",
             "Armored bunker with Flamer",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_PB_LC": {
@@ -227,7 +227,7 @@
             "New Defensive Structure Available",
             "Armored bunker with Light Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_POWMD1": {
@@ -359,7 +359,7 @@
             "New Defensive Structure Available",
             "Steel tower with machinegun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: Low"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_TRACK1": {
@@ -502,7 +502,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Light Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT3_MC": {
@@ -513,7 +513,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Medium Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT4_HC": {
@@ -524,7 +524,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Heavy Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_W_CN_D1": {
@@ -611,7 +611,7 @@
         "text": [
             "New Rocket Available",
             "Fast firing light anti-vehicle rockets",
-            "Best Targets: Wheeled and hover vehicles",
+            "Best Targets: Vehicles",
             "Body Points: Very Low"
         ]
     },

@@ -117,7 +117,7 @@
             "New Defensive Structure Available",
             "Armored howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_HPV": {
@@ -128,7 +128,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Hyper-Velocity Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_HVATR": {
@@ -139,7 +139,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Tank Killer rocket",
             "Automatically targets enemies in range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_HVFL": {
@@ -150,7 +150,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Inferno Flamer",
             "Automatically targets enemies in range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_HvHOW": {
@@ -161,7 +161,7 @@
             "New Defensive Structure Available",
             "Armored Ground Shaker howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_HvyMor": {
@@ -183,7 +183,7 @@
             "New Defensive Structure Available",
             "Indirect fire rocket battery",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_IncHOW": {
@@ -194,7 +194,7 @@
             "New Defensive Structure Available",
             "Armored Hellstorm howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_RotCan": {
@@ -205,7 +205,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Assault Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_RotHOW": {
@@ -216,7 +216,7 @@
             "New Defensive Structure Available",
             "Armored Hellstorm howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_RotMor": {
@@ -237,7 +237,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy Flame-thrower firing Propylene Oxide gel",
-            "Best Targets: Bunkers, wheeled and hover vehicles",
+            "Best Targets: Bunkers, Vehicles and Infantry",
             "Body Points: Low"
         ]
     },
@@ -469,7 +469,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Inferno flamer",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT12_HAT": {
@@ -480,7 +480,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Tank Killer AT missile",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT7_RMG": {
@@ -491,7 +491,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Assault Gun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT8_RC": {
@@ -502,7 +502,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Assault Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_W_AA1": {
@@ -600,7 +600,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops High Explosive Cluster bombs",
-            "Best Targets: Base Structures",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Low"
         ]
     },
@@ -611,7 +611,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops High Explosive Armor Piercing bombs",
-            "Best Targets: Defenses",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Low"
         ]
     },
@@ -622,7 +622,7 @@
         "text": [
             "New Weapon Turret Available",
             "76mm hyper-velocity quad-barrel automatic-cannon",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: High"
         ]
     },
@@ -633,7 +633,7 @@
         "text": [
             "New Weapon Turret Available",
             "Hyper-velocity automatic-cannon firing 88mm rounds",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: Medium"
         ]
     },
@@ -655,7 +655,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "155mm Howitzer may be assigned to a sensor",
-            "Best Targets: Base Structures, infantry, wheeled vehicles",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Low"
         ]
     },
@@ -666,7 +666,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "105mm Howitzer may be assigned to a sensor",
-            "Best Targets: Base Structures, infantry, wheeled vehicles",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Low"
         ]
     },
@@ -710,7 +710,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "105m Howitzer firing incendiaries, may be assigned to a sensor",
-            "Best Targets: Base Structures, bunkers",
+            "Best Targets: Structures, Infantry and Vehicles",
             "Body Points: Low"
         ]
     },
@@ -721,7 +721,7 @@
         "text": [
             "New Indirect Fire Weapon Available",
             "May be assigned to a sensor",
-            "Best Targets: Base structures, infantry, wheeled vehicles",
+            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
             "Body Points: Very Low"
         ]
     },

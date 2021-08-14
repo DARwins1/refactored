@@ -7,7 +7,7 @@
             "New Construction Options Available",
             "Titanium-reinforced concrete",
             "Enables Hardcrete walls",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_REPTU1": {
@@ -127,7 +127,7 @@
         "text": [
             "New Rocket Available",
             "High explosive shaped charge missile",
-            "Best Targets: Bunkers and hardpoints",
+            "Best Targets: Structures",
             "Body Points: Very Low"
         ]
     },
@@ -214,7 +214,7 @@
         "text": [
             "New Weapon Turret Available",
             "Plasmite Flame-thrower",
-            "Best Targets: Bunkers, wheeled and hover vehicles",
+            "Best Targets: Bunkers, Vehicles and Infantry",
             "Body Points: Very low"
         ]
     },
@@ -226,7 +226,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Plasmite Flamer",
             "Automatically targets enemies in range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_DF_HCG1": {
@@ -237,7 +237,7 @@
             "New Construction Options Available",
             "Reinforced Hardcrete Gate",
             "Lowers to allow friendly units to pass",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_CYW_H_AC": {
@@ -325,7 +325,7 @@
             "New Defensive Structure Available",
             "Armored bunker with Assault Gun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_EMP_LANTOW": {

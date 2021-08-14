@@ -194,7 +194,7 @@
             "New Defensive Structure Available",
             "Artillery battery firing Novastorm Missiles",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_MdAM": {
@@ -205,7 +205,7 @@
             "New Defensive Structure Available",
             "Artillery battery firing Firestorm Missiles",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_PrisLas": {
@@ -216,7 +216,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Flashlight laser",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_PulseLas": {
@@ -227,7 +227,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Pulse Laser",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_RL1TOW": {
@@ -238,7 +238,7 @@
             "New Defensive Structure Available",
             "Armored guard tower with Needle Gun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_Rail2": {
@@ -249,7 +249,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Rail Gun",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_Rail3": {
@@ -260,7 +260,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Gauss Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_SAM1": {
@@ -282,7 +282,7 @@
             "New Defensive Structure Available",
             "SAM site with Vindicator missiles",
             "Automatically targets VTOLs",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_ENGIN3": {
@@ -678,7 +678,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Flashlight laser",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT15_RL2": {
@@ -689,7 +689,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Rail Gun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT15_RL3": {
@@ -700,7 +700,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Gauss Cannon",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_WT9_ATM": {
@@ -711,7 +711,7 @@
             "New Defensive Structure Available",
             "Armored hardpoint with Scourge AT Missile",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: High"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_W_AAAC3": {
@@ -765,7 +765,7 @@
         "text": [
             "New Missile Turret Available",
             "Bunker buster missile",
-            "Best Targets: Bunkers and hardpoints",
+            "Best Targets: Structures",
             "Body Points: Very Low"
         ]
     },
@@ -787,7 +787,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops high intensity thermite bombs",
-            "Best Targets: Bunkers and hardpoints",
+            "Best Targets: Structures, Vehicles and Infantry",
             "Body Points: Low"
         ]
     },
@@ -930,7 +930,7 @@
         "text": [
             "New Artillery Missile Turret Available",
             "High explosive heavy artillery missile",
-            "Best Targets: Base structures and cyborgs",
+            "Best Targets: Base Structures and Cyborgs",
             "Body Points: Very Low"
         ]
     },
@@ -963,7 +963,7 @@
         "text": [
             "New Artillery Missile Turret Available",
             "High explosive artillery missile",
-            "Best Targets: Base structures and cyborgs",
+            "Best Targets: Base Structures and Cyborgs",
             "Body Points: Very Low"
         ]
     },
@@ -1007,7 +1007,7 @@
         "text": [
             "New Rail Gun Available",
             "Rapid fire rail gun firing needle darts",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: Medium"
         ]
     },
@@ -1018,7 +1018,7 @@
         "text": [
             "New Rail Gun Available",
             "Rail gun firing armor-piercing darts",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: Medium"
         ]
     },
@@ -1029,7 +1029,7 @@
         "text": [
             "New Rail Gun Available",
             "Heavy rail gun firing large kinetic energy darts",
-            "Best Targets: Vehicles",
+            "Best Targets: Vehicles and Structures",
             "Body Points: High"
         ]
     },
