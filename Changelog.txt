@@ -1,5 +1,13 @@
 Changelog:
 
+Refactored v2.2.2
+
+Another hotfix on the same day. Again tackling the root cause of the double-research bug. Turns out it was caused by some extra script files that no longer belonged. Removing those fixed the problem entirely, so I had to un-half the ROF upgrade amounts. Maybe I'm not so smart after all :)
+
+Changes:
+- ALL research upgrades should now be equivalent to pre-v2.2.0 effectiveness.
+
+
 Refactored v2.2.1
 
 Hotfix to quell an issue where Rate-Of-Fire upgrades. For one reason or another, ROF upgrades seemed to apply 2x their intended effect. This would cause situations where weapons would either fire WAY faster than they should or not fire at all because the game couldn't handle a fire delay equal to 0. Solution? Make all ROF upgrades half as effective. I'm such a genius.
