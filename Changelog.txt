@@ -1,5 +1,13 @@
 Changelog:
 
+Refactored v2.2.3
+
+Yet another small hotfix, this one fixes a small bug I'm suprised I haven't noticed for so long.
+
+Changes:
+- No longer reinforce the player with Heavy Cannon in Beta 1, instead give them HPC tanks.
+
+
 Refactored v2.2.2
 
 Another hotfix on the same day. Again tackling the root cause of the double-research bug. Turns out it was caused by some extra script files that no longer belonged. Removing those fixed the problem entirely, so I had to un-half the ROF upgrade amounts. Maybe I'm not so smart after all :)
