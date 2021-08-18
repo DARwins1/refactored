@@ -113,7 +113,7 @@ function sendPlayerTransporter()
 	}
 
 	var droids = [];
-	var list = [cTempl.prhct, cTempl.prhct, cTempl.prhct, cTempl.prltat, cTempl.prltat, cTempl.npcybr, cTempl.prrept];
+	var list = [cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prltat, cTempl.prltat, cTempl.npcybr, cTempl.prrept];
 
 	for (var i = 0; i < 10; ++i)
 	{
