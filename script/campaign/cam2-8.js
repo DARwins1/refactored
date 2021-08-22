@@ -155,7 +155,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comhpv, cTempl.cohact, cTempl.comagt, cTempl.comrept]
+			templates: [cTempl.cohhot, cTempl.cohact, cTempl.comagt, cTempl.comrept]
 		},
 		"COHeavyFacR-b2": {
 			assembly: "COHeavyFacR-b2Assembly",

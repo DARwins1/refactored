@@ -1,4 +1,3 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
@@ -41,10 +40,6 @@ camAreaEvent("NPBaseDetectTrigger", function()
 camAreaEvent("removeRedObjectiveBlip", function()
 {
 	hackRemoveMessage("C1-4_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER); //Remove mission objective.
-});
-
-camAreaEvent("triggerLZ2Blip", function()
-{
 	hackAddMessage("C1-4_LZ", PROX_MSG, CAM_HUMAN_PLAYER, false);
 });
 
@@ -56,8 +51,8 @@ camAreaEvent("LandingZoneTrigger", function()
 	var lz = getObject("LandingZone2"); // will override later
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	// Give extra 30 minutes.
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)) + getMissionTime());
+	// Give extra 40 minutes.
+	setMissionTime(camChangeOnDiff(camMinutesToSeconds(40)) + getMissionTime());
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "SUB_1_5S", {
 		area: "RTLZ",
 		message: "C1-4_LZ",
@@ -75,16 +70,14 @@ camAreaEvent("LandingZoneTrigger", function()
 function NPBaseDetect()
 {
 	// Send tanks
-	camManageGroup(camMakeGroup("AttackGroupLight"), CAM_ORDER_DEFEND, {
+	camManageGroup(camMakeGroup("AttackGroupLight"), CAM_ORDER_ATTACK, {
 		pos: camMakePos("nearSensor"),
 		radius: 10,
-		regroup: true
 	});
 
-	camManageGroup(camMakeGroup("AttackGroupMedium"), CAM_ORDER_DEFEND, {
+	camManageGroup(camMakeGroup("AttackGroupMedium"), CAM_ORDER_ATTACK, {
 		pos: camMakePos("nearSensor"),
 		radius: 10,
-		regroup: true
 	});
 
 	camEnableFactory("HeavyNPFactory");

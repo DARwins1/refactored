@@ -70,16 +70,29 @@ function enableAllFactories()
 	camEnableFactory("gammaCyborgFactory");
 }
 
-//return 10 units if for a transport and up to 15 for land.
-function getDroidsForNXLZ(isTransport)
+//return 10 NP and CO units if for a transport reinforcement.
+function getDroidsForNXLZ()
 {
-	if (!camDef(isTransport))
+	//Choose 10 out of this big pile of units
+	const COUNT = 10;
+	var units = [cTempl.npsbb, cTempl.npsmct, cTempl.npmsens, cTempl.nphmgh, cTempl.nphct, cTempl.npmorb, cTempl.npltat,
+	 cTempl.cohct, cTempl.comrlt, cTempl.comagt, cTempl.comhpv, cTempl.comhltat, cTempl.cohript, cTempl.comit, cTempl.comrotmh, cTempl.cohbbt, cTempl.cohact,
+	  cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
+
+	var droids = [];
+	for (var i = 0; i < COUNT; ++i)
 	{
-		isTransport = false;
+		droids.push(units[camRand(units.length)]);
 	}
 
-	const COUNT = isTransport ? 10 : 10 + camRand(6);
-	var units = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxmlinkh, cTempl.nxmrailh, cTempl.nxmsamh, cTempl.nxmplash];
+	return droids;
+}
+
+//return up to NX 15 for land reinforcement.
+function getDroidsForPhantomFactory()
+{
+	const COUNT = 10 + camRand(6);
+	var units = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxmlinkh, cTempl.nxmrailh, cTempl.nxmsamh, cTempl.nxmplash]; //Mix of NX units
 
 	var droids = [];
 	for (var i = 0; i < COUNT; ++i)
@@ -100,7 +113,7 @@ function sendNXTransporter()
 	}
 
 	const LZ_ALIAS = "CM3B_TRANS"; //1 and 2
-	var list = getDroidsForNXLZ(true);
+	var list = getDroidsForNXLZ();
 	var lzNum;
 	var pos;
 
@@ -139,7 +152,7 @@ function sendNXlandReinforcements()
 		return;
 	}
 
-	camSendReinforcement(NEXUS, camMakePos("westPhantomFactory"), getDroidsForNXLZ(),
+	camSendReinforcement(NEXUS, camMakePos("westPhantomFactory"), getDroidsForPhantomFactory(),
 		CAM_REINFORCE_GROUND, {
 			data: {regroup: true, count: -1,},
 		}
@@ -210,8 +223,8 @@ function trapSprung()
 	changePlayerColour(GAMMA, NEXUS); // Black painting.
 	playSound(SYNAPTICS_ACTIVATED);
 
-	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(4)));
-	setTimer("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(5)));
+	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	setTimer("sendNXlandReinforcements", camChangeOnDiff(camMinutesToMilliseconds(6)));
 }
 
 function setupCapture()
@@ -254,6 +267,7 @@ function eventStartLevel()
 	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
 	setNoGoArea(enemyLz2.x, enemyLz2.y, enemyLz2.x2, enemyLz2.y2, 5);
 
+	camCompleteRequiredResearch(GAMMA_ALLY_RES, NEXUS);
 	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
 	camCompleteRequiredResearch(GAMMA_ALLY_RES, GAMMA);
 	camCompleteRequiredResearch(NEXUS_RES, GAMMA); //They get even more research.

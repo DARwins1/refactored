@@ -145,7 +145,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct]
+			templates: [cTempl.cohhpv, cTempl.comhltat, cTempl.cohct, cTempl.cohhot]
 		},
 		"COHeavyFactoryC": {
 			assembly: "COHeavyFactoryAssembly",

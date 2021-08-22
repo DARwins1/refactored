@@ -139,7 +139,7 @@ function cyborgAttackRandom()
 function tankAttack()
 {
 	var northTankAssembly = {x: 95, y: 3};
-	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt, cTempl.comrlt];
+	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt, cTempl.comrlt, cTempl.cohhot, cTempl.cohript, cTempl.comsens];
 
 	camSendReinforcement(THE_COLLECTIVE, camMakePos(northTankAssembly), randomTemplates(list), CAM_REINFORCE_GROUND, {
 		data: { regroup: false, count: -1, },
@@ -149,7 +149,7 @@ function tankAttack()
 function tankAttackWest()
 {
 	var westTankAssembly = {x: 3, y: 112}; //This was unused. Now part of Hard/Insane playthroughs.
-	var list = [cTempl.comhltat, cTempl.cohact, cTempl.comrlt, cTempl.comagt, cTempl.cohbbt];
+	var list = [cTempl.comhltat, cTempl.cohact, cTempl.comrlt, cTempl.comagt, cTempl.cohbbt, cTempl.cohhot, cTempl.comsens];
 
 	camSendReinforcement(THE_COLLECTIVE, camMakePos(westTankAssembly), randomTemplates(list, true), CAM_REINFORCE_GROUND, {
 		data: { regroup: false, count: -1, },

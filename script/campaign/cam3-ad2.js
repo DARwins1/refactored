@@ -19,6 +19,7 @@ const VTOL_POSITIONS = [
 var winFlag;
 var mapLimit;
 var videoInfo; //holds some info about when to play a video.
+var siegeMode; //spawn Archangels each wave if active
 
 //Remove Nexus VTOL droids.
 camAreaEvent("vtolRemoveZone", function(droid)
@@ -51,6 +52,12 @@ function randomTemplates(list)
 	for (i = 0; i < 4; ++i)
 	{
 		droids.push(extras[camRand(extras.length)]);
+	}
+
+	//Extra Archangel hover per wave after first missile code is researched.
+	if (siegeMode)
+	{
+		droids.push(cTempl.nxharch);
 	}
 
 	return droids;
@@ -232,6 +239,10 @@ function eventResearched(research, structure, player)
 			{
 				enableResearch("R-Comp-MissileCodes01", CAM_HUMAN_PLAYER);
 			}
+			else if (videoInfo[i].res === "R-Comp-MissileCodes01")
+			{
+				siegeMode = true;
+			}
 			else if (videoInfo[i].res === "R-Comp-MissileCodes03")
 			{
 				winFlag = true;
@@ -279,6 +290,7 @@ function eventStartLevel()
 	var lz = getObject("landingZone");
 	mapLimit = 137.0;
 	winFlag = false;
+	siegeMode = false;
 	videoInfo = [
 		{played: false, video: "MB3_AD2_MSG3", res: "R-Sys-Resistance"},
 		{played: false, video: "MB3_AD2_MSG4", res: "R-Comp-MissileCodes01"},
