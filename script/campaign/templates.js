@@ -84,7 +84,7 @@ commorv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb2-VTOL-HvHE" },
 colagv: { body: "Body2SUP", prop: "V-Tol", weap: "MG4ROTARY-VTOL" },
 comhpv: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon4AUTOMk1" },
 cohbbt: { body: "Body9REC", prop: "tracked01", weap: "Rocket-BB" },
-cohhot: { body: "Body9REC", prop: "tracked01", weap: "Howitzer105Mk1" },
+cohhot: { body: "Body9REC", prop: "tracked01", weap: "Howitzer105Mk1" }, // Howitzer Tiger Tracks
 
 // CAM_2_5
 cohhpv: { body: "Body9REC", prop: "tracked01", weap: "Cannon4AUTOMk1" },
@@ -106,6 +106,7 @@ coscytk: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-TK" },
 
 // CAM_2_7
 comrotmh: { body: "Body6SUPP", prop: "tracked01", weap: "Mortar3ROTARYMk1" },
+cohript: { body: "Body9REC", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple Rocket Tiger Tracks
 
 // CAM_2_8
 comhvat: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" },
@@ -149,6 +150,7 @@ nxlpulsev: { body: "Body3MBT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" },
 // CAM_3_A_D_2
 nxhgauss: { body: "Body10MBT", prop: "hover02", weap: "RailGun3Mk1" },
 nxhrailv: { body: "Body10MBT", prop: "V-Tol02", weap: "RailGun2-VTOL" },
+nxharch: { body: "Body10MBT", prop: "hover02", weap: "Missile-HvyArt" }, // Heavy Archangel Missile Tank
 
 // CAM_3_4
 nxllinkh: { body: "Body3MBT", prop: "hover02", weap: "NEXUSlink" },

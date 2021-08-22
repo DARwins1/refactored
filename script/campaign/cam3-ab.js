@@ -137,6 +137,7 @@ function nexusManufacture()
 	queue("manualGrouping", camSecondsToMilliseconds(1.5));
 }
 
+function manualGrouping()
 {
 	var vtols = enumDroid(NEXUS).filter(function(obj) {
 		return obj.group === null && isVTOL(obj);

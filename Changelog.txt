@@ -1,11 +1,45 @@
 Changelog:
 
-Refactored v2.2.3
+Refactored v2.3.0
 
-Yet another small hotfix, this one fixes a small bug I'm suprised I haven't noticed for so long.
+A larger update, squishing more bugs as well as adding new level mechanics and enemy templates (they're all artillery-related :).
 
 Changes:
-- No longer reinforce the player with Heavy Cannon in Beta 1, instead give them HPC tanks.
+- Super HPV Cyborg is now named "Super HVC Cyborg".
+
+Level Specific Changes:
+Alpha 8 (LZ 2 Mission)
+- Fixed some miscellaneous script bugs.
+Beta 6 (Nuclear Reactor)
+- The Collective will occasionally build a Howitzer tank from the main base factory.
+Beta 7 (NASDA Central)
+- The Collective will occasionally build a Howitzer tank from one of the main factories.
+Beta 9 (SAM Sites)
+- The Collective will occasionally build a Ripple Rocket tank from the north-west factory.
+Beta 10 (Safe Haven)
+- The Collective will occasionally build a Howitzer tank from one of the main factories.
+Beta Final
+- Ripple Rocket and Howitzer tanks accompany the large northern tank waves.
+- Howitzer tanks also spawn with the western attacks if on Hard or Insane.
+- Sensor units also appear to spot for these units.
+Gamma 3 (Gamma Team Base)
+- The transports that arrive after the trap is sprung now carry a huge variety of "acquired" New Paradigm and Collective tanks and cyborgs.
+- The rate at which transports arrive is slightly faster.
+- The rate at which NEXUS ground reinforcements arrive is slightly slower.
+Gamma 5 (NEXUS Intrusion)
+- Fixed a script error related to unit grouping.
+Gamma 6 (Reunited)
+- Fixed an instant loss at the begginning of the level related to labels. (oops)
+Gamma 8 (Silo Defense)
+- After the first missile code is researched, Archangel tanks begin appearing alongside waves of NEXUS tanks.
+
+
+Refactored v2.2.3
+
+Yet another small hotfix, this one fixes a small bug I'm surprised I haven't noticed for so long.
+
+Changes:
+- No longer reinforce the player with Heavy Cannon tanks in Beta 1, instead give them HPC tanks.
 
 
 Refactored v2.2.2
