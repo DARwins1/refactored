@@ -1,5 +1,26 @@
 Changelog:
 
+Refactored v2.4.0
+
+Hurray for Warzone 2100 4.2.0!
+
+Changes:
+- Updated stats of weapons/modifiers/structures/bodies to latest MP balance.
+- Updated/added some research descriptions in the Intelligence Display.
+- Behind the scenes script tweaking to get stuff up to video functions up to standard.
+
+Level Specific Changes:
+Alpha Final:
+- NP hover units use new patrol scheme from standard camBalance.
+Some Beta missions
+- Tweaked with Collective truck build times.
+Gamma 3 (Gamma Base Rescue)
+- A truck will now spawn on Hard difficulty or higher, and will build Ground Shakers, Hellstorms and Archangels.
+Gamma 5 (NEXUS Intrusion)
+- A "Mk 4" Resistance circuit upgrade is now required to complete the mission.
+- To keep with Mk 1-3 naming conventions, it is named "NEXUS Immunization Systems".
+
+
 Refactored v2.3.0
 
 A larger update, squishing more bugs as well as adding new level mechanics and enemy templates (they're all artillery-related :).
