@@ -48,7 +48,7 @@ function playLastVideo()
 	{
 		camSafeRemoveObject(droids[i], false);
 	}
-	camPlayVideos("CAM2_OUT");
+	camPlayVideos({video: "CAM2_OUT", type: CAMP_MSG});
 }
 
 //Allow a win if a transporter was launched with a construction droid.
@@ -210,7 +210,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
 
 	allowWin = false;
-	camPlayVideos(["MB2_DII_MSG", "MB2_DII_MSG2"]);
+	camPlayVideos([{video: "MB2_DII_MSG", type: CAMP_MSG}, {video: "MB2_DII_MSG2", type: MISS_MSG}]);
 
 	vtolAttack();
 	if (difficulty === INSANE)

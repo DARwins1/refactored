@@ -78,7 +78,7 @@ function enableNP(args)
 		repair: 66,
 	});
 
-	camPlayVideos(["pcv455.ogg", "SB1_3_MSG4"]);
+	camPlayVideos(["pcv455.ogg", {video: "SB1_3_MSG4", type: MISS_MSG}]);
 }
 
 function NPReinforce()
@@ -175,7 +175,7 @@ function camEnemyBaseEliminated_ScavBaseGroup()
 
 function playNPWarningMessage()
 {
-	camPlayVideos(["pcv455.ogg", "SB1_3_MSG3"]);
+	camPlayVideos(["pcv455.ogg", {video: "SB1_3_MSG3", type: CAMP_MSG}]);
 }
 
 function eventDroidBuilt(droid, structure)

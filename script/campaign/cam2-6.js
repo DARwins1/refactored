@@ -25,18 +25,6 @@ function camEnemyBaseDetected_COMainBase()
 		regroup: false,
 	});
 
-	camManageGroup(camMakeGroup("southEastGroup"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("playerLZ"),
-			camMakePos("grp2Pos2"),
-			camMakePos("uplinkBaseCorner"),
-		],
-		interval: camSecondsToMilliseconds(40),
-		//fallback: camMakePos("heavyFacAssembly"),
-		repair: 40,
-		regroup: false,
-	});
-
 	camEnableFactory("COCyborgFactory-b1");
 	camEnableFactory("COCyborgFactory-b2");
 	camEnableFactory("COHeavyFactory-b2R");
@@ -56,6 +44,17 @@ function camEnemyBaseDetected_COMediumBase()
 	});
 
 	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
+		regroup: false,
+	});
+}
+
+function southEastAttack()
+{
+	camManageGroup(camMakeGroup("southEastGroup"), CAM_ORDER_COMPROMISE, {
+		pos: [
+			camMakePos("playerLZ"),
+		],
+		repair: 40,
 		regroup: false,
 	});
 }
@@ -214,9 +213,10 @@ function eventStartLevel()
 		},
 	});
 
-	hackAddMessage("C26_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
+	hackAddMessage("C26_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
-	queue("northWestAttack", camMinutesToMilliseconds(2));
-	queue("mainBaseAttackGroup", camMinutesToMilliseconds(3));
-	queue("enableTimeBasedFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	queue("northWestAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("mainBaseAttackGroup", camChangeOnDiff(camMinutesToMilliseconds(4.5)));
+	queue("southEastAttack", camChangeOnDiff(camMinutesToMilliseconds(5)));
+	queue("enableTimeBasedFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
 }

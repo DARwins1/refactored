@@ -62,7 +62,7 @@ function eventStartLevel()
 		"artifactLocation": { tech: "R-Wpn-Cannon1Mk1" }, // Light Cannon
 	});
 
-	camPlayVideos("FLIGHT");
-	hackAddMessage("C1-1_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
+	camPlayVideos({video: "FLIGHT", type: CAMP_MSG});
+	hackAddMessage("C1-1_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 }
