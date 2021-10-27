@@ -157,8 +157,8 @@ function eventStartLevel()
 
 	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
 	camCompleteRequiredResearch(GAMMA_ALLY_RES, GAMMA);
-	hackAddMessage("CM3C_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER, true);
-	hackAddMessage("CM3C_BETATEAM", PROX_MSG, CAM_HUMAN_PLAYER, true);
+	hackAddMessage("CM3C_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER, false);
+	hackAddMessage("CM3C_BETATEAM", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 	setAlliance(CAM_HUMAN_PLAYER, GAMMA, true);
 	setAlliance(NEXUS, GAMMA, true);
@@ -242,7 +242,7 @@ function eventStartLevel()
 		},
 	});
 
-	camPlayVideos(["MB3_C_MSG", "MB3_C_MSG2"]);
+	camPlayVideos([{video: "MB3_C_MSG", type: CAMP_MSG}, {video: "MB3_C_MSG2", type: MISS_MSG}]);
 	setScrollLimits(0, 137, 64, 192); //Show the middle section of the map.
 	changePlayerColour(GAMMA, 0);
 

@@ -326,7 +326,7 @@ function eventStartLevel()
 	});
 
 	camManageTrucks(NEXUS);
-	camPlayVideos(["CAM3_INT", "MB3A_MSG2"]);
+	camPlayVideos([{video: "CAM3_INT", type: CAMP_MSG}, {video: "MB3A_MSG2", type: MISS_MSG}]);
 	startedFromMenu = false;
 
 	//Only if starting Gamma directly rather than going through Beta

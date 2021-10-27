@@ -77,7 +77,7 @@ function HoverGroupPatrol()
 		pos: camMakePos("attackPoint2"),
 		fallback: camMakePos("cybRetreatPoint"),
 		morale: 50,
-		regroup: true
+		regroup: false
 	});
 	camManageGroup(camMakeGroup("hoversDefense"), CAM_ORDER_PATROL, {
 		pos: [
@@ -197,10 +197,17 @@ function eventStartLevel()
 	camSetFactories({
 		"NPFactoryW": {
 			assembly: "NPFactoryWAssembly",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
+			order: CAM_ORDER_PATROL,
+			groupSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
+				pos: [
+					camMakePos("hoverDefense5"),
+					camMakePos("hoverDefense6"),
+					camMakePos("hoverDefense7"),
+					camMakePos("hoverDefense8")
+				],
+				interval: camSecondsToMilliseconds(45),
 				regroup: false,
 				repair: 66,
 				count: -1,
@@ -269,7 +276,7 @@ function eventStartLevel()
 		},
 	});
 
-	hackAddMessage("C1D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, true);
+	hackAddMessage("C1D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 	queue("setupPatrols", camMinutesToMilliseconds(2.5));
 }

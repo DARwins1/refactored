@@ -114,7 +114,7 @@ function eventStartLevel()
 		},
 	});
 
-	camPlayVideos("MB1B_MSG");
+	camPlayVideos({video: "MB1B_MSG", type: MISS_MSG});
 	camDetectEnemyBase("base4group"); // power surge detected
 
 	camSetFactories({

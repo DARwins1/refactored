@@ -315,7 +315,7 @@ function eventStartLevel()
 		},
 	});
 
-	camPlayVideos(["MB3_AD1_MSG", "MB3_AD1_MSG2", "MB3_AD1_MSG3"]);
+	camPlayVideos([{video: "MB3_AD1_MSG", type: CAMP_MSG}, {video: "MB3_AD1_MSG2", type: CAMP_MSG}, {video: "MB3_AD1_MSG3", type: MISS_MSG}]);
 	hackAddMessage("CM3D1_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 	camEnableFactory("NXbase1VtolFacArti");
 	camEnableFactory("NXcyborgFac1");
