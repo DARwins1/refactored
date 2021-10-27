@@ -92,8 +92,8 @@
     "Body10MBT": {
         "armourHeat": 25,
         "armourKinetic": 28,
-        "buildPoints": 800,
-        "buildPower": 130,
+        "buildPoints": 470,
+        "buildPower": 80,
         "class": "Droids",
         "designable": 1,
         "hitpoints": 300,
@@ -482,8 +482,8 @@
     "Body3MBT": {
         "armourHeat": 15,
         "armourKinetic": 20,
-        "buildPoints": 400,
-        "buildPower": 68,
+        "buildPoints": 170,
+        "buildPower": 43,
         "class": "Droids",
         "designable": 1,
         "hitpoints": 100,
@@ -794,8 +794,8 @@
     "Body7ABT": {
         "armourHeat": 20,
         "armourKinetic": 24,
-        "buildPoints": 600,
-        "buildPower": 100,
+        "buildPoints": 330,
+        "buildPower": 64,
         "class": "Droids",
         "designable": 1,
         "hitpoints": 200,
