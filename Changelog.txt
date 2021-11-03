@@ -1,5 +1,26 @@
 Changelog:
 
+Refactored v2.4.1
+
+Just a small patch that tweaks a few levels.
+
+Changes:
+- Changed the Intelligence Display entry for NEXUS Resistance Circuits to not mention protection for Hero ranked units (since they're already protected by default)
+
+Level Specific Changes:
+Alpha 5 (First NP Encounter)
+- Flamers now spawn among NP reinforcements on Insane difficulty.
+Alpha 8 (Synaptic Link)
+- Updated level scripts, and fixed a small bug.
+Gamma 3 (Gamma Base Rescue)
+- That truck added from the last update now builds Ground Shakers for realsies.
+Gamma Final
+- Fixed NEXUS trucks building non-NEXUS sensor towers.
+- Tweaked NEXUS' super-special-suprise-birthday-party attack:
+- The initial absorption attack is now twice as likely to convert, but will only affect structures.
+- Player VTOL's are now only insta-KO'd on Hard/Insane.
+
+
 Refactored v2.4.0
 
 Hurray for Warzone 2100 4.2.0!
@@ -10,7 +31,7 @@ Changes:
 - Behind the scenes script tweaking to get stuff up to video functions up to standard.
 
 Level Specific Changes:
-Alpha Final:
+Alpha Final
 - NP hover units use new patrol scheme from standard camBalance.
 Some Beta missions
 - Tweaked with Collective truck build times.

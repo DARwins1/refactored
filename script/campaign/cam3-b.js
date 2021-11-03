@@ -216,7 +216,7 @@ function truckDefense()
 		return;
 	}
 
-	var list = ["Emplacement-Howitzer105", "Emplacement-HvART-pit", "Emplacement-RotHow"];
+	var list = ["Emplacement-Howitzer150", "Emplacement-HvART-pit", "Emplacement-RotHow"];
 	var position;
 
 	if (truckLocCounter === 0)
