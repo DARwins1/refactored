@@ -59,15 +59,19 @@ function firstAbsorbAttack()
 	for (var i = 0, len = objects.length; i < len; ++i)
 	{
 		var obj = objects[i];
-		//Destroy all the VTOLs to prevent a player from instantly defeating the HQ in a rush.
-		if (obj.type === DROID && isVTOL(obj))
+		//Destroy all the VTOLs to prevent a player from instantly defeating the HQ in a rush. (Only on Hard+)
+		if (obj.type === DROID && isVTOL(obj) && (difficulty >= HARD))
 		{
 			camSafeRemoveObject(obj, true);
 			continue;
 		}
-		if ((camRand(100) < 10) && !donateObject(obj, NEXUS))
+		//Absorb some structures from the player
+		if (obj.type === STRUCTURE)
 		{
-			camSafeRemoveObject(obj, true);
+			if ((camRand(100) < 20) && !donateObject(obj, NEXUS))
+			{
+				camSafeRemoveObject(obj, true);
+			}
 		}
 	}
 }
@@ -163,7 +167,7 @@ function truckDefense()
 		var list = [
 			"Sys-NEXUSLinkTOW", "P0-AASite-SAM2", "Emplacement-PrisLas",
 			"NX-Tower-ATMiss", "Sys-NX-CBTower", "Emplacement-HvART-pit",
-			"Sys-SensoTower02"
+			"Sys-NX-SensorTower"
 		];
 
 		for (var i = 0; i < truckNum; ++i)

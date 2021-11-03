@@ -15,26 +15,43 @@ const SCAVENGER_RES = [
 	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage02", "R-Wpn-Cannon-Damage02",
 ];
 
+var useHeavyReinforcement;
+
 //Get some droids for the New Paradigm transport
 function getDroidsForNPLZ(args)
 {
-	var scouts = [ cTempl.npsens, cTempl.nppod, cTempl.nphmg ];
-	var heavies = [ cTempl.npsbb, cTempl.npmmct, cTempl.npmrl ];
-
-	var numScouts = camRand(5) + 1;
-	var heavy = heavies[camRand(heavies.length)];
+	const LIGHT_ATTACKER_LIMIT = 8;
+	const HEAVY_ATTACKER_LIMIT = 3;
+	var unitTemplates;
 	var list = [];
 
-	for (var i = 0; i < numScouts; ++i)
+	if (useHeavyReinforcement)
 	{
-		list[list.length] = scouts[camRand(scouts.length)];
+		var artillery = [cTempl.npmor];
+		var other = [cTempl.npmmct];
+		if (camRand(2) > 0)
+		{
+			//Add a sensor if artillery was chosen for the heavy units
+			list.push(cTempl.npsens);
+			unitTemplates = artillery;
+		}
+		else
+		{
+			unitTemplates = other;
+		}
+	}
+	else
+	{
+		unitTemplates = [cTempl.nppod, cTempl.npmrl, cTempl.npsmc];
 	}
 
-	for (var a = numScouts; a < 8; ++a)
+	var lim = useHeavyReinforcement ? HEAVY_ATTACKER_LIMIT : LIGHT_ATTACKER_LIMIT;
+	for (var i = 0; i < lim; ++i)
 	{
-		list[list.length] = heavy;
+		list.push(unitTemplates[camRand(unitTemplates.length)]);
 	}
 
+	useHeavyReinforcement = !useHeavyReinforcement; //switch it
 	return list;
 }
 
@@ -74,14 +91,15 @@ camAreaEvent("NPFactoryTrigger", function(droid)
 //Land New Paradigm transport in the LZ area (protected by four hardpoints in the New Paradigm base)
 camAreaEvent("NPLZTrigger", function()
 {
-	sendNPTransport();
 	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	sendNPTransport();
 });
 
 function sendNPTransport()
 {
-	var tPos = getObject("NPTransportPos");
-	var nearbyDefense = enumRange(tPos.x, tPos.y, 6, NEW_PARADIGM, false);
+	var nearbyDefense = enumArea("LandingZone2", NEW_PARADIGM, false).filter(function(obj) {
+		return (obj.type === STRUCTURE && obj.stattype === DEFENSE);
+	});
 
 	if (nearbyDefense.length > 0)
 	{
@@ -136,6 +154,7 @@ function eventStartLevel()
 		annihilate: true
 	});
 
+	useHeavyReinforcement = false; //Start with a light unit reinforcement first
 	var lz = getObject("LandingZone1"); //player lz
 	var lz2 = getObject("LandingZone2"); //new paradigm lz
 	var tent = getObject("TransporterEntry");
@@ -154,7 +173,6 @@ function eventStartLevel()
 
 	camCompleteRequiredResearch(NEW_PARADIGM_RES, NEW_PARADIGM);
 	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
-
 
 	camSetEnemyBases({
 		"ScavNorthGroup": {
@@ -197,7 +215,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.npmrl, cTempl.npmmct, cTempl.npsbb, cTempl.nphmg, cTempl.npflam ],
+			templates: [ cTempl.npmrl, cTempl.npmmct, cTempl.npsmc, cTempl.nppod ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -209,7 +227,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
-			templates: [ cTempl.npmor, cTempl.npsens, cTempl.npsbb, cTempl.nphmg, cTempl.npflam ],
+			templates: [ cTempl.npmor, cTempl.npsens, cTempl.npsmc, cTempl.npflam ],
 			data: {
 				regroup: false,
 				repair: 40,
