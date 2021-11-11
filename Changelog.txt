@@ -11,6 +11,7 @@ Changes:
 - Scavengers now start getting research upgrades starting from Alpha 3, these upgrades are granted slower than in camBalance, but by Alpha 8 they are identical to camBalance.
 - Removed a TON of redundant model files.
 - The game now checks if the player has any Cyborg Factories before giving a Game Over.
+- Updated the Cyclone's projectile model.
 
 Level Specific Changes:
 Alpha 6 (Assault On The Plateau)
