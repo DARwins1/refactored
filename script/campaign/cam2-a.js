@@ -187,7 +187,6 @@ function truckDefense()
 //Gives starting tech and research.
 function cam2Setup()
 {
-	var x = 0;
 	const COLLECTIVE_RES = [
 		"R-Wpn-MG1Mk1", "R-Sys-Engineering02",
 		"R-Defense-WallUpgrade03", "R-Struc-Materials03",
@@ -202,19 +201,16 @@ function cam2Setup()
 		"R-Wpn-RocketSlow-Damage03", "R-Sys-Sensor-Upgrade01"
 	];
 
-	for (x = 0; x < ALPHA_TECH.length; ++x)
-	{
-		makeComponentAvailable(ALPHA_TECH[x], CAM_HUMAN_PLAYER);
-	}
-
-	for (x = 0; x < STRUCTS_ALPHA.length; ++x)
+	for (var x = 0, l = STRUCTS_ALPHA.length; x < l; ++x)
 	{
 		enableStructure(STRUCTS_ALPHA[x], CAM_HUMAN_PLAYER);
 	}
 
 	camCompleteRequiredResearch(PLAYER_RES_BETA, CAM_HUMAN_PLAYER);
+	camCompleteRequiredResearch(ALPHA_RESEARCH_NEW, THE_COLLECTIVE);
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
-	camCompleteRequiredResearch(ALPHA_RESEARCH, CAM_HUMAN_PLAYER);
+	camCompleteRequiredResearch(ALPHA_RESEARCH_NEW, CAM_HUMAN_PLAYER);
+
 	enableResearch("R-Wpn-Cannon-Damage04", CAM_HUMAN_PLAYER);
 	enableResearch("R-Wpn-Rocket-Damage04", CAM_HUMAN_PLAYER);
 	preDamageStuff();

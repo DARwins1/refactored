@@ -3,6 +3,9 @@ include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 var NPScout; // Sensor scout
+const SCAVENGER_RES = [
+	"R-Wpn-Flamer-Damage01", "R-Wpn-MG-Damage01",
+];
 
 camAreaEvent("AttackArea1", function(droid)
 {
@@ -79,6 +82,9 @@ function eventStartLevel()
 	setAlliance(NEW_PARADIGM, SCAV_6, true);
 	setAlliance(NEW_PARADIGM, SCAV_7, true);
 	setAlliance(SCAV_6, SCAV_7, true);
+
+	camCompleteRequiredResearch(SCAVENGER_RES, 6);
+	camCompleteRequiredResearch(SCAVENGER_RES, 7);
 
 	camSetArtifacts({
 		"base1factory": { tech: "R-Wpn-Flamer-ROF01" },
