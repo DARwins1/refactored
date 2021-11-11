@@ -8,12 +8,15 @@ const NEW_PARADIGM_RES = [
 	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Damage03",
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Mortar-Damage02", "R-Wpn-Rocket-Accuracy01",
-	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
+	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF02",
 	"R-Wpn-RocketSlow-Damage02", "R-Struc-RprFac-Upgrade03",
 ];
-
 const SCAVENGER_RES = [
-	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage02",
+	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Rocket-ROF02", "R-Vehicle-Metals02",
+	"R-Defense-WallUpgrade03", "R-Struc-Materials03",
 ];
 
 //Pursue player when nearby but do not go too far away from defense zone.

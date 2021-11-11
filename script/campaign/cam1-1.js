@@ -2,6 +2,10 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
+const SCAVENGER_RES = [
+	"R-Wpn-Flamer-Damage01", "R-Wpn-MG-Damage01",
+];
+
 //Ambush player from scav base - triggered from middle path
 camAreaEvent("scavBaseTrigger", function()
 {
@@ -55,6 +59,8 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+
+	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
 
 	//Get rid of the already existing crate and replace with another
 	camSafeRemoveObject("artifact1", false);

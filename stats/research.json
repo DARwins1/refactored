@@ -5439,11 +5439,11 @@
     "R-Wpn-Howitzer-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Howitzer-Accuracy01",
-        "keyTopic": 1,
         "msgName": "RES_W_HOWAC1",
         "name": "Target Acquisition Artillery Shells",
         "requiredResearch": [
-			"R-Wpn-HowitzerMk1"
+			"R-Wpn-HowitzerMk1",
+            "R-Struc-Research-Upgrade04"
         ],
         "researchPoints": 7200,
         "researchPower": 225,

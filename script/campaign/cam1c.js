@@ -13,7 +13,10 @@ const NEW_PARADIGM_RES = [
 	"R-Wpn-RocketSlow-Damage01", "R-Struc-RprFac-Upgrade03",
 ];
 const SCAVENGER_RES = [
-	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Cannon-Damage01",
+	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage01",
+	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage02", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Rocket-ROF02", "R-Defense-WallUpgrade02","R-Struc-Materials02",
 ];
 
 function sendRocketForce()
@@ -113,14 +116,22 @@ function camEnemyBaseEliminated_NPCentralFactory()
 
 function getDroidsForNPLZ(args)
 {
-	var scouts = [ cTempl.npsens, cTempl.nppod, cTempl.nphmg, cTempl.npflam ];
-	var heavies = [ cTempl.npslc, cTempl.npsmct, cTempl.npmor ];
+	var scouts = [ cTempl.nppod, cTempl.nphmg ];
+	var heavies = [ cTempl.npslc, cTempl.npsmct ];
+	var useArtillery = (camRand(100) < 50);
 
 
 	var numScouts = camRand(5) + 1;
 	var heavy = heavies[camRand(heavies.length)];
 	var list = [];
 
+	if (useArtillery)
+	{
+		list[list.length] = cTempl.npsens; //sensor will count towards scout total
+		numScouts = numScouts - 1;
+		heavy = cTempl.npmor;
+	}
+	
 	for (var i = 0; i < numScouts; ++i)
 	{
 		list[list.length] = scouts[camRand(scouts.length)];

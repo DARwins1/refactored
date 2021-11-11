@@ -15,7 +15,10 @@ const NEW_PARADIGM_RES = [
 	"R-Wpn-RocketSlow-Damage01", "R-Struc-RprFac-Upgrade03",
 ];
 const SCAVENGER_RES = [
-	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage01", "R-Wpn-Cannon-Damage01",
+	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
+	"R-Defense-WallUpgrade01","R-Struc-Materials01",
 ];
 var NPDefenseGroup, NPScoutGroup, NPFactory;
 

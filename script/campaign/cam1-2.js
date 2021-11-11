@@ -2,6 +2,12 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
+const SCAVENGER_RES = [
+	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01",
+	"R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
+];
+
 function exposeNorthBase()
 {
 	camDetectEnemyBase("NorthGroup"); // no problem if already detected
@@ -68,6 +74,8 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+
+	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
 
 	camSetEnemyBases({
 		"NorthGroup": {

@@ -10,9 +10,13 @@ const NEW_PARADIGM_RES = [
 	"R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Damage03",
 	"R-Wpn-Rocket-ROF02", "R-Wpn-RocketSlow-Damage02", "R-Struc-RprFac-Upgrade03",
 ];
-
 const SCAVENGER_RES = [
-	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage02", "R-Wpn-Cannon-Damage02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage02",
+	"R-Wpn-Cannon-Damage03", "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Rocket-Accuracy02", "R-Wpn-Rocket-ROF03", "R-Vehicle-Metals02",
+	"R-Defense-WallUpgrade03", "R-Struc-Materials03", "R-Wpn-Cannon-Accuracy01",
+	"R-Wpn-Mortar-Acc01",
 ];
 
 var useHeavyReinforcement;
@@ -20,10 +24,21 @@ var useHeavyReinforcement;
 //Get some droids for the New Paradigm transport
 function getDroidsForNPLZ(args)
 {
-	const LIGHT_ATTACKER_LIMIT = 8;
-	const HEAVY_ATTACKER_LIMIT = 3;
+	var lightAttackerLimit = 8;
+	var heavyAttackerLimit = 3;
 	var unitTemplates;
 	var list = [];
+
+	if (difficulty === HARD)
+	{
+		lightAttackerLimit = 9;
+		heavyAttackerLimit = 4;
+	}
+	else if (difficulty === INSANE)
+	{
+		lightAttackerLimit = 10;
+		heavyAttackerLimit = 5;
+	}
 
 	if (useHeavyReinforcement)
 	{
@@ -45,7 +60,7 @@ function getDroidsForNPLZ(args)
 		unitTemplates = [cTempl.nppod, cTempl.npmrl, cTempl.npsmc];
 	}
 
-	var lim = useHeavyReinforcement ? HEAVY_ATTACKER_LIMIT : LIGHT_ATTACKER_LIMIT;
+	var lim = useHeavyReinforcement ? heavyAttackerLimit : lightAttackerLimit;
 	for (var i = 0; i < lim; ++i)
 	{
 		list.push(unitTemplates[camRand(unitTemplates.length)]);
@@ -89,11 +104,21 @@ camAreaEvent("NPFactoryTrigger", function(droid)
 });
 
 //Land New Paradigm transport in the LZ area (protected by four hardpoints in the New Paradigm base)
+camAreaEvent("NPLZTriggerEast", function()
+{
+	camCallOnce("activateNPLZTransporter");
+});
+
 camAreaEvent("NPLZTrigger", function()
+{
+	camCallOnce("activateNPLZTransporter");
+});
+
+function activateNPLZTransporter()
 {
 	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	sendNPTransport();
-});
+}
 
 function sendNPTransport()
 {
