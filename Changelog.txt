@@ -1,5 +1,38 @@
 Changelog:
 
+Refactored v2.5.0
+
+A larger update that does a lot of work under the hood, a balance update, and some level tweaking all in one. Saves from earlier versions should be compatible, but there may be some funkiness.
+
+Changes:
+- Updated stats of weapons/modifiers to 4.2.1 MP balance.
+- Completely overhauled transition technology scripting, this shouldn't cause any direct gameplay changes, but it should fix technology becoming un-obsoleted when transitioning campaigns.
+- Made Target Acquisition Artillery Shells (and subsequent upgrades) obtainable.
+- Scavengers now start getting research upgrades starting from Alpha 3, these upgrades are granted slower than in camBalance, but by Alpha 8 they are identical to camBalance.
+- Removed a TON of redundant model files.
+- The game now checks if the player has any Cyborg Factories before giving a Game Over.
+- Updated the Cyclone's projectile model.
+
+Level Specific Changes:
+Alpha 6 (Assault On The Plateau)
+- NP reinforcement tweaks.
+Alpha 8 (Synaptic Link)
+- Some trigger tweaks.
+- Added some MRA batteries around the NP base.
+Alpha Final
+- Added MRA batteries around the map.
+Gamma 3 (Gamma Base Rescue)
+- Replaced the Seraph batteries near the west LZ with Archangels.
+- Placed some Seraph batteries near the east LZ.
+Gamma 5 (NEXUS Intrusion)
+- Mk 3 Circuits brings the hack fail chance to 95% now.
+Gamma 6 (Reunited)
+- Replaced two Seraph batteries with Archangels, and added a second pair Archangels in the SE base.
+- Moved some Seraph batteries around in the SE base.
+Gamma Final
+- Scattered a bunch of Seraph Missile batteries around the map, keep your eyes peeled!
+
+
 Refactored v2.4.1
 
 Just a small patch that tweaks a few levels.
