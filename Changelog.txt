@@ -7,7 +7,7 @@ A larger update that does a lot of work under the hood, a balance update, and so
 Changes:
 - Updated stats of weapons/modifiers to 4.2.1 MP balance.
 - Completely overhauled transition technology scripting, this shouldn't cause any direct gameplay changes, but it should fix technology becoming un-obsoleted when transitioning campaigns.
-- Made Target Aquisition Artillery Shells (and subsequent upgrades) obtainable.
+- Made Target Acquisition Artillery Shells (and subsequent upgrades) obtainable.
 - Scavengers now start getting research upgrades starting from Alpha 3, these upgrades are granted slower than in camBalance, but by Alpha 8 they are identical to camBalance.
 - Removed a TON of redundant model files.
 - The game now checks if the player has any Cyborg Factories before giving a Game Over.
