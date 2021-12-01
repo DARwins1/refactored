@@ -1059,7 +1059,7 @@
     "CyborgLightBody": {
         "armourHeat": 6,
         "armourKinetic": 12,
-        "buildPoints": 115,
+        "buildPoints": 95,
         "buildPower": 25,
         "class": "Cyborgs",
         "droidType": "CYBORG",
