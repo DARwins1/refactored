@@ -316,7 +316,6 @@ function eventStartLevel()
 		},
 	});
 
-	camManageTrucks(NEXUS);
 	camPlayVideos([{video: "CAM3_INT", type: CAMP_MSG}, {video: "MB3A_MSG2", type: MISS_MSG}]);
 	startedFromMenu = false;
 

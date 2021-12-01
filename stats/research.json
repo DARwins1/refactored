@@ -161,6 +161,9 @@
         "id": "R-Cyborg-Hvywpn-A-T",
         "msgName": "RES_CYW_H_AT",
         "name": "Super Scourge Cyborg",
+        "redComponents": [
+            "Cyb-Hvywpn-TK"
+        ],
         "requiredResearch": [
             "R-Cyborg-Metals04",
             "R-Wpn-Missile2A-T",
@@ -242,6 +245,11 @@
         "id": "R-Cyborg-Hvywpn-RailGunner",
         "msgName": "RES_CYW_H_RG",
         "name": "Super Rail-Gunner",
+        "redComponents": [
+            "Cyb-Hvywpn-HPV",
+            "Cyb-Hvywpn-Mcannon",
+            "Cyb-Hvywpn-Acannon"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
         ],
@@ -287,14 +295,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG"
@@ -315,14 +323,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -345,14 +353,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -376,14 +384,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG"
@@ -405,14 +413,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -435,14 +443,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -466,14 +474,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG"
@@ -495,14 +503,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -525,14 +533,14 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Body",
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "HitPointPct",
-                "value": 30
+                "value": 35
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -555,7 +563,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG"
@@ -577,7 +585,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -599,7 +607,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -623,7 +631,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG"
@@ -645,7 +653,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -668,7 +676,7 @@
                 "filterParameter": "BodyClass",
                 "filterValue": "Cyborgs",
                 "parameter": "Thermal",
-                "value": 40
+                "value": 45
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPUPG",
@@ -1267,6 +1275,9 @@
         "id": "R-Cyborg-Wpn-Rail1",
         "msgName": "RES_CYW_RL1",
         "name": "Needle Gunner Cyborg",
+        "redComponents": [
+            "CyborgCannon"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun01"
         ],
@@ -1787,7 +1798,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -1815,7 +1826,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -1844,7 +1855,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -2407,14 +2418,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -2436,14 +2447,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -2466,14 +2477,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -2548,14 +2559,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame1Mk1",
@@ -2577,14 +2588,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame1Mk1",
@@ -2607,14 +2618,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame1Mk1",
@@ -2685,7 +2696,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -2707,7 +2718,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -2729,7 +2740,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -2752,7 +2763,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -2884,21 +2895,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar1Mk1",
@@ -2920,21 +2931,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar1Mk1",
@@ -2957,21 +2968,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar1Mk1",
@@ -3117,14 +3128,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -3146,14 +3157,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -3176,14 +3187,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -3453,14 +3464,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -3482,14 +3493,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -3512,14 +3523,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -3531,6 +3542,9 @@
         "id": "R-Defense-AASite-QuadBof",
         "msgName": "RES_EMP_AA1",
         "name": "Cyclone AA Flak Site",
+        "redStructures": [
+            "AASite-QuadMg1"
+        ],
         "requiredResearch": [
             "R-Wpn-AAGun02"
         ],
@@ -3563,7 +3577,7 @@
         "msgName": "RES_EMP_AA3",
         "name": "Whirlwind AA Site",
         "redStructures": [
-            "AASite-QuadMg1"
+            "AASite-QuadBof"
         ],
         "requiredResearch": [
             "R-Wpn-AAGun04",
@@ -3584,8 +3598,8 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 3600,
-        "researchPower": 112,
+        "researchPoints": 3200,
+        "researchPower": 100,
         "resultStructures": [
             "Emplacement-HPVcannon"
         ],
@@ -3710,6 +3724,9 @@
         "id": "R-Defense-RotMG",
         "msgName": "RES_DEF_ASSTOW",
         "name": "Assault Gun Tower",
+        "redStructures": [
+            "GuardTower1"
+        ],
         "requiredResearch": [
             "R-Wpn-MG4"
         ],
@@ -3783,8 +3800,8 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 14400,
-        "researchPower": 450,
+        "researchPoints": 4800,
+        "researchPower": 150,
         "resultStructures": [
             "WallTower-HPVcannon"
         ],
@@ -3957,7 +3974,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -3985,7 +4002,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -4014,7 +4031,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -4602,14 +4619,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -4630,14 +4647,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -4660,14 +4677,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -4769,6 +4786,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_AA2",
         "name": "Cyclone Flak Turret",
+        "redComponents": [
+            "QuadMg1AAGun"
+        ],
         "requiredResearch": [
             "R-Wpn-AAGun03",
             "R-Wpn-AAGun-Damage02"
@@ -4800,7 +4820,7 @@
         "msgName": "RES_W_AA4",
         "name": "Whirlwind AA Turret",
         "redComponents": [
-            "QuadMg1AAGun"
+            "AAGun2Mk1"
         ],
         "requiredResearch": [
             "R-Wpn-MG4",
@@ -4831,21 +4851,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "Damage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RadiusDamage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RepeatDamage",
-                "value": 10
+                "value": 25
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPDAM"
@@ -4868,21 +4888,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "Damage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RadiusDamage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RepeatDamage",
-                "value": 10
+                "value": 25
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPDAM"
@@ -4909,6 +4929,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_BMB2",
         "name": "HEAP Bomb Bay",
+        "redComponents": [
+            "Bomb1-VTOL-LtHE"
+        ],
         "requiredResearch": [
             "R-Wpn-Bomb01",
             "R-Wpn-Bomb-Damage01"
@@ -4982,14 +5005,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -5011,14 +5034,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -5041,14 +5064,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -5150,6 +5173,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_CN_4A",
         "name": "Hyper Velocity Cannon",
+        "redComponents": [
+            "Cannon1-VTOL"
+        ],
         "requiredResearch": [
 			"R-Wpn-Cannon2Mk1"
         ],
@@ -5167,6 +5193,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_CN5",
         "name": "Assault Cannon",
+        "redComponents": [
+            "Cannon1Mk1"
+        ],
         "requiredResearch": [
 			"R-Wpn-Cannon4AMk1"
         ],
@@ -5215,14 +5244,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame2",
@@ -5244,14 +5273,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame2",
@@ -5274,14 +5303,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "FLAME",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Flame2",
@@ -5525,7 +5554,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -5560,7 +5589,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -5597,7 +5626,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -5758,7 +5787,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -5780,7 +5809,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -5803,7 +5832,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -5945,21 +5974,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar1Mk1",
@@ -5980,21 +6009,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar1Mk1",
@@ -6017,21 +6046,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MORTARS",
                 "parameter": "RepeatDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Mortar2Mk1",
@@ -6134,14 +6163,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -6163,14 +6192,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -6193,14 +6222,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-Pod",
@@ -6231,6 +6260,12 @@
         "keyTopic": 1,
         "msgName": "RES_W_RK_HvAT",
         "name": "Tank Killer Rocket",
+        "redComponents": [
+            "Rocket-LtA-T",
+            "Rocket-VTOL-LtA-T",
+            "Rocket-Pod",
+            "Rocket-VTOL-Pod"
+        ],
         "requiredResearch": [
             "R-Wpn-Rocket03-HvAT"
         ],
@@ -6260,14 +6295,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -6289,14 +6324,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -6319,14 +6354,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "Damage",
-                "value": 35
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "SLOW ROCKET",
                 "parameter": "RadiusDamage",
-                "value": 35
+                "value": 25
             }
         ],
         "statID": "Rocket-LtA-T",
@@ -6466,6 +6501,10 @@
         "id": "R-Defense-GuardTower-ATMiss",
         "msgName": "RES_EMP_ATMTOW",
         "name": "Scourge Missile Tower",
+        "redStructures": [
+            "GuardTower5",
+            "GuardTower6"
+        ],
         "requiredResearch": [
             "R-Wpn-Missile2A-T"
         ],
@@ -6512,7 +6551,7 @@
         "msgName": "RES_EMP_HvAM",
         "name": "Archangel Missile Battery",
         "redStructures": [
-            "Emplacement-Howitzer105"
+            "Emplacement-Rocket06-IDF"
         ],
         "requiredResearch": [
             "R-Wpn-HvArtMissile"
@@ -6612,6 +6651,9 @@
         "id": "R-Defense-Rail2",
         "msgName": "RES_EMP_Rail2",
         "name": "Rail Gun Emplacement",
+        "redStructures": [
+            "Emplacement-HPVcannon"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
         ],
@@ -6627,6 +6669,9 @@
         "id": "R-Defense-Rail3",
         "msgName": "RES_EMP_Rail3",
         "name": "Gauss Cannon Emplacement",
+        "redStructures": [
+            "Emplacement-Rail2"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun03"
         ],
@@ -6675,6 +6720,9 @@
         "id": "R-Defense-SamSite2",
         "msgName": "RES_EMP_SAM2",
         "name": "Vindicator SAM Site",
+        "redStructures": [
+            "P0-AASite-SAM1"
+        ],
         "requiredResearch": [
             "R-Wpn-Missile-HvSAM"
         ],
@@ -6691,7 +6739,7 @@
         "msgName": "RES_WT9_ATM",
         "name": "Scourge Missile Hardpoint",
         "redStructures": [
-            "WallTower06"
+            "WallTower-HvATrocket"
         ],
         "requiredResearch": [
             "R-Wpn-Missile2A-T"
@@ -6708,6 +6756,9 @@
         "id": "R-Defense-WallTower-HvyA-Trocket",
         "msgName": "RES_WT12_HAT",
         "name": "Tank Killer Hardpoint",
+        "redStructures": [
+            "WallTower06"
+        ],
         "requiredResearch": [
             "R-Wpn-Rocket07-Tank-Killer"
         ],
@@ -6738,6 +6789,10 @@
         "id": "R-Defense-WallTower-Rail2",
         "msgName": "RES_WT15_RL2",
         "name": "Rail Gun Hardpoint",
+        "redStructures": [
+            "Wall-VulcanCan",
+            "WallTower-HPVcannon"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
         ],
@@ -6753,6 +6808,10 @@
         "id": "R-Defense-WallTower-Rail3",
         "msgName": "RES_WT15_RL3",
         "name": "Gauss Cannon Hardpoint",
+        "redStructures": [
+            "WallTower-Rail2",
+            "WallTower04"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun03"
         ],
@@ -6869,7 +6928,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -6897,7 +6956,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -6926,7 +6985,7 @@
                 "filterParameter": "Type",
                 "filterValue": "Structure",
                 "parameter": "Armour",
-                "value": 30
+                "value": 35
             },
             {
                 "class": "Building",
@@ -7428,14 +7487,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -7456,14 +7515,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -7485,14 +7544,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "A-A GUN",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "QuadMg1AAGun",
@@ -7605,21 +7664,21 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "Damage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RadiusDamage",
-                "value": 10
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "BOMB",
                 "parameter": "RepeatDamage",
-                "value": 10
+                "value": 25
             }
         ],
         "subgroupIconID": "IMAGE_RES_GRPDAM"
@@ -7630,6 +7689,9 @@
         "imdName": "trmvtlin.PIE",
         "msgName": "RES_W_BMB4",
         "name": "Thermite Bomb Bay",
+        "redComponents": [
+            "Bomb3-VTOL-LtINC"
+        ],
         "requiredResearch": [
 			"R-Wpn-Flamer-Damage06",
             "R-Wpn-Bomb03",
@@ -7658,14 +7720,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 20
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 20
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -7716,14 +7778,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "CANNON",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Cannon1Mk1",
@@ -7863,14 +7925,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Laser2PULSEMk1",
@@ -7892,14 +7954,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Laser2PULSEMk1",
@@ -7922,14 +7984,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "ENERGY",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Laser2PULSEMk1",
@@ -8087,7 +8149,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -8122,7 +8184,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -8159,7 +8221,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "HOWITZERS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Howitzer105Mk1",
@@ -8202,6 +8264,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_MS_HART",
         "name": "Archangel Missile",
+        "redComponents": [
+            "Rocket-IDF"
+        ],
         "requiredResearch": [
 			"R-Wpn-MdArtMissile"
         ],
@@ -8260,7 +8325,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -8281,7 +8346,7 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MACHINE GUN",
                 "parameter": "Damage",
-                "value": 15
+                "value": 25
             }
         ],
         "statID": "MG1Mk1",
@@ -8296,6 +8361,9 @@
         "name": "Seraph Missile Array",
         "researchPoints": 14400,
         "researchPower": 450,
+        "redComponents": [
+            "Rocket-MRL"
+        ],
         "resultComponents": [
             "Missile-MdArt"
         ],
@@ -8377,14 +8445,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Missile-LtSAM",
@@ -8405,14 +8473,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Missile-A-T",
@@ -8435,14 +8503,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "MISSILE",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "Missile-A-T",
@@ -8455,6 +8523,9 @@
         "keyTopic": 1,
         "msgName": "RES_W_MS_HvSAM1",
         "name": "Vindicator SAM",
+        "redComponents": [
+            "Missile-LtSAM"
+        ],
         "requiredResearch": [
             "R-Wpn-Missile-Damage02",
             "R-Wpn-Missile-ROF01"
@@ -8577,6 +8648,10 @@
         "keyTopic": 1,
         "msgName": "RES_W_ASM_AT",
         "name": "Scourge Missile",
+        "redComponents": [
+            "Rocket-HvyA-T",
+            "Rocket-VTOL-HvyA-T"
+        ],
         "requiredResearch": [
             "R-Wpn-Missile-Accuracy01"
         ],
@@ -8715,14 +8790,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "RailGun1Mk1",
@@ -8744,14 +8819,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "RailGun1Mk1",
@@ -8774,14 +8849,14 @@
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "Damage",
-                "value": 30
+                "value": 25
             },
             {
                 "class": "Weapon",
                 "filterParameter": "ImpactClass",
                 "filterValue": "GAUSS",
                 "parameter": "RadiusDamage",
-                "value": 30
+                "value": 25
             }
         ],
         "statID": "RailGun1Mk1",
@@ -8897,6 +8972,10 @@
         "keyTopic": 1,
         "msgName": "RES_W_RAIL2",
         "name": "Rail Gun",
+        "redComponents": [
+            "Cannon2A-TMk1",
+            "Cannon4AUTOMk1"
+        ],
         "requiredResearch": [
 			"R-Wpn-RailGun01"
         ],
@@ -8914,6 +8993,10 @@
         "keyTopic": 1,
         "msgName": "RES_W_RAIL3",
         "name": "Gauss Cannon",
+        "redComponents": [
+            "Cannon5VulcanMk1",
+            "Cannon375mmMk1"
+        ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
         ],

@@ -1,5 +1,22 @@
 Changelog:
 
+Refactored v2.5.1
+
+A balancing update that reworks a lot of research!
+
+Changes:
+- Reduced the production time of normal Cyborgs.
+- Nerfed the Heavy Plasma Launcher to match current MP balance.
+- Nerfed the scavenger's pit rockets by reducing their ROF but increasing their damage to closer match the default Mini-Rocket Pod.
+- Buffed Cyborg alloy upgrades from +30% HP and armor to +35%.
+- Buffed Cyborg Thermal Armor upgrades from +40% armor to +45% armor.
+- Buffed base structure upgrades from +30% armor to +35% armor.
+- Changed all weapon damage upgrades to increase damage by +25%. This is a slight nerf to most weapons overall (from +30% damage), but bombs were buffed substantially (from +10%).
+- Recalibrated the cost of the Hyper Velocity Cannon Hardpoint/Emplacement research.
+- Made a bunch of things obsolete a bunch of other things. (Tank Killer > Lancer & Mini-Rocket Pod, Cyclone > Hurricane, Assault Gun Tower > Heavy Machinegun Tower, etc.)
+- Nerfed the amount of MG and Mortar upgrades the Collective has from Beta 3 to Beta 6.
+- Removed a pointless line from the Gamma 1 script.
+
 Refactored v2.5.0
 
 A larger update that does a lot of work under the hood, a balance update, and some level tweaking all in one. Saves from earlier versions should be compatible, but there may be some funkiness.
