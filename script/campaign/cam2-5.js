@@ -144,7 +144,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comrept, cTempl.comct, cTempl.comatt, cTempl.comhpv, cTempl.comrlt, cTempl.copodt, cTempl.cohhot]
+			templates: [cTempl.comit, cTempl.comct, cTempl.comatt, cTempl.comhpv, cTempl.comrlt, cTempl.copodt, cTempl.cohhot]
 		},
 		"COCyborgFactoryL": {
 			assembly: "COCyborgFactoryLAssembly",

@@ -138,8 +138,15 @@ function cyborgAttackRandom()
 //North road attacker consisting of powerful weaponry.
 function tankAttack()
 {
+	var extras = [cTempl.comsens, cTempl.cohaaq];
 	var northTankAssembly = {x: 95, y: 3};
-	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt, cTempl.comrlt, cTempl.cohhot, cTempl.cohript, cTempl.comsens];
+	var list = [cTempl.comhltat, cTempl.cohact, cTempl.cohct, cTempl.comagt, cTempl.cohbbt, cTempl.comrlt, cTempl.cohhot, cTempl.cohript];
+
+	//Extra Sensors and Whirlwind AA.
+	for (i = 0; i < 4; ++i)
+	{
+		list.push(extras[camRand(extras.length)]);
+	}
 
 	camSendReinforcement(THE_COLLECTIVE, camMakePos(northTankAssembly), randomTemplates(list), CAM_REINFORCE_GROUND, {
 		data: { regroup: false, count: -1, },
@@ -203,8 +210,8 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	camSetupTransporter(tCoords.xStart, tCoords.yStart, tCoords.xOut, tCoords.yOut);
 
-	var enemyLz = {x: 49, y: 83, x2: 51, y2: 85};
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	//var enemyLz = {x: 49, y: 83, x2: 51, y2: 85};
+	//setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
 
 	setMissionTime(camMinutesToSeconds(30));
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);

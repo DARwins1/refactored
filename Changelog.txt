@@ -1,4 +1,15 @@
 Changelog:
+Refactored v2.5.2
+
+A smaller balance patch and a fix.
+
+Changes:
+- Buffed Rocket and Mini-Rocket damage upgrades from +25% to +35% to compensate for the lower amount of upgrades compared to cannons, as well as rockets in MP.
+- Finally came to the epiphany that the campaign AI sucked using mobile repair turrets, so all times where the Collective would build Heavy Repair Turrets have been replaced by Infernos.
+- The northern tank attack waves in Beta Final now have Sensor units tacked onto the waves, instead of the unit pool containing sensors. Also added a chance for Whirlwinds to be added instead of Sensors.
+- Stopped setting a the SW Collective LZ in the main map after Beta 5, since it's never used again and prevents building in that area.
+- The above change also removes the no-build zone found in Gamma campaign north of the main LZ after transitioning from Beta. The "No Go" area from Beta Campaign carried over preventing building in that area.
+
 
 Refactored v2.5.1
 
@@ -16,6 +27,7 @@ Changes:
 - Made a bunch of things obsolete a bunch of other things. (Tank Killer > Lancer & Mini-Rocket Pod, Cyclone > Hurricane, Assault Gun Tower > Heavy Machinegun Tower, etc.)
 - Nerfed the amount of MG and Mortar upgrades the Collective has from Beta 3 to Beta 6.
 - Removed a pointless line from the Gamma 1 script.
+
 
 Refactored v2.5.0
 
