@@ -157,7 +157,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comrept, cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comit, cTempl.comhpv, cTempl.comrlt, cTempl.copodt]
 		},
 		"COHeavyFactoryD": {
 			assembly: "COHeavyFactoryAssembly",
@@ -169,7 +169,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt, cTempl.comrept]
+			templates: [cTempl.comhpv, cTempl.comrlt, cTempl.copodt, cTempl.comit]
 		},
 		"COSouthCyborgFactory": {
 			assembly: "COSouthCyborgFactoryAssembly",

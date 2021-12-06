@@ -155,7 +155,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.cohhot, cTempl.cohact, cTempl.comagt, cTempl.comrept]
+			templates: [cTempl.cohhot, cTempl.cohact, cTempl.comagt, cTempl.comit]
 		},
 		"COHeavyFacR-b2": {
 			assembly: "COHeavyFacR-b2Assembly",
@@ -167,7 +167,7 @@ function eventStartLevel()
 				repair: 20,
 				count: -1,
 			},
-			templates: [cTempl.comrept, cTempl.comrotmh, cTempl.cohct, cTempl.comrlt]
+			templates: [cTempl.comit, cTempl.comrotmh, cTempl.cohct, cTempl.comrlt]
 		},
 		"COVtolFac-b3": {
 			order: CAM_ORDER_ATTACK,
