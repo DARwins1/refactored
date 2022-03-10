@@ -282,7 +282,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(GAMMA_ALLY_RES, ALPHA);
 	setAlliance(ALPHA, NEXUS, true);
 	setAlliance(ALPHA, CAM_HUMAN_PLAYER, true);
-	changePlayerColour(ALPHA, 0);
+	changePlayerColour(ALPHA, playerData[0].colour);
 
 	phantomFactoryNE();
 	phantomFactorySW();

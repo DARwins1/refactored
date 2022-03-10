@@ -306,6 +306,9 @@ function eventStartLevel()
 	setAlliance(CAM_HUMAN_PLAYER, SCAV_7, true);
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
 
+	// Replace flamer cyborgs with thermite
+	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, THE_COLLECTIVE);
+
 	camSetEnemyBases({
 		"COAirBase": {
 			cleanup: "airBaseCleanup",

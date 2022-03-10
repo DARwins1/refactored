@@ -111,6 +111,9 @@ function eventStartLevel()
 
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
 
+	// Replace flamer cyborgs with thermite
+	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, THE_COLLECTIVE);
+
 	camSetEnemyBases({
 		"COBase1": {
 			cleanup: "COBase1Cleanup",
