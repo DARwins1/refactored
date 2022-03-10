@@ -1,4 +1,18 @@
 Changelog:
+Refactored v2.5.3
+
+Update with some minor tweaks.
+
+Changes:
+- Added various level and scripting improvements from the latest versions of the game.
+- Implemented the Beta Final early finish (for all difficulties).
+- Gamma 1 now starts the player with Whirlwind tanks instead of Cyclones.
+- Pre-placed Flamer Cyborgs in after Beta 4 are now replaced by Thermite Cyborgs.
+- Project forces on Beta 2, Gamma 3, Gamma 4, and Gamma 6 now match the player's color instead of always being green.
+- NEXUS no longer wipes the player's VTOLs on Gamma Final; if you can get VTOLs anywhere close to that base you probably already deserve a medal.
+
+
+Changelog:
 Refactored v2.5.2
 
 A smaller balance patch and a fix.

@@ -372,7 +372,7 @@ function eventStartLevel()
 	hackAddMessage("CM3B_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER, false);
 	camPlayVideos([{video: "MB3_B_MSG", type: CAMP_MSG}, {video: "MB3_B_MSG2", type: MISS_MSG}]);
 
-	changePlayerColour(GAMMA, 0);
+	changePlayerColour(GAMMA, playerData[0].colour);
 	setAlliance(GAMMA, CAM_HUMAN_PLAYER, true);
 
 	queue("transferPower", camSecondsToMilliseconds(3));

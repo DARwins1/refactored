@@ -136,8 +136,8 @@ function eventStartLevel()
 	hackAddMessage("C21_OBJECTIVE", PROX_MSG, CAM_HUMAN_PLAYER, false);
 	setAlliance(CAM_HUMAN_PLAYER, TRANSPORT_TEAM, true);
 
-	//set downed transport team colour to be Project Green.
-	changePlayerColour(TRANSPORT_TEAM, 0);
+	//set downed transport team colour to match the player.
+	changePlayerColour(TRANSPORT_TEAM, playerData[0].colour);
 
 	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
 	camCompleteRequiredResearch(ALPHA_RESEARCH, TRANSPORT_TEAM);

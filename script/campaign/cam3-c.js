@@ -244,7 +244,7 @@ function eventStartLevel()
 
 	camPlayVideos([{video: "MB3_C_MSG", type: CAMP_MSG}, {video: "MB3_C_MSG2", type: MISS_MSG}]);
 	setScrollLimits(0, 137, 64, 192); //Show the middle section of the map.
-	changePlayerColour(GAMMA, 0);
+	changePlayerColour(GAMMA, playerData[0].colour);
 
 	queue("setupPatrolGroups", camSecondsToMilliseconds(10));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));

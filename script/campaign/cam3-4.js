@@ -59,12 +59,6 @@ function firstAbsorbAttack()
 	for (var i = 0, len = objects.length; i < len; ++i)
 	{
 		var obj = objects[i];
-		//Destroy all the VTOLs to prevent a player from instantly defeating the HQ in a rush. (Only on Hard+)
-		if (obj.type === DROID && isVTOL(obj) && (difficulty >= HARD))
-		{
-			camSafeRemoveObject(obj, true);
-			continue;
-		}
 		//Absorb some structures from the player
 		if (obj.type === STRUCTURE)
 		{
@@ -187,7 +181,7 @@ function eventStartLevel()
 	var tpos = getObject("transportEntryExit");
 	var lz = getObject("landingZone");
 
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "GAMMA_OUT", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, CAM_GAMMA_OUT, {
 		area: "RTLZ",
 		reinforcements: camMinutesToSeconds(1),
 		annihilate: true

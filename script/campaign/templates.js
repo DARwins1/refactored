@@ -125,7 +125,7 @@ nxlscouv: { body: "Body3MBT", prop: "V-Tol02", weap: "Missile-VTOL-AT" },
 nxmtherv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb4-VTOL-HvyINC" },
 prhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" },
 prhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Tank (Swapped with HPV)
-prhaacnt: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" },
+prhaacnt: { body: "Body11ABT", prop: "tracked01", weap: "QuadRotAAGun" },
 
 // CAM_3_1
 nxmcommh: { body: "Body7ABT", prop: "hover02", weap: "CommandTurret1" },
