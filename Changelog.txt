@@ -1,4 +1,11 @@
 Changelog:
+Refactored v2.5.5
+
+Quick update to resolve issues with Alpha 5.
+
+Changes:
+- Updated labels to fix missing south scav base and Hardcrete artifact.
+
 Refactored v2.5.4
 
 Update with bugfixes to work with recent versions.
