@@ -3,7 +3,12 @@
 // Nexus related functionality.
 ////////////////////////////////////////////////////////////////////////////////
 
-//Play a random laugh.
+//;; ## camNexusLaugh()
+//;;
+//;; Play a random NEXUS laugh.
+//;;
+//;; @returns {void}
+//;;
 function camNexusLaugh()
 {
 	const LAUGH_CHANCE = 45;
@@ -14,6 +19,15 @@ function camNexusLaugh()
 	}
 }
 
+//;; ## camAbsorbPlayer([who[, to]])
+//;;
+//;; Completely give all of player `who` droids and structures to player `to`.
+//;; Will default to `CAM_HUMAN_PLAYER` and `NEXUS` respectively.
+//;;
+//;; @param {number} [who]
+//;; @param {number} [to]
+//;; @returns {void}
+//;;
 function camAbsorbPlayer(who, to)
 {
 	if (!camDef(who))
@@ -27,7 +41,7 @@ function camAbsorbPlayer(who, to)
 
 	var units = enumDroid(who);
 
-	for (var i = 0, len = units.length; i < len; i++)
+	for (let i = 0, len = units.length; i < len; ++i)
 	{
 		var droid = units[i];
 		if (!donateObject(droid, to))
@@ -37,7 +51,7 @@ function camAbsorbPlayer(who, to)
 	}
 
 	var structs = enumStruct(who);
-	for (var i = 0, len = structs.length; i < len; i++)
+	for (let i = 0, len = structs.length; i < len; ++i)
 	{
 		var structure = structs[i];
 		if (!donateObject(structure, to))
@@ -50,7 +64,15 @@ function camAbsorbPlayer(who, to)
 	changePlayerColour(who, to);
 }
 
-//Steal a droid or structure from a player.
+//;; ## camHackIntoPlayer([player[, to]])
+//;;
+//;; Steal a droid or structure from a player if the NEXUS hack state is active.
+//;; Will default to `CAM_HUMAN_PLAYER` and `NEXUS` respectively.
+//;;
+//;; @param {number} [player]
+//;; @param {number} [to]
+//;; @returns {void}
+//;;
 function camHackIntoPlayer(player, to)
 {
 	if (__camNexusActivated === false)
@@ -127,11 +149,24 @@ function camHackIntoPlayer(player, to)
 	}
 }
 
+//;; ## camSetNexusState(flag)
+//;;
+//;; Turn on/off the NEXUS hacking state feature.
+//;;
+//;; @param {boolean} flag
+//;; @returns {void}
+//;;
 function camSetNexusState(flag)
 {
 	__camNexusActivated = flag;
 }
 
+//;; ## camGetNexusState()
+//;;
+//;; Returns the activation state of the NEXUS hacking feature.
+//;;
+//;; @returns {boolean}
+//;;
 function camGetNexusState()
 {
 	return __camNexusActivated;
@@ -158,9 +193,7 @@ function __camChooseNexusTarget(player)
 
 	if (camRand(100) < TARGET_UNIT_CHANCE)
 	{
-		objects = enumDroid(player).filter(function(d) {
-			return !camIsTransporter(d);
-		});
+		objects = enumDroid(player).filter((d) => (!camIsTransporter(d)));
 
 		const EXP = {
 			rookie: 0,
@@ -176,7 +209,7 @@ function __camChooseNexusTarget(player)
 
 		//As the player researches more resistance upgrades their higher exp units will become more safe
 		//Trucks get a little more safe with each upgrade also.
-		objects = objects.filter(function(d) {
+		objects = objects.filter((d) => {
 			if (__camNextLevel === CAM_GAMMA_OUT) //Final mission has a static fail chance to hack everything (except for hero units).
 			{
 				if (d.droidType === DROID_CONSTRUCT)
@@ -229,30 +262,23 @@ function __camChooseNexusTarget(player)
 		//Has explicit chances to target factories or research labs.
 		switch (camRand(8))
 		{
-			case 0: objects = enumStruct(player, FACTORY).filter(function(s) { return (s.status === BUILT); }); break;
-			case 1: objects = enumStruct(player, CYBORG_FACTORY).filter(function(s) { return (s.status === BUILT); }); break;
-			case 2: objects = enumStruct(player, VTOL_FACTORY).filter(function(s) { return (s.status === BUILT); }); break;
-			case 3: objects = enumStruct(player, RESEARCH_LAB).filter(function(r) { return (r.status === BUILT); }); break;
+			case 0: objects = enumStruct(player, FACTORY).filter((s) => (s.status === BUILT)); break;
+			case 1: objects = enumStruct(player, CYBORG_FACTORY).filter((s) => (s.status === BUILT)); break;
+			case 2: objects = enumStruct(player, VTOL_FACTORY).filter((s) => (s.status === BUILT)); break;
+			case 3: objects = enumStruct(player, RESEARCH_LAB).filter((r) => (r.status === BUILT)); break;
 			default: //do nothing
 		}
 
 		if (objects.length === 0)
 		{
-			objects = enumStruct(player).filter(function(s) { return (s.status === BUILT); });
+			objects = enumStruct(player).filter((s) => (s.status === BUILT));
 		}
 
-		objects = objects.filter(function(s) {
+		objects = objects.filter((s) => (
 			//cam3-ab is way too annoying if Nexus can still take factories after the second resistance upgrade.
-			if (getResearch("R-Sys-Resistance-Upgrade02").done &&
-				(s.stattype === FACTORY ||
-				s.stattype === CYBORG_FACTORY ||
-				s.stattype === VTOL_FACTORY))
-			{
-				return false;
-			}
-
-			return true;
-		});
+			!(getResearch("R-Sys-Resistance-Upgrade02").done &&
+			(s.stattype === FACTORY || s.stattype === CYBORG_FACTORY || s.stattype === VTOL_FACTORY))
+		));
 	}
 
 	return objects;

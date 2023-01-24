@@ -1,4 +1,16 @@
 Changelog:
+Refactored v2.5.4
+
+Update with bugfixes to work with recent versions.
+
+Changes:
+- Mod now comes with its own copy of libcampaign, this should reduce the chances of future updates breaking scripts.
+- Updated nexus.js and victory.js to match their modern base counterparts.
+- Implemented the improved "Under Attack!" message system from Fractured Kingdom.
+- Made propulsions use the new single-model system.
+- Updated Super Cyborgs and Cyborg Mechanics to use their modern models.
+
+
 Refactored v2.5.3
 
 Update with some minor tweaks.
