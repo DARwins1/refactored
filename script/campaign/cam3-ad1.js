@@ -3,7 +3,7 @@ include("script/campaign/templates.js");
 
 const SILO_PLAYER = 1;
 const LASSAT_FIRING = "pcv650.ogg"; // LASER SATELLITE FIRING!!!
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals08",
 	"R-Cyborg-Metals08", "R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
@@ -81,8 +81,8 @@ function enableAllFactories()
 //when no target is found in the area.
 function vaporizeTarget()
 {
-	var target;
-	var targets = enumArea(0, 0, mapWidth, Math.floor(mapLimit), CAM_HUMAN_PLAYER, false).filter(function(obj) {
+	let target;
+	const targets = enumArea(0, 0, mapWidth, Math.floor(mapLimit), CAM_HUMAN_PLAYER, false).filter(function(obj) {
 		return obj.type === DROID || obj.type === STRUCTURE;
 	});
 
@@ -96,9 +96,9 @@ function vaporizeTarget()
 	}
 	else
 	{
-		var dr = targets.filter(function(obj) { return obj.type === DROID && !isVTOL(obj); });
-		var vt = targets.filter(function(obj) { return obj.type === DROID && isVTOL(obj); });
-		var st = targets.filter(function(obj) { return obj.type === STRUCTURE; });
+		const dr = targets.filter(function(obj) { return obj.type === DROID && !isVTOL(obj); });
+		const vt = targets.filter(function(obj) { return obj.type === DROID && isVTOL(obj); });
+		const st = targets.filter(function(obj) { return obj.type === STRUCTURE; });
 
 		if (dr.length)
 		{
@@ -133,18 +133,18 @@ function vaporizeTarget()
 //A simple way to fire the LasSat with a chance of missing.
 function laserSatFuzzyStrike(obj)
 {
-	const LOC = camMakePos(obj);
+	const loc = camMakePos(obj);
 	//Initially lock onto target
-	var xCoord = LOC.x;
-	var yCoord = LOC.y;
+	let xCoord = loc.x;
+	let yCoord = loc.y;
 
 	//Introduce some randomness
 	if (camRand(101) < 67)
 	{
-		var xRand = camRand(3);
-		var yRand = camRand(3);
-		xCoord = camRand(2) ? LOC.x - xRand : LOC.x + xRand;
-		yCoord = camRand(2) ? LOC.y - yRand : LOC.y + yRand;
+		const X_RAND = camRand(3);
+		const Y_RAND = camRand(3);
+		xCoord = camRand(2) ? loc.x - X_RAND : loc.x + X_RAND;
+		yCoord = camRand(2) ? loc.y - Y_RAND : loc.y + Y_RAND;
 	}
 
 	if (xCoord < 0)
@@ -171,7 +171,7 @@ function laserSatFuzzyStrike(obj)
 	}
 
 	//Missed it so hit close to target.
-	if (LOC.x !== xCoord || LOC.y !== yCoord || !camDef(obj.id))
+	if (loc.x !== xCoord || loc.y !== yCoord || !camDef(obj.id))
 	{
 		fireWeaponAtLoc("LasSat", xCoord, yCoord, CAM_HUMAN_PLAYER);
 	}
@@ -204,10 +204,10 @@ function checkMissileSilos()
 		return true;
 	}
 
-	var siloArea = camMakePos(getObject("missileSilos"));
-	var safe = enumRange(siloArea.x, siloArea.y, 10, ALL_PLAYERS, false);
-	var enemies = safe.filter(function(obj) { return obj.player === NEXUS; });
-	var player = safe.filter(function(obj) { return obj.player === CAM_HUMAN_PLAYER; });
+	const siloArea = camMakePos(getObject("missileSilos"));
+	const safe = enumRange(siloArea.x, siloArea.y, 10, ALL_PLAYERS, false);
+	const enemies = safe.filter(function(obj) { return obj.player === CAM_NEXUS; });
+	const player = safe.filter(function(obj) { return obj.player === CAM_HUMAN_PLAYER; });
 	if (!enemies.length && player.length)
 	{
 		camCallOnce("allySiloWithPlayer");
@@ -218,10 +218,10 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Secure a missile silo"));
 
-	var siloZone = getObject("missileSilos");
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone");
-	var lz2 = getObject("landingZone2");
+	const siloZone = getObject("missileSilos");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone");
+	const lz2 = getObject("landingZone2");
 	mapLimit = 1.0;
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "CAM3A-D2", {
@@ -230,17 +230,17 @@ function eventStartLevel()
 
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setNoGoArea(lz2.x, lz2.y, lz2.x2, lz2.y2, NEXUS); //LZ for cam3-4s.
+	setNoGoArea(lz2.x, lz2.y, lz2.x2, lz2.y2, CAM_NEXUS); //LZ for cam3-4s.
 	setNoGoArea(siloZone.x, siloZone.y, siloZone.x2, siloZone.y2, SILO_PLAYER);
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 
-	var enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	const enemyLz = getObject("NXlandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 
 	setAlliance(CAM_HUMAN_PLAYER, SILO_PLAYER, true);
-	setAlliance(NEXUS, SILO_PLAYER, true);
+	setAlliance(CAM_NEXUS, SILO_PLAYER, true);
 
 	camSetArtifacts({
 		"NXbase1VtolFacArti": { tech: "R-Wpn-MdArtMissile" },

@@ -1,7 +1,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const COLLECTIVE_RES = [
+const mis_collectiveRes = [
 	"R-Defense-WallUpgrade03", "R-Struc-Materials04", "R-Struc-Factory-Upgrade04",
 	"R-Struc-VTOLPad-Upgrade01", "R-Vehicle-Engine04", "R-Vehicle-Metals04",
 	"R-Cyborg-Metals04", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04", "R-Wpn-Cannon-ROF02",
@@ -18,7 +18,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 	{
 		camSafeRemoveObject(droid, false);
 	}
-	resetLabel("vtolRemoveZone", THE_COLLECTIVE);
+	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
 });
 
 camAreaEvent("factoryTrigger", function(droid)
@@ -33,7 +33,7 @@ function camEnemyBaseDetected_COMiddleBase()
 {
 	hackRemoveMessage("C2B_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	var droids = enumArea("base4Cleanup", THE_COLLECTIVE, false).filter(function(obj) {
+	const droids = enumArea("base4Cleanup", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && obj.group === null;
 	});
 
@@ -83,25 +83,25 @@ function ambushPlayer()
 
 function vtolAttack()
 {
-	var list = [cTempl.colcbv, cTempl.colatv];
-	var ext = {
+	const list = [cTempl.colcbv, cTempl.colatv];
+	const ext = {
 		limit: [4, 4], //paired with list array
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemove", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "COCommandCenter", ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemove", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "COCommandCenter", ext);
 }
 
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
+	if (enumDroid(CAM_THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
 		removeTimer("truckDefense");
 		return;
 	}
 
 	const list = ["CO-Tower-MG3", "CO-Tower-LtATRkt", "CO-Tower-MdCan", "CO-Tower-LtATRkt"];
-	camQueueBuilding(THE_COLLECTIVE, list[camRand(list.length)]);
+	camQueueBuilding(CAM_THE_COLLECTIVE, list[camRand(list.length)]);
 }
 
 function transferPower()
@@ -115,13 +115,13 @@ function eventStartLevel()
 {
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_2_2S");
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	const enemyLz = getObject("COLandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
 
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	camPlayVideos([{video: "MB2_B_MSG", type: CAMP_MSG}, {video: "MB2_B_MSG2", type: MISS_MSG}]);
@@ -134,7 +134,7 @@ function eventStartLevel()
 		"COCybFacL-b2": { tech: "R-Cyborg-Hvywpn-Mcannon" }, //Super Heavy-Gunner
 	});
 
-	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"CONorthBase": {
@@ -232,7 +232,7 @@ function eventStartLevel()
 		},
 	});
 
-	camManageTrucks(THE_COLLECTIVE);
+	camManageTrucks(CAM_THE_COLLECTIVE);
 	truckDefense();
 	hackAddMessage("C2B_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 

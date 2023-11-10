@@ -1,7 +1,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const PLAYER_RES = [
+const mis_playerRes = [
 	"R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
 ];
 
@@ -25,8 +25,8 @@ camAreaEvent("launchScavAttack", function(droid)
 
 function runAway()
 {
-	var oilPatch = getObject("oilPatch");
-	var droids = enumRange(oilPatch.x, oilPatch.y, 7, SCAV_7, false);
+	const oilPatch = getObject("oilPatch");
+	const droids = enumRange(oilPatch.x, oilPatch.y, 7, CAM_SCAV_7, false);
 	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
 		pos: camMakePos("scavAttack1"),
 		fallback: camMakePos("retreat1"),
@@ -84,10 +84,10 @@ function eventStructureBuilt(structure, droid)
 	if (structure.player === CAM_HUMAN_PLAYER && structure.stattype === RESOURCE_EXTRACTOR)
 	{
 		// Is it in the base two area?
-		var objs = enumArea("scavBase2Cleanup", CAM_HUMAN_PLAYER);
-		for (var i = 0, l = objs.length; i < l; ++i)
+		const objs = enumArea("scavBase2Cleanup", CAM_HUMAN_PLAYER);
+		for (let i = 0, l = objs.length; i < l; ++i)
 		{
-			var obj = objs[i];
+			const obj = objs[i];
 			if (obj.type === STRUCTURE && obj.stattype === RESOURCE_EXTRACTOR)
 			{
 				camCallOnce("raidAttack");
@@ -119,7 +119,7 @@ function enableBaseStructures()
 		"A0ResearchFacility", "A0LightFactory",
 	];
 
-	for (var i = 0; i < STRUCTS.length; ++i)
+	for (let i = 0; i < STRUCTS.length; ++i)
 	{
 		enableStructure(STRUCTS[i], CAM_HUMAN_PLAYER);
 	}
@@ -128,8 +128,8 @@ function enableBaseStructures()
 function eventStartLevel()
 {
 	const PLAYER_POWER = 1300;
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone");
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "CAM_1B");
 
@@ -149,10 +149,10 @@ function eventStartLevel()
 		setPower(PLAYER_POWER, CAM_HUMAN_PLAYER);
 	}
 
-	setAlliance(SCAV_6, SCAV_7, true);
+	setAlliance(CAM_SCAV_6, CAM_SCAV_7, true);
 
 	enableBaseStructures();
-	camCompleteRequiredResearch(PLAYER_RES, CAM_HUMAN_PLAYER);
+	camCompleteRequiredResearch(mis_playerRes, CAM_HUMAN_PLAYER);
 
 	// Give player briefing.
 	hackAddMessage("CMB1_MSG", CAMP_MSG, CAM_HUMAN_PLAYER, false);

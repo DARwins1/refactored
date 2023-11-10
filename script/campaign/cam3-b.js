@@ -6,7 +6,7 @@ var trapActive;
 var gammaAttackCount;
 var truckLocCounter;
 const GAMMA = 1; // Player 1 is Gamma team.
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals06",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
@@ -28,7 +28,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 		}
 	}
 
-	resetLabel("vtolRemoveZone", NEXUS);
+	resetLabel("vtolRemoveZone", CAM_NEXUS);
 });
 
 camAreaEvent("trapTrigger", function(droid)
@@ -38,7 +38,7 @@ camAreaEvent("trapTrigger", function(droid)
 
 camAreaEvent("mockBattleTrigger", function(droid)
 {
-	setAlliance(GAMMA, NEXUS, false); //brief mockup battle
+	setAlliance(GAMMA, CAM_NEXUS, false); //brief mockup battle
 	camCallOnce("activateNexusGroups"); //help destroy Gamma base
 });
 
@@ -55,14 +55,14 @@ function camEnemyBaseEliminated_NXWestBase()
 //Setup Nexus VTOL hit and runners.
 function vtolAttack()
 {
-	var list = [cTempl.nxmheapv, cTempl.nxlscouv, cTempl.nxmtherv, cTempl.nxlscouv];
-	var ext = {
+	const list = [cTempl.nxmheapv, cTempl.nxlscouv, cTempl.nxmtherv, cTempl.nxlscouv];
+	const ext = {
 		limit: [5, 2, 5, 2], //paired with template list
 		alternate: true,
 		altIdx: 0
 	};
 
-	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
 }
 
 function enableAllFactories()
@@ -76,12 +76,12 @@ function getDroidsForNXLZ()
 {
 	//Choose 10 out of this big pile of units
 	const COUNT = 10;
-	var units = [cTempl.npsbb, cTempl.npsmct, cTempl.npmsens, cTempl.nphmgh, cTempl.nphct, cTempl.npmorb, cTempl.npltat,
+	const units = [cTempl.npsbb, cTempl.npsmct, cTempl.npmsens, cTempl.nphmgh, cTempl.nphct, cTempl.npmorb, cTempl.npltat,
 	 cTempl.cohct, cTempl.comrlt, cTempl.comagt, cTempl.comhpv, cTempl.comhltat, cTempl.cohript, cTempl.comit, cTempl.comrotmh, cTempl.cohbbt, cTempl.cohact,
 	  cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
 
-	var droids = [];
-	for (var i = 0; i < COUNT; ++i)
+	const droids = [];
+	for (let i = 0; i < COUNT; ++i)
 	{
 		droids.push(units[camRand(units.length)]);
 	}
@@ -93,10 +93,10 @@ function getDroidsForNXLZ()
 function getDroidsForPhantomFactory()
 {
 	const COUNT = 10 + camRand(6);
-	var units = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxmlinkh, cTempl.nxmrailh, cTempl.nxmsamh, cTempl.nxmplash]; //Mix of NX units
+	const units = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxmlinkh, cTempl.nxmrailh, cTempl.nxmsamh, cTempl.nxmplash]; //Mix of NX units
 
-	var droids = [];
-	for (var i = 0; i < COUNT; ++i)
+	const droids = [];
+	for (let i = 0; i < COUNT; ++i)
 	{
 		droids.push(units[camRand(units.length)]);
 	}
@@ -107,24 +107,24 @@ function getDroidsForPhantomFactory()
 //Send Nexus transport units
 function sendNXTransporter()
 {
-	if (camCountStructuresInArea("NXEastBaseCleanup", NEXUS) === 0 &&
-		camCountStructuresInArea("NXWestBaseCleanup", NEXUS) === 0)
+	if (camCountStructuresInArea("NXEastBaseCleanup", CAM_NEXUS) === 0 &&
+		camCountStructuresInArea("NXWestBaseCleanup", CAM_NEXUS) === 0)
 	{
 		return; //Call off transport when both west and east Nexus bases are destroyed.
 	}
 
 	const LZ_ALIAS = "CM3B_TRANS"; //1 and 2
-	var list = getDroidsForNXLZ();
-	var lzNum;
-	var pos;
+	const list = getDroidsForNXLZ();
+	let lzNum;
+	let pos;
 
-	if (camCountStructuresInArea("NXEastBaseCleanup", NEXUS) > 0)
+	if (camCountStructuresInArea("NXEastBaseCleanup", CAM_NEXUS) > 0)
 	{
 		lzNum = 1;
 		pos = "nexusEastTransportPos";
 	}
 
-	if (camCountStructuresInArea("NXWestBaseCleanup", NEXUS) > 0 && (camRand(2) || !camDef(pos)))
+	if (camCountStructuresInArea("NXWestBaseCleanup", CAM_NEXUS) > 0 && (camRand(2) || !camDef(pos)))
 	{
 		lzNum = 2;
 		pos = "nexusWestTransportPos";
@@ -132,7 +132,7 @@ function sendNXTransporter()
 
 	if (camDef(pos))
 	{
-		camSendReinforcement(NEXUS, camMakePos(pos), list, CAM_REINFORCE_TRANSPORT, {
+		camSendReinforcement(CAM_NEXUS, camMakePos(pos), list, CAM_REINFORCE_TRANSPORT, {
 			message: LZ_ALIAS + lzNum,
 			entry: { x: 62, y: 4 },
 			exit: { x: 62, y: 4 }
@@ -147,13 +147,13 @@ function sendNXTransporter()
 //Send Nexus land units
 function sendNXlandReinforcements()
 {
-	if (!enumArea("NXWestBaseCleanup", NEXUS, false).length)
+	if (!enumArea("NXWestBaseCleanup", CAM_NEXUS, false).length)
 	{
 		removeTimer("sendNXlandReinforcements");
 		return;
 	}
 
-	camSendReinforcement(NEXUS, camMakePos("westPhantomFactory"), getDroidsForPhantomFactory(),
+	camSendReinforcement(CAM_NEXUS, camMakePos("westPhantomFactory"), getDroidsForPhantomFactory(),
 		CAM_REINFORCE_GROUND, {
 			data: {regroup: true, count: -1,},
 		}
@@ -163,9 +163,9 @@ function sendNXlandReinforcements()
 function transferPower()
 {
     const AWARD = 5000;
-    var powerTransferSound = "power-transferred.ogg";
+    const POWER_TRANSFER_SND = "power-transferred.ogg";
     setPower(playerPower(CAM_HUMAN_PLAYER) + AWARD, CAM_HUMAN_PLAYER);
-    playSound(powerTransferSound);
+    playSound(POWER_TRANSFER_SND);
 }
 
 function activateNexusGroups()
@@ -216,8 +216,8 @@ function truckDefense()
 		return;
 	}
 
-	var list = ["Emplacement-Howitzer150", "Emplacement-HvART-pit", "Emplacement-RotHow"];
-	var position;
+	const list = ["Emplacement-Howitzer150", "Emplacement-HvART-pit", "Emplacement-RotHow"];
+	let position;
 
 	if (truckLocCounter === 0)
 	{
@@ -236,7 +236,7 @@ function truckDefense()
 //Take everything Gamma has and donate to Nexus.
 function trapSprung()
 {
-	setAlliance(GAMMA, NEXUS, true);
+	setAlliance(GAMMA, CAM_NEXUS, true);
 	setAlliance(GAMMA, CAM_HUMAN_PLAYER, false);
 	camPlayVideos({video: "MB3_B_MSG3", type: CAMP_MSG});
 	hackRemoveMessage("CM3B_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER);
@@ -246,7 +246,7 @@ function trapSprung()
 	enableAllFactories();
 
 	sendNXTransporter();
-	changePlayerColour(GAMMA, NEXUS); // Black painting.
+	changePlayerColour(GAMMA, CAM_NEXUS); // Black painting.
 	playSound(SYNAPTICS_ACTIVATED);
 
 	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(3)));
@@ -258,7 +258,7 @@ function setupCapture()
 {
 	trapActive = true;
 	playSound("pcv455.ogg"); //Incoming message.
-	setAlliance(GAMMA, NEXUS, false);
+	setAlliance(GAMMA, CAM_NEXUS, false);
 
 	queue("trapSprung", camSecondsToMilliseconds(2)); //call this a few seconds later
 }
@@ -270,7 +270,7 @@ function eventAttacked(victim, attacker)
 		camCallOnce("setupCapture");
 	}
 
-	if (victim.player === GAMMA && attacker.player === NEXUS)
+	if (victim.player === GAMMA && attacker.player === CAM_NEXUS)
 	{
 		gammaAttackCount = gammaAttackCount + 1;
 	}
@@ -281,8 +281,8 @@ function eventStartLevel()
 	trapActive = false;
 	gammaAttackCount = 0;
 	truckLocCounter = 0;
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone");
 
      camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_3_2S");
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30))); // For the rescue mission.
@@ -290,18 +290,18 @@ function eventStartLevel()
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("NXlandingZone");
-	var enemyLz2 = getObject("NXlandingZone2");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	const enemyLz = getObject("NXlandingZone");
+	const enemyLz2 = getObject("NXlandingZone2");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 	setNoGoArea(enemyLz2.x, enemyLz2.y, enemyLz2.x2, enemyLz2.y2, 5);
 
-	camCompleteRequiredResearch(GAMMA_ALLY_RES, NEXUS);
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
-	camCompleteRequiredResearch(GAMMA_ALLY_RES, GAMMA);
-	camCompleteRequiredResearch(NEXUS_RES, GAMMA); //They get even more research.
+	camCompleteRequiredResearch(mis_gammaAllyRes, CAM_NEXUS);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
+	camCompleteRequiredResearch(mis_gammaAllyRes, GAMMA);
+	camCompleteRequiredResearch(mis_nexusRes, GAMMA); //They get even more research.
 
 	setAlliance(GAMMA, CAM_HUMAN_PLAYER, false);
-	setAlliance(GAMMA, NEXUS, true);
+	setAlliance(GAMMA, CAM_NEXUS, true);
 
 	camSetArtifacts({
 		"NXCommandCenter": { tech: "R-Struc-Research-Upgrade07" },

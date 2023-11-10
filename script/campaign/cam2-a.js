@@ -10,7 +10,7 @@ var startedFromMenu;
 camAreaEvent("vtolRemoveZone", function(droid)
 {
 	camSafeRemoveObject(droid, false);
-	resetLabel("vtolRemoveZone", THE_COLLECTIVE);
+	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
 });
 
 //Attack and destroy all those who resist the Machine! -The Collective
@@ -22,33 +22,32 @@ function secondVideo()
 //Damage the base and droids for the player
 function preDamageStuff()
 {
-	var droids = enumDroid(CAM_HUMAN_PLAYER);
-	var structures = enumStruct(CAM_HUMAN_PLAYER);
-	var x = 0;
+	const droids = enumDroid(CAM_HUMAN_PLAYER);
+	const structures = enumStruct(CAM_HUMAN_PLAYER);
 
-	for (x = 0; x < droids.length; ++x)
+	for (let x = 0; x < droids.length; ++x)
 	{
-		var droid = droids[x];
+		const droid = droids[x];
 		if (!camIsTransporter(droid))
 		{
 			setHealth(droid, 45 + camRand(20));
 		}
 	}
 
-	for (x = 0; x < structures.length; ++x)
+	for (let x = 0; x < structures.length; ++x)
 	{
-		var struc = structures[x];
+		const struc = structures[x];
 		setHealth(struc, 45 + camRand(45));
 	}
 }
 
 function getDroidsForCOLZ()
 {
-	var droids = [];
-	var count = 6 + camRand(5);
-	var templates;
-	var sensors = [cTempl.comsens, cTempl.comsens];
-	var usingHeavy = false;
+	const droids = [];
+	const sensors = [cTempl.comsens, cTempl.comsens];
+	const COUNT = 6 + camRand(5);
+	let templates;
+	let usingHeavy = false;
 
 	if (camRand(100) < 50)
 	{
@@ -60,7 +59,7 @@ function getDroidsForCOLZ()
 		usingHeavy = true;
 	}
 
-	for (var i = 0; i < count; ++i)
+	for (let i = 0; i < COUNT; ++i)
 	{
 		if (!i && usingHeavy)
 		{
@@ -78,13 +77,13 @@ function getDroidsForCOLZ()
 //Send Collective transport units
 function sendCOTransporter()
 {
-	var tPos = getObject("COTransportPos");
-	var nearbyDefense = enumRange(tPos.x, tPos.y, 15, THE_COLLECTIVE, false);
+	const tPos = getObject("COTransportPos");
+	const nearbyDefense = enumRange(tPos.x, tPos.y, 15, CAM_THE_COLLECTIVE, false);
 
 	if (nearbyDefense.length > 0)
 	{
-		var list = getDroidsForCOLZ();
-		camSendReinforcement(THE_COLLECTIVE, camMakePos("COTransportPos"), list,
+		const list = getDroidsForCOLZ();
+		camSendReinforcement(CAM_THE_COLLECTIVE, camMakePos("COTransportPos"), list,
 			CAM_REINFORCE_TRANSPORT, {
 				entry: { x: 125, y: 100 },
 				exit: { x: 125, y: 70 }
@@ -112,10 +111,10 @@ function sendPlayerTransporter()
 		return;
 	}
 
-	var droids = [];
-	var list = [cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prltat, cTempl.prltat, cTempl.npcybr, cTempl.prrept];
+	const droids = [];
+	const list = [cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prhhpvt, cTempl.prltat, cTempl.prltat, cTempl.npcybr, cTempl.prrept];
 
-	for (var i = 0; i < 10; ++i)
+	for (let i = 0; i < 10; ++i)
 	{
 		droids.push(list[camRand(list.length)]);
 	}
@@ -131,22 +130,22 @@ function sendPlayerTransporter()
 //Continuously spawns heavy units on the north part of the map every 7 minutes
 function mapEdgeDroids()
 {
-	var TankNum = 8 + camRand(6);
-	var list = [cTempl.npcybm, cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.comct, cTempl.cohct, cTempl.copodt];
+	const TANK_NUM = 8 + camRand(6);
+	const list = [cTempl.npcybm, cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.comct, cTempl.cohct, cTempl.copodt];
 
-	var droids = [];
-	for (var i = 0; i < TankNum; ++i)
+	const droids = [];
+	for (let i = 0; i < TANK_NUM; ++i)
 	{
 		droids.push(list[camRand(list.length)]);
 	}
 
-	camSendReinforcement(THE_COLLECTIVE, camMakePos("groundUnitPos"), droids, CAM_REINFORCE_GROUND);
+	camSendReinforcement(CAM_THE_COLLECTIVE, camMakePos("groundUnitPos"), droids, CAM_REINFORCE_GROUND);
 }
 
 function vtolAttack()
 {
-	var list = [cTempl.colcbv];
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
+	const list = [cTempl.colcbv];
+	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", list, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter");
 }
 
 function groupPatrol()
@@ -174,20 +173,20 @@ function groupPatrol()
 //Build defenses around oil resource
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
+	if (enumDroid(CAM_THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
 		removeTimer("truckDefense");
 		return;
 	}
 
 	const DEFENSES = ["CO-Tower-LtATRkt", "PillBox1", "CO-Tower-MdCan"];
-	camQueueBuilding(THE_COLLECTIVE, DEFENSES[camRand(DEFENSES.length)]);
+	camQueueBuilding(CAM_THE_COLLECTIVE, DEFENSES[camRand(DEFENSES.length)]);
 }
 
 //Gives starting tech and research.
 function cam2Setup()
 {
-	const COLLECTIVE_RES = [
+	const mis_collectiveRes = [
 		"R-Wpn-MG1Mk1", "R-Sys-Engineering02",
 		"R-Defense-WallUpgrade03", "R-Struc-Materials03",
 		"R-Struc-Factory-Upgrade03",
@@ -201,15 +200,15 @@ function cam2Setup()
 		"R-Wpn-RocketSlow-Damage03", "R-Sys-Sensor-Upgrade01"
 	];
 
-	for (var x = 0, l = STRUCTS_ALPHA.length; x < l; ++x)
+	for (let x = 0, l = mis_structsAlpha.length; x < l; ++x)
 	{
-		enableStructure(STRUCTS_ALPHA[x], CAM_HUMAN_PLAYER);
+		enableStructure(mis_structsAlpha[x], CAM_HUMAN_PLAYER);
 	}
 
-	camCompleteRequiredResearch(PLAYER_RES_BETA, CAM_HUMAN_PLAYER);
-	camCompleteRequiredResearch(ALPHA_RESEARCH_NEW, THE_COLLECTIVE);
-	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
-	camCompleteRequiredResearch(ALPHA_RESEARCH_NEW, CAM_HUMAN_PLAYER);
+	camCompleteRequiredResearch(mis_playerResBeta, CAM_HUMAN_PLAYER);
+	camCompleteRequiredResearch(mis_alphaResearchNew, CAM_THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_alphaResearchNew, CAM_HUMAN_PLAYER);
 
 	enableResearch("R-Wpn-Cannon-Damage04", CAM_HUMAN_PLAYER);
 	enableResearch("R-Wpn-Rocket-Damage04", CAM_HUMAN_PLAYER);
@@ -220,8 +219,8 @@ function cam2Setup()
 function setUnitRank(transport)
 {
 	const DROID_EXP = [128, 64, 32, 16];
-	var droids;
-	var mapRun = false;
+	let droids;
+	let mapRun = false;
 
 	if (transport)
 	{
@@ -236,9 +235,9 @@ function setUnitRank(transport)
 		});
 	}
 
-	for (var i = 0, len = droids.length; i < len; ++i)
+	for (let i = 0, len = droids.length; i < len; ++i)
 	{
-		var droid = droids[i];
+		const droid = droids[i];
 		if (!camIsSystemDroid(droid))
 		{
 			setDroidExperience(droid, DROID_EXP[mapRun ? 0 : (transporterIndex - 1)]);
@@ -305,18 +304,18 @@ function eventGameLoaded()
 function eventStartLevel()
 {
 	const PLAYER_POWER = 5000;
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
-	var enemyLz = getObject("COLandingZone");
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
+	const enemyLz = getObject("COLandingZone");
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_2_1S");
 	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
@@ -346,7 +345,7 @@ function eventStartLevel()
 		},
 	});
 
-	camManageTrucks(THE_COLLECTIVE);
+	camManageTrucks(CAM_THE_COLLECTIVE);
 	truckDefense();
 	setUnitRank(); //All pre-placed player droids are ranked.
 	camPlayVideos({video: "MB2A_MSG", type: MISS_MSG});

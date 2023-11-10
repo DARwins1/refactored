@@ -1,8 +1,8 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const UPLINK = 1; //The satellite uplink player number.
-const COLLECTIVE_RES = [
+const MIS_UPLINK_PLAYER = 1; //The satellite uplink player number.
+const mis_collectiveRes = [
 	"R-Defense-WallUpgrade04", "R-Struc-Materials05",
 	"R-Struc-Factory-Upgrade05", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
@@ -20,37 +20,37 @@ const COLLECTIVE_RES = [
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
-	if ((droid.player === THE_COLLECTIVE) && isVTOL(droid))
+	if ((droid.player === CAM_THE_COLLECTIVE) && isVTOL(droid))
 	{
 		camSafeRemoveObject(droid, false);
 	}
 
-	resetLabel("vtolRemoveZone", THE_COLLECTIVE);
+	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
 });
 
 //Order the truck to build some defenses.
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
+	if (enumDroid(CAM_THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
 		removeTimer("truckDefense");
 		return;
 	}
 
-	var list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG", "CO-Tower-HvFlame"];
-	camQueueBuilding(THE_COLLECTIVE, list[camRand(list.length)], camMakePos("uplinkPos"));
+	const list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG", "CO-Tower-HvFlame"];
+	camQueueBuilding(CAM_THE_COLLECTIVE, list[camRand(list.length)], camMakePos("uplinkPos"));
 }
 
 //Attacks every 2 minutes until HQ is destroyed.
 function vtolAttack()
 {
-	var list = [cTempl.colatv, cTempl.commorvt, cTempl.colatv, cTempl.commorv];
-	var ext = {
+	const list = [cTempl.colatv, cTempl.commorvt, cTempl.colatv, cTempl.commorv];
+	const ext = {
 		limit: [4, 2, 4, 2],
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
 }
 
 //The project captured the uplink.
@@ -69,7 +69,7 @@ function checkNASDACentral()
 		return false; //It was destroyed
 	}
 
-	if (camCountStructuresInArea("uplinkClearArea", THE_COLLECTIVE) === 0)
+	if (camCountStructuresInArea("uplinkClearArea", CAM_THE_COLLECTIVE) === 0)
 	{
 		camCallOnce("captureUplink");
 		return true;
@@ -89,17 +89,17 @@ function eventStartLevel()
 		retlz: true
 	});
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	const enemyLz = getObject("COLandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
 
 	camSetArtifacts({
 		"COCommandCenter": { tech: "R-Struc-VTOLPad-Upgrade01" },
@@ -108,10 +108,10 @@ function eventStartLevel()
 		"COHeavyFactoryA": { tech: "R-Wpn-Mortar-Damage04" },
 	});
 
-	setAlliance(CAM_HUMAN_PLAYER, UPLINK, true);
-	setAlliance(THE_COLLECTIVE, UPLINK, true);
+	setAlliance(CAM_HUMAN_PLAYER, MIS_UPLINK_PLAYER, true);
+	setAlliance(CAM_THE_COLLECTIVE, MIS_UPLINK_PLAYER, true);
 
-	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"COSouthEastBase": {
@@ -185,7 +185,7 @@ function eventStartLevel()
 		},
 	});
 
-	camManageTrucks(THE_COLLECTIVE);
+	camManageTrucks(CAM_THE_COLLECTIVE);
 	truckDefense();
 	hackAddMessage("C2D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 

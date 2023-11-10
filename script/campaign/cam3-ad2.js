@@ -3,7 +3,7 @@ include("script/campaign/templates.js");
 
 const Y_SCROLL_LIMIT = 137;
 const LASSAT_FIRING = "pcv650.ogg"; // LASER SATELLITE FIRING!!!
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals09",
 	"R-Cyborg-Metals09", "R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
@@ -32,24 +32,23 @@ camAreaEvent("vtolRemoveZone", function(droid)
 		}
 	}
 
-	resetLabel("vtolRemoveZone", NEXUS);
+	resetLabel("vtolRemoveZone", CAM_NEXUS);
 });
 
 //Return a random assortment of droids with the given templates.
 function randomTemplates(list)
 {
-	var i = 0;
-	var extras = [cTempl.nxmsens, cTempl.nxmsamh];
-	var droids = [];
-	var size = 5 + camRand(4); //Max of 8.
+	const extras = [cTempl.nxmsens, cTempl.nxmsamh];
+	const droids = [];
+	const SIZE = 5 + camRand(4); //Max of 8.
 
-	for (i = 0; i < size; ++i)
+	for (let i = 0; i < SIZE; ++i)
 	{
 		droids.push(list[camRand(list.length)]);
 	}
 
 	//Sensor and vindicator hovers.
-	for (i = 0; i < 4; ++i)
+	for (let i = 0; i < 4; ++i)
 	{
 		droids.push(extras[camRand(extras.length)]);
 	}
@@ -66,15 +65,15 @@ function randomTemplates(list)
 //Chose a random spawn point for the VTOLs.
 function vtolAttack()
 {
-	var list = [cTempl.nxmheapv, cTempl.nxlpulsev, cTempl.nxhrailv, cTempl.nxlscouv];
-	camSetVtolData(NEXUS, VTOL_POSITIONS, "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)));
+	const list = [cTempl.nxmheapv, cTempl.nxlpulsev, cTempl.nxhrailv, cTempl.nxlscouv];
+	camSetVtolData(CAM_NEXUS, VTOL_POSITIONS, "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(1.5)));
 }
 
 //Chose a random spawn point to send ground reinforcements.
 function phantomFactorySpawn()
 {
-	var list;
-	var chosenFactory;
+	let list;
+	let chosenFactory;
 
 	switch (camRand(3))
 	{
@@ -95,9 +94,9 @@ function phantomFactorySpawn()
 			chosenFactory = "phantomFacWest";
 	}
 
-	if (countDroid(DROID_ANY, NEXUS) < 80)
+	if (countDroid(DROID_ANY, CAM_NEXUS) < 80)
 	{
-		camSendReinforcement(NEXUS, camMakePos(chosenFactory), randomTemplates(list), CAM_REINFORCE_GROUND, {
+		camSendReinforcement(CAM_NEXUS, camMakePos(chosenFactory), randomTemplates(list), CAM_REINFORCE_GROUND, {
 			data: { regroup: false, count: -1, },
 		});
 	}
@@ -107,8 +106,8 @@ function phantomFactorySpawn()
 //when no target is found in the area.
 function vaporizeTarget()
 {
-	var target;
-	var targets = enumArea(0, Y_SCROLL_LIMIT, mapWidth, Math.floor(mapLimit), CAM_HUMAN_PLAYER, false).filter(function(obj) {
+	let target;
+	const targets = enumArea(0, Y_SCROLL_LIMIT, mapWidth, Math.floor(mapLimit), CAM_HUMAN_PLAYER, false).filter(function(obj) {
 		return obj.type === DROID || obj.type === STRUCTURE;
 	});
 
@@ -127,9 +126,9 @@ function vaporizeTarget()
 	}
 	else
 	{
-		var dr = targets.filter(function(obj) { return obj.type === DROID && !isVTOL(obj); });
-		var vt = targets.filter(function(obj) { return obj.type === DROID && isVTOL(obj); });
-		var st = targets.filter(function(obj) { return obj.type === STRUCTURE; });
+		const dr = targets.filter(function(obj) { return obj.type === DROID && !isVTOL(obj); });
+		const vt = targets.filter(function(obj) { return obj.type === DROID && isVTOL(obj); });
+		const st = targets.filter(function(obj) { return obj.type === STRUCTURE; });
 
 		if (dr.length)
 		{
@@ -174,18 +173,18 @@ function vaporizeTarget()
 //A simple way to fire the LasSat with a chance of missing.
 function laserSatFuzzyStrike(obj)
 {
-	const LOC = camMakePos(obj);
+	const loc = camMakePos(obj);
 	//Initially lock onto target
-	var xCoord = LOC.x;
-	var yCoord = LOC.y;
+	let xCoord = loc.x;
+	let yCoord = loc.y;
 
 	//Introduce some randomness. More accurate than last mission.
 	if (camRand(101) < 33)
 	{
-		var xRand = camRand(2);
-		var yRand = camRand(2);
-		xCoord = camRand(2) ? LOC.x - xRand : LOC.x + xRand;
-		yCoord = camRand(2) ? LOC.y - yRand : LOC.y + yRand;
+		const X_RAND = camRand(2);
+		const Y_RAND = camRand(2);
+		xCoord = camRand(2) ? loc.x - X_RAND : loc.x + X_RAND;
+		yCoord = camRand(2) ? loc.y - Y_RAND : loc.y + Y_RAND;
 	}
 
 	if (xCoord < 0)
@@ -214,7 +213,7 @@ function laserSatFuzzyStrike(obj)
 		}
 
 		//Missed it so hit close to target
-		if (LOC.x !== xCoord || LOC.y !== yCoord || !camDef(obj.id))
+		if (loc.x !== xCoord || loc.y !== yCoord || !camDef(obj.id))
 		{
 			fireWeaponAtLoc("LasSat", xCoord, yCoord, CAM_HUMAN_PLAYER);
 		}
@@ -229,7 +228,7 @@ function laserSatFuzzyStrike(obj)
 //Play videos and allow winning once the final one is researched.
 function eventResearched(research, structure, player)
 {
-	for (var i = 0, l = videoInfo.length; i < l; ++i)
+	for (let i = 0, l = videoInfo.length; i < l; ++i)
 	{
 		if (research.name === videoInfo[i].res && !videoInfo[i].played)
 		{
@@ -286,8 +285,8 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Protect the missile silos and research for the missile codes"));
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone");
 	mapLimit = 137.0;
 	winFlag = false;
 	siegeMode = false;
@@ -305,8 +304,8 @@ function eventStartLevel()
 	setScrollLimits(0, Y_SCROLL_LIMIT, 64, 256);
 
 	//Destroy everything above limits
-	var destroyZone = enumArea(0, 0, 64, Y_SCROLL_LIMIT, CAM_HUMAN_PLAYER, false);
-	for (var i = 0, l = destroyZone.length; i < l; ++i)
+	const destroyZone = enumArea(0, 0, 64, Y_SCROLL_LIMIT, CAM_HUMAN_PLAYER, false);
+	for (let i = 0, l = destroyZone.length; i < l; ++i)
 	{
 		camSafeRemoveObject(destroyZone[i], false);
 	}
@@ -316,10 +315,10 @@ function eventStartLevel()
 	setMissionTime(camMinutesToSeconds(5));
 	enableResearch("R-Sys-Resistance", CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	const enemyLz = getObject("NXlandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 	camPlayVideos({video: "MB3_AD2_MSG", type: MISS_MSG});
 
 	setTimer("checkTime", camSecondsToMilliseconds(0.2));

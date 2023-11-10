@@ -2,7 +2,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const NEW_PARADIGM_RES = [
+const mis_newParadigmRes = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
 	"R-Struc-Materials02", "R-Struc-Factory-Upgrade02", "R-Vehicle-Engine02",
 	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Damage03",
@@ -10,7 +10,7 @@ const NEW_PARADIGM_RES = [
 	"R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Damage03",
 	"R-Wpn-Rocket-ROF02", "R-Wpn-RocketSlow-Damage02", "R-Struc-RprFac-Upgrade03",
 ];
-const SCAVENGER_RES = [
+const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage02",
 	"R-Wpn-Cannon-Damage03", "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01",
@@ -24,10 +24,10 @@ var useHeavyReinforcement;
 //Get some droids for the New Paradigm transport
 function getDroidsForNPLZ(args)
 {
-	var lightAttackerLimit = 8;
-	var heavyAttackerLimit = 3;
-	var unitTemplates;
-	var list = [];
+	let lightAttackerLimit = 8;
+	let heavyAttackerLimit = 3;
+	let unitTemplates;
+	const list = [];
 
 	if (difficulty === HARD)
 	{
@@ -42,8 +42,8 @@ function getDroidsForNPLZ(args)
 
 	if (useHeavyReinforcement)
 	{
-		var artillery = [cTempl.npmor];
-		var other = [cTempl.npmmct];
+		const artillery = [cTempl.npmor];
+		const other = [cTempl.npmmct];
 		if (camRand(2) > 0)
 		{
 			//Add a sensor if artillery was chosen for the heavy units
@@ -60,8 +60,8 @@ function getDroidsForNPLZ(args)
 		unitTemplates = [cTempl.nppod, cTempl.npmrl, cTempl.npsmc];
 	}
 
-	var lim = useHeavyReinforcement ? heavyAttackerLimit : lightAttackerLimit;
-	for (var i = 0; i < lim; ++i)
+	const LIM = useHeavyReinforcement ? heavyAttackerLimit : lightAttackerLimit;
+	for (let i = 0; i < LIM; ++i)
 	{
 		list.push(unitTemplates[camRand(unitTemplates.length)]);
 	}
@@ -122,14 +122,14 @@ function activateNPLZTransporter()
 
 function sendNPTransport()
 {
-	var nearbyDefense = enumArea("LandingZone2", NEW_PARADIGM, false).filter(function(obj) {
+	const nearbyDefense = enumArea("LandingZone2", CAM_NEW_PARADIGM, false).filter(function(obj) {
 		return (obj.type === STRUCTURE && obj.stattype === DEFENSE);
 	});
 
 	if (nearbyDefense.length > 0)
 	{
-		var list = getDroidsForNPLZ();
-		camSendReinforcement(NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
+		const list = getDroidsForNPLZ();
+		camSendReinforcement(CAM_NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
 			entry: { x: 2, y: 42 },
 			exit: { x: 2, y: 42 },
 			order: CAM_ORDER_ATTACK,
@@ -165,7 +165,7 @@ function camEnemyBaseEliminated_NPBaseGroup()
 
 	//Make all scavengers on map attack
 	camManageGroup(
-		camMakeGroup(enumArea(0, 0, mapWidth, mapHeight, SCAV_7, false)),
+		camMakeGroup(enumArea(0, 0, mapWidth, mapHeight, CAM_SCAV_7, false)),
 		CAM_ORDER_ATTACK
 	);
 }
@@ -180,24 +180,24 @@ function eventStartLevel()
 	});
 
 	useHeavyReinforcement = false; //Start with a light unit reinforcement first
-	var lz = getObject("LandingZone1"); //player lz
-	var lz2 = getObject("LandingZone2"); //new paradigm lz
-	var tent = getObject("TransporterEntry");
-	var text = getObject("TransporterExit");
+	const lz = getObject("LandingZone1"); //player lz
+	const lz2 = getObject("LandingZone2"); //new paradigm lz
+	const tent = getObject("TransporterEntry");
+	const text = getObject("TransporterExit");
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setNoGoArea(lz2.x, lz2.y, lz2.x2, lz2.y2, NEW_PARADIGM);
+	setNoGoArea(lz2.x, lz2.y, lz2.x2, lz2.y2, CAM_NEW_PARADIGM);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
 	//Transporter is the only droid of the player's on the map
-	var transporter = enumDroid();
+	const transporter = enumDroid();
 	cameraTrack(transporter[0]);
 
 	//Make sure the New Paradigm and Scavs are allies
-	setAlliance(NEW_PARADIGM, SCAV_7, true);
+	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 
-	camCompleteRequiredResearch(NEW_PARADIGM_RES, NEW_PARADIGM);
-	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
+	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
+	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
 	camSetEnemyBases({
 		"ScavNorthGroup": {
@@ -223,7 +223,7 @@ function eventStartLevel()
 			detectMsg: "C1-5_OBJ1",
 			detectSnd: "pcv379.ogg",
 			eliminateSnd: "pcv394.ogg",
-			player: NEW_PARADIGM
+			player: CAM_NEW_PARADIGM
 		},
 	});
 

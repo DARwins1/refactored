@@ -1,7 +1,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const COLLECTIVE_RES = [
+const mis_collectiveRes = [
 	"R-Defense-WallUpgrade05", "R-Struc-Materials05",
 	"R-Struc-Factory-Upgrade05", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals05",
@@ -26,7 +26,7 @@ function camEnemyBaseDetected_COBase2()
 {
 	hackRemoveMessage("C27_OBJECTIVE2", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	var vt = enumArea("COBase2Cleanup", THE_COLLECTIVE, false).filter(function(obj) {
+	const vt = enumArea("COBase2Cleanup", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && isVTOL(obj);
 	});
 	camManageGroup(camMakeGroup(vt), CAM_ORDER_ATTACK, {
@@ -46,7 +46,7 @@ function camEnemyBaseDetected_COBase4()
 
 function baseThreeVtolAttack()
 {
-	var vt = enumArea("vtolGroupBase3", THE_COLLECTIVE, false).filter(function(obj) {
+	const vt = enumArea("vtolGroupBase3", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && isVTOL(obj);
 	});
 	camManageGroup(camMakeGroup(vt), CAM_ORDER_ATTACK, {
@@ -56,7 +56,7 @@ function baseThreeVtolAttack()
 
 function baseFourVtolAttack()
 {
-	var vt = enumArea("vtolGroupBase4", THE_COLLECTIVE, false).filter(function(obj) {
+	const vt = enumArea("vtolGroupBase4", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && isVTOL(obj);
 	});
 	camManageGroup(camMakeGroup(vt), CAM_ORDER_ATTACK, {
@@ -95,17 +95,17 @@ function eventStartLevel()
 		reinforcements: camMinutesToSeconds(3)
 	});
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	const enemyLz = getObject("COLandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
 
 	camSetArtifacts({
 		"COHeavyFac-Arti-b2": { tech: "R-Wpn-Cannon5" },
@@ -114,7 +114,7 @@ function eventStartLevel()
 		"COHeavyFac-b4": { tech: "R-Wpn-AAGun04" }, // Whirlwind
 	});
 
-	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"COBase1": {

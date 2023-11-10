@@ -1,7 +1,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const COLLECTIVE_RES = [
+const mis_collectiveRes = [
 	"R-Defense-WallUpgrade05", "R-Struc-Materials06",
 	"R-Struc-Factory-Upgrade06", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Engine05", "R-Vehicle-Metals05", "R-Cyborg-Metals06",
@@ -26,10 +26,10 @@ function vtolAttack()
 
 function setupLandGroups()
 {
-	var hovers = enumArea("NWTankGroup", THE_COLLECTIVE, false).filter(function(obj) {
+	const hovers = enumArea("NWTankGroup", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && obj.propulsion === "hover01";
 	});
-	var tanks = enumArea("NWTankGroup", THE_COLLECTIVE, false).filter(function(obj) {
+	const tanks = enumArea("NWTankGroup", CAM_THE_COLLECTIVE, false).filter(function(obj) {
 		return obj.type === DROID && obj.propulsion !== "hover01";
 	});
 
@@ -74,14 +74,14 @@ function enableFactories()
 
 function truckDefense()
 {
-	if (enumDroid(THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
+	if (enumDroid(CAM_THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
 	{
 		removeTimer("truckDefense");
 		return;
 	}
 
-	var list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG"];
-	camQueueBuilding(THE_COLLECTIVE, list[camRand(list.length)]);
+	const list = ["AASite-QuadBof", "CO-WallTower-HvCan", "CO-Tower-RotMG"];
+	camQueueBuilding(CAM_THE_COLLECTIVE, list[camRand(list.length)]);
 }
 
 function eventStartLevel()
@@ -92,27 +92,27 @@ function eventStartLevel()
 		annihilate: true
 	});
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, THE_COLLECTIVE);
+	const enemyLz = getObject("COLandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
 
 	camSetArtifacts({
 		"COVtolFac-b3": { tech: "R-Vehicle-Body09" }, //Tiger body
 		"COHeavyFacL-b2": { tech: "R-Wpn-HvyHowitzer" },
 	});
 
-	camCompleteRequiredResearch(COLLECTIVE_RES, THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	// Replace flamer cyborgs with thermite
-	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, THE_COLLECTIVE);
+	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"COBase1": {
@@ -184,7 +184,7 @@ function eventStartLevel()
 		},
 	});
 
-	camManageTrucks(THE_COLLECTIVE);
+	camManageTrucks(CAM_THE_COLLECTIVE);
 	truckDefense();
 
 	queue("setupLandGroups", camSecondsToMilliseconds(50));

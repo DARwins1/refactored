@@ -3,7 +3,7 @@ include("script/campaign/templates.js");
 include("script/campaign/transitionTech.js");
 
 const ALPHA = 1; //Team alpha units belong to player 1.
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals07",
 	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
@@ -28,7 +28,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 		}
 	}
 
-	resetLabel("vtolRemoveZone", NEXUS);
+	resetLabel("vtolRemoveZone", CAM_NEXUS);
 });
 
 //This is an area just below the "doorway" into the alpha team pit. Activates
@@ -44,7 +44,7 @@ camAreaEvent("rescueTrigger", function(droid)
 	});
 	//Activate edge map queue and donate all of alpha to the player.
 	phantomFactorySE();
-	setAlliance(ALPHA, NEXUS, false);
+	setAlliance(ALPHA, CAM_NEXUS, false);
 	camAbsorbPlayer(ALPHA, CAM_HUMAN_PLAYER);
 
 	queue("getAlphaUnitIDs", camSecondsToMilliseconds(2));
@@ -64,13 +64,13 @@ camAreaEvent("phantomFacTrigger", function(droid)
 function setAlphaExp()
 {
 	const DROID_EXP = 512; //Hero rank.
-	var alphaDroids = enumArea("alphaPit", ALPHA, false).filter(function(obj) {
+	const alphaDroids = enumArea("alphaPit", ALPHA, false).filter(function(obj) {
 		return obj.type === DROID;
 	});
 
-	for (var i = 0, l = alphaDroids.length; i < l; ++i)
+	for (let i = 0, l = alphaDroids.length; i < l; ++i)
 	{
-		var dr = alphaDroids[i];
+		const dr = alphaDroids[i];
 		if (!camIsSystemDroid(dr))
 		{
 			setDroidExperience(dr, DROID_EXP);
@@ -82,13 +82,13 @@ function setAlphaExp()
 function getAlphaUnitIDs()
 {
 	alphaUnitIDs = [];
-	var alphaDroids = enumArea("alphaPit", CAM_HUMAN_PLAYER, false).filter(function(obj) {
+	const alphaDroids = enumArea("alphaPit", CAM_HUMAN_PLAYER, false).filter(function(obj) {
 		return obj.type === DROID && obj.experience === 512;
 	});
 
-	for (var i = 0, l = alphaDroids.length; i < l; ++i)
+	for (let i = 0, l = alphaDroids.length; i < l; ++i)
 	{
-		var dr = alphaDroids[i];
+		const dr = alphaDroids[i];
 		alphaUnitIDs.push(dr.id);
 	}
 	startExtraLoss = true;
@@ -96,31 +96,31 @@ function getAlphaUnitIDs()
 
 function phantomFactoryNE()
 {
-	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
+	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(6, "NE-PhantomFactory", list);
 }
 
 function phantomFactorySW()
 {
-	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
+	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
 	sendEdgeMapDroids(8, "SW-PhantomFactory", list);
 }
 
 function phantomFactorySE()
 {
-	var list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmplash];
+	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmplash];
 	sendEdgeMapDroids(10 + camRand(6), "SE-PhantomFactory", list); //10-15 units
 }
 
 function sendEdgeMapDroids(droidCount, location, list)
 {
-	var droids = [];
-	for (var i = 0; i < droidCount; ++i)
+	const droids = [];
+	for (let i = 0; i < droidCount; ++i)
 	{
 		droids.push(list[camRand(list.length)]);
 	}
 
-	camSendReinforcement(NEXUS, camMakePos(location), droids, CAM_REINFORCE_GROUND, {
+	camSendReinforcement(CAM_NEXUS, camMakePos(location), droids, CAM_REINFORCE_GROUND, {
 		data: {regroup: true, count: -1}
 	});
 }
@@ -197,13 +197,13 @@ function setupPatrolGroups()
 //Setup Nexus VTOL hit and runners.
 function vtolAttack()
 {
-	var list = [cTempl.nxlscouv, cTempl.nxmtherv];
-	var ext = {
+	const list = [cTempl.nxlscouv, cTempl.nxmtherv];
+	const ext = {
 		limit: [2, 4], //paired with template list
 		alternate: true,
 		altIdx: 0
 	};
-	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
 }
 
 //Reinforcements not available until team Alpha brief about VTOLS.
@@ -223,14 +223,14 @@ function alphaTeamAlive()
 {
 	if (camDef(alphaUnitIDs) && startExtraLoss)
 	{
-		var alphaAlive = false;
-		var alive = enumArea(0, 0, mapWidth, mapHeight, CAM_HUMAN_PLAYER, false).filter(function(obj) {
+		let alphaAlive = false;
+		const alive = enumArea(0, 0, mapWidth, mapHeight, CAM_HUMAN_PLAYER, false).filter(function(obj) {
 			return obj.type === DROID;
 		});
 
-		for (var i = 0, l = alive.length; i < l; ++i)
+		for (let i = 0, l = alive.length; i < l; ++i)
 		{
-			for (var x = 0, c = alphaUnitIDs.length; x < c; ++x)
+			for (let x = 0, c = alphaUnitIDs.length; x < c; ++x)
 			{
 				if (alive[i].id === alphaUnitIDs[x])
 				{
@@ -256,10 +256,10 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Rescue Alpha team from Nexus"));
 
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone");
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone");
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 	startExtraLoss = false;
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM3A-B", {
@@ -275,12 +275,12 @@ function eventStartLevel()
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
-	var enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	const enemyLz = getObject("NXlandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
-	camCompleteRequiredResearch(GAMMA_ALLY_RES, ALPHA);
-	setAlliance(ALPHA, NEXUS, true);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
+	camCompleteRequiredResearch(mis_gammaAllyRes, ALPHA);
+	setAlliance(ALPHA, CAM_NEXUS, true);
 	setAlliance(ALPHA, CAM_HUMAN_PLAYER, true);
 	changePlayerColour(ALPHA, playerData[0].colour);
 

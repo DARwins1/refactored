@@ -2,7 +2,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const NEW_PARADIGM_RESEARCH = [
+const mis_newParadigmRes = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade03",
 	"R-Struc-Materials03", "R-Struc-Factory-Upgrade03",
 	"R-Vehicle-Engine03",
@@ -12,7 +12,7 @@ const NEW_PARADIGM_RESEARCH = [
 	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-ROF03", "R-Wpn-RocketSlow-Accuracy02",
 	"R-Wpn-RocketSlow-Damage03", "R-Struc-RprFac-Upgrade03",
 ];
-const SCAVENGER_RES = [
+const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage03",
 	"R-Wpn-Cannon-Damage03", "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01",
@@ -55,8 +55,8 @@ camAreaEvent("NPTransportTrigger", function(droid)
 {
 	if (enemyHasArtifact && droid.group === artiGroup)
 	{
-		var list = [cTempl.npmrl, cTempl.npmrl];
-		camSendReinforcement(NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
+		const list = [cTempl.npmrl, cTempl.npmrl];
+		camSendReinforcement(CAM_NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
 			entry: { x: 39, y: 2 },
 			exit: { x: 32, y: 60 }
 		});
@@ -64,7 +64,7 @@ camAreaEvent("NPTransportTrigger", function(droid)
 	}
 	else
 	{
-		resetLabel("NPTransportTrigger", NEW_PARADIGM);
+		resetLabel("NPTransportTrigger", CAM_NEW_PARADIGM);
 	}
 });
 
@@ -80,13 +80,13 @@ function artifactVideoSetup()
 //by the time it lands.
 function eventTransporterLanded(transport)
 {
-	if (transport.player === NEW_PARADIGM && enemyHasArtifact)
+	if (transport.player === CAM_NEW_PARADIGM && enemyHasArtifact)
 	{
 		enemyStoleArtifact = true;
-		var crew = enumRange(transport.x, transport.y, 6, NEW_PARADIGM, false).filter(function(obj) {
+		const crew = enumRange(transport.x, transport.y, 6, CAM_NEW_PARADIGM, false).filter(function(obj) {
 			return obj.type === DROID && obj.group === artiGroup;
 		});
-		for (var i = 0, l = crew.length; i < l; ++i)
+		for (let i = 0, l = crew.length; i < l; ++i)
 		{
 			camSafeRemoveObject(crew[i], false);
 		}
@@ -100,7 +100,7 @@ function eventGroupLoss(obj, group, newsize)
 	{
 		if (obj.id === droidWithArtiID)
 		{
-			var acrate = addFeature("Crate", obj.x, obj.y);
+			const acrate = addFeature("Crate", obj.x, obj.y);
 			addLabel(acrate, "newArtiLabel");
 
 			camSetArtifacts({
@@ -129,15 +129,15 @@ function getArtifact()
 	}
 
 	const GRAB_RADIUS = 2;
-	var artifact = camGetArtifacts().filter(function(label) {
+	const artifact = camGetArtifacts().filter(function(label) {
 		return enemyCanTakeArtifact(label) && getObject(label) !== null;
 	});
-	var artiLoc = artiMovePos;
+	let artiLoc = artiMovePos;
 
 	if (!enemyHasArtifact && !enemyStoleArtifact && artifact.length > 0)
 	{
 		//Go to the artifact instead.
-		var realCrate = artifact[0];
+		const realCrate = artifact[0];
 		artiLoc = camMakePos(realCrate);
 		if (!camDef(artiLoc))
 		{
@@ -145,17 +145,17 @@ function getArtifact()
 		}
 
 		//Find the one closest to the artifact so that one can "hold" it
-		var artiMembers = enumGroup(artiGroup);
-		var idx = 0;
-		var dist = Infinity;
+		const artiMembers = enumGroup(artiGroup);
+		let idx = 0;
+		let dist = Infinity;
 
-		for (var i = 0, l = artiMembers.length; i < l; ++i)
+		for (let i = 0, l = artiMembers.length; i < l; ++i)
 		{
-			var drDist = camDist(artiMembers[i], artiLoc);
-			if (drDist < dist)
+			const DR_DIST = camDist(artiMembers[i], artiLoc);
+			if (DR_DIST < dist)
 			{
 				idx = i;
-				dist = drDist;
+				dist = DR_DIST;
 			}
 		}
 
@@ -183,17 +183,17 @@ function getArtifact()
 //New Paradigm truck builds six lancer hardpoints around LZ
 function buildLancers()
 {
-	for (var i = 1; i <= 6; ++i)
+	for (let i = 1; i <= 6; ++i)
 	{
-		camQueueBuilding(NEW_PARADIGM, "WallTower06", "hardPoint" + i);
+		camQueueBuilding(CAM_NEW_PARADIGM, "WallTower06", "hardPoint" + i);
 	}
 }
 
 //Must destroy all of the New Paradigm droids and make sure the artifact is safe.
 function extraVictory()
 {
-	var npTransportFound = false;
-	enumDroid(NEW_PARADIGM).forEach(function(dr) {
+	let npTransportFound = false;
+	enumDroid(CAM_NEW_PARADIGM).forEach(function(dr) {
 		if (camIsTransporter(dr))
 		{
 			npTransportFound = true;
@@ -206,7 +206,7 @@ function extraVictory()
 		return false;
 	}
 
-	if (!enumDroid(NEW_PARADIGM).length)
+	if (!enumDroid(CAM_NEW_PARADIGM).length)
 	{
 		return true;
 	}
@@ -245,10 +245,10 @@ function eventStartLevel()
 
 	enemyHasArtifact = false;
 	enemyStoleArtifact = false;
-	var startpos = getObject("startPosition");
-	var lz = getObject("landingZone"); //player lz
-	var tent = getObject("transporterEntry");
-	var text = getObject("transporterExit");
+	const startpos = getObject("startPosition");
+	const lz = getObject("landingZone"); //player lz
+	const tent = getObject("transporterEntry");
+	const text = getObject("transporterExit");
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
@@ -263,7 +263,7 @@ function eventStartLevel()
 	});
 
 	//Make sure the New Paradigm and Scavs are allies
-	setAlliance(NEW_PARADIGM, SCAV_7, true);
+	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 
 	//Get rid of the already existing crate and replace with another
 	camSafeRemoveObject("artifact1", false);
@@ -271,8 +271,8 @@ function eventStartLevel()
 		"artifactLocation": { tech: "R-Wpn-Cannon4AMk1" }, // Hyper Velocity Cannon
 	});
 
-	camCompleteRequiredResearch(NEW_PARADIGM_RESEARCH, NEW_PARADIGM);
-	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
+	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
+	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
 	camSetEnemyBases({
 		"ScavMiddleGroup": {
@@ -331,9 +331,9 @@ function eventStartLevel()
 		},
 	});
 
-	artiGroup = camMakeGroup(enumArea("NPArtiGroup", NEW_PARADIGM, false));
+	artiGroup = camMakeGroup(enumArea("NPArtiGroup", CAM_NEW_PARADIGM, false));
 	droidWithArtiID = 0;
-	camManageTrucks(NEW_PARADIGM);
+	camManageTrucks(CAM_NEW_PARADIGM);
 	buildLancers();
 
 	hackAddMessage("C1-7_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); //Canyon

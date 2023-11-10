@@ -1,7 +1,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Sys-Engineering03", "R-Defense-WallUpgrade07",
 	"R-Struc-Materials07", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals06",
@@ -25,7 +25,7 @@ camAreaEvent("vtolRemoveZone", function(droid)
 		}
 	}
 
-	resetLabel("vtolRemoveZone", NEXUS);
+	resetLabel("vtolRemoveZone", CAM_NEXUS);
 });
 
 camAreaEvent("hillTriggerZone", function(droid)
@@ -60,8 +60,8 @@ camAreaEvent("hillTriggerZone", function(droid)
 //Setup Nexus VTOL hit and runners.
 function vtolAttack()
 {
-	var list = [cTempl.nxlscouv, cTempl.nxmtherv];
-	camSetVtolData(NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "NXCommandCenter");
+	const list = [cTempl.nxlscouv, cTempl.nxmtherv];
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "NXCommandCenter");
 }
 
 //These groups are active immediately.
@@ -102,9 +102,9 @@ function missileSilosDestroyed()
 {
 	const SILO_COUNT = 4;
 	const SILO_ALIAS = "NXMissileSilo";
-	var destroyed = 0;
+	let destroyed = 0;
 
-	for (var i = 0; i < SILO_COUNT; ++i)
+	for (let i = 0; i < SILO_COUNT; ++i)
 	{
 		destroyed += (getObject(SILO_ALIAS + (i + 1)) === null) ? 1 : 0;
 	}
@@ -116,22 +116,22 @@ function missileSilosDestroyed()
 function nukeAndCountSurvivors()
 {
 	//Avoid destroying the one base if the player opted not to destroy it themselves.
-	var nuked = enumArea(0, 0, mapWidth, mapHeight, ALL_PLAYERS, false).filter(function(obj) {
+	const nuked = enumArea(0, 0, mapWidth, mapHeight, ALL_PLAYERS, false).filter(function(obj) {
 		return obj.type !== STRUCTURE || (obj.type === STRUCTURE && obj.group === null);
 	});
-	var safeZone = enumArea("valleySafeZone", CAM_HUMAN_PLAYER, false);
-	var foundUnit = false;
+	const safeZone = enumArea("valleySafeZone", CAM_HUMAN_PLAYER, false);
+	let foundUnit = false;
 
 	//Make em' explode!
-	for (var i = 0, len = nuked.length; i < len; ++i)
+	for (let i = 0, len = nuked.length; i < len; ++i)
 	{
-		var nukeIt = true;
-		var obj1 = nuked[i];
+		let nukeIt = true;
+		const obj1 = nuked[i];
 
 		//Check if it's in the safe area.
-		for (var j = 0, len2 = safeZone.length; j < len2; ++j)
+		for (let j = 0, len2 = safeZone.length; j < len2; ++j)
 		{
-			var obj2 = safeZone[j];
+			const obj2 = safeZone[j];
 
 			if (obj1.id === obj2.id)
 			{
@@ -178,16 +178,16 @@ function setupNextMission()
 //Play countdown sounds. Elements are shifted out of the missile launch/detonation arrays as they play.
 function getCountdown()
 {
-	var silosDestroyed = missileSilosDestroyed();
-	var countdownObject = silosDestroyed ? detonateInfo : launchInfo;
-	var skip = false;
+	const SILOS_DESTROYED = missileSilosDestroyed();
+	const countdownObject = SILOS_DESTROYED ? detonateInfo : launchInfo;
+	let skip = false;
 
-	for (var i = 0, len = countdownObject.length; i < len; ++i)
+	for (let i = 0, len = countdownObject.length; i < len; ++i)
 	{
-		var currentTime = getMissionTime();
-		if (currentTime <= countdownObject[0].time)
+		const CURRENT_TIME = getMissionTime();
+		if (CURRENT_TIME <= countdownObject[0].time)
 		{
-			if (len > 1 && (currentTime <= countdownObject[1].time))
+			if (len > 1 && (CURRENT_TIME <= countdownObject[1].time))
 			{
 				skip = true; //Huge time jump?
 			}
@@ -196,7 +196,7 @@ function getCountdown()
 				playSound(countdownObject[0].sound, CAM_HUMAN_PLAYER);
 			}
 
-			if (silosDestroyed)
+			if (SILOS_DESTROYED)
 			{
 				detonateInfo.shift();
 			}
@@ -297,9 +297,9 @@ function eventStartLevel()
 	setScrollLimits(0, 32, 64, 64);
 
 	var enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 
 	camSetEnemyBases({
 		"NX-SWBase": {

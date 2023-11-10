@@ -88,7 +88,7 @@
 	},
 	"object_2": {
 		"label": "COHeavyFactoryA",
-		"id": 4218,
+		"id": 4378,
 		"player": 2,
 		"type": 1
 	},
@@ -100,7 +100,7 @@
 	},
 	"object_4": {
 		"label": "COResearchLab",
-		"id": 4175,
+		"id": 4172,
 		"player": 2,
 		"type": 1
 	},
@@ -112,19 +112,19 @@
 	},
 	"object_6": {
 		"label": "COHeavyFactoryB",
-		"id": 4219,
+		"id": 4380,
 		"player": 2,
 		"type": 1
 	},
 	"object_7": {
 		"label": "COHeavyFactoryC",
-		"id": 4220,
+		"id": 4376,
 		"player": 2,
 		"type": 1
 	},
 	"object_8": {
 		"label": "COHeavyFactoryD",
-		"id": 4221,
+		"id": 4374,
 		"player": 2,
 		"type": 1
 	},

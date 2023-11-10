@@ -3,7 +3,7 @@ include("script/campaign/templates.js");
 include("script/campaign/transitionTech.js");
 
 const GAMMA = 1; //Gamma is player one.
-const NEXUS_RES = [
+const mis_nexusRes = [
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09", "R-Struc-Factory-Upgrade06",
 	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals08",
 	"R-Cyborg-Metals08", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
@@ -69,7 +69,7 @@ function enableAllFactories()
 function discoverGammaBase()
 {
 	reunited = true;
-	var lz = getObject("landingZone");
+	const lz = getObject("landingZone");
 	setScrollLimits(0, 0, 64, 192); //top and middle portion.
 	restoreLimboMissionData();
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
@@ -80,7 +80,7 @@ function discoverGammaBase()
 	playSound("pcv616.ogg"); //Group rescued.
 
 	camAbsorbPlayer(GAMMA, CAM_HUMAN_PLAYER); //Take everything they got!
-	setAlliance(NEXUS, GAMMA, false);
+	setAlliance(CAM_NEXUS, GAMMA, false);
 
 	hackRemoveMessage("CM3C_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackRemoveMessage("CM3C_BETATEAM", PROX_MSG, CAM_HUMAN_PLAYER);
@@ -90,11 +90,11 @@ function discoverGammaBase()
 
 function findBetaUnitIds()
 {
-	var droids = enumArea("betaUnits", CAM_HUMAN_PLAYER, false).filter(function(obj) {
+	const droids = enumArea("betaUnits", CAM_HUMAN_PLAYER, false).filter(function(obj) {
 		return obj.type === DROID;
 	});
 
-	for (var i = 0, len = droids.length; i < len; ++i)
+	for (let i = 0, len = droids.length; i < len; ++i)
 	{
 		betaUnitIds.push(droids[i].id);
 	}
@@ -107,12 +107,12 @@ function betaAlive()
 		return true; //Don't need to see if Beta is still alive if reunited with base.
 	}
 
-	var alive = false;
-	var myDroids = enumDroid(CAM_HUMAN_PLAYER);
+	let alive = false;
+	const myDroids = enumDroid(CAM_HUMAN_PLAYER);
 
-	for (var i = 0, l = betaUnitIds.length; i < l; ++i)
+	for (let i = 0, l = betaUnitIds.length; i < l; ++i)
 	{
-		for (var x = 0, c = myDroids.length; x < c; ++x)
+		for (let x = 0, c = myDroids.length; x < c; ++x)
 		{
 			if (myDroids[x].id === betaUnitIds[i])
 			{
@@ -137,8 +137,8 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Reunite a part of Beta team with a Gamma team outpost"));
 
-	var startpos = getObject("startPosition");
-	var limboLZ = getObject("limboDroidLZ");
+	const startpos = getObject("startPosition");
+	const limboLZ = getObject("limboDroidLZ");
 	reunited = false;
 	betaUnitIds = [];
 
@@ -152,16 +152,16 @@ function eventStartLevel()
 	setNoGoArea(limboLZ.x, limboLZ.y, limboLZ.x2, limboLZ.y2, -1);
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)));
 
-	var enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, NEXUS);
+	const enemyLz = getObject("NXlandingZone");
+	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
 
-	camCompleteRequiredResearch(NEXUS_RES, NEXUS);
-	camCompleteRequiredResearch(GAMMA_ALLY_RES, GAMMA);
+	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
+	camCompleteRequiredResearch(mis_gammaAllyRes, GAMMA);
 	hackAddMessage("CM3C_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER, false);
 	hackAddMessage("CM3C_BETATEAM", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 	setAlliance(CAM_HUMAN_PLAYER, GAMMA, true);
-	setAlliance(NEXUS, GAMMA, true);
+	setAlliance(CAM_NEXUS, GAMMA, true);
 
 	camSetArtifacts({
 		"NXbase1HeavyFacArti": { tech: "R-Vehicle-Body07" }, //retribution

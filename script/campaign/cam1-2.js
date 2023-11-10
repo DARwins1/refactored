@@ -2,7 +2,7 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const SCAVENGER_RES = [
+const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01",
 	"R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
@@ -66,16 +66,16 @@ function eventStartLevel()
 		retlz: true
 	});
 
-	var startpos = getObject("StartPosition");
-	var lz = getObject("LandingZone");
-	var tent = getObject("TransporterEntry");
-	var text = getObject("TransporterExit");
+	const startpos = getObject("StartPosition");
+	const lz = getObject("LandingZone");
+	const tent = getObject("TransporterEntry");
+	const text = getObject("TransporterExit");
 	centreView(startpos.x, startpos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
 
-	camCompleteRequiredResearch(SCAVENGER_RES, SCAV_7);
+	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
 	camSetEnemyBases({
 		"NorthGroup": {
