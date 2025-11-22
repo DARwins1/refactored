@@ -1,3 +1,12 @@
+Refactored v2.7.0
+
+Updated the mod to be compatible with the campaign selector system.
+
+Also made some small fixes:
+- Fixed the wrong message being played at the start of Gamma 1.
+- Fixed artifacts sometimes being picked up twice.
+
+
 Refactored v2.6.0
 
 Update with a lot of script tidying-up to match the current libcampaign standards indroduced in 4.4.0, this should not have a noticeable impact on actual gameplay.

@@ -1,0 +1,27 @@
+{
+    "name": "Refactored",
+    "version": "2.7.0",
+    "author": "DARwins",
+    "type": "alternateCampaign",
+    "license": "GPL-2.0-or-later",
+    "minVersionSupported": "4.6.1",
+    "maxVersionTested": "4.6.1",
+    "description": {
+        "en": "A mod for the WZ 2100 Campaign that aims to bring the Multiplayer and Campaign experience closer together."
+    },
+    "updatesUrl": "https://github.com/DARwins1/refactored/releases/latest",
+    "campaigns": [
+      "alpha.json",
+      "beta.json",
+      "gamma.json"
+    ],
+    "universe": "wz2100",
+    "difficultyLevels": "default",
+    "camTweakOptions": [
+        {
+            "id": "autosavesOnly",
+            "default": false,
+            "userEditable": true
+        }
+    ]
+}

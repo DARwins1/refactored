@@ -2,7 +2,7 @@
 A mod for the WZ 2100 Campaign that aims to bring the Multiplayer and Campaign experience closer together. 
 
 General overview of the large changes:
-- Changes the base stats for almost every vehicle component to be identical to Multiplayer.
+- Changes the base stats for almost every vehicle component to be similar to Multiplayer.
 - Adds extra MP exclusive items into the Campaign, such as the Plasmite Flamer.
 - Adds all cyborg varients into the Campaign, including Super Cyborgs.
 - Adds Hardcrete Gates into the Campaign (Why isn't this already a thing?), and places Hardcrete Gates into every map where they make sense.
