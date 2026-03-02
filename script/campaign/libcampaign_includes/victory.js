@@ -5,35 +5,14 @@
 
 //;; ## camNextLevel(nextLevel)
 //;;
-//;; A wrapper around `loadLevel()`. Remembers to give bonus power for completing the mission faster.
+//;; A wrapper around `loadLevel()`. 
 //;;
 //;; @param {string} nextLevel
 //;; @returns {void}
 //;;
 function camNextLevel(nextLevel)
 {
-	if (__camNeedBonusTime)
-	{
-		const __POWER_TIME_REMAINING = getMissionTime();
-		const __TIME_UNDERFLOW = __POWER_TIME_REMAINING >= 86400; // Ended mission right when the timer ran out.
-		if ((__POWER_TIME_REMAINING > 0) && !__TIME_UNDERFLOW)
-		{
-			let bonus = 110;
-			if (difficulty === HARD)
-			{
-				bonus = 90; //Small bonus compared to the regular Hard extraction value.
-			}
-			else if (difficulty >= INSANE)
-			{
-				bonus = 70; //Same value for oil extraction.
-			}
-			camTrace("Bonus time", __POWER_TIME_REMAINING);
-			setPowerModifier(bonus); // Bonus percentage for completing fast
-			extraPowerTime(__POWER_TIME_REMAINING);
-			setPowerModifier(100);
-		}
-	}
-	__camRemoveNavGunSensorResearch();
+	camGrantBonusPower();
 	camBreakAlliances();
 	//Set these limits again for the home map before exiting this mission
 	setStructureLimits(cam_base_structures.commandCenter, 1, CAM_HUMAN_PLAYER);
@@ -52,17 +31,21 @@ function camNextLevel(nextLevel)
 //;; * `CAM_VICTORY_OFFWORLD` Defeat on timeout or all units lost.
 //;;   Victory when all artifacts are recovered and either all enemies are dead (not just bases) or all droids are at the LZ.
 //;;   Also automatically handles the "LZ compromised" message, which is why it needs to know reinforcement interval to restore.
-//;;   The following data parameter fields are available:
-//;;   * `area` The landing zone to return to.
-//;;   * `message` The "Return to LZ" message ID. Optional.
-//;;   * `playLzReminder` Play and show the "Return to LZ" message. Optional, enabled by default.
-//;;   * `reinforcements` Reinforcements interval, in seconds.
 //;; For standard and offworld victory, some extra data parameters can be defined:
 //;; * `callback` A function callback to check for extra win/loss conditions. Return values are interpreted as follows:
 //;;   * `false` means instant defeat ("objective failed"),
 //;;   * `true` means victory as long as other standard victory conditions are met,
 //;;   * `undefined` means suppress other victory checks ("clearly not won yet").
+//;; * `enableLastAttack` Whether all remaining enemies should rush the player at the end of the mission. Optional.
+//;;   * `false` means enemies will not change their behavior at the en of the mission,
+//;;   * `true` means all remaining enemies will attack the player once all bases and artifacts are collected (default),
+//;; * `earlyPowerBonus` Whether to grant bonus power and remove the mission timer early. Optional.
+//;;   * `false` means the player will not receive bonus power until the very last moment before switching levels (default),
+//;;   * `true` means the player will receive bonus power once all objectives are complete,
 //;; For offworld victory, some more extra data parameters can be defined:
+//;; * `area` The landing zone to return to.
+//;; * `message` The "Return to LZ" message ID. Optional.
+//;; * `reinforcements` Reinforcements interval, in seconds.
 //;; * `retlz` Force the player to return to the LZ area:
 //;;   * `false` mission does not require a LZ return,
 //;;   * `true` mission requires all units to be at LZ to win.
@@ -82,20 +65,20 @@ function camSetStandardWinLossConditions(kind, nextLevel, data)
 {
 	switch (kind)
 	{
-		case CAM_VICTORY_STANDARD:
+		case CAM_VICTORY_STANDARD: // Victory when no enemies remain
 			__camWinLossCallback = CAM_VICTORY_STANDARD;
 			__camNeedBonusTime = true;
 			__camDefeatOnTimeout = true;
 			__camVictoryData = data;
 			useSafetyTransport(false);
 			break;
-		case CAM_VICTORY_PRE_OFFWORLD:
+		case CAM_VICTORY_PRE_OFFWORLD: // Victory on transport liftoff
 			__camWinLossCallback = CAM_VICTORY_PRE_OFFWORLD;
 			__camNeedBonusTime = false;
 			__camDefeatOnTimeout = true;
 			useSafetyTransport(false);
 			break;
-		case CAM_VICTORY_OFFWORLD:
+		case CAM_VICTORY_OFFWORLD: // Victory 
 			__camWinLossCallback = CAM_VICTORY_OFFWORLD;
 			__camNeedBonusTime = true;
 			__camDefeatOnTimeout = true;
@@ -103,7 +86,7 @@ function camSetStandardWinLossConditions(kind, nextLevel, data)
 			setReinforcementTime((__camNumTransporterExits > 0) ? __camVictoryData.reinforcements : -1);
 			useSafetyTransport(false);
 			break;
-		case CAM_VICTORY_TIMEOUT:
+		case CAM_VICTORY_TIMEOUT: // Victory when the timer reaches 0
 			__camWinLossCallback = CAM_VICTORY_TIMEOUT;
 			__camNeedBonusTime = false;
 			__camDefeatOnTimeout = false;
@@ -113,9 +96,17 @@ function camSetStandardWinLossConditions(kind, nextLevel, data)
 			break;
 		default:
 			camDebug("Unknown standard victory condition", kind);
-			break;
+			return;
 	}
+
+	// Define these parameters if not defined by the script
+	__camVictoryData = (camDef(__camVictoryData)) ? __camVictoryData : {};
+	__camVictoryData.enableLastAttack = (camDef(__camVictoryData.enableLastAttack)) ? __camVictoryData.enableLastAttack : true;
+	__camVictoryData.earlyPowerBonus = (camDef(__camVictoryData.earlyPowerBonus)) ? __camVictoryData.earlyPowerBonus : false;
+
 	__camNextLevel = nextLevel;
+
+	__camResetPower();
 }
 
 //;; ## camCheckExtraObjective()
@@ -143,6 +134,7 @@ function camCheckExtraObjective()
 			extraObjMet = false;
 		}
 	}
+
 	return extraObjMet;
 }
 
@@ -171,6 +163,46 @@ function camClearConsoleOnVictoryMessage(clear)
 	__camAllowVictoryMsgClear = clear;
 }
 
+//;; ## camGrantBonusPower()
+//;;
+//;; Grants bonus power for completing the mission faster (if not in Timerless mode).
+//;; In Timerless mode, sets the player's power to the max.
+//;; Also removes the mission timer and disables player power generation for the rest of the mission.
+//;; This function is automatically called at the end of a mission, but it can also be called earlier via the mission script.
+//;;
+//;; @returns {void}
+//;;
+function camGrantBonusPower()
+{
+	if (__camNeedBonusTime && !__camBonusPowerGranted)
+	{
+		if (camDiscoverCampaign() === __CAM_PROLOGUE_CAMPAIGN_NUMBER)
+		{
+			return; // Don't grant bonus power in the prologue
+		}
+
+		if (!tweakOptions.rec_timerlessMode)
+		{
+			// Calculate bonus power based on remaining mission time
+			let bonusTime = getMissionTime();
+			if (bonusTime > 0)
+			{
+				camTrace("Bonus time", bonusTime);
+				extraPowerTime(bonusTime);
+			}
+		}
+		else
+		{
+			// In Timerless mode, just set the player to max power at the end of the level
+			setPower(__camGetPowerLimit(), CAM_HUMAN_PLAYER);
+		}
+	setPowerModifier(0, CAM_HUMAN_PLAYER); // Stop power generation entirely
+	setMissionTime(-1); // Disable mission timer
+
+	__camBonusPowerGranted = true;
+	}
+}
+
 //////////// privates
 
 function __camGameLostCB()
@@ -191,7 +223,14 @@ function __camGameLost()
 
 function __camGameWon()
 {
+	if (__camVictoryData.earlyPowerBonus)
+	{
+		// Grant bonus power now if enabled
+		camGrantBonusPower();
+	}
+
 	__camLevelEnded = true;
+
 	if (camDef(__camNextLevel))
 	{
 		camTrace(__camNextLevel);
@@ -210,29 +249,27 @@ function __camGameWon()
 }
 
 //Checks if the player is considered to be alive on all non-offworld missions.
-//NOTE: Do not count cyborg factory here since combat engineer does not exist
-//in campaign at the moment.
 function __camPlayerDead()
 {
 	let dead = true;
-	const __HAVE_FACTORIES = enumStruct(CAM_HUMAN_PLAYER, FACTORY).filter((obj) => (
-		obj.status === BUILT
-	)).length > 0;
-	if (__HAVE_FACTORIES)
+	let haveFactories = enumStruct(CAM_HUMAN_PLAYER, FACTORY).filter(function(obj) {
+		return obj.status === BUILT;
+	}).length > 0;
+	
+	//If no normal factories are found, check for any cyborg factories since the player can build Combat Engineers
+	if (!haveFactories)
+	{
+		haveFactories = enumStruct(CAM_HUMAN_PLAYER, CYBORG_FACTORY).filter(function(obj) {
+			return obj.status === BUILT;
+		}).length > 0;
+	}
+
+	if (haveFactories)
 	{
 		dead = false;
 	}
-	if (__camNextLevel === cam_levels.gamma2.pre)
-	{
-		//Check for any construction units.
-		//NOTE: countDroid() will return the counts of construction units in
-		//apsLimboDroids between Gamma 3 to Gamma 5.
-		if (countDroid(DROID_CONSTRUCT) > 0)
-		{
-			dead = false;
-		}
-	}
-	else if (enumDroid(CAM_HUMAN_PLAYER, DROID_CONSTRUCT).length > 0)
+
+	if (enumDroid(CAM_HUMAN_PLAYER, DROID_CONSTRUCT).length > 0)
 	{
 		//A construction unit is currently on the map.
 		dead = false;
@@ -265,9 +302,10 @@ function __camPlayerDead()
 			}
 		}
 	}
+
 	if (__camWinLossCallback === CAM_VICTORY_TIMEOUT)
 	{
-		//Make the mission fail if no units are alive on map while having no factories.
+		// Check if no units are alive on map while having no factories.
 		let droidCount = 0;
 		enumDroid(CAM_HUMAN_PLAYER).forEach((obj) => {
 			if (obj.droidType === DROID_SUPERTRANSPORTER)
@@ -282,20 +320,21 @@ function __camPlayerDead()
 				droidCount += 1;
 			}
 		});
-		dead = droidCount <= 0 && !__HAVE_FACTORIES;
-		//Finish Beta-end early if they have no units and factories on lower difficulties.
+		dead = droidCount <= 0 && !haveFactories;
+		//Finish Beta-end early if they have no units and factories.
 		if (dead && (difficulty <= HARD) && (__camNextLevel === cam_levels.gamma1))
 		{
 			cam_eventMissionTimeout(); //Early victory trigger
 			return false;
 		}
 	}
+
 	return dead;
 }
 
 function __camTriggerLastAttack()
 {
-	if (!__camLastAttackTriggered)
+	if (!__camLastAttackTriggered && __camVictoryData.enableLastAttack)
 	{
 		// Do not order systems (sensor/trucks/repairs) to attack stuff.
 		const enemies = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
@@ -319,7 +358,10 @@ function __camVictoryStandard()
 	// check if game is won
 	if (camAllArtifactsPickedUp() && camAllEnemyBasesEliminated() && __EXTRA_OBJ)
 	{
-		if (enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).length === 0)
+		let enemiesRemaining = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
+			!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
+		)).length;
+		if (enemiesRemaining === 0)
 		{
 			__camGameWon();
 		}
@@ -356,38 +398,40 @@ function __camVictoryOffworld()
 		camDebug("Landing zone area is required for OFFWORLD");
 		return;
 	}
+
 	const __TOTAL = countDroid(DROID_ANY, CAM_HUMAN_PLAYER); // for future use
 	if (__TOTAL === 0)
 	{
 		__camGameLost();
 		return;
 	}
+
 	const __FORCE_LZ = camDef(__camVictoryData.retlz) ? __camVictoryData.retlz : false;
 	const __DESTROY_ALL = camDef(__camVictoryData.annihilate) ? __camVictoryData.annihilate : false;
 	const __ELIM_BASES = camDef(__camVictoryData.eliminateBases) ? __camVictoryData.eliminateBases : false;
+	const __ENEMY_LEN = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
+		!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
+	)).length;
+
 	if (camCheckExtraObjective() && camAllArtifactsPickedUp())
 	{
-		if (__ELIM_BASES)
+		if (__ELIM_BASES && camAllEnemyBasesEliminated())
 		{
-			if (camAllEnemyBasesEliminated())
+			const __NUM_ENEMY_DROIDS = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
+				obj.type === DROID
+			)).length;
+
+			if (__NUM_ENEMY_DROIDS === 0)
 			{
-				const enemyDroids = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
-					obj.type === DROID
-				)).length;
-				if (!enemyDroids)
-				{
-					__camGameWon();
-					return;
-				}
-				else
-				{
-					__camTriggerLastAttack();
-				}
+				__camGameWon();
+			}
+			else
+			{
+				__camTriggerLastAttack();
 			}
 		}
 		else
 		{
-			const __ENEMY_LEN = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).length;
 			if (!__FORCE_LZ && !__ENEMY_LEN)
 			{
 				//if there are no more enemies, win instantly unless forced to go
@@ -395,6 +439,7 @@ function __camVictoryOffworld()
 				__camGameWon();
 				return;
 			}
+
 			//Missions that are not won based on artifact count (see missions 2-1 and 3-2).
 			//If either __FORCE_LZ or __DESTROY_ALL is true then ignore this.
 			if (__camNumArtifacts === 0 && !__FORCE_LZ && !__DESTROY_ALL)
@@ -402,6 +447,7 @@ function __camVictoryOffworld()
 				__camGameWon();
 				return;
 			}
+
 			//Make sure to only count droids here.
 			const __TOTAL_AT_LZ = enumArea(lz, CAM_HUMAN_PLAYER, false).filter((obj) => (
 				obj.type === DROID && !camIsTransporter(obj)
@@ -415,9 +461,16 @@ function __camVictoryOffworld()
 			{
 				__camTriggerLastAttack();
 			}
+
 			if (!__DESTROY_ALL || (__FORCE_LZ && !__ENEMY_LEN))
 			{
-				const __REMIND_RETURN = 30; // every X seconds
+				if (__camVictoryData.earlyPowerBonus)
+				{
+					// Grant bonus power now if enabled
+					camGrantBonusPower();
+				}
+
+				const __REMIND_RETURN = 60; // every X seconds
 				if (__camRTLZTicker === 0 && camDef(__camVictoryData.message))
 				{
 					camTrace("Return to LZ message displayed");
@@ -433,7 +486,7 @@ function __camVictoryOffworld()
 					if (!__USED_REMIND || (__USED_REMIND && __camVictoryData.playLzReminder))
 					{
 						const pos = camMakePos(lz);
-						playSound(cam_sounds.lz.returnToLZ, pos.x, pos.y, 0);
+						playSound(cam_sounds.lz.returnToLZ);
 						console(_("Return to LZ"));
 					}
 				}
@@ -441,7 +494,7 @@ function __camVictoryOffworld()
 			}
 		}
 	}
-	if (enumArea(lz, ENEMIES, false).length > 0)
+	if (enumArea(lz, ENEMIES, false).filter((obj) => (obj.type === STRUCTURE || (obj.type == DROID && !obj.isVTOL))).length > 0)
 	{
 		const __REMIND_COMPROMISED = 30; // every X seconds
 		//Protect against early access to reinforcements GUI if it shouldn't be available yet
@@ -469,7 +522,7 @@ function __camVictoryOffworld()
 		camTrace("LZ clear");
 		const pos = camMakePos(lz);
 		playSound(cam_sounds.lz.LZClear, pos.x, pos.y, 0);
-		setReinforcementTime(__camVictoryData.reinforcements, false);
+		setReinforcementTime(__camVictoryData.reinforcements);
 		__camLZCompromisedTicker = 0;
 		if (__camRTLZTicker === 0)
 		{
@@ -485,24 +538,8 @@ function __camSetupConsoleForVictoryConditions()
 	{
 		clearConsole();
 	}
+
 	queue("__camShowVictoryConditions", camSecondsToMilliseconds(0.5));
-}
-
-function __camShowBetaHint()
-{
-	return ((camDiscoverCampaign() === __CAM_BETA_CAMPAIGN_NUMBER) && (difficulty >= INSANE));
-}
-
-function __camShowBetaHintEarly()
-{
-	if (!camDef(__camWinLossCallback) || (__camWinLossCallback !== CAM_VICTORY_PRE_OFFWORLD))
-	{
-		return;
-	}
-	if (__camShowBetaHint())
-	{
-		__camShowVictoryConditions();
-	}
 }
 
 function __camShowVictoryConditions()
@@ -515,56 +552,85 @@ function __camShowVictoryConditions()
 	{
 		return; // fastplay / tutorial. Should be a better identifier for this.
 	}
+
 	if (__camWinLossCallback === CAM_VICTORY_PRE_OFFWORLD)
 	{
-		if (__camShowBetaHint())
-		{
-			console(_("Insane difficulty hint:"));
-			console(_("Fortify a strong base across the map to protect yourself from the Collective"));
-		}
-		return; // do not need this on these missions.
+		// Only show the extra objective message (if one exists)
+		__camShowExtraObjectiveMessage();
+		return;
 	}
-	const __ANNIHILATE_MESSAGE = _("Destroy all enemy units and structures");
-	let unitsOnMap = 0;
-	let structuresOnMap = 0;
-	enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).forEach((obj) => {
-		if (obj.type === DROID)
+
+	const __TOTAL_ARTIFACTS = Object.keys(__camArtifacts).length;
+	if (__camVictoryData.showArtifacts && __TOTAL_ARTIFACTS > 0)
+	{
+		console(__camNumArtifacts + "/" + __TOTAL_ARTIFACTS + " " + _("Artifacts collected"));
+	}
+
+	const __ANNIHILATE_OBJ = (camDef(__camVictoryData.annihilate) && __camVictoryData.annihilate) || __camWinLossCallback === CAM_VICTORY_STANDARD;
+	const __DESTROY_OBJ = __ANNIHILATE_OBJ || (camDef(__camVictoryData.eliminateBases) && __camVictoryData.eliminateBases);
+
+	if (__DESTROY_OBJ)
+	{
+		// If our objective is to destroy enemies (or enemy bases), display how many bases remain
+		const __NUM_BASES = camNumEnemyBasesRemaining();
+		if (__NUM_BASES > 0)
 		{
-			++unitsOnMap;
+			console(__NUM_BASES + " " + _("Enemy bases remaining"));
 		}
-		else if (obj.type === STRUCTURE)
+		else
 		{
-			++structuresOnMap;
+			// If no bases remain, list the remaining enemy units & structures
+			let unitsOnMap = 0;
+			let structuresOnMap = 0;
+
+			enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).forEach((obj) => {
+				if (obj.type === DROID)
+				{
+					++unitsOnMap;
+				}
+				else if (obj.type === STRUCTURE && obj.status === BUILT && obj.stattype !== WALL) // Only count BUILT, non-wall structures
+				{
+					++structuresOnMap;
+				}
+			});
+
+			if (unitsOnMap > 0)
+			{
+				console(unitsOnMap + " " + _("Enemy units remaining"));
+			}
+
+			if (structuresOnMap > 0 && __ANNIHILATE_OBJ)
+			{
+				// If the player must destroy EVERYTHING, also list the remaining structures
+				console(structuresOnMap + " " + _("Enemy structures remaining"));
+			}	
 		}
-	});
-	console(__camNumArtifacts + "/" + Object.keys(__camArtifacts).length + " " + _("Artifacts collected"));
-	console(__camNumEnemyBases + "/" + Object.keys(__camEnemyBases).length + " " + _("Bases destroyed"));
-	console(unitsOnMap + " " + _("Enemy units remaining"));
-	console(structuresOnMap + " " + _("Enemy structures remaining"));
+	}
+
 	if (__camWinLossCallback === CAM_VICTORY_OFFWORLD)
 	{
 		if (camDef(__camVictoryData.retlz) && __camVictoryData.retlz)
 		{
 			console(_("Return to LZ required"));
 		}
-		if (camDef(__camVictoryData.annihilate) && __camVictoryData.annihilate)
-		{
-			console(__ANNIHILATE_MESSAGE);
-		}
+
 		if (camDef(__camVictoryData.eliminateBases) && __camVictoryData.eliminateBases)
 		{
 			console(_("Destroy all enemy units and bases"));
 		}
 	}
-	else if (__camWinLossCallback === CAM_VICTORY_TIMEOUT)
+
+	if (__ANNIHILATE_OBJ)
 	{
-		console(_("Survive until the timer reaches zero"));
+		console(_("Destroy all enemy units and structures"));
 	}
-	else if (__camWinLossCallback === CAM_VICTORY_STANDARD)
-	{
-		console(__ANNIHILATE_MESSAGE);
-	}
+
 	//More specific messages set through the mission scripts.
+	__camShowExtraObjectiveMessage();
+}
+
+function __camShowExtraObjectiveMessage()
+{
 	if (camDef(__camExtraObjectiveMessage))
 	{
 		if (__camExtraObjectiveMessage instanceof Array)

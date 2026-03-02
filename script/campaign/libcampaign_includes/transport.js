@@ -56,6 +56,19 @@ function camRemoveEnemyTransporterBlip()
 	}
 }
 
+//;; ## camGetTransporterDroids(player)
+//;;
+//;; Returns a list of droids being delivered by the given player's transport.
+//;; NOTE: This list can only be accessed when the transport is still on the map!
+//;;
+//;; @returns {Object}
+//;;
+function camGetTransporterDroids(player)
+{
+	return __camIncomingTransports[player].droids;
+}
+
+
 //////////// privates
 
 // returns true if transporter was launched,

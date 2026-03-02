@@ -38,6 +38,7 @@ function camCompleteRequiredResearch(researchIds, playerId)
 		const __RESEARCH_ID = researchIds[i];
 		//dump("Searching for required research of item: " + __RESEARCH_ID);
 		let reqRes = findResearch(__RESEARCH_ID, playerId).reverse();
+
 		if (reqRes.length === 0)
 		{
 			//HACK: autorepair like upgrades don't work after mission transition.
@@ -47,6 +48,7 @@ function camCompleteRequiredResearch(researchIds, playerId)
 			}
 			continue;
 		}
+
 		reqRes = camRemoveDuplicates(reqRes);
 		for (let s = 0, r = reqRes.length; s < r; ++s)
 		{
@@ -58,24 +60,25 @@ function camCompleteRequiredResearch(researchIds, playerId)
 	}
 }
 
-//;; ## camClassicResearch(researchIds, playerId)
+//;; ## camCompleteRequiredResearch(researchId)
 //;;
-//;; Grants research from the given list to player based on the "classic balance" variant.
+//;; Returns true if the player has the given research available in their menu, false otherwise.
 //;;
-//;; @param {string[]} researchIds
-//;; @param {number} playerId
-//;; @returns {void}
+//;; @param {string} researchIds
+//;; @returns {boolean}
 //;;
-function camClassicResearch(researchIds, playerId)
+function camResearchIsAvailable(researchId)
 {
-	if (!camClassicMode())
+	const resList = enumResearch();
+	for (let i = 0; i < resList.length; i++)
 	{
-		return;
+		if (resList[i].id === researchId)
+		{
+			return true;
+		}
 	}
-
-	camCompleteRequiredResearch(researchIds, playerId);
+	return false;
 }
-
 
 //////////// privates
 
@@ -84,7 +87,7 @@ function __camGrantSpecialResearch()
 {
 	for (let i = 1; i < __CAM_MAX_PLAYERS; ++i)
 	{
-		if (!allianceExistsBetween(CAM_HUMAN_PLAYER, i) && (countDroid(DROID_ANY, i) > 0 || enumStruct(i).length > 0))
+		if (countDroid(DROID_ANY, i) > 0 || enumStruct(i).length > 0)
 		{
 			//Boost AI production to produce all droids within a factory throttle
 			completeResearch(__CAM_AI_INSTANT_PRODUCTION_RESEARCH, i);

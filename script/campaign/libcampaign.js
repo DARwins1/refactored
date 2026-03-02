@@ -91,9 +91,6 @@
 namespace("cam_");
 
 //////////global vars start
-
-var __camClassicModActive = (modList.indexOf("wz2100_camclassic.wz") !== -1);
-
 //These are campaign player numbers.
 const CAM_HUMAN_PLAYER = 0;
 const CAM_NEW_PARADIGM = 1;
@@ -102,7 +99,7 @@ const CAM_NEXUS = 3;
 const CAM_SCAV_6 = 6;
 const CAM_SCAV_7 = 7;
 
-const __CAM_MAX_PLAYERS = 8;
+const __CAM_MAX_PLAYERS = 10;
 const __CAM_TICKS_PER_FRAME = 100;
 const __CAM_AI_POWER = 999999;
 const __CAM_INCLUDE_PATH = "script/campaign/libcampaign_includes/";
@@ -128,7 +125,6 @@ const cam_resistance_circuits = {
 	fourth: "R-Sys-Resistance-Upgrade04"
 };
 
-//level load codes here for reference. Might be useful for later code.
 const CAM_GAMMA_OUT = "GAMMA_OUT"; //Fake next level for the final Gamma mission.
 const __CAM_ALPHA_CAMPAIGN_NUMBER = 1;
 const __CAM_BETA_CAMPAIGN_NUMBER = 2;
@@ -199,11 +195,13 @@ const cam_sounds = {
 		scavengerOutpostDetected: "pcv375.ogg",
 		scavengerBaseDetected: "pcv374.ogg",
 		enemyBaseDetected: "pcv379.ogg",
+		enemyLZDetected: "pcv382.ogg",
 	},
 	baseElimination: {
 		scavengerOutpostEradicated: "pcv391.ogg",
 		scavengerBaseEradicated: "pcv392.ogg",
 		enemyBaseEradicated: "pcv394.ogg",
+		enemyLZEradicated: "pcv665.ogg",
 	},
 	lz: {
 		returnToLZ: "pcv427.ogg",
@@ -212,6 +210,7 @@ const cam_sounds = {
 	},
 	transport: {
 		transportUnderAttack: "pcv443.ogg",
+		transportReturningToBase: "pcv446.ogg",
 		enemyTransportDetected: "pcv381.ogg",
 		incomingEnemyTransport: "pcv395.ogg",
 	},
@@ -273,12 +272,23 @@ const cam_sounds = {
 		},
 		countdown: "10to1.ogg",
 	},
+	objective: {
+		objectiveCaptured: "pcv621.ogg",
+		primObjectiveCompleted: "pcv626.ogg",
+		objectiveDestroyed: "pcv622.ogg",
+	},
 	reinforcementsAreAvailable: "pcv440.ogg",
-	objectiveCaptured: "pcv621.ogg",
 	enemyEscaping: "pcv632.ogg",
 	powerTransferred: "power-transferred.ogg",
+	technologyTransferred: "pcv485.ogg",
+	unitsTransferred: "pcv486.ogg",
 	laserSatelliteFiring: "pcv650.ogg",
 	artifactRecovered: "pcv352.ogg",
+	enemyUnitDetected: "pcv378.ogg",
+	enemyVtolsDetected: "pcv388.ogg",
+	incomingAirStrike: "pcv634.ogg",
+	beacon: "beacon.ogg",
+	tracker: "pcv657.ogg", // Used to place a red dot on the minimap
 	soundIdentifier: ".ogg", //Used by video.js to check for sound before a video.
 };
 
@@ -312,13 +322,74 @@ var __camSaveLoading;
 //group
 var __camNewGroupCounter;
 var __camNeverGroupDroids;
+var __camRefillableGroupInfo;
 
 //hook
 var __camOriginalEvents = {};
 
 //misc
+const __camPowerLimits = [ // Power limits
+	999999, // SUPEREASY
+	100000, // EASY
+	50000, // MEDIUM
+	20000, // HARD
+	10000, // INSANE
+];
+const __camTimerlessPowerLimits = [ // Timerless mode power limits 
+	// Note that these are MUCH lower
+	50000, // SUPEREASY
+	24000, // EASY
+	12000, // MEDIUM
+	6000, // HARD
+	4000, // INSANE
+];
 var __camCalledOnce = {};
 var __camExpLevel;
+var __camLabelInfo;
+var __camFogRGB;
+
+var __camPlayerVisibilities;
+const __CAM_OBJ_VISION_RANGE = 8 * 128; // 8 tiles
+var __camCapturedFactoryIdx;
+const CAM_MAX_PLAYER_UNITS = 101; //note: the transporter is a unit you own
+const CAM_MAX_PLAYER_COMMANDERS = 10;
+const CAM_MAX_PLAYER_CONSTRUCTORS = 15;
+
+//sky
+const __camArizonaFogRGB = {r:176, g:143, b:95}; // Default RGB for arizona fog. IDEALLY, these would be read from palette.txt
+const __camUrbanFogRGB = {r:16, g:16, b:64}; // Default RGB for urban fog.
+const __camRockyFogRGB = {r:182, g:225, b:236}; // Default RGB for rocky fog.
+const __camDefaultSunStats = {
+	x: 225.0, 
+	y: -600.0, 
+	z: 450.0,
+	ar: 0.5,
+	ag: 0.5,
+	ab: 0.5,
+	dr: 1,
+	dg: 1,
+	db: 1,
+	sr: 1,
+	sg: 1,
+	sb: 1
+};
+var __camSunStats;
+const __CAM_GRADUAL_TICK_RATE = 100;
+const CAM_WEATHER_DEFAULT = 0; // Set weather based on tileset
+const CAM_WEATHER_CLEAR = 1; // No weather
+const CAM_WEATHER_RAIN = 2; // Intermittent rain
+const CAM_WEATHER_RAINSTORM = 3; // Constant rain
+const CAM_WEATHER_SNOW = 4; // Intermittent snow
+const CAM_WEATHER_SNOWSTORM = 5; // Constant snow
+var __camWeatherType;
+const CAM_SKY_DAY = 0;
+const CAM_SKY_NIGHT = 1;
+const CAM_SKY_ARIZONA = 2;
+const CAM_SKY_URBAN = 3;
+const __camArizonaSkyTexture = "texpages/page-25-sky-arizona.png";
+const __camUrbanSkyTexture = "texpages/page-25-sky-urban.png";
+const __camNightSkyTexture = "texpages/night-sky.png";
+var __camSkyboxType;
 
 //nexus
 var __camLastNexusAttack;
@@ -327,11 +398,11 @@ var __camNexusActivated;
 //production
 var __camFactoryInfo;
 var __camFactoryQueue;
+const __CAM_ASSEMBLY_DEFENSE_RADIUS = 8;
 var __camPropulsionTypeLimit;
 
 //research
 const __CAM_AI_INSTANT_PRODUCTION_RESEARCH = "R-Struc-Factory-Upgrade-AI";
-const cam_towerWarsResearch = ["R-Defense-WallUpgrade-TweakOption01"];
 const cam_nexusSpecialResearch = [
 	"R-Sys-NEXUSrepair", "R-Sys-NEXUSsensor"
 ];
@@ -342,6 +413,7 @@ const CAM_ORDER_DEFEND = 1;
 const CAM_ORDER_PATROL = 2;
 const CAM_ORDER_COMPROMISE = 3;
 const CAM_ORDER_FOLLOW = 4;
+const CAM_ORDER_STRIKE = 5;
 const CAM_PATROL_RANDOM = 0;
 const CAM_PATROL_CYCLE = 1;
 var __camGroupInfo;
@@ -349,9 +421,11 @@ const __CAM_TARGET_TRACKING_RADIUS = 7;
 const __CAM_PLAYER_BASE_RADIUS = 20;
 const __CAM_DEFENSE_RADIUS = 4;
 const __CAM_CLOSE_RADIUS = 2;
-const __CAM_CLUSTER_SIZE = 4;
+const __CAM_CLUSTER_SIZE = 8;
 const __CAM_FALLBACK_TIME_ON_REGROUP = 5000;
 var __camGroupAvgCoord = {x: 0, y: 0};
+const DORDER_DROIDREPAIR = 26; // Until I figure out where the other orders are defined, I'll put these here
+const DORDER_RTR_SPECIFIED = 35;
 
 //time
 const CAM_MILLISECONDS_IN_SECOND = 1000;
@@ -373,6 +447,26 @@ var __camTransporterMessage;
 
 //truck
 var __camTruckInfo;
+var __camTruckAssignList;
+const __camScavStructList = [ // List of structures that can generally be rebuilt by scavengers
+	"A0BaBaBunker",
+	"A0BaBaFactory",
+	"A0BaBaFlameTower",
+	"A0BaBaGunTower",
+	"A0BaBaGunTowerEND",
+	"A0BaBaHorizontalWall",
+	"A0BaBaMortarPit",
+	"A0BaBaPowerGenerator",
+	"A0BaBaRocketPit",
+	"A0BaBaRocketPitAT",
+	"A0BaBaCannonPit",
+	"A0BaBaMRAPit",
+	"A0BabaCornerWall",
+	"LookOutTower",
+	"A0CannonTower",
+	"Sys-RustSensoTower01",
+	"A0TankTrap",
+];
 
 //victory
 const CAM_VICTORY_STANDARD = "__camVictoryStandard";
@@ -390,6 +484,7 @@ var __camLastAttackTriggered;
 var __camLevelEnded;
 var __camExtraObjectiveMessage;
 var __camAllowVictoryMsgClear;
+var __camBonusPowerGranted;
 
 //video
 var __camVideoSequences;
@@ -425,3 +520,4 @@ include(__CAM_INCLUDE_PATH + "nexus.js");
 include(__CAM_INCLUDE_PATH + "group.js");
 include(__CAM_INCLUDE_PATH + "video.js");
 include(__CAM_INCLUDE_PATH + "guide.js");
+include(__CAM_INCLUDE_PATH + "sky.js");

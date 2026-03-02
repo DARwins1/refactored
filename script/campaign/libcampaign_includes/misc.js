@@ -3,17 +3,6 @@
 // Misc useful stuff.
 ////////////////////////////////////////////////////////////////////////////////
 
-//;; ## camClassicMode()
-//;;
-//;; Returns `true` if classic balance mod is enabled.
-//;;
-//;; @returns {boolean}
-//;;
-function camClassicMode()
-{
-	return __camClassicModActive;
-}
-
 //;; ## camDef(something)
 //;;
 //;; Returns `false` if something is JavaScript-undefined, `true` otherwise.
@@ -54,6 +43,46 @@ function camRand(max)
 	camDebug("Max should be positive");
 }
 
+//;; ## camRandFrom(array)
+//;;
+//;; Returns a random element from the given array.
+//;;
+//;; @param {number} max
+//;; @returns {number}
+//;;
+function camRandFrom(array)
+{
+	if (array.length > 0)
+	{
+		return array[camRand(array.length)];
+	}
+	camDebug("Array has no elements!");
+}
+
+//;; ## camRandPosIn(area)
+//;;
+//;; Returns a position from the given area object/label.
+//;;
+//;; @param {string|Object} area
+//;; @returns {Object}
+//;;
+function camRandPosIn(area)
+{
+	if (camIsString(area))
+	{
+		area = getObject(area);
+	}
+
+	if (camDef(area.x2))
+	{
+		return {
+			x: area.x + camRand(area.x2 - area.x),
+			y: area.y + camRand(area.y2 - area.y)
+		};
+	}
+	camDebug("Couldn't make random coordinates in area!");
+}
+
 //;; ## camCallOnce(functionName)
 //;;
 //;; Call a function by name, but only if it has not been called yet.
@@ -91,6 +120,12 @@ function camSafeRemoveObject(obj, specialEffects)
 	}
 	if (camDef(obj) && obj)
 	{
+		if (obj.type === DROID && obj.isVTOL && !specialEffects)
+		{
+			// If we're quietly removing a VTOL, assume it "escapes" the map
+			__camVtolEscaped(obj.id);
+		}
+
 		removeObject(obj, specialEffects);
 	}
 }
@@ -199,9 +234,9 @@ function camPlayerMatchesFilter(playerId, playerFilter)
 		case ALL_PLAYERS:
 			return true;
 		case ALLIES:
-			return playerId === CAM_HUMAN_PLAYER;
+			return playerId === CAM_HUMAN_PLAYER || allianceExistsBetween(playerId, CAM_HUMAN_PLAYER);
 		case ENEMIES:
-			return playerId >= 0 && playerId < __CAM_MAX_PLAYERS && playerId !== CAM_HUMAN_PLAYER;
+			return playerId >= 0 && playerId < __CAM_MAX_PLAYERS && playerId !== CAM_HUMAN_PLAYER && !allianceExistsBetween(playerId, CAM_HUMAN_PLAYER);
 		default:
 			return playerId === playerFilter;
 	}
@@ -218,6 +253,7 @@ function camRemoveDuplicates(items)
 {
 	let prims = {"boolean":{}, "number":{}, "string":{}};
 	const objs = [];
+
 	return items.filter((item) => {
 		const type = typeof item;
 		if (type in prims)
@@ -258,46 +294,18 @@ function camCountStructuresInArea(label, playerFilter)
 	return ret;
 }
 
-//;; ## camCleanTileOfObstructions(x, y | pos)
-//;;
-//;; Obliterates player structures and features near the tile around certain coordinates.
-//;; Can be used for spawn locations or transport reinforcement spots. May not
-//;; delete very large objects like factories or skyscrapers.
-//;;
-//;; @param {number|Object} x
-//;; @param {number} [y]
-//;; @returns {void}
-//;;
-function camCleanTileOfObstructions(x, y)
-{
-	if (!camDef(x))
-	{
-		camDebug("invalid parameters?");
-		return;
-	}
-	const __TILE_SWEEP_RADIUS = 1;
-	const pos = (camDef(y)) ? {x: x, y: y} : x;
-	const objects = enumRange(pos.x, pos.y, __TILE_SWEEP_RADIUS, CAM_HUMAN_PLAYER, false);
-	for (let i = 0, len = objects.length; i < len; ++i)
-	{
-		const obj = objects[i];
-		if (obj.type !== DROID)
-		{
-			camSafeRemoveObject(obj, true);
-		}
-	}
-}
-
-//;; ## camChangeOnDiff(numericValue)
+//;; ## camChangeOnDiff(numericValue[, inverse])
 //;;
 //;; Change a numeric value based on campaign difficulty.
 //;;
 //;; @param {number} numericValue
+//;; @param {number} inverse
 //;; @returns {number}
 //;;
-function camChangeOnDiff(numericValue)
+function camChangeOnDiff(numericValue, inverse)
 {
 	let modifier = 0;
+
 	switch (difficulty)
 	{
 		case SUPEREASY:
@@ -319,18 +327,21 @@ function camChangeOnDiff(numericValue)
 			modifier = 1;
 			break;
 	}
-	return Math.floor(numericValue * modifier);
-}
 
-//;; ## camAllowInsaneSpawns()
-//;;
-//;; Allow additional Insane difficulty (or higher) spawns and behavior.
-//;;
-//;; @returns {boolean}
-//;;
-function camAllowInsaneSpawns()
-{
-	return false;
+	if (camDef(inverse) && inverse)
+	{
+		if (difficulty !== SUPEREASY)
+		{
+			modifier = 2 - modifier;
+		}
+		else
+		{
+			// Don't let the modifier equal zero
+			modifier = 0.25;
+		}
+	}
+
+	return Math.floor(numericValue * modifier);
 }
 
 //;; ## camIsSystemDroid(gameObject)
@@ -346,11 +357,13 @@ function camIsSystemDroid(gameObject)
 	{
 		return false;
 	}
+
 	if (gameObject.type !== DROID)
 	{
 		camTrace("Non-droid: " + gameObject.type + " pl: " + gameObject.name);
 		return false;
 	}
+
 	return (gameObject.droidType === DROID_SENSOR || gameObject.droidType === DROID_CONSTRUCT || gameObject.droidType === DROID_REPAIR);
 }
 
@@ -369,7 +382,7 @@ function camMakeGroup(what, playerFilter)
 {
 	if (!camDef(playerFilter))
 	{
-		playerFilter = ENEMIES;
+		playerFilter = ALL_PLAYERS;
 	}
 	let array;
 	let obj;
@@ -387,8 +400,7 @@ function camMakeGroup(what, playerFilter)
 	}
 	if (camDef(obj))
 	{
-		switch (obj.type)
-		{
+		switch (obj.type) {
 			case POSITION:
 				obj = getObject(obj.x, obj.y);
 				// fall-through
@@ -451,232 +463,114 @@ function camBreakAlliances()
 	}
 }
 
-//;; ## camIsWaterPropulsion(propulsion)
+//;; ## camGenerateRandomMapEdgeCoordinate(reachPosition)
 //;;
-//;; Check if a propulsion can traverse water tiles. Until the Stats object can tell us this
-//;; information, it simply uses a very basic name check against the default hover propulsions.
-//;;
-//;; @param {String} propulsion
-//;; @returns {Boolean}
-//;;
-function camIsWaterPropulsion(propulsion)
-{
-	return (propulsion.indexOf("hover") !== -1);
-}
-
-//;; ## camNearInaccessibleAreas(start, destination [, propulsion [, distance]])
-//;;
-//;; Determine if a start position can reach a destination position within the limits of
-//;; the chosen propulsion, and if there are nearby cliffs/water tiles nearby within a certain distance.
-//;; if `destination` is undefined it will cause this function to just scan around the start position.
-//;;
-//;; @param {Object} start
-//;; @param {Object} destination
-//;; @param {String} propulsion
-//;; @param {Number} distance
-//;; @returns {Boolean}
-//;;
-function camNearInaccessibleAreas(start, destination, propulsion, distance)
-{
-	if (!camDef(start) || !start)
-	{
-		camDebug("Undefined start position when scanning for inaccessible areas.");
-		return true;
-	}
-	if (!camDef(propulsion))
-	{
-		propulsion = CAM_GENERIC_LAND_STAT;
-	}
-	if (!camDef(distance))
-	{
-		distance = 1;
-	}
-	if (!camDef(destination) || !destination)
-	{
-		destination = start; //Quick way to just scan for pits/cliffs at the start position.
-	}
-	for (let x = -distance; x <= distance; ++x)
-	{
-		for (let y = -distance; y <= distance; ++y)
-		{
-			const tmpStart = {x: start.x + x, y: start.y + y};
-			if ((tmpStart.x < 0) || (tmpStart.y < 0) || (tmpStart.x >= mapWidth) || (tmpStart.y >= mapHeight))
-			{
-				continue; // We don't care about being outside the map here.
-			}
-			const TTYPE = terrainType(tmpStart.x, tmpStart.y);
-			if (!propulsionCanReach(propulsion, destination.x, destination.y, tmpStart.x, tmpStart.y) ||
-				(TTYPE === TER_CLIFFFACE) ||
-				((TTYPE === TER_WATER) && !camIsWaterPropulsion(propulsion)))
-			{
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-//;; ## camGenerateRandomMapEdgeCoordinate(reachPosition [, propulsion [, distFromReach [, scanObjectRadius]]])
-//;;
-//;; Returns a random coordinate anywhere on the edge of the map that reaches a position.
-//;; `reachPosition` may be undefined if you just want a random edge coordinate, without object scans.
-//;; Which can be useful for spawning transporter entry/exit points or VTOL spawn positions.
-//;; `scanObjectRadius` may be defined to scan possible spawn points for nearby objects,
-//;; and should be above one tile if there are large skyscrapers at the edges of some maps.
+//;; Returns a random coordinate anywhere on the edge of the map that reachs a position.
 //;;
 //;; @param {Object} reachPosition
-//;; @param {String} propulsion
-//;; @param {Number} distFromReach
-//;; @param {Number} scanObjectRadius
 //;; @returns {Object}
 //;;
-function camGenerateRandomMapEdgeCoordinate(reachPosition, propulsion, distFromReach, scanObjectRadius)
+function camGenerateRandomMapEdgeCoordinate(reachPosition)
 {
-	if (!camDef(propulsion))
-	{
-		propulsion = CAM_GENERIC_LAND_STAT;
-	}
-	if (!camDef(distFromReach))
-	{
-		distFromReach = 0;
-	}
 	const limits = getScrollLimits();
-	const __MAX_ATTEMPTS = 10000;
-	const __DEFINED_POS = (camDef(reachPosition) && reachPosition);
-	const __DEFINED_SCAN = (camDef(scanObjectRadius) && scanObjectRadius);
-	const __OFFSET = 3; // Gives transporters enough space to turn around near map edges.
-	const __SCAN_DIST = 1;
-	let attempts = 0;
-	let breakOut = false;
 	let loc;
-	while (!breakOut)
+
+	do
 	{
-		++attempts;
 		const location = {x: 0, y: 0};
 		let xWasRandom = false;
+
 		if (camRand(100) < 50)
 		{
 			location.x = camRand(limits.x2 + 1);
-			if (location.x < (limits.x + __OFFSET))
+			if (location.x < (limits.x + 2))
 			{
-				location.x = limits.x + __OFFSET;
+				location.x = limits.x + 2;
 			}
-			else if (location.x > (limits.x2 - __OFFSET))
+			else if (location.x > (limits.x2 - 2))
 			{
-				location.x = limits.x2 - __OFFSET;
+				location.x = limits.x2 - 2;
 			}
 			xWasRandom = true;
 		}
 		else
 		{
-			location.x = (camRand(100) < 50) ? (limits.x2 - __OFFSET) : (limits.x + __OFFSET);
+			location.x = (camRand(100) < 50) ? (limits.x2 - 2) : (limits.x + 2);
 		}
+
 		if (!xWasRandom && (camRand(100) < 50))
 		{
 			location.y = camRand(limits.y2 + 1);
-			if (location.y < (limits.y + __OFFSET))
+			if (location.y < (limits.y + 2))
 			{
-				location.y = limits.y + __OFFSET;
+				location.y = limits.y + 2;
 			}
-			else if (location.y > (limits.y2 - __OFFSET))
+			else if (location.y > (limits.y2 - 2))
 			{
-				location.y = limits.y2 - __OFFSET;
+				location.y = limits.y2 - 2;
 			}
 		}
 		else
 		{
-			location.y = (camRand(100) < 50) ? (limits.y2 - __OFFSET) : (limits.y + __OFFSET);
+			location.y = (camRand(100) < 50) ? (limits.y2 - 2) : (limits.y + 2);
 		}
+
 		loc = location;
-		if ((attempts > __MAX_ATTEMPTS) ||
-			(!__DEFINED_POS ||
-			((camDist(reachPosition.x, reachPosition.y, loc.x, loc.y) >= distFromReach) &&
-			(!__DEFINED_SCAN || !enumRange(loc.x, loc.y, scanObjectRadius, ALL_PLAYERS, false).length) &&
-			!camNearInaccessibleAreas(loc, reachPosition, propulsion, __SCAN_DIST))))
-		{
-			breakOut = true;
-		}
-	}
+	} while (camDef(reachPosition) && reachPosition && !propulsionCanReach("wheeled01", reachPosition.x, reachPosition.y, loc.x, loc.y));
+
 	return loc;
 }
 
-//;; ## camGenerateRandomMapCoordinate(reachPosition [, propulsion [, distFromReach [, scanObjectRadius, [, avoidNearbyCliffs]]]])
+//;; ## camGenerateRandomMapCoordinate(reachPosition)
 //;;
-//;; Returns a random coordinate anywhere on the map.
+//;; Returns a random coordinate anywhere on the map
 //;;
 //;; @param {Object} reachPosition
-//;; @param {String} propulsion
-//;; @param {Number} distFromReach
-//;; @param {Number} scanObjectRadius
-//;; @param {Boolean} avoidNearbyCliffs
 //;; @returns {Object}
 //;;
-function camGenerateRandomMapCoordinate(reachPosition, propulsion, distFromReach, scanObjectRadius, avoidNearbyCliffs)
+function camGenerateRandomMapCoordinate(reachPosition, distFromReach, scanObjectRadius)
 {
-	if (!camDef(reachPosition) || !reachPosition)
-	{
-		camDebug("Undefined reachPosition when attempting to generate random coordinate.");
-		return {x: (mapWidth / 2), y: (mapHeight / 2)}; // Better than nothing.
-	}
 	if (!camDef(distFromReach))
 	{
 		distFromReach = 10;
 	}
 	if (!camDef(scanObjectRadius))
 	{
-		scanObjectRadius = 1;
+		scanObjectRadius = 2;
 	}
-	if (!camDef(propulsion))
-	{
-		propulsion = CAM_GENERIC_LAND_STAT;
-	}
-	if (!camDef(avoidNearbyCliffs))
-	{
-		avoidNearbyCliffs = true;
-	}
+
 	const limits = getScrollLimits();
-	const __MAX_ATTEMPTS = 10000;
-	const __OFFSET = 3; // Gives transporters enough space to turn around near map edges.
-	const __SCAN_DIST = 2;
-	let attempts = 0;
-	let breakOut = false;
 	let pos;
-	while (!breakOut)
+
+	do
 	{
-		++attempts;
 		let randomPos = {x: camRand(limits.x2), y: camRand(limits.y2)};
-		let nearPitOrCliff = false;
-		if (randomPos.x < (limits.x + __OFFSET))
+
+		if (randomPos.x < (limits.x + 2))
 		{
-			randomPos.x = limits.x + __OFFSET;
+			randomPos.x = limits.x + 2;
 		}
-		else if (randomPos.x > (limits.x2 - __OFFSET))
+		else if (randomPos.x > (limits.x2 - 2))
 		{
-			randomPos.x = limits.x2 - __OFFSET;
+			randomPos.x = limits.x2 - 2;
 		}
-		if (randomPos.y < (limits.y + __OFFSET))
+
+		if (randomPos.y < (limits.y + 2))
 		{
-			randomPos.y = limits.y + __OFFSET;
+			randomPos.y = limits.y;
 		}
-		else if (randomPos.y > (limits.y2 - __OFFSET))
+		else if (randomPos.y > (limits.y2 - 2))
 		{
-			randomPos.y = limits.y2 - __OFFSET;
+			randomPos.y = limits.y2 - 2;
 		}
+
 		pos = randomPos;
-		// Scan for nearby pits/hills so transporters don't put units inside inaccessible areas.
-		if (avoidNearbyCliffs)
-		{
-			nearPitOrCliff = camNearInaccessibleAreas(pos, reachPosition, propulsion, __SCAN_DIST);
-		}
-		if ((attempts > __MAX_ATTEMPTS) ||
-			((camDist(pos, reachPosition) >= distFromReach) &&
-			propulsionCanReach(propulsion, reachPosition.x, reachPosition.y, pos.x, pos.y) &&
-			(!avoidNearbyCliffs || !nearPitOrCliff) &&
-			!enumRange(pos.x, pos.y, scanObjectRadius, ALL_PLAYERS, false).length))
-		{
-			breakOut = true;
-		}
-	}
+	} while (camDef(reachPosition) &&
+		reachPosition &&
+		!propulsionCanReach("wheeled01", reachPosition.x, reachPosition.y, pos.x, pos.y) &&
+		(camDist(pos, reachPosition) < distFromReach) &&
+		(enumRange(pos.x, pos.y, scanObjectRadius, ALL_PLAYERS, false).length > 0));
+
 	return pos;
 }
 
@@ -688,29 +582,136 @@ function camGenerateRandomMapCoordinate(reachPosition, propulsion, distFromReach
 //;;
 function camDiscoverCampaign()
 {
-	for (let i = 0, len = __cam_alphaLevels.length; i < len; ++i)
+	if (__cam_alphaLevels.includes(__camNextLevel) || __camNextLevel === __cam_betaLevels[0])
 	{
-		if (__camNextLevel === __cam_alphaLevels[i] || __camNextLevel === __cam_betaLevels[0])
-		{
-			return __CAM_ALPHA_CAMPAIGN_NUMBER;
-		}
+		return __CAM_ALPHA_CAMPAIGN_NUMBER;
 	}
-	for (let i = 0, len = __cam_betaLevels.length; i < len; ++i)
+	else if (__cam_betaLevels.includes(__camNextLevel) || __camNextLevel === __cam_gammaLevels[0])
 	{
-		if (__camNextLevel === __cam_betaLevels[i] || __camNextLevel === __cam_gammaLevels[0])
-		{
-			return __CAM_BETA_CAMPAIGN_NUMBER;
-		}
+		return __CAM_BETA_CAMPAIGN_NUMBER;
 	}
-	for (let i = 0, len = __cam_gammaLevels.length; i < len; ++i)
+	else if (__cam_gammaLevels.includes(__camNextLevel) || __camNextLevel === CAM_GAMMA_OUT)
 	{
-		if (__camNextLevel === __cam_gammaLevels[i] || __camNextLevel === CAM_GAMMA_OUT)
-		{
-			return __CAM_GAMMA_CAMPAIGN_NUMBER;
-		}
+		return __CAM_GAMMA_CAMPAIGN_NUMBER;
 	}
 
 	return __CAM_UNKNOWN_CAMPAIGN_NUMBER;
+}
+
+//;; ## camSetDroidRank(droid, rank)
+//;; Sets a droid's rank to the given value.
+//;; `droid` must be a droid object, while `rank`
+//;; can be either an integer or name of a rank.
+//;; `droid` may also be an array of droid objects.
+//;;
+//;; @param {Object|[Object]} droid
+//;; @param {number | String} rank
+//;; @returns {void}
+//;;
+function camSetDroidRank(droid, rank)
+{
+	if (droid instanceof Array)
+	{
+		// Array of droids...
+		for (const droidling of droid)
+		{
+			camSetDroidRank(droidling, rank);
+		}
+		return;
+	}
+
+	if (!camDef(droid) || droid.type !== DROID)
+	{
+		camTrace("Tried setting an unknown object's rank.");
+		return;
+	}
+
+	if (droid.droidType === DROID_CONSTRUCT || droid.droidType === DROID_REPAIR)
+	{
+		camTrace("Tried setting the rank of a non-sensor system droid.");
+		return;
+	}
+
+	let xpAmount = 0;
+	if (camIsString(rank)) // Rank as a string?
+	{
+		switch (rank)
+		{
+			case "Green":
+				xpAmount = 4;
+				break;
+			case "Trained":
+				xpAmount = 8;
+				break;
+			case "Regular":
+				xpAmount = 16;
+				break;
+			case "Professional":
+				xpAmount = 32;
+				break;
+			case "Veteran":
+				xpAmount = 64;
+				break;
+			case "Elite":
+				xpAmount = 128;
+				break;
+			case "Special":
+				xpAmount = 256;
+				break;
+			case "Hero":
+				xpAmount = 512;
+				break;
+			default:
+				camDebug("unknown rank given to camSetDroidRank!");
+				return;
+		}
+	}
+	else // Rank as an integer?
+	{
+		if (rank > 0)
+		{
+			xpAmount = Math.pow(2, rank + 1);
+		}
+	}
+
+	if (droid.droidType === DROID_COMMAND)
+	{
+		xpAmount *= 4; // Commanders need 4x the xp
+	}
+
+	setDroidExperience(droid, xpAmount);
+}
+
+//;; Returns a droid's rank as an integer.
+//;; ```droid``` must be a droid object.
+//;;
+//;; @param {Object} droid
+//;; @returns {number}
+//;;
+function camGetDroidRank(droid)
+{
+	if (!camDef(droid) || droid.type !== DROID)
+	{
+		camTrace("Tried getting an unknown object's rank.");
+		return;
+	}
+
+	let xpAmount = droid.experience;
+	if (droid.droidType === DROID_COMMAND)
+	{
+		// Pretend commanders have 1/2 the XP they actually do
+		xpAmount /= 2;
+	}
+
+	if (xpAmount >= 512) return 8; // Hero
+	if (xpAmount >= 256) return 7; // Special
+	if (xpAmount >= 128) return 6; // Elite
+	if (xpAmount >= 64) return 5; // Veteran
+	if (xpAmount >= 32) return 4; // Professional
+	if (xpAmount >= 16) return 3; // Regular
+	if (xpAmount >= 8) return 2; // Trained
+	if (xpAmount >= 4) return 1; // Green
+	return 0; // Rookie
 }
 
 //;; ## camGetRankThreshold(rank [, command [, player]])
@@ -741,45 +742,508 @@ function camGetRankThreshold(rankName, command, player)
 	return Upgrades[player]["Brain"][__BRAIN_TYPE]["RankThresholds"][rank];
 }
 
-//;; ## camSetExpLevel(rank)
+//;; Returns the amount of units a commander can handle base on rank.
+//;; ```droid``` must be a commander droid.
 //;;
-//;; Sets what rank will be used for the AI when it creates units. Can be a rank threshold
-//;; index or the name of the rank.
+//;; @param {Object} commander
+//;; @returns {number|undefined}
 //;;
-//;; @param {Number|String} rank
-//;; @returns {void}
-//;;
-function camSetExpLevel(rank)
+function camGetCommanderMaxGroupSize(commander)
 {
-	if (!camDef(rank))
+	if (!camDef(commander) || commander.type !== DROID || commander.droidType !== DROID_COMMAND)
 	{
-		rank = 0;
+		camDebug("camGetCommanderMaxGroupSize must be given a commander droid object.");
+		return;
 	}
-	__camExpLevel = (typeof rank === "string") ? __camRankStringToNumber(rank) : rank;
+
+	return 6 + (2 * camGetDroidRank(commander));
 }
 
-//;; ## camSetOnMapEnemyUnitExp()
+//;; Returns true if the given position lies within the given area label
 //;;
-//;; Sets all non-player units to the chosen rank set through camSetExpLevel().
+//;; @param {Object | string} pos
+//;; @param {Object | string} area
+//;; @returns {boolean}
 //;;
+function camWithinArea(pos, area)
+{
+	const p = camMakePos(pos);
+	let a = area;
+	if (camIsString(area))
+	{
+		a = getObject(area);
+	}
+	if (!camDef(a))
+	{
+		console("area is undefined!");
+	}
+	if (a === null)
+	{
+		console("area is null!");
+	}
+	
+	return (p.x >= a.x 
+		&& p.x <= a.x2
+		&& p.y >= a.y 
+		&& p.y <= a.y2);
+}
+
+//;; Returns an array where all instances of item1 are replaced with item2
+//;;
+//;; @param {*[]} array
+//;; @param {*} area
+//;; @returns {*[]}
+//;;
+function camArrayReplaceWith(array, item1, item2)
+{
+	let index = array.indexOf(item1);
+	while (index !== -1)
+	{
+		array[index] = item2;
+		index = array.indexOf(item1);
+	}
+	return array;
+}
+
+//;; ## camGetCompStats(compName, compType[, player])
+//;;
+//;; Returns stats about the given component from the global Stats data structure.
+//;; If a player is provided, look up stats from their specified Upgrades structure,
+//;; which contains stats that can be modified through research upgrades.
+//;; For example, `camGetCompStats("Lancer", "Weapon", CAM_HUMAN_PLAYER)` can be used
+//;; to get the current stats of the player's Lancer rockets.
+//;; ```compType``` can be "Body", "Brain", "Building", "Construct", "ECM", "Propulsion",
+//;; "Repair", "Sensor" or "Weapon".
+//;;
+//;; @param {string} compName
+//;; @param {string} compType
+//;; @param {number} player
+//;; @returns {Object}
+//;; 
+function camGetCompStats(compName, compType, player)
+{
+	if (camDef(player))
+	{
+		return Upgrades[player][compType][compName];
+	}
+	else
+	{
+		return Stats[compType][compName];
+	}
+}
+
+//;; ## camGetCompNameFromId(compId, compType)
+//;;
+//;; Returns the external name of a component from it's internal ID name.
+//;; For example, `camGetCompNameFromId("Rocket-LtA-T", "Weapon")` returns "Lancer".
+//;;
+//;; @param {string} compName
+//;; @param {string} compType
+//;; @returns {string}
+//;; 
+function camGetCompNameFromId(compId, compType)
+{
+	// FIXME: O(n) lookup here
+	const compList = Stats[compType];
+	for (let compName in compList)
+	{
+		if (compList[compName].Id === compId)
+		{
+			return compName;
+		}
+	}	
+}
+
+//;; ## camEnumStruct(player)
+//;;
+//;; Simple wrapper for enumStruct. Allows the use of ALL_PLAYERS.
+//;;
+//;; @param {number} player
+//;; @returns {[Object]}
+//;; 
+function camEnumStruct(player)
+{
+	if (player !== ALL_PLAYERS)
+	{
+		return enumStruct(player);
+	}
+	else
+	{
+		let structList = [];
+		for (let i = 0; i <= __CAM_MAX_PLAYERS; i++)
+		{
+			structList = structList.concat(enumStruct(i));
+		}
+		return structList;
+	}
+}
+
+//;; ## camEnumDroid(player)
+//;;
+//;; Simple wrapper for enumDroid. Allows the use of ALL_PLAYERS.
+//;;
+//;; @param {number} player
+//;; @returns {[Object]}
+//;; 
+function camEnumDroid(player)
+{
+	if (player !== ALL_PLAYERS)
+	{
+		return enumDroid(player);
+	}
+	else
+	{
+		let droidList = [];
+		for (let i = 0; i <= __CAM_MAX_PLAYERS; i++)
+		{
+			droidList = droidList.concat(enumDroid(i));
+		}
+		return droidList;
+	}
+}
+
+//;; ## camNameTemplate(weapon, body, propulsion)
+//;; Returns a nice name for the passed in template
+//;; Takes in either a template object or a turret + body + propulsion
+//;;
+//;; @param {string | Object} weapon
+//;; @param {string} body
+//;; @param {string} propulsion
+//;; @returns {string}
+//;;
+function camNameTemplate(weapon, body, propulsion)
+{
+	if (!camDef(body))
+	{
+		// Template passed in...
+		propulsion = weapon.prop;
+		body = weapon.body;
+		weapon = weapon.weap;
+	}
+
+	const __MULTI_TURRET = (typeof weapon === "object" && camDef(weapon[1]));
+	// If `weapon` is an array of weapons, we only care about the first one.
+	weapon = __MULTI_TURRET ? weapon[0] : weapon;
+
+	let name;
+	let weapName = camGetCompNameFromId(weapon, "Weapon");
+	if (!camDef(weapName))
+	{
+		// Sensor unit?
+		weapName = camGetCompNameFromId(weapon, "Sensor");
+		if (!camDef(weapName))
+		{
+			// Truck??
+			weapName = camGetCompNameFromId(weapon, "Construct");
+			if (!camDef(weapName))
+			{
+				// Repair Turret???
+				weapName = camGetCompNameFromId(weapon, "Repair");
+				if (!camDef(weapName))
+				{
+					// Commander????
+					weapName = camGetCompNameFromId(weapon, "Brain");
+					if (!camDef(weapName))
+					{
+						// ?????
+						weapName = "?";
+					}
+				}
+			}
+		}
+	}
+
+	if (body === "CyborgLightBody" || body === "CyborgHeavyBody")
+	{
+		// Just use the weapon name for cyborgs
+		name = weapName;
+	}
+	else
+	{
+		const __BODY_NAME = camGetCompNameFromId(body, "Body");
+		const __PROP_NAME = camGetCompNameFromId(propulsion, "Propulsion");
+		name = (__MULTI_TURRET) 
+			? [ _(weapName), _("Hydra"), _(__BODY_NAME), _(__PROP_NAME) ].join(" ") // Add "Hydra" if multiple turrets
+			: [ _(weapName), _(__BODY_NAME), _(__PROP_NAME) ].join(" ");
+	}
+	return name;
+}
+
+//;; ## camDroidMatchesTemplate(droid, template)
+//;; Returns true if a given droid matches a given template
+//;; NOTE: Multi-turret droids/templates are not properly supported!
+//;;
+//;; @param {Object} droid
+//;; @param {Object} template
+//;; @returns {boolean}
+//;;
+function camDroidMatchesTemplate(droid, template)
+{
+	// First check if the propulsion and body match
+	if (template.prop != droid.propulsion || template.body != droid.body)
+	{
+		return false;
+	}
+
+	// Now handle the turret
+	switch (droid.droidType)
+	{
+		case DROID_CONSTRUCT:
+		{
+			return (template.weap == "Spade1Mk1" || template.weap == "CyborgSpade");
+		}
+		case DROID_REPAIR:
+		{
+			// FIXME: We currently can't tell which repair turret is equipped on a unit!
+			// We can only determine if a unit has *a* repair turret!
+			return (template.weap == "LightRepair1" || template.weap == "CyborgRepair");
+		}
+		case DROID_SENSOR:
+		{
+			// FIXME: We currently can't tell the CB and non CB sensor turrets apart!
+			return ((droid.isSensor && (template.weap == "SensorTurret1Mk1" || template.weap == "Sys-VstrikeTurret01"))
+				|| (droid.isCB && (template.weap == "Sys-CBTurret01" || template.weap == "Sys-VTOLCBTurret01")));
+		}
+		case DROID_COMMAND:
+		{
+			return (template.weap == "CommandBrain01");
+		}
+		default:
+		{
+			return (template.weap == droid.weapons[0].name);
+		}
+	}
+}
+
+//;; ## camFactoryCanProduceTemplate(template, factory)
+//;; Returns true if a given template can be built by the given factory object.
+//;;
+//;; @param {Object} template
+//;; @param {Object} factory
+//;; @returns {boolean}
+//;;
+function camFactoryCanProduceTemplate(template, factory)
+{
+	// First, check if the factory has enough modules to produce the template's body
+	const bodyName = camGetCompNameFromId(template.body, "Body"); // Returns a body's name (e.g. "Cobra")
+	const bodySize = camGetCompStats(bodyName, "Body").Size; // Get body size (NOTE: The capitalization of "Size" is correct here!)
+	// Return false if the body size is too large for the factory
+	if (factory.modules < bodySize) return false;
+
+	// Next, do a check to make sure scavenger factories can't produce non-scavenger units
+	if (factory.name === "Scavenger Factory" || factory.name === "Infested Scavenger Factory")
+	{
+		// NOTE: We only need to check light bodies here, since larger bodies will automatically fail the previous check!
+		if (template.body === "Body4ABT" || template.body === "Body1REC" || template.body === "Body2SUP" || template.body === "Body3MBT")
+		{
+			return false;
+		}
+		// NOTE: While Cyborg bodies are also technically "LIGHT", any sane cyborg template should be vetted by the next check.
+	}
+	else
+	{
+		if (template.body === "ScavCraneBody")
+		{
+			// Don't buid scav cranes out of normal factories
+			return false;
+		}
+	}
+
+	// Last, check if the propulsion matches the factory type
+	switch (factory.stattype)
+	{
+		case CYBORG_FACTORY:
+		{
+			// Cyborg Legs
+			return (template.prop === "CyborgLegs" || template.prop === "CyborgLegs02" || template.prop === "CyborgLegs03" || template.prop === "BoomTickLegs");
+		}
+		case VTOL_FACTORY:
+		{
+			// Any VTOL or Helicopter propulsion
+			return (template.prop === "V-Tol" || template.prop === "V-Tol02" || template.prop === "V-Tol03" || template.prop === "Helicopter");
+		}
+		case FACTORY:
+		{
+			// Anything else
+			return (template.prop !== "V-Tol" && template.prop !== "V-Tol02" && template.prop !== "V-Tol03" && template.prop !== "Helicopter"
+				&& template.prop !== "CyborgLegs" && template.prop !== "CyborgLegs02" && template.prop !== "CyborgLegs03" && template.prop !== "BoomTickLegs");
+		}
+		default:
+		{
+			camDebug("Unknown factory type!");
+			return false;
+		}
+	}
+}
+
+//;; ## camAutoReplaceObjectLabel(label[, data])
+//;; Mark an object for automatic label replacement.
+//;; If the object with this label is destroyed and then rebuilt, this label will automatically
+//;; be reapplied.
+//;; NOTE: Since position is used to determine if the object is the "same", this function only works with
+//;; structures!
+//;; See `cam_eventStructureBuilt` in `events.js` for how this is used.
+//;; NOTE: Factories automatically call this function when set! There's no need to call this again within the level scripts.
+//;;
+//;; @param {string|string[]} label
 //;; @returns {void}
 //;;
-function camSetOnMapEnemyUnitExp()
+function camAutoReplaceObjectLabel(label, data)
 {
-	enumDroid(CAM_NEW_PARADIGM)
-	.concat(enumDroid(CAM_THE_COLLECTIVE))
-	.concat(enumDroid(CAM_NEXUS))
-	.concat(enumDroid(CAM_SCAV_6))
-	.concat(enumDroid(CAM_SCAV_7))
-	.forEach(function(obj) {
-		if (!allianceExistsBetween(CAM_HUMAN_PLAYER, obj.player) && //may have friendly units as other player
-			!camIsTransporter(obj) &&
-			obj.droidType !== DROID_CONSTRUCT &&
-			obj.droidType !== DROID_REPAIR)
+	if (!camIsString(label)) // Array of labels?
+	{
+		for (const subLabel of label)
 		{
-			camSetDroidExperience(obj);
+			camAutoReplaceObjectLabel(subLabel);
 		}
-	});
+		return;
+	}
+
+	let player;
+	let x;
+	let y;
+	let stattype;
+	const obj = getObject(label);
+	
+	if (camDef(data))
+	{
+		player = data.player;
+		x = data.x;
+		y = data.y;
+		stattype = data.stattype;
+	}
+	else
+	{
+		if ((obj === null || obj.type !== STRUCTURE))
+		{
+			// No data
+			camTrace("camAutoReplaceObjectLabel: No data for label \"" + label + "\"!");
+			return;
+		}
+		else 
+		{
+			// Get data from the structure object
+			player = obj.player;
+			x = obj.x;
+			y = obj.y;
+			stattype = obj.stattype;
+		}
+	}
+
+	__camLabelInfo.push({label: label, player: player, x: x, y: y, stattype: stattype});
+}
+
+//;; ## camAreaSecure(area[, player])
+//;; Returns true if the area contains no units or structures hostile to the given player.
+//;; If no player is provided, defaults to CAM_HUMAN_PLAYER.
+//;; NOTE: This function ignores VTOL-like droids when considering if an area is secure
+//;;
+//;; @param {string|Object} area
+//;; @param {number} player
+//;; @returns {boolean}
+//;;
+function camAreaSecure(area, player)
+{
+	let a = area;
+	if (camIsString(area))
+	{
+		a = getObject(area);
+	}
+	let x1 = a.x;
+	let y1 = a.y;
+	let x2 = a.x2;
+	let y2 = a.y2;
+
+	if (!player)
+	{
+		player = CAM_HUMAN_PLAYER;
+	}
+
+	return enumArea(x1, y1, x2, y2, ALL_PLAYERS, false).filter((obj) => (
+		(obj.type === STRUCTURE || (obj.type === DROID && !obj.isVTOL)) && !allianceExistsBetween(obj.player, player))
+	).length === 0;
+}
+
+//;; ## camSetObjectVision(playerId[, state])
+//;; Makes objects belonging to the specified player grant vision to the player.
+//;; `state` defaults to true if undefined.
+//;;
+//;; @param {number} playerId
+//;; @param {boolean} state
+//;; @returns {void}
+//;;
+function camSetObjectVision(playerId, state)
+{
+	if (!camDef(state))
+	{
+		state = true;
+	}
+	__camPlayerVisibilities[playerId] = state;
+}
+
+// NOTE: This function used to be in rules.js
+function __camSetLimits()
+{
+	setDroidLimit(CAM_HUMAN_PLAYER, CAM_MAX_PLAYER_UNITS, DROID_ANY);
+	setDroidLimit(CAM_HUMAN_PLAYER, CAM_MAX_PLAYER_COMMANDERS, DROID_COMMAND);
+	setDroidLimit(CAM_HUMAN_PLAYER, CAM_MAX_PLAYER_CONSTRUCTORS, DROID_CONSTRUCT);
+
+	for (let i = 0; i < maxPlayers; ++i)
+	{
+		setStructureLimits("A0PowerGenerator", 5, i);
+		setStructureLimits("A0ResourceExtractor", 200, i);
+		setStructureLimits("A0ResearchFacility", 5, i);
+		setStructureLimits("A0LightFactory", 5, i);
+		setStructureLimits("A0CyborgFactory", 5, i);
+		setStructureLimits("A0VTolFactory1", 5, i);
+		//non human players get five of these
+		setStructureLimits("A0CommandCentre", i === CAM_HUMAN_PLAYER ? 1 : 5, i);
+		setStructureLimits("A0ComDroidControl", i === CAM_HUMAN_PLAYER ? 1 : 5, i);
+		setStructureLimits("A0CommandCentreNP", 5, i);
+		setStructureLimits("A0CommandCentreCO", 5, i);
+		setStructureLimits("A0CommandCentreNE", 5, i);
+	}
+}
+
+//;; ## camEnsureDonateObject(obj, player)
+//;; A hacky wrapper for donateObject that ensures that the given objects are donated to the player without conflicting with unit limits.
+//;; `obj` can be a single object or a list of objects.
+//;; NOTE: This function supports donating any object to any player, but should only be necessary for donating DROIDs to CAM_HUMAN_PLAYER.
+//;;
+//;; @param {Object|[Object]} obj
+//;; @param {number} player
+//;; @returns {void}
+//;;
+function camEnsureDonateObject(obj, player)
+{
+	// Raise the player's unit limit(s) 
+	// NOTE: This is unnecessary for non-droid donations, but we don't bother checking the object types here.
+	if (player === CAM_HUMAN_PLAYER) // NOTE: By default, all non-human players are only limited by the 16-bit limit
+	{
+		const __16BIT_LIMIT = 32767; // (2^15 - 1)
+		setDroidLimit(player, __16BIT_LIMIT, DROID_ANY);
+		setDroidLimit(player, __16BIT_LIMIT, DROID_COMMAND);
+		setDroidLimit(player, __16BIT_LIMIT, DROID_CONSTRUCT);
+	}
+
+	// Donate the object(s)
+	if (obj instanceof Array)
+	{
+		for (const ob of obj)
+		{
+			donateObject(ob, player);
+		}
+	}
+	else // Single object
+	{
+		donateObject(obj, player);
+	}
+
+	// Restore the player's unit limit(s) to the default
+	if (player === CAM_HUMAN_PLAYER)
+	{
+		__camSetLimits();
+	}
 }
 
 //////////// privates
@@ -851,118 +1315,64 @@ function __camAiPowerReset()
 	}
 }
 
-function __camRankStringToNumber(rankName)
-{
-	if (!camDef(rankName))
+// This used to be in `rules.js``
+function __camResetPower()
+{	
+	// Rate changes by 15% per difficulty level, with Normal at 100%
+	let powerProductionRate = 100 - (15 * (difficulty - 2));
+	
+	const __POWER_LIMIT = __camGetPowerLimit();
+
+	setPowerModifier(powerProductionRate, CAM_HUMAN_PLAYER);
+	setPowerStorageMaximum(__POWER_LIMIT, CAM_HUMAN_PLAYER);
+	if (playerPower(CAM_HUMAN_PLAYER) >= __POWER_LIMIT)
 	{
-		camDebug("Undefined parameter");
-		return 0;
+		setPower(__POWER_LIMIT - 1, CAM_HUMAN_PLAYER);
 	}
-	if (typeof rankName !== "string")
-	{
-		camDebug("Please specify rank as a string");
-		return 0;
-	}
-	let rank = 0;
-	switch (rankName.toLowerCase())
-	{
-		case "rookie": rank = 0; break;
-		case "green": rank = 1; break;
-		case "trained": rank = 2; break;
-		case "regular": rank = 3; break;
-		case "professional": rank = 4; break;
-		case "veteran": rank = 5; break;
-		case "elite": rank = 6; break;
-		case "special": rank = 7; break;
-		case "hero": rank = 8; break;
-		default: camDebug("Unknown rank encountered");
-	}
-	return rank;
 }
 
-function __camGetExpRangeLevel(useCommanderRanks)
+function __camGetPowerLimit()
 {
-	if (!camDef(useCommanderRanks))
+	let powerLimit;
+	if (!tweakOptions.rec_timerlessMode || (camDef(__camNextLevel) && (__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A0_OUT)))
 	{
-		useCommanderRanks = false;
+		powerLimit = __camPowerLimits[difficulty];
 	}
-	const ranks = {
-		rookie: camGetRankThreshold("rookie", useCommanderRanks),
-		green: camGetRankThreshold("green", useCommanderRanks),
-		trained: camGetRankThreshold("trained", useCommanderRanks),
-		regular: camGetRankThreshold("regular", useCommanderRanks),
-		professional: camGetRankThreshold("professional", useCommanderRanks),
-		veteran: camGetRankThreshold("veteran", useCommanderRanks),
-		elite: camGetRankThreshold("elite", useCommanderRanks),
-		special: camGetRankThreshold("special", useCommanderRanks),
-		hero: camGetRankThreshold("hero", useCommanderRanks)
-	};
-	let exp = [];
-	switch (__camExpLevel)
+	else
 	{
-		case 0: // fall-through
-		case 1:
-			exp = [ranks.rookie, ranks.rookie];
-			break;
-		case 2:
-			exp = [ranks.green, ranks.trained, ranks.regular];
-			break;
-		case 3:
-			exp = [ranks.trained, ranks.regular, ranks.professional];
-			break;
-		case 4:
-			exp = [ranks.regular, ranks.professional, ranks.veteran];
-			break;
-		case 5:
-			exp = [ranks.professional, ranks.veteran, ranks.elite];
-			break;
-		case 6:
-			exp = [ranks.veteran, ranks.elite, ranks.special];
-			break;
-		case 7:
-			exp = [ranks.elite, ranks.special, ranks.hero];
-			break;
-		case 8:
-			exp = [ranks.special, ranks.hero];
-			break;
-		case 9:
-			exp = [ranks.hero, ranks.hero];
-			break;
-		default:
-			__camExpLevel = 0;
-			exp = [ranks.rookie, ranks.rookie];
+		// Enforce stricter power limits on timerless mode
+		powerLimit = __camTimerlessPowerLimits[difficulty];
 	}
-	return exp;
+
+	// Increase the power limits as the player progresses through the acts
+	const __CAM_NUM = camDiscoverCampaign();
+	if (difficulty >= MEDIUM && __CAM_NUM > 1)
+	{
+		// Increase by 20% per Act after the Prologue.
+		powerLimit += (powerLimit * 0.2) * (__CAM_NUM - 1);
+	}
+
+	return powerLimit;
 }
 
-function camSetDroidExperience(droid)
-{
-	if (droid.droidType === DROID_REPAIR || droid.droidType === DROID_CONSTRUCT || camIsTransporter(droid))
-	{
-		return;
-	}
-	if (droid.player === CAM_HUMAN_PLAYER)
-	{
-		return;
-	}
-	const __CMD_RANK = (droid.droidType === DROID_COMMAND || droid.droidType === DROID_SENSOR);
-	const expRange = __camGetExpRangeLevel(__CMD_RANK);
-	const __EXP = expRange[camRand(expRange.length)];
-	setDroidExperience(droid, __EXP);
-}
 
-// Only to prevent prebuilt units from team Gamma on Gamma 6 from having the NavGunSensor.
-function __camRemoveNavGunSensorResearch()
+
+// Grant the player momentary vision of all objects specified by camSetObjectVision()
+function __camViewObjects()
 {
-	if (camDiscoverCampaign() !== __CAM_GAMMA_CAMPAIGN_NUMBER)
+	let objList = [];
+
+	for (const player in __camPlayerVisibilities)
 	{
-		return;
-	}
-	for (let i = 0; i < __CAM_MAX_PLAYERS; ++i)
-	{
-		if (i !== CAM_NEXUS && getResearch("R-Sys-NEXUSsensor", i).done)
+		if (__camPlayerVisibilities[player])
 		{
-			completeResearch("R-Sys-NEXUSsensorUndo", i, true);
+			objList = objList.concat(enumStruct(player).filter((struct) => (struct.stattype !== WALL)));
+			objList = objList.concat(enumDroid(player));
 		}
+	}
+
+	for (let i = 0; i < objList.length; i++)
+	{
+		addSpotter(objList[i].x, objList[i].y, CAM_HUMAN_PLAYER, __CAM_OBJ_VISION_RANGE, false, gameTime + camSecondsToMilliseconds(1));
 	}
 }

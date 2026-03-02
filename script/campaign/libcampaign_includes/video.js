@@ -60,7 +60,9 @@ function __camEnqueueVideos()
 	{
 		return; //Nothing to play
 	}
+
 	const what = __camVideoSequences[0];
+
 	// Check if this is a sound to play before some sequence.
 	if (typeof what === "string" && what.indexOf(cam_sounds.soundIdentifier) !== -1)
 	{
@@ -70,6 +72,7 @@ function __camEnqueueVideos()
 	else if (typeof what === "object")
 	{
 		let play = true;
+
 		if (!camDef(what.video) || !camIsString(what.video))
 		{
 			camDebug("Problem with video property.");
@@ -84,6 +87,7 @@ function __camEnqueueVideos()
 		{
 			what.immediate = true;
 		}
+
 		if (play)
 		{
 			hackAddMessage(what.video, what.type, CAM_HUMAN_PLAYER, what.immediate);
@@ -93,5 +97,6 @@ function __camEnqueueVideos()
 	{
 		camDebug("Funky camPlayVideos() parameter!");
 	}
+
 	__camVideoSequences.shift();
 }
