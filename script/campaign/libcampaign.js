@@ -91,6 +91,9 @@
 namespace("cam_");
 
 //////////global vars start
+
+var __camClassicModActive = (modList.indexOf("wz2100_camclassic.wz") !== -1);
+
 //These are campaign player numbers.
 const CAM_HUMAN_PLAYER = 0;
 const CAM_NEW_PARADIGM = 1;
@@ -104,26 +107,180 @@ const __CAM_TICKS_PER_FRAME = 100;
 const __CAM_AI_POWER = 999999;
 const __CAM_INCLUDE_PATH = "script/campaign/libcampaign_includes/";
 
+//Anything stats related
+const CAM_ARTIFACT_STAT = "Crate";
+const CAM_GENERIC_TRUCK_STAT = "Spade1Mk1";
+const CAM_GENERIC_LAND_STAT = "wheeled01";
+const CAM_GENERIC_WATER_STAT = "hover01";
+const CAM_OIL_RESOURCE_STAT = "OilResource";
+const cam_base_structures = {
+	commandRelay: "A0ComDroidControl",
+	commandCenter: "A0CommandCentre",
+	powerGenerator: "A0PowerGenerator",
+	researchLab: "A0ResearchFacility",
+	factory: "A0LightFactory",
+	derrick: "A0ResourceExtractor"
+};
+const cam_resistance_circuits = {
+	first: "R-Sys-Resistance-Upgrade01",
+	second: "R-Sys-Resistance-Upgrade02",
+	third: "R-Sys-Resistance-Upgrade03",
+	fourth: "R-Sys-Resistance-Upgrade04"
+};
+
 //level load codes here for reference. Might be useful for later code.
 const CAM_GAMMA_OUT = "GAMMA_OUT"; //Fake next level for the final Gamma mission.
 const __CAM_ALPHA_CAMPAIGN_NUMBER = 1;
 const __CAM_BETA_CAMPAIGN_NUMBER = 2;
 const __CAM_GAMMA_CAMPAIGN_NUMBER = 3;
 const __CAM_UNKNOWN_CAMPAIGN_NUMBER = 1000;
+const cam_levels = {
+	alpha1: "CAM_1A",
+	alpha2: "CAM_1B",
+	alpha3: {pre: "SUB_1_1S", offWorld: "SUB_1_1"},
+	alpha4: {pre: "SUB_1_2S", offWorld: "SUB_1_2"},
+	alpha5: {pre: "SUB_1_3S", offWorld: "SUB_1_3"},
+	alpha6: "CAM_1C",
+	alpha7: "CAM_1CA",
+	alpha8: {pre: "SUB_1_4AS", offWorld: "SUB_1_4A"},
+	alpha9: {pre: "SUB_1_5S", offWorld: "SUB_1_5"},
+	alpha10: "CAM_1A-C",
+	alpha11: {pre: "SUB_1_7S", offWorld: "SUB_1_7"},
+	alpha12: {pre: "SUB_1_DS", offWorld: "SUB_1_D"},
+	alphaEnd: "CAM_1END",
+	beta1: "CAM_2A",
+	beta2: {pre: "SUB_2_1S", offWorld: "SUB_2_1"},
+	beta3: "CAM_2B",
+	beta4: {pre: "SUB_2_2S", offWorld: "SUB_2_2"},
+	beta5: "CAM_2C",
+	beta6: {pre: "SUB_2_5S", offWorld: "SUB_2_5"},
+	beta7: {pre: "SUB_2DS", offWorld: "SUB_2D"},
+	beta8: {pre: "SUB_2_6S", offWorld: "SUB_2_6"},
+	beta9: {pre: "SUB_2_7S", offWorld: "SUB_2_7"},
+	beta10: {pre: "SUB_2_8S", offWorld: "SUB_2_8"},
+	betaEnd: "CAM_2END",
+	gamma1: "CAM_3A",
+	gamma2: {pre: "SUB_3_1S", offWorld: "SUB_3_1"},
+	gamma3: "CAM_3B",
+	gamma4: {pre: "SUB_3_2S", offWorld: "SUB_3_2"},
+	gamma5: "CAM3A-B",
+	gamma6: "CAM3C",
+	gammaBonus: {pre: "SUB_3_3S", offWorld: "SUB_3_3"},
+	gamma7: "CAM3A-D1",
+	gamma8: "CAM3A-D2",
+	gammaEnd: {pre: "CAM_3_4S", offWorld: "CAM_3_4"}
+};
 const __cam_alphaLevels = [
-	"CAM_1A", "CAM_1B", "SUB_1_1S", "SUB_1_1", "SUB_1_2S", "SUB_1_2", "SUB_1_3S",
-	"SUB_1_3", "CAM_1C", "CAM_1CA", "SUB_1_4AS", "SUB_1_4A", "SUB_1_5S", "SUB_1_5",
-	"CAM_1A-C", "SUB_1_7S", "SUB_1_7", "SUB_1_DS", "SUB_1_D", "CAM_1END"
+	cam_levels.alpha1, cam_levels.alpha2, cam_levels.alpha3.pre, cam_levels.alpha3.offWorld,
+	cam_levels.alpha4.pre, cam_levels.alpha4.offWorld, cam_levels.alpha5.pre,
+	cam_levels.alpha5.offWorld, cam_levels.alpha6, cam_levels.alpha7, cam_levels.alpha8.pre,
+	cam_levels.alpha8.offWorld, cam_levels.alpha9.pre, cam_levels.alpha9.offWorld,
+	cam_levels.alpha10, cam_levels.alpha11.pre, cam_levels.alpha11.offWorld,
+	cam_levels.alpha12.pre, cam_levels.alpha12.offWorld, cam_levels.alphaEnd
 ];
 const __cam_betaLevels = [
-	"CAM_2A", "SUB_2_1S", "SUB_2_1", "CAM_2B", "SUB_2_2S", "SUB_2_2", "CAM_2C",
-	"SUB_2_5S", "SUB_2_5", "SUB_2DS", "SUB_2D", "SUB_2_6S", "SUB_2_6", "SUB_2_7S",
-	"SUB_2_7", "SUB_2_8S", "SUB_2_8", "CAM_2END"
+	cam_levels.beta1, cam_levels.beta2.pre, cam_levels.beta2.offWorld, cam_levels.beta3,
+	cam_levels.beta4.pre, cam_levels.beta4.offWorld, cam_levels.beta5, cam_levels.beta6.pre,
+	cam_levels.beta6.offWorld, cam_levels.beta7.pre, cam_levels.beta7.offWorld,
+	cam_levels.beta8.pre, cam_levels.beta8.offWorld, cam_levels.beta9.pre,
+	cam_levels.beta9.offWorld, cam_levels.beta10.pre, cam_levels.beta10.offWorld,
+	cam_levels.betaEnd
 ];
 const __cam_gammaLevels = [
-	"CAM_3A", "SUB_3_1S", "SUB_3_1", "CAM_3B", "SUB_3_2S", "SUB_3_2", "CAM3A-B",
-	"CAM3C", "CAM3A-D1", "CAM3A-D2", "CAM_3_4S", "CAM_3_4"
+	cam_levels.gamma1, cam_levels.gamma2.pre, cam_levels.gamma2.offWorld, cam_levels.gamma3,
+	cam_levels.gamma4.pre, cam_levels.gamma4.offWorld, cam_levels.gamma5, cam_levels.gammaBonus,
+	cam_levels.gamma6, cam_levels.gamma7, cam_levels.gamma8, cam_levels.gammaEnd.pre,
+	cam_levels.gammaEnd.offWorld
 ];
+
+// Holds all the sounds the campaign uses. Try to name things as they are said.
+const cam_sounds = {
+	baseDetection: {
+		scavengerOutpostDetected: "pcv375.ogg",
+		scavengerBaseDetected: "pcv374.ogg",
+		enemyBaseDetected: "pcv379.ogg",
+	},
+	baseElimination: {
+		scavengerOutpostEradicated: "pcv391.ogg",
+		scavengerBaseEradicated: "pcv392.ogg",
+		enemyBaseEradicated: "pcv394.ogg",
+	},
+	lz: {
+		returnToLZ: "pcv427.ogg",
+		LZCompromised: "pcv445.ogg",
+		LZClear: "lz-clear.ogg",
+	},
+	transport: {
+		transportUnderAttack: "pcv443.ogg",
+		enemyTransportDetected: "pcv381.ogg",
+		incomingEnemyTransport: "pcv395.ogg",
+	},
+	incoming: {
+		incomingIntelligenceReport: "pcv456.ogg",
+		incomingTransmission: "pcv455.ogg",
+	},
+	rescue: {
+		unitsRescued: "pcv615.ogg",
+		groupRescued: "pcv616.ogg",
+		civilianRescued: "pcv612.ogg",
+	},
+	nexus: {
+		defensesAbsorbed: "defabsrd.ogg",
+		defensesNeutralized: "defnut.ogg",
+		laugh1: "laugh1.ogg",
+		laugh2: "laugh2.ogg",
+		laugh3: "laugh3.ogg",
+		productionCompleted: "pordcomp.ogg",
+		researchAbsorbed: "resabsrd.ogg",
+		structureAbsorbed: "strutabs.ogg",
+		structureNeutralized: "strutnut.ogg",
+		synapticLinksActivated: "synplnk.ogg",
+		unitAbsorbed: "untabsrd.ogg",
+		unitNeutralized: "untnut.ogg",
+	},
+	missile: {
+		launch: {
+			missileLaunchAborted: "labort.ogg",
+			missileLaunched: "mlaunch.ogg",
+			finalMissileLaunchSequenceInitiated: "flseq.ogg",
+			missileEnteringFinalLaunchPeriod: "meflp.ogg",
+			missileLaunchIn60Minutes: "60min.ogg",
+			missileLaunchIn50Minutes: "50min.ogg",
+			missileLaunchIn40Minutes: "40min.ogg",
+			missileLaunchIn30Minutes: "30min.ogg",
+			missileLaunchIn20Minutes: "20min.ogg",
+			missileLaunchIn10Minutes: "10min.ogg",
+			missileLaunchIn5Minutes: "5min.ogg",
+			missileLaunchIn4Minutes: "4min.ogg",
+			missileLaunchIn3Minutes: "3min.ogg",
+			missileLaunchIn2Minutes: "2min.ogg",
+			missileLaunchIn1Minute: "1min.ogg",
+		},
+		detonate: {
+			warheadActivatedCountdownBegins: "wactivat.ogg",
+			finalDetonationSequenceInitiated: "fdetseq.ogg",
+			detonationIn60Minutes: "det60min.ogg",
+			detonationIn50Minutes: "det50min.ogg",
+			detonationIn40Minutes: "det40min.ogg",
+			detonationIn30Minutes: "det30min.ogg",
+			detonationIn20Minutes: "det20min.ogg",
+			detonationIn10Minutes: "det10min.ogg",
+			detonationIn5Minutes: "det5min.ogg",
+			detonationIn4Minutes: "det4min.ogg",
+			detonationIn3Minutes: "det3min.ogg",
+			detonationIn2Minutes: "det2min.ogg",
+			detonationIn1Minute: "det1min.ogg",
+		},
+		countdown: "10to1.ogg",
+	},
+	reinforcementsAreAvailable: "pcv440.ogg",
+	objectiveCaptured: "pcv621.ogg",
+	enemyEscaping: "pcv632.ogg",
+	powerTransferred: "power-transferred.ogg",
+	laserSatelliteFiring: "pcv650.ogg",
+	artifactRecovered: "pcv352.ogg",
+	soundIdentifier: ".ogg", //Used by video.js to check for sound before a video.
+};
 
 //artifact
 var __camArtifacts;
@@ -137,6 +294,11 @@ var __camNumEnemyBases;
 const CAM_REINFORCE_NONE = 0;
 const CAM_REINFORCE_GROUND = 1;
 const CAM_REINFORCE_TRANSPORT = 2;
+const CAM_REINFORCE_CONDITION_NONE = 0;
+const CAM_REINFORCE_CONDITION_BASES = 1;
+const CAM_REINFORCE_CONDITION_UNITS = 2;
+const CAM_REINFORCE_CONDITION_OBJECT = 3;
+const CAM_REINFORCE_CONDITION_ARTIFACTS = 4;
 
 //debug
 var __camMarkedTiles = {};
@@ -159,18 +321,6 @@ var __camCalledOnce = {};
 var __camExpLevel;
 
 //nexus
-const CAM_DEFENSE_ABSORBED_SND = "defabsrd.ogg";
-const CAM_DEFENSE_NEUTRALIZE_SND = "defnut.ogg";
-const CAM_LAUGH1_SND = "laugh1.ogg";
-const CAM_LAUGH2_SND = "laugh2.ogg";
-const CAM_LAUGH3_SND = "laugh3.ogg";
-const CAM_PRODUCTION_COMPLETE_SND = "pordcomp.ogg";
-const CAM_RES_ABSORBED_SND = "resabsrd.ogg";
-const CAM_STRUCTURE_ABSORBED_SND = "strutabs.ogg";
-const CAM_STRUCTURE_NEUTRALIZE_SND = "strutnut.ogg";
-const CAM_SYNAPTICS_ACTIVATED_SND = "synplnk.ogg";
-const CAM_UNIT_ABSORBED_SND = "untabsrd.ogg";
-const CAM_UNIT_NEUTRALIZE_SND = "untnut.ogg";
 var __camLastNexusAttack;
 var __camNexusActivated;
 
@@ -179,12 +329,21 @@ var __camFactoryInfo;
 var __camFactoryQueue;
 var __camPropulsionTypeLimit;
 
+//research
+const __CAM_AI_INSTANT_PRODUCTION_RESEARCH = "R-Struc-Factory-Upgrade-AI";
+const cam_towerWarsResearch = ["R-Defense-WallUpgrade-TweakOption01"];
+const cam_nexusSpecialResearch = [
+	"R-Sys-NEXUSrepair", "R-Sys-NEXUSsensor"
+];
+
 //tactics
 const CAM_ORDER_ATTACK = 0;
 const CAM_ORDER_DEFEND = 1;
 const CAM_ORDER_PATROL = 2;
 const CAM_ORDER_COMPROMISE = 3;
 const CAM_ORDER_FOLLOW = 4;
+const CAM_PATROL_RANDOM = 0;
+const CAM_PATROL_CYCLE = 1;
 var __camGroupInfo;
 const __CAM_TARGET_TRACKING_RADIUS = 7;
 const __CAM_PLAYER_BASE_RADIUS = 20;
@@ -200,6 +359,12 @@ const CAM_SECONDS_IN_MINUTE = 60;
 const CAM_MINUTES_IN_HOUR = 60;
 
 //transport
+const cam_trComps = {
+	name: "Transport",
+	body: "TransporterBody",
+	propulsion: "V-Tol",
+	weapon: "MG3-VTOL"
+};
 var __camNumTransporterExits;
 var __camPlayerTransports;
 var __camIncomingTransports;
@@ -259,3 +424,4 @@ include(__CAM_INCLUDE_PATH + "vtol.js");
 include(__CAM_INCLUDE_PATH + "nexus.js");
 include(__CAM_INCLUDE_PATH + "group.js");
 include(__CAM_INCLUDE_PATH + "video.js");
+include(__CAM_INCLUDE_PATH + "guide.js");

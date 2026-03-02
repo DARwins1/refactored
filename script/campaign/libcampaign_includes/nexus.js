@@ -14,7 +14,7 @@ function camNexusLaugh()
 	const __LAUGH_CHANCE = 45;
 	if (camRand(100) < __LAUGH_CHANCE)
 	{
-		const laughs = [CAM_LAUGH1_SND, CAM_LAUGH2_SND, CAM_LAUGH3_SND];
+		const laughs = [cam_sounds.nexus.laugh1, cam_sounds.nexus.laugh2, cam_sounds.nexus.laugh3];
 		playSound(laughs[camRand(laughs.length)]);
 	}
 }
@@ -38,9 +38,7 @@ function camAbsorbPlayer(who, to)
 	{
 		to = CAM_NEXUS;
 	}
-
 	const units = enumDroid(who);
-
 	for (let i = 0, len = units.length; i < len; ++i)
 	{
 		const droid = units[i];
@@ -49,7 +47,6 @@ function camAbsorbPlayer(who, to)
 			camSafeRemoveObject(droid, false);
 		}
 	}
-
 	const structs = enumStruct(who);
 	for (let i = 0, len = structs.length; i < len; ++i)
 	{
@@ -59,7 +56,6 @@ function camAbsorbPlayer(who, to)
 			camSafeRemoveObject(structure, false);
 		}
 	}
-
 	camTrace("Player " + who + " has been absorbed by player" + to);
 	changePlayerColour(who, to);
 }
@@ -79,11 +75,9 @@ function camHackIntoPlayer(player, to)
 	{
 		return;
 	}
-
 	const __GIFT_CHANCE = 70; //Else neutralized
 	let target;
 	let objects;
-
 	if (!camDef(player))
 	{
 		player = CAM_HUMAN_PLAYER;
@@ -96,16 +90,13 @@ function camHackIntoPlayer(player, to)
 	{
 		__camLastNexusAttack = 0;
 	}
-
 	objects = __camChooseNexusTarget(player);
 	if (objects.length === 0)
 	{
 		return;
 	}
-
 	__camLastNexusAttack = gameTime;
 	target = objects[camRand(objects.length)];
-
 	if ((camRand(100) < __GIFT_CHANCE) && !(target.type === STRUCTURE && target.stattype === WALL))
 	{
 		camTrace("Hacking " + target.name + " at (x,y): " + target.x + " " + target.y);
@@ -126,23 +117,21 @@ function camHackIntoPlayer(player, to)
 			{
 				if (target.stattype === DEFENSE)
 				{
-					sound = CAM_DEFENSE_NEUTRALIZE_SND;
+					sound = cam_sounds.nexus.defensesNeutralized;
 				}
 				else
 				{
-					sound = CAM_STRUCTURE_NEUTRALIZE_SND;
+					sound = cam_sounds.nexus.structureNeutralized;
 				}
 			}
 			else if (target.type === DROID)
 			{
-				sound = CAM_UNIT_NEUTRALIZE_SND;
+				sound = cam_sounds.nexus.unitNeutralized;
 			}
-
 			if (camDef(sound))
 			{
 				playSound(sound);
 			}
-
 			camSafeRemoveObject(target, true);
 			queue("camNexusLaugh", camSecondsToMilliseconds(1.5));
 		}
@@ -180,21 +169,17 @@ function __camChooseNexusTarget(player)
 	{
 		player = CAM_HUMAN_PLAYER;
 	}
-
 	//Try stealing the HQ first.
 	if (__camLastNexusAttack === 0)
 	{
 		__camLastNexusAttack = gameTime;
 		return enumStruct(player, HQ);
 	}
-
-	const __TARGET_UNIT_CHANCE = (getResearch("R-Sys-Resistance-Upgrade01").done) ? 40 : 20;
+	const __TARGET_UNIT_CHANCE = (getResearch(cam_resistance_circuits.first).done) ? 40 : 20;
 	let objects = [];
-
 	if (camRand(100) < __TARGET_UNIT_CHANCE)
 	{
 		objects = enumDroid(player).filter((d) => (!camIsTransporter(d)));
-
 		const exp = {
 			rookie: 0,
 			green: 4,
@@ -206,23 +191,18 @@ function __camChooseNexusTarget(player)
 			special: 256,
 			hero: 512,
 		};
-
 		//As the player researches more resistance upgrades their higher exp units will become more safe
 		//Trucks get a little more safe with each upgrade also.
 		objects = objects.filter((d) => {
-			if (__camNextLevel === CAM_GAMMA_OUT) //Final mission has a static fail chance to hack everything (except for hero units).
+			if (__camNextLevel === CAM_GAMMA_OUT)
 			{
-				if (d.droidType === DROID_CONSTRUCT)
-				{
-					return true;
-				}
-				return d.experience < exp.hero; 
+				return true; //Final mission has a static fail chance to hack everything.
 			}
-			else if (getResearch("R-Sys-Resistance-Upgrade04").done)
+			else if (!camClassicMode() && getResearch(cam_resistance_circuits.fourth).done)
 			{
 				return false; //Everything is safe
 			}
-			else if (getResearch("R-Sys-Resistance-Upgrade03").done)
+			else if (getResearch(cam_resistance_circuits.third).done)
 			{
 				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 66)
 				{
@@ -230,7 +210,7 @@ function __camChooseNexusTarget(player)
 				}
 				return d.experience < exp.regular;
 			}
-			else if (getResearch("R-Sys-Resistance-Upgrade02").done)
+			else if (getResearch(cam_resistance_circuits.second).done)
 			{
 				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 50)
 				{
@@ -238,7 +218,7 @@ function __camChooseNexusTarget(player)
 				}
 				return d.experience < exp.veteran;
 			}
-			else if (getResearch("R-Sys-Resistance-Upgrade01").done)
+			else if (getResearch(cam_resistance_circuits.first).done)
 			{
 				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 20)
 				{
@@ -248,15 +228,10 @@ function __camChooseNexusTarget(player)
 			}
 			else
 			{
-				if (d.droidType === DROID_CONSTRUCT)
-				{
-					return true;
-				}
-				return d.experience < exp.hero; //Never absorb hero-ranked units
+				return true;
 			}
 		});
 	}
-
 	if (objects.length === 0)
 	{
 		//Has explicit chances to target factories or research labs.
@@ -268,18 +243,15 @@ function __camChooseNexusTarget(player)
 			case 3: objects = enumStruct(player, RESEARCH_LAB).filter((r) => (r.status === BUILT)); break;
 			default: //do nothing
 		}
-
 		if (objects.length === 0)
 		{
 			objects = enumStruct(player).filter((s) => (s.status === BUILT));
 		}
-
 		objects = objects.filter((s) => (
 			//cam3-ab is way too annoying if Nexus can still take factories after the second resistance upgrade.
-			!(getResearch("R-Sys-Resistance-Upgrade02").done &&
+			!(getResearch(cam_resistance_circuits.second).done &&
 			(s.stattype === FACTORY || s.stattype === CYBORG_FACTORY || s.stattype === VTOL_FACTORY))
 		));
 	}
-
 	return objects;
 }

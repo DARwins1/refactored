@@ -5,7 +5,7 @@
         "buildPoints": 20,
         "buildPower": 1,
         "droidType": "PERSON",
-        "hitpoints": 29,
+        "hitpoints": 49,
         "id": "B1BaBaPerson01",
         "model": "exbloke.pie",
         "name": "*BaBa Body*",
@@ -14,13 +14,171 @@
         "weaponSlots": 1,
         "weight": 100
     },
+    "B1BaBaPerson01-Kev": {
+        "armourHeat": 5,
+        "armourKinetic": 1,
+        "buildPoints": 20,
+        "buildPower": 5,
+        "droidType": "PERSON",
+        "hitpoints": 99,
+        "id": "B1BaBaPerson01-Kev",
+        "model": "kevbloke.pie",
+        "name": "*BaBa Kevlar Body*",
+        "powerOutput": 125,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 100
+    },
+    "CivilianBody": {
+        "armourHeat": 1,
+        "armourKinetic": 1,
+        "buildPoints": 20,
+        "buildPower": 1,
+        "droidType": "PERSON",
+        "hitpoints": 49,
+        "id": "CivilianBody",
+        "model": "exciv.pie",
+        "name": "*Civilian Body*",
+        "powerOutput": 125,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 100
+    },
+    "BaBaLanceBody": {
+        "armourHeat": 1,
+        "armourKinetic": 1,
+        "buildPoints": 20,
+        "buildPower": 1,
+        "droidType": "PERSON",
+        "hitpoints": 49,
+        "id": "BaBaLanceBody",
+        "model": "exlance.pie",
+        "name": "*Scavenger Lance Body*",
+        "powerOutput": 125,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 100
+    },
+    "BaBaLanceBody-Kev": {
+        "armourHeat": 5,
+        "armourKinetic": 1,
+        "buildPoints": 20,
+        "buildPower": 5,
+        "droidType": "PERSON",
+        "hitpoints": 99,
+        "id": "BaBaLanceBody-Kev",
+        "model": "kevlance.pie",
+        "name": "*Scavenger Kevlar Lance Body*",
+        "powerOutput": 125,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 100
+    },
+    "ScavTruckBody": {
+        "armourHeat": 5,
+        "armourKinetic": 9,
+        "buildPoints": 65,
+        "buildPower": 15,
+        "class": "Babas",
+        "hitpoints": 190,
+        "id": "ScavTruckBody",
+        "model": "exflatbed.pie",
+        "name": "Scavenger Flatbed",
+        "powerOutput": 8000,
+        "size": "LIGHT",
+        "weaponSlots": 3,
+        "weight": 2000
+    },
+    "ScavCraneBody": {
+        "armourHeat": 4,
+        "armourKinetic": 10,
+        "buildPoints": 50,
+        "buildPower": 25,
+        "class": "Babas",
+        "hitpoints": 110,
+        "id": "ScavCraneBody",
+        "model": "cranebody1.pie",
+        "name": "Crane Body",
+        "powerOutput": 2800,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 400
+    },
+    "ScavengerChopper": {
+        "armourHeat": 1,
+        "armourKinetic": 4,
+        "buildPoints": 75,
+        "buildPower": 4,
+        "class": "Droids",
+        "hitpoints": 125,
+        "id": "ScavengerChopper",
+        "model": "scavchop.pie",
+        "name": "Scavenger Chopper",
+        "powerOutput": 4000,
+        "propulsionExtraModels": {
+            "Helicopter": {
+                "moving": "chblades.pie",
+                "still": "mediumheli_rotor_stationary.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 1200
+    },
+    "ScavengerHvyChopper": {
+        "armourHeat": 1,
+        "armourKinetic": 6,
+        "buildPoints": 75,
+        "buildPower": 4,
+        "class": "Droids",
+        "hitpoints": 185,
+        "id": "ScavengerHvyChopper",
+        "model": "hvychop.pie",
+        "name": "Scavenger Heavy Chopper",
+        "powerOutput": 4000,
+        "propulsionExtraModels": {
+            "Helicopter": {
+                "moving": "hvyblades.pie",
+                "still": "hvyblades-still.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 2400
+    },
+    "MonsterBus": {
+        "armourHeat": 1,
+        "armourKinetic": 4,
+        "buildPoints": 75,
+        "buildPower": 4,
+        "class": "Droids",
+        "hitpoints": 100,
+        "id": "MonsterBus",
+        "model": "exmonsterbus.pie",
+        "name": "Monster Bus",
+        "powerOutput": 8000,
+        "propulsionExtraModels": {
+            "Helicopter": {
+                "left": "prmheli1.pie",
+                "still": "mediumheli_rotor_stationary.pie",
+                "moving": "fxheli5to8.pie"
+            },
+            "tracked01": {
+                "left": "rustltrk.pie",
+                "right": "rustrtrk.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 1200
+    },
     "B2JeepBody": {
         "armourHeat": 1,
         "armourKinetic": 4,
         "buildPoints": 75,
         "buildPower": 4,
         "class": "Babas",
-        "hitpoints": 120,
+        "hitpoints": 210,
         "id": "B2JeepBody",
         "model": "exjeep.pie",
         "name": "*Jeep Body*",
@@ -35,7 +193,7 @@
         "buildPoints": 75,
         "buildPower": 4,
         "class": "Babas",
-        "hitpoints": 120,
+        "hitpoints": 210,
         "id": "B2RKJeepBody",
         "model": "exjeeprk.pie",
         "name": "*Rocket Jeep Body*",
@@ -50,7 +208,7 @@
         "buildPoints": 80,
         "buildPower": 3,
         "class": "Babas",
-        "hitpoints": 100,
+        "hitpoints": 175,
         "id": "B3body-sml-buggy01",
         "model": "exbuggy.pie",
         "name": "*Buggy Body*",
@@ -65,7 +223,7 @@
         "buildPoints": 80,
         "buildPower": 3,
         "class": "Babas",
-        "hitpoints": 100,
+        "hitpoints": 175,
         "id": "B3bodyRKbuggy01",
         "model": "exbugrk.pie",
         "name": "*Rocket Buggy Body*",
@@ -80,7 +238,7 @@
         "buildPoints": 65,
         "buildPower": 2,
         "class": "Babas",
-        "hitpoints": 80,
+        "hitpoints": 140,
         "id": "B4body-sml-trike01",
         "model": "extrike.pie",
         "name": "*Trike Body*",
@@ -92,7 +250,7 @@
     "Body10MBT": {
         "armourHeat": 25,
         "armourKinetic": 28,
-        "buildPoints": 470,
+        "buildPoints": 440,
         "buildPower": 80,
         "class": "Droids",
         "designable": 1,
@@ -158,7 +316,7 @@
     "Body11ABT": {
         "armourHeat": 9,
         "armourKinetic": 20,
-        "buildPoints": 350,
+        "buildPoints": 320,
         "buildPower": 60,
         "class": "Droids",
         "designable": 1,
@@ -224,7 +382,7 @@
     "Body12SUP": {
         "armourHeat": 18,
         "armourKinetic": 18,
-        "buildPoints": 350,
+        "buildPoints": 320,
         "buildPower": 52,
         "class": "Droids",
         "designable": 1,
@@ -290,7 +448,7 @@
     "Body1REC": {
         "armourHeat": 4,
         "armourKinetic": 10,
-        "buildPoints": 150,
+        "buildPoints": 115,
         "buildPower": 30,
         "class": "Droids",
         "designable": 1,
@@ -356,7 +514,7 @@
     "Body2SUP": {
         "armourHeat": 6,
         "armourKinetic": 12,
-        "buildPoints": 220,
+        "buildPoints": 152,
         "buildPower": 41,
         "class": "Droids",
         "designable": 1,
@@ -364,7 +522,7 @@
         "id": "Body2SUP",
         "model": "drlbod02.pie",
         "name": "Leopard",
-        "powerOutput": 6500,
+        "powerOutput": 4000,
         "propulsionExtraModels": {
             "HalfTrack": {
                 "left": "prlhtr1.pie"
@@ -422,7 +580,7 @@
     "Body3MBT": {
         "armourHeat": 15,
         "armourKinetic": 20,
-        "buildPoints": 170,
+        "buildPoints": 146,
         "buildPower": 43,
         "class": "Droids",
         "designable": 1,
@@ -554,7 +712,7 @@
     "Body5REC": {
         "armourHeat": 6,
         "armourKinetic": 15,
-        "buildPoints": 250,
+        "buildPoints": 205,
         "buildPower": 46,
         "class": "Droids",
         "designable": 1,
@@ -620,7 +778,7 @@
     "Body6SUPP": {
         "armourHeat": 9,
         "armourKinetic": 18,
-        "buildPoints": 300,
+        "buildPoints": 254,
         "buildPower": 57,
         "class": "Droids",
         "designable": 1,
@@ -628,7 +786,7 @@
         "id": "Body6SUPP",
         "model": "drmbod06.pie",
         "name": "Panther",
-        "powerOutput": 18000,
+        "powerOutput": 13000,
         "propulsionExtraModels": {
             "HalfTrack": {
                 "left": "prmhtr2.pie"
@@ -686,7 +844,7 @@
     "Body7ABT": {
         "armourHeat": 20,
         "armourKinetic": 24,
-        "buildPoints": 330,
+        "buildPoints": 260,
         "buildPower": 64,
         "class": "Droids",
         "designable": 1,
@@ -752,7 +910,7 @@
     "Body8MBT": {
         "armourHeat": 12,
         "armourKinetic": 12,
-        "buildPoints": 250,
+        "buildPoints": 185,
         "buildPower": 39,
         "class": "Droids",
         "designable": 1,
@@ -818,7 +976,7 @@
     "Body9REC": {
         "armourHeat": 15,
         "armourKinetic": 22,
-        "buildPoints": 420,
+        "buildPoints": 390,
         "buildPower": 71,
         "class": "Droids",
         "designable": 1,
@@ -887,7 +1045,7 @@
         "buildPoints": 75,
         "buildPower": 4,
         "class": "Babas",
-        "hitpoints": 200,
+        "hitpoints": 350,
         "id": "BusBody",
         "model": "exschool.pie",
         "name": "*School Bus Body*",
@@ -915,7 +1073,7 @@
     "CyborgLightBody": {
         "armourHeat": 6,
         "armourKinetic": 12,
-        "buildPoints": 95,
+        "buildPoints": 115,
         "buildPower": 25,
         "class": "Cyborgs",
         "droidType": "CYBORG",
@@ -1126,7 +1284,7 @@
         "buildPoints": 75,
         "buildPower": 4,
         "class": "Babas",
-        "hitpoints": 200,
+        "hitpoints": 350,
         "id": "FireBody",
         "model": "exfire.pie",
         "name": "*Fire Engine Body*",
@@ -1134,6 +1292,27 @@
         "size": "LIGHT",
         "weaponSlots": 1,
         "weight": 3000
+    },
+    "MonsterFireBody": {
+        "armourHeat": 1,
+        "armourKinetic": 4,
+        "buildPoints": 75,
+        "buildPower": 4,
+        "class": "Droids",
+        "hitpoints": 100,
+        "id": "MonsterFireBody",
+        "model": "exmonsterfire.pie",
+        "name": "Monster Fire Truck",
+        "powerOutput": 8000,
+        "propulsionExtraModels": {
+            "tracked01": {
+                "left": "rustltrk.pie",
+                "right": "rustrtrk.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 1200
     },
     "Superbody": {
         "armourHeat": 999,

@@ -18,10 +18,28 @@
     "universe": "wz2100",
     "difficultyLevels": "default",
     "camTweakOptions": [
-        {
-            "id": "autosavesOnly",
-            "default": false,
-            "userEditable": true
-        }
-    ]
+    {
+      "id": "autosavesOnly",
+      "default": false,
+      "userEditable": true
+    },
+    {
+      "id": "victoryHints",
+      "default": true,
+      "userEditable": true
+    }
+  ],
+  "customTweakOptions": [
+    {
+      "id": "rec_timerlessMode",
+      "type": "bool",
+      "default": false,
+      "displayName": {
+        "en": "Timerless Mode"
+      },
+      "description": {
+        "en": "Disables the mission timer on most missions, but also lowers the amount of power you can store and causes enemies to rebuild more frequently."
+      }
+    }
+  ]
 }
