@@ -3033,29 +3033,6 @@
         ],
         "width": 1
     },
-    "Tower-RotMg": {
-        "armour": 20,
-        "breadth": 1,
-        "buildPoints": 100,
-        "buildPower": 125,
-        "ecmID": "ZNULLECM",
-        "height": 1,
-        "hitpoints": 700,
-        "id": "Tower-RotMg",
-        "name": "Assault Gun Emplacement",
-        "resistance": 300,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "BUNKER",
-        "structureModel": [
-            "Blcanpil.PIE"
-        ],
-        "thermal": 20,
-        "type": "DEFENSE",
-        "weapons": [
-            "MG4ROTARYMk1"
-        ],
-        "width": 1
-    },
     "UplinkCentre": {
         "armour": 10,
         "breadth": 2,

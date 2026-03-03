@@ -104,48 +104,6 @@
         "weaponSlots": 1,
         "weight": 400
     },
-    "ScavengerChopper": {
-        "armourHeat": 1,
-        "armourKinetic": 4,
-        "buildPoints": 75,
-        "buildPower": 4,
-        "class": "Droids",
-        "hitpoints": 125,
-        "id": "ScavengerChopper",
-        "model": "scavchop.pie",
-        "name": "Scavenger Chopper",
-        "powerOutput": 4000,
-        "propulsionExtraModels": {
-            "Helicopter": {
-                "moving": "chblades.pie",
-                "still": "mediumheli_rotor_stationary.pie"
-            }
-        },
-        "size": "LIGHT",
-        "weaponSlots": 1,
-        "weight": 1200
-    },
-    "ScavengerHvyChopper": {
-        "armourHeat": 1,
-        "armourKinetic": 6,
-        "buildPoints": 75,
-        "buildPower": 4,
-        "class": "Droids",
-        "hitpoints": 185,
-        "id": "ScavengerHvyChopper",
-        "model": "hvychop.pie",
-        "name": "Scavenger Heavy Chopper",
-        "powerOutput": 4000,
-        "propulsionExtraModels": {
-            "Helicopter": {
-                "moving": "hvyblades.pie",
-                "still": "hvyblades-still.pie"
-            }
-        },
-        "size": "LIGHT",
-        "weaponSlots": 1,
-        "weight": 2400
-    },
     "MonsterBus": {
         "armourHeat": 1,
         "armourKinetic": 4,
@@ -158,11 +116,6 @@
         "name": "Monster Bus",
         "powerOutput": 8000,
         "propulsionExtraModels": {
-            "Helicopter": {
-                "left": "prmheli1.pie",
-                "still": "mediumheli_rotor_stationary.pie",
-                "moving": "fxheli5to8.pie"
-            },
             "tracked01": {
                 "left": "rustltrk.pie",
                 "right": "rustrtrk.pie"

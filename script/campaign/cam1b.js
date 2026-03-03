@@ -1,4 +1,3 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
@@ -19,8 +18,8 @@ camAreaEvent("AttackArea1", function(droid)
 	camEnableFactory("base1factory");
 	// sic! hill factory
 	camSetFactoryData("base2factory", {
- 		assembly: "assembly2",
-		order: CAM_ORDER_ATTACK,  // changes
+		assembly: "assembly2",
+		order: CAM_ORDER_ATTACK, // changes
 		data: { pos: "playerBase" }, // changes
 		groupSize: 10, // changes
 		maxSize: 10,
@@ -72,10 +71,10 @@ camAreaEvent("NPSensorRemove", function(droid)
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_1_1S");
-	const startpos = getObject("startPosition");
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.alpha3.pre);
+	const startPos = getObject("startPosition");
 	const lz = getObject("landingZone");
-	centreView(startpos.x, startpos.y);
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
@@ -83,8 +82,11 @@ function eventStartLevel()
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 	setAlliance(CAM_SCAV_6, CAM_SCAV_7, true);
 
-	camCompleteRequiredResearch(mis_scavengerRes, 6);
-	camCompleteRequiredResearch(mis_scavengerRes, 7);
+	if (difficulty >= MEDIUM)
+	{
+		camCompleteRequiredResearch(mis_scavengerRes, 6);
+		camCompleteRequiredResearch(mis_scavengerRes, 7);
+	}
 
 	camSetArtifacts({
 		"base1factory": { tech: "R-Wpn-Flamer-ROF01" },
@@ -97,26 +99,26 @@ function eventStartLevel()
 		"base1group": {
 			cleanup: "enemybase1",
 			detectMsg: "C1B_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 		"base2group": {
 			cleanup: "enemybase2",
 			detectMsg: "C1B_BASE0",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 		"base3group": {
 			cleanup: "enemybase3",
-			detectMsg: "C1B_OBJ1",
-			detectSnd: "pcv375.ogg",
-			eliminateSnd: "pcv391.ogg",
+			detectMsg: "C1B_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated,
 		},
 		"base4group": {
 			cleanup: "enemybase4",
 			detectMsg: "C1B_BASE2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 	});
 
@@ -150,7 +152,7 @@ function eventStartLevel()
 			assembly: "assembly4",
 			order: CAM_ORDER_ATTACK,
 			data: { pos: "playerBase" },
- 			groupSize: 8,
+			groupSize: 8,
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]

@@ -1,4 +1,3 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
@@ -6,20 +5,18 @@ include("script/campaign/templates.js");
 
 const mis_newParadigmRes = [
 	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade01",
-	"R-Struc-Materials01", "R-Struc-Factory-Upgrade01",
-	"R-Vehicle-Engine01",
-	"R-Vehicle-Metals01", "R-Cyborg-Metals01", "R-Wpn-Cannon-Damage01",
+	"R-Struc-Materials01", "R-Vehicle-Engine01",
+	"R-Vehicle-Metals01", "R-Wpn-Cannon-Damage01",
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy01",
-	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
-	"R-Wpn-RocketSlow-Damage01", "R-Struc-RprFac-Upgrade03",
+	"R-Wpn-Mortar-Damage01", "R-Sys-Engineering01",
+	"R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-ROF01",
 ];
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
-	"R-Defense-WallUpgrade01","R-Struc-Materials01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-ROF01",
 ];
+
 var NPDefenseGroup, NPScoutGroup, NPFactory;
 
 camAreaEvent("RemoveBeacon", function(droid)
@@ -56,13 +53,8 @@ camAreaEvent("WestConvoyTrigger", function(droid)
 function enableNP(args)
 {
 	camEnableFactory("ScavFactory");
-	camEnableFactory("ScavFactorySouth");
 	camEnableFactory("NPFactory");
-
-	if (difficulty === INSANE)
-	{
-		queue("NPReinforce", camSecondsToMilliseconds(10));
-	}
+	camEnableFactory("ScavFactorySouth");
 
 	camManageGroup(NPScoutGroup, CAM_ORDER_COMPROMISE, {
 		pos: camMakePos("RTLZ"),
@@ -81,30 +73,7 @@ function enableNP(args)
 		repair: 66,
 	});
 
-	camPlayVideos(["pcv455.ogg", {video: "SB1_3_MSG4", type: MISS_MSG}]);
-}
-
-function NPReinforce()
-{
-	if (getObject("NPHQ") !== null)
-	{
-		let list = [];
-		const COUNT = 5 + camRand(5);
-		const scouts = [cTempl.nphmg, cTempl.npflam, cTempl.nppod, cTempl.nphmg, cTempl.npflam];
-
-		for (let i = 0; i < COUNT; ++i)
-		{
-			list.push(scouts[camRand(scouts.length)]);
-		}
-		camSendReinforcement(CAM_NEW_PARADIGM, camMakePos("NPReinforcementPos"), list, CAM_REINFORCE_GROUND, {
-			data: {
-				regroup: false,
-				repair: 66,
-				count: -1,
-			},
-		});
-		queue("NPReinforce", camSecondsToMilliseconds(180));
-	}
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "SB1_3_MSG4", type: MISS_MSG}]);
 }
 
 function sendScouts()
@@ -143,8 +112,8 @@ function eventAttacked(victim, attacker) {
 
 function enableReinforcements()
 {
-	playSound("pcv440.ogg"); // Reinforcements are available.
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM_1C", {
+	playSound(cam_sounds.reinforcementsAreAvailable);
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha6, {
 		area: "RTLZ",
 		message: "C1-3_LZ",
 		reinforcements: camMinutesToSeconds(2), // changes!
@@ -179,7 +148,7 @@ function camEnemyBaseEliminated_ScavBaseGroup()
 
 function playNPWarningMessage()
 {
-	camPlayVideos(["pcv455.ogg", {video: "SB1_3_MSG3", type: CAMP_MSG}]);
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "SB1_3_MSG3", type: CAMP_MSG}]);
 }
 
 function eventDroidBuilt(droid, structure)
@@ -193,7 +162,7 @@ function eventDroidBuilt(droid, structure)
 	{
 		groupAdd(NPDefenseGroup, droid);
 	}
-	else if (groupSize(NPScoutGroup) < 4 && droid.body !== cTempl.npsmc.body)
+	else if (groupSize(NPScoutGroup) < 4 && droid.body !== cTempl.npmmcht.body)
 	{
 		groupAdd(NPScoutGroup, droid); // heavy tanks don't go scouting
 	}
@@ -205,55 +174,57 @@ function eventDroidBuilt(droid, structure)
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM_1C", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha6, {
 		area: "RTLZ",
 		message: "C1-3_LZ",
 		reinforcements: -1, // will override later
 		annihilate: true
 	});
 
-	const startpos = getObject("StartPosition");
+	const startPos = getObject("StartPosition");
 	const lz = getObject("LandingZone");
-	const tent = getObject("TransporterEntry");
-	const text = getObject("TransporterExit");
-	centreView(startpos.x, startpos.y);
+	const tEnt = getObject("TransporterEntry");
+	const tExt = getObject("TransporterExit");
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
 
 	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
+
+	camSetArtifacts({
+		"ScavFactory": { tech: "R-Wpn-Rocket05-MiniPod" }, // Mini-Rocket Pod
+		"NPFactory": { tech: "R-Defense-HardcreteWall" }, // Hardcrete
+		"NPLab": { tech: "R-Vehicle-Body04" }, // Bug
+		"NPCRC": { tech: "R-Struc-CommandRelay" }, // Command Relay Post
+		// TODO: Repair Facility, HMG
+	});
+
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 
 	camSetEnemyBases({
 		"ScavBaseGroup": {
 			cleanup: "ScavBase",
 			detectMsg: "C1-3_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"NPBaseGroup": {
 			cleanup: "NPBase",
 			detectMsg: "C1-3_BASE2",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg"
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated
 		},
 		"ScavBaseGroupSouth": {
 			cleanup: "SouthScavBase",
-			detectMsg: "C1-3_OBJ2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectMsg: "C1-3_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 	});
 
 	hackAddMessage("C1-3_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); // south-west beacon
-
-	camSetArtifacts({
-		"ScavFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
-		"NPFactory": { tech: "R-Struc-Factory-Module" },
-		"NPLab": { tech: "R-Defense-HardcreteWall" },
-		"NPCRC": { tech: "R-Struc-CommandRelay" },
-	});
 
 	camSetFactories({
 		"ScavFactory": {
@@ -278,7 +249,7 @@ function eventStartLevel()
 			groupSize: 4, // sic! scouts, at most
 			maxSize: 20,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.nppod, cTempl.nphmg, cTempl.npsmc, cTempl.npflam ]
+			templates: [ cTempl.nplpodw, cTempl.nplhmght, cTempl.nplpodw, cTempl.nplflamht ]
 		},
 		"ScavFactorySouth": {
 			assembly: "ScavAssemblySouth",
@@ -290,7 +261,7 @@ function eventStartLevel()
 			groupSize: 4,
 			maxSize: 10,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
-			templates: [ cTempl.rbjeep, cTempl.buscan, cTempl.rbuggy, cTempl.firecan ]
+			templates: [ cTempl.rbjeep, cTempl.buscan, cTempl.rbuggy, cTempl.firetruck ]
 		},
 	});
 

@@ -53,17 +53,17 @@
         "propulsion": "BaBaProp",
         "type": "DROID",
         "weapons": [
-            "BabaBusCannon"
+            "RustCannon1Mk1"
         ]
     },
-    "BabaFireCan": {
+    "BabaFireTruck": {
         "body": "FireBody",
-        "id": "BabaFireCan",
+        "id": "BabaFireTruck",
         "name": "Cannon Fire Truck",
         "propulsion": "BaBaProp",
         "type": "DROID",
         "weapons": [
-            "BabaBusCannon"
+            "RustFlame1Mk1"
         ]
     },
     "BabaFireTruck": {

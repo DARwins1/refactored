@@ -1,9 +1,25 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
+const mis_newParadigmRes = [
+	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
+	"R-Struc-Materials02", "R-Vehicle-Engine02",
+	"R-Vehicle-Metals01", "R-Cyborg-Metals01", "R-Wpn-Cannon-Damage02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy02",
+	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
+
+	// "R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
+	// "R-Sys-Engineering01", "R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Cannon-Damage02",
+	// "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-Range01", "R-Wpn-Flamer-ROF01",
+	// "R-Defense-WallUpgrade02", "R-Struc-Materials02", "R-Vehicle-Engine02",
+	// "R-Struc-RprFac-Upgrade02", "R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-ROF03",
+	// "R-Vehicle-Metals01", "R-Wpn-Mortar-Damage02", "R-Wpn-Rocket-Accuracy01",
+	// "R-Wpn-RocketSlow-Damage01", "R-Wpn-Mortar-ROF01",
+];
 const mis_landingZoneList = [ "NPLZ1", "NPLZ2", "NPLZ3", "NPLZ4", "NPLZ5" ];
 const mis_landingZoneMessages = [ "C1CA_LZ1", "C1CA_LZ2", "C1CA_LZ3", "C1CA_LZ4", "C1CA_LZ5" ];
+const MIN_TRANSPORT_RUNS = 10;
 var blipActive;
 var lastLZ, lastHeavy;
 var totalTransportLoads;
@@ -13,12 +29,12 @@ var totalTransportLoads;
 function baseEstablished()
 {
 	//Now we check if there is stuff built here already from cam1-C.
-	const total = camCountStructuresInArea("buildArea") +
+	const TOTAL = camCountStructuresInArea("buildArea") +
 				camCountStructuresInArea("buildArea2") +
 				camCountStructuresInArea("buildArea3") +
 				camCountStructuresInArea("buildArea4") +
 				camCountStructuresInArea("buildArea5");
-	if (total >= 7)
+	if (TOTAL >= 7)
 	{
 		if (blipActive)
 		{
@@ -41,7 +57,6 @@ function baseEstablished()
 // a simple extra victory condition callback
 function extraVictoryCondition()
 {
-	const MIN_TRANSPORT_RUNS = 10;
 	const enemies = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false);
 	// No enemies on map and at least eleven New Paradigm transport runs.
 	if (baseEstablished() && (totalTransportLoads > MIN_TRANSPORT_RUNS) && !enemies.length)
@@ -59,58 +74,47 @@ function sendTransport()
 	{
 		lastHeavy = true;
 	}
-	// find an LZ that is not compromised
 	const list = [];
-	for (let i = 0; i < mis_landingZoneList.length; ++i)
+	// Randomly find an LZ that is not compromised
+	if (camRand(100) < 10)
 	{
-		const LZ = mis_landingZoneList[i];
-		if (enumArea(LZ, CAM_HUMAN_PLAYER, false).length === 0)
+		for (let i = 0; i < mis_landingZoneList.length; ++i)
 		{
-			list.push({ idx: i, label: lz });
+			const LZ = mis_landingZoneList[i];
+			if (enumArea(LZ, CAM_HUMAN_PLAYER, false).length === 0)
+			{
+				list.push({ idx: i, label: LZ });
+			}
 		}
 	}
-	//If all are compromised then choose the LZ randomly
+	//If all are compromised (or not checking for compromised LZs) then choose the LZ randomly
 	if (list.length === 0)
 	{
 		for (let i = 0; i < 2; ++i)
 		{
 			const RND = camRand(mis_landingZoneList.length);
-			list.push({ idx: RND, label: mis_landingZoneList[rnd] });
+			list.push({ idx: RND, label: mis_landingZoneList[RND] });
 		}
 	}
 	const picked = list[camRand(list.length)];
 	lastLZ = picked.idx;
 	const pos = camMakePos(picked.label);
 
-	// (2 or 3 or 4) pairs of each droid template.
+	// (2, 3, 4, or 5) pairs of each droid template.
 	// This emulates wzcam's droid count distribution.
-	const COUNT = [ 2, 3, 4, 4, 4, 4, 4, 4, 4 ][camRand(9)];
-
-	let transportTime = 3; // Time, in minutes, until the next transport. (Default to 3 minutes.)
-	
-	// Cut transport arrival time in half if structures on plateu are built.
-	if (!blipActive)
-	{
-		transportTime = transportTime / 2;
-	}
-
-	if (totalTransportLoads > 0)
-	{
-		removeTimer("sendTransport"); // Remove the old timer, so we can update it's time below
-	}
+	const unitDistribution = [4, 4, 4, 5, 5];
+	const COUNT = unitDistribution[camRand(unitDistribution.length)];
 
 	let templates;
 	if (lastHeavy)
 	{
 		lastHeavy = false;
-		setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime / 2))); // 1.5 min if blipActive
-		templates = [ cTempl.nppod, cTempl.nphmg, cTempl.npmrl, cTempl.npsmc ];
+		templates = [ cTempl.nplpodw, cTempl.nplhmght, cTempl.nplmraht, cTempl.npmmcht, cTempl.nplatht ];
 	}
 	else
 	{
 		lastHeavy = true;
-		setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(transportTime))); // 3 min if blipActive
-		templates = [ cTempl.npsmct, cTempl.npmor, cTempl.npsmc, cTempl.npmmct, cTempl.npmrl, cTempl.nphmg, cTempl.npsbb ];
+		templates = [ cTempl.npmmct, cTempl.npmmorht, cTempl.npmmcht, cTempl.nphmct, cTempl.nplmraht, cTempl.nplhmght, cTempl.npmbbht, cTempl.nplatht ];
 	}
 
 	const droids = [];
@@ -118,8 +122,8 @@ function sendTransport()
 	{
 		const t = templates[camRand(templates.length)];
 		// two droids of each template
-		droids[droids.length] = t;
-		droids[droids.length] = t;
+		droids.push(t);
+		droids.push(t);
 	}
 
 	camSendReinforcement(CAM_NEW_PARADIGM, pos, droids, CAM_REINFORCE_TRANSPORT, {
@@ -133,34 +137,45 @@ function sendTransport()
 	totalTransportLoads += 1;
 }
 
+// function insaneReinforcementSpawn()
+// {
+// 	if (totalTransportLoads > MIN_TRANSPORT_RUNS)
+// 	{
+// 		return;
+// 	}
+// 	const units = [cTempl.nplatht, cTempl.nplmraht, cTempl.npmmct, cTempl.nplhmght];
+// 	const limits = {minimum: 10, maxRandom: 4};
+// 	const location = ["reinforceNorth", "reinforceNorthEast"];
+// 	camSendGenericSpawn(CAM_REINFORCE_GROUND, CAM_NEW_PARADIGM, CAM_REINFORCE_CONDITION_NONE, location, units, limits.minimum, limits.maxRandom);
+// }
+
 function startTransporterAttack()
 {
+	let attackTime = camMinutesToMilliseconds(2.2);
+	if (difficulty >= HARD)
+	{
+		attackTime = camChangeOnDiff(camMinutesToMilliseconds(2.2));
+	}
 	sendTransport();
+	setTimer("sendTransport", attackTime);
 }
 
 function eventStartLevel()
 {
-	camSetExtraObjectiveMessage(_("Build non-wall structures on the plateau and destroy all New Paradigm reinforcements"));
+	camSetExtraObjectiveMessage(_("Build at least 7 non-wall structures on the plateau and destroy all New Paradigm reinforcements"));
 
 	totalTransportLoads = 0;
 	blipActive = false;
 
-	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_1_4AS", {
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.alpha8.pre, {
 		callback: "extraVictoryCondition"
 	});
-	const startpos = getObject("startPosition");
+	const startPos = getObject("startPosition");
 	const lz = getObject("landingZone");
-	centreView(startpos.x, startpos.y);
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	// make sure player doesn't build on enemy LZs
-	for (let i = 1; i <= 5; ++i)
-	{
-		const ph = getObject("PhantomLZ" + i);
-		// HACK: set LZs of bad players, namely 2...6,
-		// note: player 1 is NP
-		setNoGoArea(ph.x, ph.y, ph.x2, ph.y2, i + 1);
-	}
+	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
 
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	camPlayVideos({video: "MB1CA_MSG", type: CAMP_MSG});

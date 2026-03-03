@@ -1,11 +1,10 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01",
-	"R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
+	"R-Wpn-Rocket-ROF01",
 ];
 
 function exposeNorthBase()
@@ -31,7 +30,7 @@ function camArtifactPickup_ScavLab()
 		groupSize: 5,
 		maxSize: 9,
 		throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
-		templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
+		templates: [cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep]
 	});
 	camEnableFactory("WestFactory");
 }
@@ -59,21 +58,26 @@ function enableWestFactory()
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "SUB_1_3S", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha5.pre, {
 		area: "RTLZ",
 		message: "C1-2_LZ",
 		reinforcements: 60,
 		retlz: true
 	});
 
-	const startpos = getObject("StartPosition");
+	const startPos = getObject("StartPosition");
 	const lz = getObject("LandingZone");
-	const tent = getObject("TransporterEntry");
-	const text = getObject("TransporterExit");
-	centreView(startpos.x, startpos.y);
+	const tEnt = getObject("TransporterEntry");
+	const tExt = getObject("TransporterExit");
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	camSetArtifacts({
+		"ScavLab": { tech: "R-Wpn-Mortar01Lt" },
+		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" },
+	});
 
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
@@ -81,14 +85,14 @@ function eventStartLevel()
 		"NorthGroup": {
 			cleanup: "NorthBase",
 			detectMsg: "C1-2_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"WestGroup": {
 			cleanup: "WestBase",
 			detectMsg: "C1-2_BASE2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"ScavLabGroup": {
 			cleanup: "ScavLabCleanup",
@@ -98,46 +102,43 @@ function eventStartLevel()
 
 	camDetectEnemyBase("ScavLabGroup");
 
-	camSetArtifacts({
-		"ScavLab": { tech: "R-Wpn-Mortar01Lt" },
-		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" },
-	});
-
 	camSetFactories({
 		"NorthFactory": {
 			assembly: "NorthAssembly",
-			order: CAM_ORDER_COMPROMISE,
+			order: CAM_ORDER_PATROL,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
 			data: {
 				pos: [
 					camMakePos("NorthAssembly"),
 					camMakePos("ScavLabPos"),
 					camMakePos("RTLZ"),
 				],
-				radius: 8
+				interval: camSecondsToMilliseconds(20),
+				regroup: false,
+				count: -1,
 			},
-			groupSize: 5,
-			maxSize: 9,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
 			group: camMakeGroup("NorthTankGroup"),
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
 		},
 		"WestFactory": {
 			assembly: "WestAssembly",
-			order: CAM_ORDER_COMPROMISE,
+			order: CAM_ORDER_PATROL,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			data: {
 				pos: [
 					camMakePos("WestAssembly"),
 					camMakePos("GatesPos"),
 					camMakePos("ScavLabPos"),
 				],
-				radius: 8
+				interval: camSecondsToMilliseconds(20),
+				regroup: false,
+				count: -1,
 			},
-			groupSize: 5,
-			maxSize: 9,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
 		},
 	});
 
-	queue("enableWestFactory", camSecondsToMilliseconds(30));
+	queue("enableWestFactory", camChangeOnDiff(camSecondsToMilliseconds(30)));
 }

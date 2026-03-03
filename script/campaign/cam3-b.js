@@ -76,7 +76,7 @@ function getDroidsForNXLZ()
 {
 	//Choose 10 out of this big pile of units
 	const COUNT = 10;
-	const units = [cTempl.npsbb, cTempl.npsmct, cTempl.npmsens, cTempl.nphmgh, cTempl.nphct, cTempl.npmorb, cTempl.npltat,
+	const units = [cTempl.npmbbht, cTempl.npmmct, cTempl.npmsensht, cTempl.npmhmgh, cTempl.nphhct, cTempl.npmmorbht, cTempl.nplatht,
 	 cTempl.cohct, cTempl.comrlt, cTempl.comagt, cTempl.comhpv, cTempl.comhltat, cTempl.cohript, cTempl.comit, cTempl.comrotmh, cTempl.cohbbt, cTempl.cohact,
 	  cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
 
