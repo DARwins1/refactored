@@ -373,18 +373,6 @@ function camSetPreDamageModifier(playerId, droidRange, structRange, excludedTemp
 	}
 }
 
-//;; ## camDisableInfAutoManagement()
-//;;
-//;; Disables automatically grouping and ordering units produced by player CAM_INFESTED (player 4).
-//;; Useful for levels where player 4 is not used for the Infested.
-//;;
-//;; @returns {void}
-//;;
-function camDisableInfAutoManagement()
-{
-	__camDisableFactoryAutoManagement = true;
-}
-
 //;; ## camAddDroid(playerId, position, template[, droidName])
 //;;
 //;; Wrapper function for addDroid().

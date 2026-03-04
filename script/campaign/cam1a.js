@@ -7,7 +7,6 @@ const mis_playerRes = [
 ];
 
 // Handlers for guide topics
-
 function cam1A_doAddHQBuiltTopics()
 {
 	addGuideTopic("wz2100::structures::factory");
@@ -227,10 +226,10 @@ function eventStartLevel()
 	setPower(PLAYER_POWER, CAM_HUMAN_PLAYER);
 
 	camSetArtifacts({
-		"base1ArtifactPos": { tech: "R-Wpn-MG-Damage01" },
-		"base2Factory": { tech: "R-Sys-Engineering01" },
+		"base1ArtifactPos": { tech: "R-Wpn-MG-Damage01" }, // Hardened MG Bullets
+		"base2Factory": { tech: "R-Sys-Engineering01" }, // Engineering
 		// "base3Factory": { tech: "R-Wpn-MG-Damage02" },
-		"base4Factory": { tech: "R-Wpn-Flamer01Mk1"},
+		"base4Factory": { tech: "R-Wpn-Flamer01Mk1"}, // Flamer
 	});
 
 	// Give player briefing.

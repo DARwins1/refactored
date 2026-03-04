@@ -3,19 +3,21 @@ include("script/campaign/templates.js");
 
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01",
-	"R-Wpn-Rocket-ROF01",
+	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
+	"R-Wpn-Mortar-Damage01",
 ];
 
 function exposeNorthBase()
 {
 	camDetectEnemyBase("NorthGroup"); // no problem if already detected
 	camPlayVideos({video: "SB1_2_MSG2", type: MISS_MSG});
+	camEnableFactory("NorthFactory");
 }
 
 function camArtifactPickup_ScavLab()
 {
 	camCallOnce("exposeNorthBase");
+	camCallOnce("enableNWFactory");
 	camSetFactoryData("WestFactory", {
 		assembly: "WestAssembly",
 		order: CAM_ORDER_COMPROMISE,
@@ -40,12 +42,6 @@ function camEnemyBaseDetected_NorthGroup()
 	camCallOnce("exposeNorthBase");
 }
 
-camAreaEvent("NorthBaseTrigger", function(droid)
-{
-	// frankly, this one happens silently
-	camEnableFactory("NorthFactory");
-});
-
 function enableWestFactory()
 {
 	camEnableFactory("WestFactory");
@@ -54,6 +50,11 @@ function enableWestFactory()
 		morale: 80,
 		fallback: camMakePos("ScavLab")
 	});
+}
+
+function enableNWFactory()
+{
+	camEnableFactory("NorthWestFactory");
 }
 
 function eventStartLevel()
@@ -75,8 +76,8 @@ function eventStartLevel()
 	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
 
 	camSetArtifacts({
-		"ScavLab": { tech: "R-Wpn-Mortar01Lt" },
-		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" },
+		"ScavLab": { tech: "R-Wpn-Mortar01Lt" }, // Mortar
+		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracked Propulsion
 	});
 
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
@@ -119,7 +120,7 @@ function eventStartLevel()
 				count: -1,
 			},
 			group: camMakeGroup("NorthTankGroup"),
-			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
+			templates: [ cTempl.trike, cTempl.kevbloke, cTempl.buggy, cTempl.bjeep ]
 		},
 		"WestFactory": {
 			assembly: "WestAssembly",
@@ -138,7 +139,15 @@ function eventStartLevel()
 			},
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
 		},
+		"NorthWestFactory": {
+			assembly: "WestAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			templates: [ cTempl.bloke, cTempl.trike, cTempl.bloke, cTempl.kevbloke, cTempl.firetruck ]
+		},
 	});
 
 	queue("enableWestFactory", camChangeOnDiff(camSecondsToMilliseconds(30)));
+	queue("enableNWFactory", camChangeOnDiff(camMinutesToMilliseconds(4)));
 }

@@ -346,11 +346,8 @@ const __camTimerlessPowerLimits = [ // Timerless mode power limits
 var __camCalledOnce = {};
 var __camExpLevel;
 var __camLabelInfo;
-var __camFogRGB;
-
 var __camPlayerVisibilities;
 const __CAM_OBJ_VISION_RANGE = 8 * 128; // 8 tiles
-var __camCapturedFactoryIdx;
 const CAM_MAX_PLAYER_UNITS = 101; //note: the transporter is a unit you own
 const CAM_MAX_PLAYER_COMMANDERS = 10;
 const CAM_MAX_PLAYER_CONSTRUCTORS = 15;
@@ -359,6 +356,7 @@ const CAM_MAX_PLAYER_CONSTRUCTORS = 15;
 const __camArizonaFogRGB = {r:176, g:143, b:95}; // Default RGB for arizona fog. IDEALLY, these would be read from palette.txt
 const __camUrbanFogRGB = {r:16, g:16, b:64}; // Default RGB for urban fog.
 const __camRockyFogRGB = {r:182, g:225, b:236}; // Default RGB for rocky fog.
+var __camFogRGB;
 const __camDefaultSunStats = {
 	x: 225.0, 
 	y: -600.0, 

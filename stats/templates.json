@@ -46,6 +46,36 @@
             "BabaMG"
         ]
     },
+    "BaBaKevPeople": {
+        "body": "B1BaBaPerson01-Kev",
+        "id": "BaBaKevPeople",
+        "name": "Armored Scavenger",
+        "propulsion": "BaBaLegs",
+        "type": "PERSON",
+        "weapons": [
+            "BabaMG"
+        ]
+    },
+    "ScavLance": {
+        "body": "BaBaLanceBody",
+        "id": "ScavLance",
+        "name": "Scavenger Lance",
+        "propulsion": "BaBaLegs",
+        "type": "PERSON",
+        "weapons": [
+            "BabaLance"
+        ]
+    },
+    "ScavKevLance": {
+        "body": "BaBaLanceBody-Kev",
+        "id": "ScavKevLance",
+        "name": "Armored Scavenger Lance",
+        "propulsion": "BaBaLegs",
+        "type": "PERSON",
+        "weapons": [
+            "BabaLance"
+        ]
+    },
     "BabaBusCan": {
         "body": "BusBody",
         "id": "BabaBusCan",
@@ -59,21 +89,21 @@
     "BabaFireTruck": {
         "body": "FireBody",
         "id": "BabaFireTruck",
-        "name": "Cannon Fire Truck",
+        "name": "Fire Truck",
         "propulsion": "BaBaProp",
         "type": "DROID",
         "weapons": [
             "RustFlame1Mk1"
         ]
     },
-    "BabaFireTruck": {
+    "BabaFirePod": {
         "body": "FireBody",
-        "id": "BabaFireTruck",
-        "name": "Fire Truck",
+        "id": "BabaFirePod",
+        "name": "Mini-Rocket Fire Truck",
         "propulsion": "BaBaProp",
         "type": "DROID",
         "weapons": [
-            "BabaFlame"
+            "RustRocket-Pod"
         ]
     },
     "BabaJeep": {
@@ -86,13 +116,6 @@
             "BabaJeepMG"
         ]
     },
-    "BabaPickUp": {
-        "body": "B2RKJeepBody",
-        "construct": "Spade1Mk1",
-        "id": "BabaPickUp",
-        "name": "Pick-Up Truck",
-        "type": "CONSTRUCT"
-    },
     "BabaRKJeep": {
         "body": "B2RKJeepBody",
         "id": "BabaRKJeep",
@@ -101,6 +124,16 @@
         "type": "DROID",
         "weapons": [
             "BabaRocket"
+        ]
+    },
+    "BabaGrenJeep": {
+        "body": "B2RKJeepBody",
+        "id": "BabaGrenJeep",
+        "name": "Grenade Jeep",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "BabaMiniMortar"
         ]
     },
     "BarbarianBuggy": {
@@ -131,6 +164,28 @@
         "type": "DROID",
         "weapons": [
             "BabaTrikeMG"
+        ]
+    },
+    "Baba-HTruck-MRA": {
+        "body": "ScavTruckBody",
+        "id": "Baba-HTruck-MRA",
+        "name": "MRA Flatbed",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-Pod",
+            "RustRocket-MRL"
+        ]
+    },
+    "Baba-HTruck-Lancer": {
+        "body": "ScavTruckBody",
+        "id": "Baba-HTruck-Lancer",
+        "name": "Lancer Flatbed",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-Pod",
+            "RustRocket-LtA-T"
         ]
     },
     "CO-H-COM-H": {
@@ -746,6 +801,17 @@
         "type": "CYBORG_SUPER",
         "weapons": [
             "Cyb-Hvywpn-Mcannon"
+        ]
+    },
+    "Cyb-Hvy-Gren": {
+        "available": true,
+        "body": "CyborgHeavyBody",
+        "id": "Cyb-Hvy-Gren",
+        "name": "Super Heavy Grenadier Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "Cyb-Hvywpn-Grenade"
         ]
     },
     "Cyb-Hvy-PulseLsr": {

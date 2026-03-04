@@ -3,19 +3,11 @@ include("script/campaign/templates.js");
 
 const mis_newParadigmRes = [
 	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
-	"R-Struc-Materials02", "R-Vehicle-Engine02",
-	"R-Vehicle-Metals01", "R-Cyborg-Metals01", "R-Wpn-Cannon-Damage02",
-	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy02",
-	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
-
-	// "R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
-	// "R-Sys-Engineering01", "R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Cannon-Damage02",
-	// "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-Range01", "R-Wpn-Flamer-ROF01",
-	// "R-Defense-WallUpgrade02", "R-Struc-Materials02", "R-Vehicle-Engine02",
-	// "R-Struc-RprFac-Upgrade02", "R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-ROF03",
-	// "R-Vehicle-Metals01", "R-Wpn-Mortar-Damage02", "R-Wpn-Rocket-Accuracy01",
-	// "R-Wpn-RocketSlow-Damage01", "R-Wpn-Mortar-ROF01",
+	"R-Struc-Materials02", "R-Vehicle-Engine01",
+	"R-Vehicle-Metals01", "R-Wpn-Cannon-Damage02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Cannon-ROF01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01", "R-Struc-RprFac-Upgrade01",
 ];
 const mis_landingZoneList = [ "NPLZ1", "NPLZ2", "NPLZ3", "NPLZ4", "NPLZ5" ];
 const mis_landingZoneMessages = [ "C1CA_LZ1", "C1CA_LZ2", "C1CA_LZ3", "C1CA_LZ4", "C1CA_LZ5" ];
@@ -179,6 +171,8 @@ function eventStartLevel()
 
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	camPlayVideos({video: "MB1CA_MSG", type: CAMP_MSG});
+
+	// TODO: Add an artifact for the Bunker Buster
 
 	// first transport after 10 seconds
 	queue("startTransporterAttack", camSecondsToMilliseconds(10));

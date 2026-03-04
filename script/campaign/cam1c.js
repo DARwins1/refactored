@@ -2,25 +2,17 @@ include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 const mis_newParadigmRes = [
-	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
-	"R-Struc-Materials02", "R-Vehicle-Engine02",
-	"R-Vehicle-Metals01", "R-Cyborg-Metals01", "R-Wpn-Cannon-Damage02",
+	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade01",
+	"R-Struc-Materials01", "R-Vehicle-Engine01",
+	"R-Vehicle-Metals01", "R-Wpn-Cannon-Damage02",
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy02",
-	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
-
-	// "R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
-	// "R-Sys-Engineering01", "R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Cannon-Damage02",
-	// "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-Range01", "R-Wpn-Flamer-ROF01",
-	// "R-Defense-WallUpgrade01", "R-Struc-Materials01", "R-Vehicle-Engine02",
-	// "R-Struc-RprFac-Upgrade02", "R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-ROF03",
-	// "R-Vehicle-Metals01", "R-Wpn-Mortar-Damage02", "R-Wpn-Rocket-Accuracy01",
-	// "R-Wpn-RocketSlow-Damage01", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Accuracy01",
+	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01", "R-Struc-RprFac-Upgrade01",
 ];
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage01",
-	"R-Wpn-Cannon-Damage01", "R-Wpn-Mortar-Damage01", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage02",
+	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage01",
 	"R-Wpn-Rocket-ROF01", "R-Defense-WallUpgrade01", "R-Struc-Materials01",
 ];
 
@@ -105,7 +97,7 @@ camAreaEvent("RemoveBeacon", function()
 camAreaEvent("AmbushTrigger", function()
 {
 	// wzcam enables factory here, even though it's quite early
-	camEnableFactory("ScavCentralFactory");
+	camEnableFactory("ScavEastFactory");
 
 	camManageGroup(camMakeGroup("AmbushForce"), CAM_ORDER_ATTACK, {
 		pos: "AmbushTarget",
@@ -124,12 +116,12 @@ camAreaEvent("AmbushTrigger", function()
 	*/
 });
 
-camAreaEvent("ScavCentralFactoryTrigger", function()
+camAreaEvent("ScavEastFactoryTrigger", function()
 {
 	// doesn't make much sense because the player
 	// passes through AmbushTrigger anyway
 	// before getting there
-	camEnableFactory("ScavCentralFactory");
+	camEnableFactory("ScavEastFactory");
 });
 
 camAreaEvent("ScavNorthFactoryTrigger", function()
@@ -206,14 +198,6 @@ camAreaEvent("NPLZ2Trigger", function()
 	);
 });
 
-function insaneReinforcementSpawn()
-{
-	const units = [cTempl.npmmct, cTempl.nplpodw];
-	const limits = {minimum: 6, maxRandom: 4};
-	const location = ["reinforceNorth", "reinforceSouthEast"];
-	camSendGenericSpawn(CAM_REINFORCE_GROUND, CAM_NEW_PARADIGM, CAM_REINFORCE_CONDITION_ARTIFACTS, location, units, limits.minimum, limits.maxRandom);
-}
-
 function eventStartLevel()
 {
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.alpha7);
@@ -261,13 +245,6 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
 			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated
 		},
-		"ScavCentralBaseGroup": {
-			cleanup: "MixedCentralBase", // two bases with same cleanup region
-			detectMsg: "C1C_BASE5",
-			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
-			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
-			player: CAM_SCAV_7 // hence discriminate by player filter
-		},
 		"NPEastBaseGroup": {
 			cleanup: "NPEastBase",
 			detectMsg: "C1C_BASE7",
@@ -287,11 +264,10 @@ function eventStartLevel()
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 		"NPCentralBaseGroup": {
-			cleanup: "MixedCentralBase", // two bases with same cleanup region
+			cleanup: "CentralBase",
 			detectMsg: "C1C_BASE10",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
-			player: CAM_NEW_PARADIGM // hence discriminate by player filter
 		},
 		"NPLZ1Group": {
 			cleanup: "NPLZ1", // kill the four towers to disable LZ
@@ -318,19 +294,19 @@ function eventStartLevel()
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
 			templates: [ cTempl.buscan, cTempl.rbjeep, cTempl.trike, cTempl.buggy ]
 		},
-		"ScavCentralFactory": {
-			assembly: "ScavCentralFactoryAssembly",
+		"ScavEastFactory": {
+			assembly: "ScavEastFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
-			templates: [ cTempl.firetruck, cTempl.rbuggy, cTempl.bjeep, cTempl.bloke ]
+			templates: [ cTempl.firetruck, cTempl.rbuggy, cTempl.bjeep, cTempl.kevbloke ]
 		},
 		"ScavNorthFactory": {
 			assembly: "ScavNorthFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
-			templates: [ cTempl.firetruck, cTempl.rbuggy, cTempl.buscan, cTempl.trike ]
+			templates: [ cTempl.minitruck, cTempl.rbuggy, cTempl.buscan, cTempl.gbjeep ]
 		},
 		"NPCentralFactory": {
 			assembly: "NPCentralFactoryAssembly",
@@ -370,8 +346,4 @@ function eventStartLevel()
 	queue("sendTankForce", camSecondsToMilliseconds(100)); // in wzcam it moves back and then forward
 	queue("enableNPFactory", camMinutesToMilliseconds(5));
 	queue("activateScavBaseDefenders", camSecondsToMilliseconds(3));
-	if (camAllowInsaneSpawns())
-	{
-		setTimer("insaneReinforcementSpawn", camMinutesToMilliseconds(4));
-	}
 }

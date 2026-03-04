@@ -211,10 +211,7 @@ function cam_eventDroidBuilt(droid, structure)
 		return;
 	}
 	__camPreDamageDroid(droid);
-	if (droid.player !== CAM_INFESTED || __camDisableFactoryAutoManagement)
-	{
-		__camAddDroidToFactoryGroup(droid, structure);
-	}
+	__camAddDroidToFactoryGroup(droid, structure);
 }
 
 function cam_eventStructureBuilt(struct, droid)

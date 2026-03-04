@@ -5,9 +5,10 @@ const mis_newParadigmRes = [
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade03",
 	"R-Struc-Materials03", "R-Vehicle-Engine03",
 	"R-Vehicle-Metals03", "R-Cyborg-Metals03", "R-Wpn-Cannon-Damage03",
-	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Cannon-ROF01",
 	"R-Wpn-Mortar-Damage03", "R-Wpn-Rocket-Accuracy02", "R-Wpn-Cannon-Accuracy01",
 	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-ROF01", "R-Sys-Engineering01",
+	"R-Wpn-Mortar-ROF01",
 ];
 
 camAreaEvent("tankTrapTrig", function(droid)
@@ -165,7 +166,6 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"artifact1": { tech: "R-Vehicle-Prop-Hover" }, // Hover Propulsion
-		// "NPFactoryW": { tech: "R-Vehicle-Metals03" }, //West factory
 		"NPFactoryNE": { tech: "R-Vehicle-Body12" }, // Mantis
 	});
 

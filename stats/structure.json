@@ -1019,6 +1019,29 @@
         ],
         "width": 1
     },
+    "CO-WallTower-HypCan": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "CO-WallTower-HypCan",
+        "name": "Collective Hyper Velocity Cannon Hardpoint",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon4AUTOMk1"
+        ],
+        "width": 1
+    },
     "CO-WallTower-RotCan": {
         "armour": 15,
         "breadth": 1,
@@ -2435,7 +2458,7 @@
         ],
         "width": 1
     },
-    "PillBoxNeedle": {
+    "PillBoxRail1": {
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
@@ -2443,7 +2466,7 @@
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
-        "id": "PillBoxNeedle",
+        "id": "PillBoxRail1",
         "name": "Needle Gun Bunker",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
@@ -2458,7 +2481,7 @@
         ],
         "width": 1
     },
-    "PillBoxRail": {
+    "PillBoxRail2": {
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
@@ -2466,7 +2489,7 @@
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
-        "id": "PillBoxRail",
+        "id": "PillBoxRail2",
         "name": "Rail Gun Bunker",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
@@ -3195,7 +3218,7 @@
         ],
         "width": 1
     },
-    "WallTower-PulseLas": {
+    "WallTower-BeamLas": {
         "armour": 15,
         "breadth": 1,
         "buildPoints": 400,
@@ -3204,7 +3227,7 @@
         "ecmID": "ZNULLECM",
         "height": 2,
         "hitpoints": 800,
-        "id": "WallTower-PulseLas",
+        "id": "WallTower-BeamLas",
         "name": "Flashlight Hardpoint",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
@@ -3216,6 +3239,30 @@
         "type": "DEFENSE",
         "weapons": [
             "Laser3BEAMMk1"
+        ],
+        "width": 1
+    },
+    "WallTower-PulseLas": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 325,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "WallTower-PulseLas",
+        "name": "Pulse Laser Hardpoint",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARD1.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Laser2PULSEMk1"
         ],
         "width": 1
     },

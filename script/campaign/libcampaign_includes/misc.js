@@ -1031,7 +1031,7 @@ function camFactoryCanProduceTemplate(template, factory)
 	if (factory.modules < bodySize) return false;
 
 	// Next, do a check to make sure scavenger factories can't produce non-scavenger units
-	if (factory.name === "Scavenger Factory" || factory.name === "Infested Scavenger Factory")
+	if (factory.name === "Scavenger Factory")
 	{
 		// NOTE: We only need to check light bodies here, since larger bodies will automatically fail the previous check!
 		if (template.body === "Body4ABT" || template.body === "Body1REC" || template.body === "Body2SUP" || template.body === "Body3MBT")

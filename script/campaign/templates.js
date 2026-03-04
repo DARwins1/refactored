@@ -11,9 +11,13 @@ buggy: { body: "B3body-sml-buggy01", prop: "BaBaProp", weap: "BabaBuggyMG" }, //
 bjeep: { body: "B2JeepBody", prop: "BaBaProp", weap: "BabaJeepMG" }, // Jeep
 rbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaRocket" }, // Rocket Jeep
 rbuggy: { body: "B3bodyRKbuggy01", prop: "BaBaProp", weap: "BabaRocket" }, // Rocket Buggy
+gbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaMiniMortar" }, // Grenade Jeep
 firetruck: { body: "FireBody", prop: "BaBaProp", weap: "RustFlame1Mk1" }, // Flamer Firetruck
 buscan: { body: "BusBody", prop: "BaBaProp", weap: "RustCannon1Mk1" }, // Cannon Bus
 minitruck: { body: "FireBody", prop: "BaBaProp", weap: "RustRocket-Pod" }, // Mini-Rocket Pod Firetruck
+flatmrl: { body: "ScavTruckBody", prop: "BaBaProp", weap: ["RustRocket-Pod", "RustRocket-MRL"] }, // MRA Flatbed Truck
+flatat: { body: "ScavTruckBody", prop: "BaBaProp", weap: ["RustRocket-Pod", "RustRocket-LtA-T"] }, // Lancer Flatbed Truck
+crane: { body: "ScavCraneBody", prop: "HalfTrack", weap: "ScavCrane" }, // Scavenger Crane (Constructor)
 civ: { body: "CivilianBody", prop: "BaBaLegs", weap: "BabaMG" }, // Civilian
 
 // Cyborgs:
@@ -130,6 +134,8 @@ cohript: { body: "Body9REC", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple 
 // CAM_2_8
 comhvat: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" },
 
+// NEXUS Units:
+
 // CAM_3_A
 nxtruckh: { body: "Body7ABT", prop: "hover02", weap: "Spade1Mk1" },
 nxmserh: { body: "Body7ABT", prop: "hover02", weap: "Missile-MdArt" },
@@ -175,6 +181,8 @@ nxharch: { body: "Body10MBT", prop: "hover02", weap: "Missile-HvyArt" }, // Heav
 nxllinkh: { body: "Body3MBT", prop: "hover02", weap: "NEXUSlink" },
 nxmpulsev: { body: "Body7ABT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" },
 nxhseraph: { body: "Body10MBT", prop: "hover02", weap: "Missile-MdArt" }, // Heavy Seraph Missile Tank
+
+// Project Units:
 
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -12,7 +12,10 @@ function eventStartLevel()
 	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
 	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
 	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
-	camSetMissionTimer(camChangeOnDiff(camMinutesToSeconds(30)));
+	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	camPlayVideos([{video: "SB1_7_MSG", type: CAMP_MSG}, {video: "SB1_7_MSG2", type: MISS_MSG}]);
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha11.offWorld);
+
+	// In case the player didn't get this in the last mission
+	enableResearch("R-Wpn-Rocket03-HvAT", CAM_HUMAN_PLAYER);
 }

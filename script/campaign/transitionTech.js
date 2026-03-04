@@ -1,69 +1,5 @@
 //Contains the campaign transition technology definitions.
 
-//This array should give a player all the research from Alpha.
-const mis_alphaResearchNew = [
-	// 1
-	"R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
-	"R-Sys-MobileRepairTurret01", "R-Sys-Engineering01", "R-Wpn-Flamer01Mk1", "R-Wpn-MG-Damage01",
-	"R-Wpn-MG-Damage02", "R-Wpn-Flamer-Damage01", 
-	"R-Defense-Tower01", "R-Defense-TankTrap01",
-
-	// 2
-	"R-Wpn-Flamer-ROF01", "R-Wpn-Flamer-Damage02", "R-Wpn-MG2Mk1", "R-Sys-Sensor-Turret01", "R-Struc-PowerModuleMk1",
-	"R-Wpn-MG-Damage03", "R-Sys-Sensor-Tower01",
-
-	// 3
-	"R-Wpn-Cannon1Mk1", "R-Wpn-Cannon-Damage01",
-
-	// 4
-	"R-Wpn-Mortar01Lt", "R-Vehicle-Prop-Halftracks",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Mortar-ROF01",
-
-	// 5
-	"R-Wpn-MG3Mk1", "R-Wpn-Cannon2Mk1", "R-Struc-Factory-Module", "R-Wpn-MG-ROF01", "R-Wpn-MG-Damage04",
-	"R-Struc-Factory-Upgrade01", "R-Struc-Factory-Upgrade02", "R-Defense-HardcreteWall", "R-Defense-HardcreteGate",
-	"R-Struc-CommandRelay", "R-Comp-CommandTurret01", "R-Struc-RepairFacility",
-	"R-Struc-RprFac-Upgrade01", "R-Struc-RprFac-Upgrade02", "R-Defense-MortarPit",
-	"R-Defense-Pillbox01", "R-Defense-Pillbox04", "R-Defense-Pillbox05",
-	"R-Defense-WallTower01", "R-Defense-WallTower02", "R-Defense-WallUpgrade01",
-	"R-Defense-WallUpgrade02", "R-Defense-WallUpgrade03", "R-Struc-Materials01",
-	"R-Struc-Materials02", "R-Struc-Materials03", "R-Vehicle-Body05", "R-Defense-WallTower03",
-	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage02",
-
-	// 6
-	"R-Wpn-Rocket05-MiniPod", "R-Struc-Research-Module",
-	"R-Vehicle-Prop-Tracks", "R-Vehicle-Engine01", "R-Defense-Tower06", "R-Defense-Pillbox06",
-	"R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01",
-	"R-Wpn-Rocket-ROF02", "R-Wpn-Rocket-ROF03", "R-Defense-WallTower06",
-	"R-Wpn-Rocket01-LtAT", "R-Defense-LancerTower", "R-Wpn-Rocket02-MRL", "R-Defense-MRL",
-	"R-Wpn-RocketSlow-Damage01", "R-Wpn-Flamer-Damage03",
-
-	// 7
-
-	// 8
-	"R-Vehicle-Metals01", "R-Vehicle-Metals02", "R-Vehicle-Body04", "R-Wpn-Rocket03-HvAT", "R-Wpn-RocketSlow-Damage02",
-	"R-Wpn-Rocket-Damage03", "R-Wpn-Mortar02Hvy", "R-Wpn-Mortar-Damage03", "R-Wpn-Cannon-Damage03",
-	"R-Wpn-RocketSlow-Damage02", "R-Vehicle-Body11", "R-Defense-HvyMor",
-
-	// 9
-	"R-Struc-Research-Upgrade01", "R-Struc-Research-Upgrade02", "R-Struc-Research-Upgrade03",
-	"R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Accuracy02",
-	"R-Wpn-RocketSlow-Accuracy01", "R-Wpn-Cannon-Accuracy01", "R-Struc-RprFac-Upgrade03",
-	"R-Comp-SynapticLink", "R-Vehicle-Body08", "R-Vehicle-Engine02", "R-Struc-Factory-Upgrade03",
-	"R-Struc-Factory-Cyborg", "R-Cyborg-Wpn-MG", "R-Cyborg-Metals01", "R-Cyborg-Metals02",
-	"R-Cyborg-Metals03", "R-Cyborg-Wpn-Cannon", "R-Cyborg-Wpn-Flamer", "R-Cyborg-Wpn-Rocket",
-	"R-Cyb-Sys-Repair", "R-Cyb-Sys-Construct", "R-Cyb-Wpn-Grenade",
-	"R-Cyborg-Legs01", "R-Wpn-RocketSlow-Damage03",
-
-	// 10
-
-	// 11
-	"R-Wpn-Cannon4AMk1", "R-Defense-Emplacement-HPVcannon", "R-Defense-WallTower-HPVcannon",
-
-	//12
-	"R-Vehicle-Prop-Hover", "R-Vehicle-Metals03", "R-Vehicle-Body12", "R-Vehicle-Engine03",
-];
-
 //Basic base structures.
 const mis_structsAlpha = [
 	"A0CommandCentre",
@@ -73,6 +9,125 @@ const mis_structsAlpha = [
 	"A0LightFactory",
 ];
 
+//This array should give a player all the research from Alpha.
+const mis_alphaResearchNew = [
+	// Starting tech
+	"R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels", 
+
+	// 1
+	"R-Wpn-MG-Damage01", // Artifact
+	"R-Wpn-MG-Damage02",
+	"R-Sys-Engineering01", // Artifact
+	"R-Sys-MobileRepairTurret01", "R-Defense-TankTrap01",
+	"R-Wpn-Flamer01Mk1", // Artifact
+	"R-Wpn-Flamer-Damage01", "R-Defense-Flamer",
+
+	// 2
+	"R-Wpn-Flamer-ROF01", // Artifact
+	"R-Wpn-Flamer-Damage02",
+	"R-Wpn-MG2Mk1", // Artifact
+	"R-Wpn-MG-Damage03", "R-Defense-Tower02",
+	"R-Sys-Sensor-Turret01", // Artifact
+	"R-Sys-Sensor-Tower01",
+	"R-Struc-PowerModuleMk1", // Artifact
+
+	// 3
+	"R-Wpn-Cannon1Mk1", // Artifact
+	"R-Wpn-Cannon-Damage01", "R-Defense-Cannon",
+
+	// 4
+	"R-Wpn-Mortar01Lt", // Artifact
+	"R-Wpn-Mortar-Damage01",
+	"R-Vehicle-Prop-Halftracks", // Artifact
+
+	// 5
+	"R-Wpn-MG3Mk1", // Artifact
+	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", 
+	"R-Defense-HardcreteWall", // Artifact
+	"R-Defense-HardcreteGate", "R-Defense-MortarPit", "R-Defense-WallTower03",
+	"R-Defense-Pillbox01", "R-Defense-Pillbox04", "R-Defense-Pillbox05",
+	"R-Defense-WallTower01", "R-Defense-WallTower02", "R-Defense-WallUpgrade01",
+	"R-Defense-WallUpgrade02", "R-Struc-Materials01", "R-Struc-Materials02", 
+	"R-Struc-CommandRelay", // Artifact
+	"R-Comp-CommandTurret01",
+	"R-Struc-RepairFacility", // Artifact
+	"R-Vehicle-Body04", // Artifact
+	"R-Vehicle-Metals01",
+	"R-Wpn-Rocket05-MiniPod", // Artifact
+	"R-Defense-Tower06", "R-Wpn-Rocket-Damage01",
+
+	// 6
+	"R-Struc-Research-Module", // Artifact
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Rocket-Accuracy01",
+	"R-Wpn-Rocket02-MRL", // Artifact
+	"R-Defense-MRL", "R-Wpn-Rocket-ROF01", "R-Wpn-Cannon-ROF01",
+	"R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-Damage02", 
+	"R-Struc-Factory-Module", // Artifact
+	"R-Vehicle-Body05", "R-Vehicle-Engine01",
+	"R-Wpn-Cannon2Mk1", // Artifact
+	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage02",
+
+	// 7
+
+	// 8
+	"R-Wpn-Mortar02Hvy", // Artifact
+	"R-Wpn-Mortar-Damage03", "R-Wpn-Cannon-Damage03", "R-Defense-HvyMor",
+	"R-Vehicle-Prop-Tracks", // Artifact
+	"R-Vehicle-Metals02",
+	"R-Wpn-Rocket01-LtAT", // Artifact
+	"R-Defense-WallTower06", "R-Defense-LancerTower", "R-Defense-Pillbox06",
+	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-Accuracy02",
+	"R-Defense-WallUpgrade03", // Artifact
+	"R-Struc-Materials03",
+
+	// 9
+	"R-Comp-SynapticLink", // Artifact
+	"R-Struc-Research-Upgrade01", "R-Wpn-Cannon-Accuracy01",
+	"R-Wpn-Mortar-Acc01", 
+	"R-Struc-Factory-Cyborg", "R-Cyborg-Wpn-HvyMG",
+	"R-Cyborg-Wpn-Cannon", "R-Cyborg-Wpn-Flamer", "R-Cyborg-Wpn-Rocket",
+	"R-Cyb-Sys-Repair", "R-Cyb-Sys-Construct", "R-Cyb-Wpn-Grenade",
+	"R-Cyborg-Metals01", "R-Cyborg-Metals02",
+	"R-Struc-Factory-Upgrade01", // Artifact
+	"R-Struc-RprFac-Upgrade01", 
+	"R-Vehicle-Body08", // Artifact
+	"R-Vehicle-Engine02",
+
+	// 10
+	"R-Wpn-Rocket03-HvAT", // Artifact
+	"R-Wpn-Rocket-Damage04",
+
+	// 11
+	"R-Vehicle-Metals03", // Artifact
+	"R-Cyborg-Metals03", "R-Cyborg-Hvywpn-Mcannon", "R-Cyb-Hvywpn-Grenade",
+	"R-Vehicle-Body11",
+
+	//12
+	"R-Vehicle-Prop-Hover", // Artifact
+	"R-Vehicle-Engine03",
+	"R-Vehicle-Body12", // Artifact
+
+	///////
+
+	// END AT:
+	// "R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01",
+	// "R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	// "R-Wpn-Cannon-Damage03", "R-Wpn-Cannon-Damage03" "R-Wpn-Cannon-Accuracy01",
+	// "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01", "R-Wpn-Mortar-Acc01", 
+	// "R-Wpn-Rocket-Damage04", "R-Wpn-Rocket-ROF01", "R-Wpn-Rocket-Accuracy02",
+	// "R-Defense-WallUpgrade03", "R-Struc-Materials03",
+	// "R-Sys-Engineering01",
+	// "R-Struc-Factory-Upgrade01", "R-Struc-RprFac-Upgrade01",
+	// "R-Vehicle-Metals03", "R-Cyborg-Metals03",
+	// "R-Vehicle-Engine03",
+	// "R-Struc-Research-Upgrade01",
+
+// "R-Struc-Factory-Upgrade02", 
+// "R-Struc-RprFac-Upgrade02", 
+// "R-Wpn-Rocket-ROF02", "R-Wpn-Rocket-ROF03", 
+// "R-Wpn-Cannon4AMk1", "R-Defense-Emplacement-HPVcannon", "R-Defense-WallTower-HPVcannon",
+
+];
 
 //BETA 2-A bonus research
 const mis_playerResBeta = [
@@ -87,14 +142,14 @@ const mis_betaResearchNew = [
 	"R-Sys-Engineering02", "R-Sys-Sensor-Upgrade01", "R-Wpn-MG-ROF02",
 	"R-Wpn-Cannon-Damage04", "R-Wpn-Rocket-Damage04", "R-Wpn-AAGun-Damage03",
 	"R-Defense-WallUpgrade06", "R-Sys-CBSensor-Tower01", "R-Wpn-AAGun-ROF02",
-	"R-Wpn-Cannon-Accuracy02", "R-Wpn-MG-Damage05", "R-Wpn-Cannon-ROF01",
+	"R-Wpn-Cannon-Accuracy02", "R-Wpn-MG-Damage05",
 	"R-Wpn-RocketSlow-Damage04", "R-Struc-Materials06", "R-Sys-CBSensor-Turret01",
 	"R-Wpn-RocketSlow-Accuracy02",
 
 	// 2
 
 	// 3
-	"R-Vehicle-Body06", "R-Wpn-Flame2", "R-Wpn-MG-ROF03", "R-Cyborg-Hvywpn-Mcannon",
+	"R-Vehicle-Body06", "R-Wpn-Flame2", "R-Wpn-MG-ROF03",
 	"R-Wpn-RocketSlow-ROF01", "R-Defense-HvyFlamer", "R-Vehicle-Metals04",
 	 
 	"R-Wpn-MG-Damage06", "R-Cyb-Wpn-Thermite",

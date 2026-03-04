@@ -4,17 +4,16 @@ include("script/campaign/templates.js");
 //New base blip, new base area, new factory data
 
 const mis_newParadigmRes = [
-	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade01",
-	"R-Struc-Materials01", "R-Vehicle-Engine01",
+	"R-Wpn-MG-Damage03", "R-Wpn-MG-ROF01",
 	"R-Vehicle-Metals01", "R-Wpn-Cannon-Damage01",
-	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Mortar-Damage01", "R-Sys-Engineering01",
 	"R-Wpn-Rocket-Damage01", "R-Wpn-Rocket-ROF01",
 ];
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
-	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-ROF01",
+	"R-Wpn-Mortar-Damage01",
 ];
 
 var NPDefenseGroup, NPScoutGroup, NPFactory;
@@ -195,10 +194,11 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"ScavFactory": { tech: "R-Wpn-Rocket05-MiniPod" }, // Mini-Rocket Pod
-		"NPFactory": { tech: "R-Defense-HardcreteWall" }, // Hardcrete
+		"NPFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"NPLab": { tech: "R-Vehicle-Body04" }, // Bug
 		"NPCRC": { tech: "R-Struc-CommandRelay" }, // Command Relay Post
-		// TODO: Repair Facility, HMG
+		"NPHQ": { tech: "R-Defense-HardcreteWall" }, // Hardcrete
+		"NPRepair": { tech: "R-Struc-RepairFacility" }, // Repair Facility
 	});
 
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
