@@ -16,28 +16,7 @@ const mis_scavengerRes = [
 	"R-Wpn-Rocket-ROF01", "R-Defense-WallUpgrade01", "R-Struc-Materials01",
 ];
 
-function activateLZDefenders()
-{
-	camManageGroup(camMakeGroup("PatrolForce"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("PatrolPos1"),
-			camMakePos("PatrolPos2"),
-			camMakePos("PatrolPos3"),
-			camMakePos("PatrolPos4")
-		],
-		interval: camSecondsToMilliseconds(30),
-		regroup: false,
-	});
-}
-
-function activateScavBaseDefenders()
-{
-	camManageGroup(camMakeGroup("DefendForce"), CAM_ORDER_DEFEND, {
-		pos: camMakePos("defensePos"),
-		radius: 16,
-		regroup: false
-	});
-}
+var NPTankCommander, NPAmbushCommander;
 
 function sendRocketForce()
 {
@@ -49,44 +28,14 @@ function sendRocketForce()
 
 function sendTankScoutForce()
 {
-	camManageGroup(camMakeGroup("TankScoutForce"), CAM_ORDER_ATTACK, {
-		regroup: true,
-		count: -1,
+	camManageGroup(NPTankCommander, CAM_ORDER_ATTACK, {
+		repair: 40
 	});
-	// FIXME: Re-enable this when commander/formation movement
-	// becomes good enough. Remove the call above then.
-	/*
-	camManageGroup(camMakeGroup("TankScoutForce"), CAM_ORDER_FOLLOW, {
-		droid: "TankScoutForceCommander",
-		order: CAM_ORDER_ATTACK
-	});
-	*/
-}
-
-function sendTankForce()
-{
-	camManageGroup(camMakeGroup("TankForce"), CAM_ORDER_ATTACK, {
-		regroup: true,
-		count: -1,
-	});
-	// FIXME: Re-enable this when commander/formation movement
-	// becomes good enough. Remove the call above then.
-	/*
-	camManageGroup(camMakeGroup("TankForce"), CAM_ORDER_FOLLOW, {
-		droid: "TankForceCommander",
-		order: CAM_ORDER_ATTACK
-	});
-	*/
 }
 
 function enableNPFactory()
 {
 	camEnableFactory("NPCentralFactory");
-}
-
-function enableNorthScavFactory()
-{
-	camEnableFactory("ScavNorthFactory");
 }
 
 camAreaEvent("RemoveBeacon", function()
@@ -96,53 +45,23 @@ camAreaEvent("RemoveBeacon", function()
 
 camAreaEvent("AmbushTrigger", function()
 {
-	// wzcam enables factory here, even though it's quite early
 	camEnableFactory("ScavEastFactory");
 
-	camManageGroup(camMakeGroup("AmbushForce"), CAM_ORDER_ATTACK, {
+	camManageGroup(NPAmbushCommander, CAM_ORDER_ATTACK, {
 		pos: "AmbushTarget",
-		regroup: true,
-		count: -1,
+		repair: 40
 	});
-	// FIXME: Re-enable this when commander/formation movement
-	// becomes good enough. Remove the call above then.
-	// FIXME: This group has more droids than the commander can handle!
-	/*
-	camManageGroup(camMakeGroup("AmbushForce"), CAM_ORDER_FOLLOW, {
-		droid: "AmbushForceCommander",
-		order: CAM_ORDER_ATTACK,
-		pos: "AmbushTarget",
-	});
-	*/
 });
 
-camAreaEvent("ScavEastFactoryTrigger", function()
-{
-	// doesn't make much sense because the player
-	// passes through AmbushTrigger anyway
-	// before getting there
-	camEnableFactory("ScavEastFactory");
-});
-
-camAreaEvent("ScavNorthFactoryTrigger", function()
-{
-	camCallOnce("enableNorthScavFactory");
-});
-
-camAreaEvent("NPNorthFactoryTrigger", function()
-{
-	camEnableFactory("NPNorthFactory");
-});
-
-function camEnemyBaseEliminated_NPCentralFactory()
+function camEnemyBaseEliminated_NPEastBaseGroup()
 {
 	camEnableFactory("NPNorthFactory");
 }
 
 function getDroidsForNPLZ(args)
 {
-	const scouts = [ cTempl.nplpodw, cTempl.nplhmght ];
-	const heavies = [ cTempl.npmlcht, cTempl.npmmct ];
+	const scouts = [ cTempl.nplmraht, cTempl.nplhmght ];
+	const heavies = [ cTempl.npmmcht, cTempl.npmmct ];
 	const list = [];
 	const LIMIT = ((difficulty >= INSANE) ? 10 : 8);
 	let numScouts = camRand(5) + 1;
@@ -171,6 +90,9 @@ camAreaEvent("NPLZ1Trigger", function()
 	// please don't ask me why they did it this way
 	camPlayVideos({video: "MB1C4_MSG", type: MISS_MSG});
 	camDetectEnemyBase("NPLZ1Group");
+	// Activate remaining factories
+	camEnableFactory("NPNorthFactory");
+	camEnableFactory("ScavNorthFactory");
 
 	camSetBaseReinforcements("NPLZ1Group", camChangeOnDiff(camMinutesToMilliseconds((difficulty >= INSANE) ? 4.5 : 5)), "getDroidsForNPLZ",
 		CAM_REINFORCE_TRANSPORT, {
@@ -187,7 +109,6 @@ camAreaEvent("NPLZ2Trigger", function()
 {
 	camPlayVideos({video: "MB1C3_MSG", type: MISS_MSG});
 	camDetectEnemyBase("NPLZ2Group");
-	camCallOnce("enableNorthScavFactory");
 
 	camSetBaseReinforcements("NPLZ2Group", camChangeOnDiff(camMinutesToMilliseconds(5)), "getDroidsForNPLZ",
 		CAM_REINFORCE_TRANSPORT, {
@@ -242,6 +163,12 @@ function eventStartLevel()
 		"ScavSouthPodPitsGroup": {
 			cleanup: "ScavSouthPodPits",
 			detectMsg: "C1C_BASE4",
+			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated
+		},
+		"ScavEastOutpostGroup": {
+			cleanup: "ScavEastOutpost",
+			detectMsg: "C1C_BASE11",
 			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
 			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated
 		},
@@ -334,16 +261,155 @@ function eventStartLevel()
 		},
 	});
 
-	// camManageTrucks(CAM_NEW_PARADIGM);
+	// Set up NP truck management
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(110));
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPEastBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("NPEastBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPNorthEastGeneratorGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("NPNorthEastGenerator");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPNorthEastBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("NPNorthEastBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPCentralBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("CentralBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPLZ1Group",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("NPLZ1");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPLZ2Group",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.npmtruckht,
+			structset: camAreaToStructSet("NPLZ2");
+	});
+
+	// Rank changes on difficulty:
+	// Rookie (SUPEREASY/EASY/MEDIUM)
+	// Green (HARD)
+	// Trained (INSANE)
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? 0 : (difficulty - 2);
+	camSetDroidRank(getObject("TankScoutForceCommander"), COMMANDER_RANK);
+	camSetDroidRank(getObject("AmbushForceCommander"), COMMANDER_RANK);
+	camSetDroidRank(getObject("TankForceCommander"), COMMANDER_RANK + 1); // This commander has +1 rank
+
+	// Set up refillable groups and orders for NP commanders
+	NPTankCommander = camMakeGroup("TankScoutForceCommander"); // Gets orders later
+	camMakeRefillableGroup(
+		camMakeGroup("TankScoutForce"), {
+			templates: [
+				cTempl.nplhmght, cTempl.nplhmght, cTempl.nplhmght, // Heavy Machineguns
+				cTempl.npmlcht, cTempl.npmlcht, cTempl.npmlcht, // Light Cannons
+				cTempl.nplhmght, cTempl.nplhmght, // More Heavy Machineguns (Hard+)
+				cTempl.npmlcht, cTempl.npmlcht, // More Light Cannons (Insane)
+			],
+			obj: "TankScoutForceCommander",
+			player: CAM_NEW_PARADIGM // Only refill from NP factories
+		}, CAM_ORDER_FOLLOW, {
+			leader: "TankScoutForceCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 33,
+			},
+			repair: 66,
+	});
+	NPAmbushCommander = camMakeGroup("AmbushForce"); // Gets orders later
+	camMakeRefillableGroup(
+		camMakeGroup("AmbushForce"), {
+			templates: [
+				cTempl.nplhmght, cTempl.nplhmght, // Heavy Machineguns
+				cTempl.npmmcht, cTempl.npmmcht, // Medium Cannons
+				cTempl.nplpodw, cTempl.nplpodw, // Mini-Rocket Pods
+				cTempl.nplhmght, cTempl.nplhmght, // More Heavy Machineguns (Hard+)
+				cTempl.nplpodw, cTempl.nplpodw, // More Mini-Rocket Pods (Insane)
+			],
+			obj: "AmbushForceCommander",
+			player: CAM_NEW_PARADIGM
+		}, CAM_ORDER_FOLLOW, {
+			leader: "AmbushForceCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 33,
+			},
+			repair: 66,
+	});
+	camManageGroup(camMakeGroup("TankForceCommander"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("TankPatrolPos1"),
+			camMakePos("TankPatrolPos2"),
+			camMakePos("NPNorthFactoryAssembly")
+		],
+		interval: camSecondsToMilliseconds(30)
+	});
+	camMakeRefillableGroup(
+		camMakeGroup("TankForce"), {
+			templates: [ // NOTE: The starting Mantis tank isn't in this list, so it won't be rebuilt if destroyed.
+				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, // Medium Cannons
+				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct,
+				cTempl.nplmraht, cTempl.nplmraht, // Mini-Rocket Arrays
+				cTempl.nplmraht, cTempl.nplmraht, // More Mini-Rocket Arrays (Hard+)
+				cTempl.npmrept, cTempl.npmrept, // Repair Turrets (Insane)
+			],
+			obj: "TankForceCommander",
+			player: CAM_NEW_PARADIGM
+		}, CAM_ORDER_FOLLOW, {
+			leader: "TankForceCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 33,
+			},
+			repair: 66,
+	});
 
 	camEnableFactory("ScavSouthFactory");
 	camManageGroup(camMakeGroup("RocketScoutForce"), CAM_ORDER_ATTACK, {
 		regroup: true,
 		count: -1,
 	});
+	camManageGroup(camMakeGroup("DefendForce"), CAM_ORDER_DEFEND, {
+		pos: camMakePos("defensePos"),
+		radius: 16,
+		regroup: false
+	});
+	camManageGroup(camMakeGroup("PatrolForce"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("PatrolPos1"),
+			camMakePos("PatrolPos2"),
+			camMakePos("PatrolPos3"),
+			camMakePos("PatrolPos4")
+		],
+		interval: camSecondsToMilliseconds(30),
+		regroup: false,
+	});
 	queue("sendRocketForce", camSecondsToMilliseconds(25));
 	queue("sendTankScoutForce", camSecondsToMilliseconds(30));
-	queue("sendTankForce", camSecondsToMilliseconds(100)); // in wzcam it moves back and then forward
-	queue("enableNPFactory", camMinutesToMilliseconds(5));
-	queue("activateScavBaseDefenders", camSecondsToMilliseconds(3));
+	queue("enableNPFactory", camMinutesToMilliseconds(3));
 }

@@ -31,7 +31,7 @@
   ],
   "customTweakOptions": [
     {
-      "id": "rec_timerlessMode",
+      "id": "ref_timerlessMode",
       "type": "bool",
       "default": false,
       "displayName": {

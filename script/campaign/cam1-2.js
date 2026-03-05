@@ -95,6 +95,12 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
+		"NorthWestGroup": {
+			cleanup: "NorthWestBase",
+			detectMsg: "C1-2_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
+		},
 		"ScavLabGroup": {
 			cleanup: "ScavLabCleanup",
 			detectMsg: "C1-2_OBJ1",

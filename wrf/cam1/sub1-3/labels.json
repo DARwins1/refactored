@@ -108,61 +108,58 @@
 
 
 	"area_6": {
-		"label": "NPBase",
-		"pos1": [5440, 64],
-		"pos2": [8000, 3136]
-	},
-
-
-	"area_7": {
 		"label": "ScavScoutForce",
 		"pos1": [576, 6336],
 		"pos2": [832, 6848]
 	},
 
 
-	"area_8": {
+	"area_7": {
 		"label": "NPScoutForce",
 		"pos1": [6336, 1984],
 		"pos2": [6848, 2240]
 	},
 
 
-	"area_9": {
+	"area_8": {
 		"label": "NPDefense",
 		"pos1": [6656, 1536],
 		"pos2": [7168, 1920]
 	},
 
 
-	"area_10": {
+	"area_9": {
 		"label": "NorthConvoyTrigger",
 		"pos1": [4416, 64],
-		"pos2": [5952, 1984],
-		"subscriber": 0
+		"pos2": [5952, 1984]
+	},
+
+
+	"area_10": {
+		"label": "SouthConvoyTrigger",
+		"pos1": [5824, 6080],
+		"pos2": [8000, 8000]
 	},
 
 
 	"area_11": {
-		"label": "SouthConvoyTrigger",
-		"pos1": [5824, 6080],
-		"pos2": [8000, 8000],
-		"subscriber": 0
+		"label": "WestConvoyTrigger",
+		"pos1": [192, 5568],
+		"pos2": [2624, 7488]
 	},
 
 
 	"area_12": {
-		"label": "WestConvoyTrigger",
-		"pos1": [192, 5568],
-		"pos2": [2624, 7488],
-		"subscriber": 0
+		"label": "SouthScavBase",
+		"pos1": [4736, 6080],
+		"pos2": [8000, 8000]
 	},
 
 
 	"area_13": {
-		"label": "SouthScavBase",
-		"pos1": [4736, 6080],
-		"pos2": [8000, 8000]
+		"label": "NPBase",
+		"pos1": [5888, 384],
+		"pos2": [7680, 3072]
 	},
 
 
@@ -231,16 +228,16 @@
 
 
 	"object_8": {
-		"label": "NPCommander",
-		"id": 544,
+		"label": "NPTruck",
+		"id": 688,
 		"player": 1,
 		"type": 0
 	},
 
 
 	"object_9": {
-		"label": "NPTruck",
-		"id": 688,
+		"label": "NPCommander",
+		"id": 544,
 		"player": 1,
 		"type": 0
 	},

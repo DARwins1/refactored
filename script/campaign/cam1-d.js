@@ -14,30 +14,30 @@ const mis_newParadigmRes = [
 camAreaEvent("tankTrapTrig", function(droid)
 {
 	camEnableFactory("NPFactoryW");
-	camEnableFactory("NPCybFactoryW");
+	camEnableFactory("cybflactoryW");
 	camCallOnce("mrlGroupAttack");
 });
 
 camAreaEvent("northWayTrigger", function(droid)
 {
 	camEnableFactory("NPFactoryE");
-	camEnableFactory("NPCybFactoryE");
+	camEnableFactory("cybflactoryE");
 	camCallOnce("mrlGroupAttack");
 });
 
 camAreaEvent("causeWayTrig", function(droid)
 {
 	camEnableFactory("NPFactoryNE");
-	camEnableFactory("NPCybFactoryNE");
+	camEnableFactory("cybflactoryNE");
 	camCallOnce("transportBaseSetup");
 });
 
 camAreaEvent("westWayTrigger", function(droid)
 {
 	camEnableFactory("NPFactoryNE");
-	camEnableFactory("NPCybFactoryNE");
+	camEnableFactory("cybflactoryNE");
 	camEnableFactory("NPFactoryE");
-	camEnableFactory("NPCybFactoryE");
+	camEnableFactory("cybflactoryE");
 	camCallOnce("mrlGroupAttack");
 	camCallOnce("transportBaseSetup");
 });
@@ -243,8 +243,8 @@ function eventStartLevel()
 			},
 			templates: [ cTempl.nphhct, cTempl.npmbbht, cTempl.npmmorbht ] //tough units
 		},
-		"NPCybFactoryW": {
-			assembly: "NPCybFactoryWAssembly",
+		"cybflactoryW": {
+			assembly: "cybflactoryWAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
@@ -253,10 +253,10 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.npcybc, cTempl.npcybf, cTempl.npcybr ]
+			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
 		},
-		"NPCybFactoryE": {
-			assembly: "NPCybFactoryEAssembly",
+		"cybflactoryE": {
+			assembly: "cybflactoryEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
@@ -265,10 +265,10 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.npcybc, cTempl.npcybf, cTempl.npcybr ]
+			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
 		},
-		"NPCybFactoryNE": {
-			assembly: "NPCybFactoryNEAssembly",
+		"cybflactoryNE": {
+			assembly: "cybflactoryNEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
@@ -277,7 +277,7 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.npcybc, cTempl.npcybf, cTempl.npcybr ]
+			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
 		},
 	});
 

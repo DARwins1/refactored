@@ -43,18 +43,30 @@ nxcylas: { body: "CybNXPulseLasJmp", prop: "CyborgLegs02", weap: "NX-CyborgPulse
 
 // New Paradigm Units:
 npmtruckht: { body: "Body8MBT", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Scorpion Halftracks
+npmtruckt: { body: "Body8MBT", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Scorpion Tracks
 
 nplpodw: { body: "Body4ABT", prop: "wheeled01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Bug Wheels
 nplatht: { body: "Body4ABT", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lancer Bug Halftracks
+npmatht: { body: "Body8MBT", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lancer Scorpion Halftracks
+npmatt: { body: "Body8MBT", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Scorpion Tracks
 npmath: { body: "Body8MBT", prop: "hover01", weap: "Rocket-LtA-T" }, // Lancer Scorpion Hover
 
 nplhmght: { body: "Body4ABT", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Bug Halftracks
+npmhmght: { body: "Body8MBT", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Scorpion Halftracks
+npmhmgt: { body: "Body8MBT", prop: "tracked01", weap: "MG3Mk1" }, // Heavy Machinegun Scorpion Tracks
 npmhmgh: { body: "Body8MBT", prop: "hover01", weap: "MG3Mk1" }, // Heavy Machinegun Scorpion Hover
 
 nplflamht: { body: "Body4ABT", prop: "HalfTrack", weap: "Flame1Mk1" }, // Flamer Bug Halftracks
+npmflamht: { body: "Body8MBT", prop: "HalfTrack", weap: "Flame1Mk1" }, // Flamer Scorpion Halftracks
 
 nplsensw: { body: "Body4ABT", prop: "wheeled01", weap: "SensorTurret1Mk1" }, // Sensor Bug Wheels
 npmsensht: { body: "Body8MBT", prop: "HalfTrack", weap: "SensorTurret1Mk1" }, // Sensor Scorpion Halftracks
+
+npmcomht: { body: "Body8MBT", prop: "HalfTrack", weap: "CommandTurret1" }, // Command Turret Scorpion Halftracks
+npmcomt: { body: "Body8MBT", prop: "tracked01", weap: "CommandTurret1" }, // Command Turret Scorpion Tracks
+nphcomt: { body: "Body12SUP", prop: "tracked01", weap: "CommandTurret1" }, // Command Turret Mantis Tracks
+
+npmrept: { body: "Body8MBT", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Scorpion Tracks
 
 npmlcht: { body: "Body8MBT", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Light Cannon Scorpion Halftracks
 npmmcht: { body: "Body8MBT", prop: "HalfTrack", weap: "Cannon2A-TMk1" }, // Medium Cannon Scorpion Halftracks
@@ -67,9 +79,14 @@ npmmorht: { body: "Body8MBT", prop: "HalfTrack", weap: "Mortar1Mk1" }, // Mortar
 npmmorbht: { body: "Body8MBT", prop: "HalfTrack", weap: "Mortar2Mk1" }, // Bombard Scorpion Halftracks
 
 nplmraht: { body: "Body4ABT", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Bug Halftracks
+npmmraht: { body: "Body8MBT", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Scorpion Halftracks
+npmmrat: { body: "Body8MBT", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Scorpion Tracks
 npmmrah: { body: "Body8MBT", prop: "hover01", weap: "Rocket-MRL" }, // Mini-Rocket Array Scorpion Hover
 
 npmbbht: { body: "Body8MBT", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Scorpion Halftracks
+npmbbt: { body: "Body8MBT", prop: "tracked01", weap: "Rocket-BB" }, // Bunker Buster Scorpion Tracks
+nphbbt: { body: "Body12SUP", prop: "tracked01", weap: "Rocket-BB" }, // Bunker Buster Mantis Tracks
+nphbbh: { body: "Body12SUP", prop: "hover01", weap: "Rocket-BB" }, // Bunker Buster Mantis Hover
 
 // Collective Units:
 

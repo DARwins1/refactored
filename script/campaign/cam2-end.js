@@ -119,7 +119,7 @@ function vtolAttack()
 function cyborgAttack()
 {
 	const southCyborgAssembly = {x: 123, y: 125};
-	const list = [cTempl.npcybr, cTempl.cocybag, cTempl.npcybc, cTempl.coscyac, cTempl.coscytk, cTempl.comhltat, cTempl.cohct, cTempl.npcybg];
+	const list = [cTempl.cybla, cTempl.cocybag, cTempl.cybca, cTempl.coscyac, cTempl.coscytk, cTempl.comhltat, cTempl.cohct, cTempl.npcybg];
 
 	camSendReinforcement(CAM_THE_COLLECTIVE, camMakePos(southCyborgAssembly), randomTemplates(list), CAM_REINFORCE_GROUND, {
 		data: { regroup: false, count: -1 }
@@ -128,7 +128,7 @@ function cyborgAttack()
 
 function cyborgAttackRandom()
 {
-	const list = [cTempl.npcybr, cTempl.cocybag, cTempl.npcybc, cTempl.coscyac, cTempl.comrotm]; //favor cannon cyborg
+	const list = [cTempl.cybla, cTempl.cocybag, cTempl.cybca, cTempl.coscyac, cTempl.comrotm]; //favor cannon cyborg
 
 	camSendReinforcement(CAM_THE_COLLECTIVE, camMakePos(camGenerateRandomMapEdgeCoordinate(startpos)), randomTemplates(list).concat(cTempl.comsens), CAM_REINFORCE_GROUND, {
 		data: { regroup: false, count: -1 }

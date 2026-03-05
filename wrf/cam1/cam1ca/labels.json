@@ -1,0 +1,153 @@
+{
+	"position_0": {
+		"label": "startPosition",
+		"pos": [1920, 6656]
+	},
+
+
+	"area_0": {
+		"label": "landingZone",
+		"pos1": [1280, 6528],
+		"pos2": [1536, 6784]
+	},
+
+
+	"area_1": {
+		"label": "buildArea",
+		"pos1": [7360, 5696],
+		"pos2": [10688, 8640]
+	},
+
+
+	"area_2": {
+		"label": "buildArea2",
+		"pos1": [6656, 8641],
+		"pos2": [9472, 11008]
+	},
+
+
+	"area_3": {
+		"label": "buildArea3",
+		"pos1": [6528, 6016],
+		"pos2": [7360, 8640]
+	},
+
+
+	"area_4": {
+		"label": "buildArea4",
+		"pos1": [7424, 2176],
+		"pos2": [9984, 5695]
+	},
+
+
+	"area_5": {
+		"label": "buildArea5",
+		"pos1": [6784, 2176],
+		"pos2": [7423, 4864]
+	},
+
+
+	"area_6": {
+		"label": "reinforceNorth1",
+		"pos1": [12544, 128],
+		"pos2": [13056, 384]
+	},
+
+
+	"area_7": {
+		"label": "reinforceNorthEast",
+		"pos1": [14848, 128],
+		"pos2": [15616, 384]
+	},
+
+
+	"area_8": {
+		"label": "reinforceSouthEast",
+		"pos1": [15360, 16000],
+		"pos2": [15872, 16256]
+	},
+
+
+	"area_9": {
+		"label": "reinforceEast1",
+		"pos1": [16000, 3968],
+		"pos2": [16256, 5120]
+	},
+
+
+	"area_10": {
+		"label": "reinforceEast2",
+		"pos1": [16000, 10624],
+		"pos2": [16256, 11008]
+	},
+
+
+	"area_11": {
+		"label": "reinforceSouth",
+		"pos1": [11648, 16000],
+		"pos2": [12160, 16256]
+	},
+
+
+	"area_12": {
+		"label": "reinforceWest",
+		"pos1": [128, 7296],
+		"pos2": [384, 7808]
+	},
+
+
+	"area_13": {
+		"label": "reinforceNorthWest",
+		"pos1": [128, 3456],
+		"pos2": [384, 4352]
+	},
+
+
+	"area_14": {
+		"label": "reinforceNorth2",
+		"pos1": [9344, 128],
+		"pos2": [9984, 384]
+	},
+
+
+	"area_15": {
+		"label": "NPLZ1",
+		"pos1": [9088, 896],
+		"pos2": [9728, 1664]
+	},
+
+
+	"area_16": {
+		"label": "NPLZ2",
+		"pos1": [14848, 4736],
+		"pos2": [15488, 5376]
+	},
+
+
+	"area_17": {
+		"label": "NPLZ3",
+		"pos1": [15104, 13952],
+		"pos2": [15744, 14848]
+	},
+
+
+	"area_18": {
+		"label": "NPLZ4",
+		"pos1": [9472, 11904],
+		"pos2": [10112, 12544]
+	},
+
+
+	"area_19": {
+		"label": "NPLZ5",
+		"pos1": [1408, 8704],
+		"pos2": [2048, 9344]
+	},
+
+
+	"area_20": {
+		"label": "NPLZ6",
+		"pos1": [896, 1792],
+		"pos2": [1536, 2432]
+	}
+}

@@ -17,7 +17,6 @@ const mis_scavengerRes = [
 	"R-Defense-WallUpgrade01", "R-Struc-Materials01",
 ];
 var npAttacked;
-var destroyedCount;
 var baseDefendersLightGroup;
 var baseDefendersMediumGroup;
 
@@ -32,96 +31,12 @@ function enableSouthScavFactory()
 	camEnableFactory("SouthScavFactory");
 }
 
-function activateNPFactories()
-{
-	camEnableFactory("HeavyNPFactory");
-	camEnableFactory("MediumNPFactory");
-}
-
-camAreaEvent("NorthScavFactoryTrigger", function()
-{
-	camEnableFactory("NorthScavFactory");
-});
-
 camAreaEvent("NPBaseDetectTrigger", function()
 {
 	camDetectEnemyBase("NPBaseGroup");
 });
 
-camAreaEvent("removeRedObjectiveBlip", function()
-{
-	hackRemoveMessage("C1-4_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER); //Remove mission objective.
-	hackAddMessage("C1-4_LZ", PROX_MSG, CAM_HUMAN_PLAYER, false);
-});
-
-camAreaEvent("LandingZoneTrigger", function()
-{
-	camPlayVideos([cam_sounds.incoming.incomingIntelligenceReport, {video: "SB1_4_B", type: MISS_MSG}]);
-	hackRemoveMessage("C1-4_LZ", PROX_MSG, CAM_HUMAN_PLAYER); //Remove LZ 2 blip.
-
-	const lz = getObject("LandingZone2"); // will override later
-	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-
-	// Give extra 40 minutes.
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds((tweakOptions.classicTimers) ? 30 : 40)) + getMissionTime());
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha9.pre, {
-		area: "RTLZ",
-		message: "C1-4_LZ",
-		reinforcements: camMinutesToSeconds(1.5), // changes!
-		retlz: true
-	});
-
-	// enables all factories
-	camEnableFactory("SouthScavFactory");
-	camEnableFactory("NorthScavFactory");
-	activateNPFactories();
-	buildDefenses();
-	if (!npAttacked)
-	{
-		setupBaseDefenders(true);
-	}
-});
-
-function setupBaseDefenders(shouldDefend)
-{
-	const ORDER_STATE = (shouldDefend) ? CAM_ORDER_DEFEND : CAM_ORDER_ATTACK;
-	camManageGroup(baseDefendersLightGroup, ORDER_STATE, {
-		pos: camMakePos("nearSensor"),
-		radius: 10,
-	});
-	camManageGroup(baseDefendersMediumGroup, ORDER_STATE, {
-		pos: camMakePos("nearSensor"),
-		radius: 10,
-	});
-}
-
-function NPBaseDetect()
-{
-	queue("activateNPFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
-}
-
-function switchBaseDefenderOrders()
-{
-	setupBaseDefenders(false); //Now they will attack indefinitely.
-}
-
-// Destroying too many New Paradigm units/structures will set the base defenders into attack mode.
-function eventDestroyed(obj)
-{
-	if ((obj.type === DROID || obj.type === STRUCTURE) && obj.player === CAM_NEW_PARADIGM)
-	{
-		const MIN_DESTROYED_OBJECTS = 3;
-		destroyedCount += 1;
-
-		if (destroyedCount >= MIN_DESTROYED_OBJECTS)
-		{
-			camCallOnce("switchBaseDefenderOrders");
-		}
-	}
-}
-
-// Harming the NP will cause the base groups to defend the front of the base, and queue
-// factory production shortly after.
+// Discover the NP base after the player trades attacks with them
 function eventAttacked(victim, attacker)
 {
 	if (npAttacked || !victim || !attacker)
@@ -131,35 +46,75 @@ function eventAttacked(victim, attacker)
 	if ((attacker.player === CAM_HUMAN_PLAYER && victim.player === CAM_NEW_PARADIGM) ||
 		(attacker.player === CAM_NEW_PARADIGM && victim.player === CAM_HUMAN_PLAYER))
 	{
-		const ARTY_IGNORE_DIST = 9;
-		if ((attacker.player === CAM_NEW_PARADIGM) &&
-			(attacker.hasIndirect || attacker.isCB) &&
-			(camDist(victim.x, victim.y, attacker.x, attack.y) >= ARTY_IGNORE_DIST))
-		{
-			return;
-		}
+		camDetectEnemyBase("NPBaseGroup");
 		npAttacked = true;
-		setupBaseDefenders(true);
-		queue("activateNPFactories", camMinutesToMilliseconds(1.5));
 	}
 }
 
-function buildDefenses()
+// Detect the NP base and start ordering their groups around.
+// The NP base can be "detected" in three ways:
+// Actually discovering the base structures themselves
+// Attacking any NP unit/structure
+// Crossing the detection trigger
+function NPBaseDetect()
 {
-	// First wave of trucks
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower6", "BuildTower0");
-	camQueueBuilding(CAM_NEW_PARADIGM, "PillBox1",    "BuildTower3");
-	camQueueBuilding(CAM_NEW_PARADIGM, "PillBox1",    "BuildTower6");
+	hackRemoveMessage("C1-4_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER); //Remove mission objective.
+	hackAddMessage("C1-4_LZ", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
-	// Second wave of trucks
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower3", "BuildTower1");
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower6", "BuildTower2");
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower6", "BuildTower4");
+	// Queue up factories
+	queue("activateNPFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("enableNorthScavFactories", camChangeOnDiff(camMinutesToMilliseconds(1)));
 
-	// Third wave of trucks
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower3", "BuildTower5");
-	camQueueBuilding(CAM_NEW_PARADIGM, "GuardTower6", "BuildTower7");
+	// Light group pursues the player; medium group falls back
+	camManageGroup(baseDefendersLightGroup, CAM_ORDER_ATTACK, {
+		regroup: true,
+		count: -1,
+	});
+	camManageGroup(baseDefendersMediumGroup, CAM_ORDER_DEFEND, {
+		pos: camMakePos("MediumNPFactoryAssembly"),
+		radius: 10,
+	});
 }
+
+function enableNorthScavFactories()
+{
+	camEnableFactory("NorthScavFactory");
+	camEnableFactory("WestScavFactory");
+}
+
+function activateNPFactories()
+{
+	camEnableFactory("HeavyNPFactory");
+	camEnableFactory("MediumNPFactory");
+}
+
+camAreaEvent("LandingZoneTrigger", function()
+{
+	camPlayVideos([cam_sounds.incoming.incomingIntelligenceReport, {video: "SB1_4_B", type: MISS_MSG}]);
+	hackRemoveMessage("C1-4_LZ", PROX_MSG, CAM_HUMAN_PLAYER); //Remove LZ 2 blip.
+
+	const lz = getObject("LandingZone2");
+	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
+
+	// Give extra 40 minutes.
+	setMissionTime(camChangeOnDiff(camMinutesToSeconds(40)) + getMissionTime());
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha9.pre, {
+		area: "RTLZ",
+		message: "C1-4_LZ",
+		reinforcements: camMinutesToSeconds(1.5), // changes!
+		retlz: true
+	});
+
+	// Enable all factories
+	enableNorthScavFactories();
+	activateNPFactories();
+
+	// If the medium group is still alive, order them to attack
+	camManageGroup(baseDefendersMediumGroup, CAM_ORDER_ATTACK, {
+		regroup: true,
+		count: -1,
+	});
+});
 
 function eventStartLevel()
 {
@@ -171,12 +126,12 @@ function eventStartLevel()
 	});
 
 	const startPos = getObject("StartPosition");
-	const lz = getObject("LandingZone1"); // will override later
+	const lz = getObject("LandingZone1");
 	const tEnt = getObject("TransporterEntry");
 	const tExt = getObject("TransporterExit");
 
 	centreView(startPos.x, startPos.y);
-	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
+	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER); // will override later
 	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
 
@@ -210,6 +165,12 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
+		"WestScavBaseGroup": {
+			cleanup: "WestScavBase",
+			detectMsg: "C1-4_BASE4",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
+		},
 		"NPBaseGroup": {
 			cleanup: "NPBase",
 			detectMsg: "C1-4_BASE2",
@@ -239,14 +200,22 @@ function eventStartLevel()
 			groupSize: 4,
 			maxSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
-			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.bloke, cTempl.buggy ]
+			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.kevbloke, cTempl.gbjeep ]
+		},
+		"WestScavFactory": {
+			assembly: "WestScavFactoryAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 4,
+			maxSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			templates: [ cTempl.buscan, cTempl.minitruck, cTempl.kevlance, cTempl.bjeep ]
 		},
 		"HeavyNPFactory": {
 			assembly: "HeavyNPFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			maxSize: 6, // this one was exclusively producing trucks
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)), // but we simplify this out
+			maxSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			templates: [ cTempl.nphmct, cTempl.npmmct, cTempl.npmmcht ]
 		},
 		"MediumNPFactory": {
@@ -255,13 +224,39 @@ function eventStartLevel()
 			groupSize: 4,
 			maxSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.nplmraht, cTempl.nplhmght, cTempl.npmbbht, cTempl.npmmorht, cTempl.nplflamht ]
+			templates: [ cTempl.nplmraht, cTempl.nplhmght, cTempl.npmbbht, cTempl.npmmorht, cTempl.npmflamht ]
 		},
 	});
 
-	// To be able to use camEnqueueBuilding() later,
-	// and also to rebuild dead trucks.
-	camManageTrucks(CAM_NEW_PARADIGM);
+	if (difficulty >= HARD)
+	{
+		// Swap Mortars for Bombards
+		camUpgradeOnMapTemplates(cTempl.npmmorht, cTempl.npmmorbht);
+	}
+
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("npTruck1"), // Use the truck already on the map
+			structset: camAreaToStructSet("NPBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: false, // Don't rebuild this truck ever
+			truckDroid: getObject("npTruck2"),
+			structset: camAreaToStructSet("NPBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: false, // Nor this one
+			truckDroid: getObject("npTruck3"),
+			structset: camAreaToStructSet("NPBase");
+	});
 
 	queue("enableSouthScavFactory", camChangeOnDiff(camSecondsToMilliseconds(10)));
 }

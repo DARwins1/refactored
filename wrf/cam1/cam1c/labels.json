@@ -83,6 +83,18 @@
 	},
 
 
+	"position_14": {
+		"label": "TankPatrolPos1",
+		"pos": [7316, 6251]
+	},
+
+
+	"position_15": {
+		"label": "TankPatrolPos2",
+		"pos": [8077, 3976]
+	},
+
+
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [1280, 6528],
@@ -287,14 +299,6 @@
 
 
 	"object_4": {
-		"label": "NPResearchFacility",
-		"id": 3580,
-		"player": 1,
-		"type": 1
-	},
-
-
-	"object_5": {
 		"label": "TankScoutForceCommander",
 		"id": 3387,
 		"player": 1,
@@ -302,18 +306,26 @@
 	},
 
 
+	"object_5": {
+		"label": "ScavEastFactory",
+		"id": 2265,
+		"player": 7,
+		"type": 1
+	},
+
+
 	"object_6": {
 		"label": "TankForceCommander",
-		"id": 3388,
+		"id": 3722,
 		"player": 1,
 		"type": 0
 	},
 
 
 	"object_7": {
-		"label": "ScavEastFactory",
-		"id": 2265,
-		"player": 7,
+		"label": "NPResearchFacility",
+		"id": 3580,
+		"player": 1,
 		"type": 1
 	},
 
@@ -327,30 +339,6 @@
 
 
 	"radius_0": {
-		"label": "ScavCentralFactoryTrigger",
-		"pos": [8448, 7040],
-		"subscriber": 0,
-		"radius": 1920
-	},
-
-
-	"radius_1": {
-		"label": "ScavNorthFactoryTrigger",
-		"pos": [8576, 384],
-		"subscriber": 0,
-		"radius": 1920
-	},
-
-
-	"radius_2": {
-		"label": "NPNorthFactoryTrigger",
-		"pos": [11520, 3712],
-		"subscriber": 0,
-		"radius": 1920
-	},
-
-
-	"radius_3": {
 		"label": "RemoveBeacon",
 		"pos": [7168, 13888],
 		"subscriber": 0,

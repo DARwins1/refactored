@@ -78,7 +78,7 @@ function getDroidsForNXLZ()
 	const COUNT = 10;
 	const units = [cTempl.npmbbht, cTempl.npmmct, cTempl.npmsensht, cTempl.npmhmgh, cTempl.nphhct, cTempl.npmmorbht, cTempl.nplatht,
 	 cTempl.cohct, cTempl.comrlt, cTempl.comagt, cTempl.comhpv, cTempl.comhltat, cTempl.cohript, cTempl.comit, cTempl.comrotmh, cTempl.cohbbt, cTempl.cohact,
-	  cTempl.npcybr, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
+	  cTempl.cybla, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
 
 	const droids = [];
 	for (let i = 0; i < COUNT; ++i)

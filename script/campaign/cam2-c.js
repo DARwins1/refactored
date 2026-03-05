@@ -235,7 +235,7 @@ function eventTransporterLanded(transport)
 //Send Collective transport as long as the player has not entered the base.
 function sendCOTransporter()
 {
-	const list = [cTempl.npcybr, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg];
+	const list = [cTempl.cybla, cTempl.cybla, cTempl.coscymc, cTempl.npcybg];
 	const tPos = getObject("COTransportPos");
 	const pDroid = enumRange(tPos.x, tPos.y, 6, CAM_HUMAN_PLAYER, false);
 
@@ -306,7 +306,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	// Replace flamer cyborgs with thermite
-	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, CAM_THE_COLLECTIVE);
+	camUpgradeOnMapTemplates(cTempl.cybfl, cTempl.cocybtf, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"COAirBase": {
@@ -364,7 +364,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybtf, cTempl.npcybc, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cocybtf, cTempl.cybca, cTempl.cybla, cTempl.coscymc, cTempl.npcybg]
 		},
 		"COCyborgFactoryR": {
 			assembly: "COCyborgFactoryRAssembly",
@@ -376,7 +376,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybtf, cTempl.npcybc, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cocybtf, cTempl.cybca, cTempl.cybla, cTempl.coscymc, cTempl.npcybg]
 		},
 		"COVtolFacLeft-Prop": {
 			order: CAM_ORDER_ATTACK,

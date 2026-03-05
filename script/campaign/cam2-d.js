@@ -181,7 +181,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.cocybtf, cTempl.npcybr, cTempl.cocybag, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cocybtf, cTempl.cybla, cTempl.cocybag, cTempl.coscymc, cTempl.npcybg]
 		},
 	});
 

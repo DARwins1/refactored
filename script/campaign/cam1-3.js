@@ -16,7 +16,7 @@ const mis_scavengerRes = [
 	"R-Wpn-Mortar-Damage01",
 ];
 
-var NPDefenseGroup, NPScoutGroup, NPFactory;
+var NPCommander;
 
 camAreaEvent("RemoveBeacon", function(droid)
 {
@@ -55,21 +55,15 @@ function enableNP(args)
 	camEnableFactory("NPFactory");
 	camEnableFactory("ScavFactorySouth");
 
-	camManageGroup(NPScoutGroup, CAM_ORDER_COMPROMISE, {
+	camManageGroup(camMakeGroup("NPScoutForce"), CAM_ORDER_COMPROMISE, {
 		pos: camMakePos("RTLZ"),
 		repair: 66,
-		regroup: true,
-		removable: false,
+		regroup: true
 	});
-	camManageGroup(NPDefenseGroup, CAM_ORDER_FOLLOW, {
-		droid: "NPCommander",
-		order: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("NPCommander"),
-			radius: 22,
-			repair: 66,
-		},
-		repair: 66,
+
+	camManageGroup(NPCommander, CAM_ORDER_ATTACK, {
+		pos: camMakePos("RTLZ"),
+		repair: 50
 	});
 
 	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "SB1_3_MSG4", type: MISS_MSG}]);
@@ -99,13 +93,15 @@ function eventAttacked(victim, attacker) {
 	}
 	if (victim.player === CAM_NEW_PARADIGM)
 	{
+		
+	}
+}
+
+function eventDestroyed(obj)
+{
+	if (obj.type !== FEATURE && obj.player === CAM_NEW_PARADIGM)
+	{
 		camCallOnce("enableNP");
-		const commander = getObject("NPCommander");
-		if (camDef(attacker) && attacker && camDef(commander) && commander &&
-			commander.order !== DORDER_SCOUT && commander.order !== DORDER_RTR)
-		{
-			orderDroidLoc(commander, DORDER_SCOUT, attacker.x, attacker.y);
-		}
 	}
 }
 
@@ -131,7 +127,7 @@ function camEnemyBaseDetected_ScavBaseGroupSouth()
 	camEnableFactory("ScavFactorySouth");
 	camManageGroup(camMakeGroup("SouthConvoyForce"), CAM_ORDER_COMPROMISE, {
 		pos: camMakePos("SouthConvoyLoc"),
-		regroup: false, //true when movement gets better. Very big group this one is.
+		regroup: true,
 	});
 	queue("camCallOnce", camSecondsToMilliseconds(1), "enableReinforcements");
 }
@@ -148,27 +144,6 @@ function camEnemyBaseEliminated_ScavBaseGroup()
 function playNPWarningMessage()
 {
 	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "SB1_3_MSG3", type: CAMP_MSG}]);
-}
-
-function eventDroidBuilt(droid, structure)
-{
-	// An example of manually managing factory groups.
-	if (!camDef(structure) || !structure || structure.id !== NPFactory.id)
-	{
-		return;
-	}
-	if (getObject("NPCommander") !== null && groupSize(NPDefenseGroup) < 6) // watch out! commander control limit
-	{
-		groupAdd(NPDefenseGroup, droid);
-	}
-	else if (groupSize(NPScoutGroup) < 4 && droid.body !== cTempl.npmmcht.body)
-	{
-		groupAdd(NPScoutGroup, droid); // heavy tanks don't go scouting
-	}
-	// As libcampaign.js pre-hook has already fired,
-	// the droid would remain assigned to the factory's
-	// managed group if not reassigned here,
-	// hence fall-through.
 }
 
 function eventStartLevel()
@@ -255,7 +230,7 @@ function eventStartLevel()
 			assembly: "ScavAssemblySouth",
 			order: CAM_ORDER_ATTACK,
 			data: {
-				regroup: false,
+				regroup: true,
 				count: -1,
 			},
 			groupSize: 4,
@@ -265,9 +240,57 @@ function eventStartLevel()
 		},
 	});
 
-	NPScoutGroup = camMakeGroup("NPScoutForce");
-	NPDefenseGroup = camMakeGroup("NPDefense");
-	NPFactory = getObject("NPFactory");
+	// Rank changes on difficulty:
+	// Rookie (SUPEREASY/EASY/MEDIUM)
+	// Green (HARD)
+	// Trained (INSANE)
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? 0 : (difficulty - 2);
+	camSetDroidRank(getObject("NPCommander"), COMMANDER_RANK);
+
+	camMakeRefillableGroup(
+		camMakeGroup("NPDefense"), {
+			templates: [ // NOTE: The starting Medium Cannon tank isn't in this list, so it won't be rebuilt if destroyed.
+				cTempl.nplhmght, cTempl.nplhmght, cTempl.nplhmght, cTempl.nplhmght, // Heavy Machineguns
+				cTempl.nplpodw, cTempl.nplpodw, // Mini-Rocket Pods
+				// The templates below are only built if the commander is ranked higher (or if the Medium Cannon dies)
+				cTempl.nplpodw, cTempl.nplpodw, // More Mini-Rocket Pods (Hard+)
+				cTempl.nplflamht, cTempl.nplflamht, // Flamers (Insane)
+			],
+			factories: ["NPFactory"], // Only refill from this factory
+			obj: "NPCommander", // Stop filling this group when the commander dies
+		}, CAM_ORDER_FOLLOW, {
+			leader: "NPCommander", // The object to follow (in this case, the NP commmand droid)
+			suborder: CAM_ORDER_DEFEND, // Order to fulfill if the commander dies
+			data: { // Suborder data
+				pos: camMakePos("NPDefense"),
+				radius: 22,
+				repair: 66,
+			},
+			repair: 66,
+	});
+
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: false, // Can't rebuild this truck
+			structset: camAreaToStructSet("NPBase")
+	});
+
+	// Upgrade NP structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace once destroyed
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower01", true); // Sensor Tower
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "PillBox2", "PillBox1", true); // MG Bunker
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower01");
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "PillBox2", "PillBox1");
+	}
+
+	NPCommander = camMakeGroup("NPCommander");
 
 	queue("playNPWarningMessage", camSecondsToMilliseconds(3));
 	queue("sendScouts", camSecondsToMilliseconds(60));

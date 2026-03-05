@@ -18,9 +18,10 @@ const mis_scavengerRes = [
 	"R-Defense-WallUpgrade02", "R-Struc-Materials02",
 ];
 var useHeavyReinforcement;
+var npCommander;
 
 //Get some droids for the New Paradigm transport
-function getDroidsForNPLZ(args)
+function getDroidsForNPLZ()
 {
 	let lightAttackerLimit = 8;
 	let heavyAttackerLimit = 6;
@@ -41,11 +42,11 @@ function getDroidsForNPLZ(args)
 	if (useHeavyReinforcement)
 	{
 		const artillery = [cTempl.npmmorbht];
-		const other = [cTempl.nphmct];
+		const other = (difficulty >= HARD) ? [cTempl.nphmct] : [cTempl.npmmct];
 		if (camRand(2) > 0)
 		{
 			//Add a sensor if artillery was chosen for the heavy units
-			list.push(cTempl.nplsensw);
+			list.push(cTempl.npmsensht);
 			unitTemplates = artillery;
 		}
 		else
@@ -55,7 +56,7 @@ function getDroidsForNPLZ(args)
 	}
 	else
 	{
-		unitTemplates = [cTempl.nplpodw, cTempl.nplmraht, cTempl.nplhmghtt];
+		unitTemplates = [cTempl.nplatht, cTempl.nplmraht, cTempl.npmbbht];
 	}
 
 	const LIM = useHeavyReinforcement ? heavyAttackerLimit : lightAttackerLimit;
@@ -68,53 +69,30 @@ function getDroidsForNPLZ(args)
 	return list;
 }
 
-//These enable Scav and NP factories when close enough
-camAreaEvent("NorthScavFactoryTrigger", function(droid)
-{
-	camEnableFactory("ScavNorthFactory");
-	camEnableFactory("NPCyborgFactory");
-	camEnableFactory("NPLeftFactory");
-	camEnableFactory("NPRightFactory");
-});
-
-camAreaEvent("SouthWestScavFactoryTrigger", function(droid)
+// Enable the two southern scav factories
+function enableSouthScavFactories()
 {
 	camEnableFactory("ScavSouthWestFactory");
-});
-
-camAreaEvent("SouthEastScavFactoryTrigger", function(droid)
-{
 	camEnableFactory("ScavSouthEastFactory");
-});
+}
 
-camAreaEvent("NPFactoryTrigger", function(droid)
+// Enable the northern scav factory and the NP Cyborg factory
+function enableNorthFactories()
 {
-	if (camIsTransporter(droid) === false)
-	{
-		camEnableFactory("NPCyborgFactory");
-		camEnableFactory("NPLeftFactory");
-		camEnableFactory("NPRightFactory");
-	}
-	else
-	{
-		resetLabel("NPFactoryTrigger", CAM_HUMAN_PLAYER);
-	}
-});
+	camEnableFactory("NPCyborgFactory");
+	camEnableFactory("ScavNorthFactory");
+}
 
-//Land New Paradigm transport in the LZ area (protected by four hardpoints in the New Paradigm base)
-camAreaEvent("NPLZTriggerEast", function()
+// Enable the NP vehicle factories
+function enableNPVehicleFactories()
 {
-	camCallOnce("activateNPLZTransporter");
-});
-
-camAreaEvent("NPLZTrigger", function()
-{
-	camCallOnce("activateNPLZTransporter");
-});
+	camEnableFactory("NPLeftFactory");
+	camEnableFactory("NPRightFactory");
+}
 
 function activateNPLZTransporter()
 {
-	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	sendNPTransport();
 }
 
@@ -139,17 +117,12 @@ function sendNPTransport()
 			},
 		});
 	}
-	else
-	{
-		removeTimer("sendNPTransport");
-	}
 }
 
-function enableNPFactories()
+// Make the NP commander more aggressive towards the player (if it's still alive)
+function aggroNPCommander()
 {
-	camEnableFactory("NPCyborgFactory");
-	camEnableFactory("NPLeftFactory");
-	camEnableFactory("NPRightFactory");
+	camManageGroup(npCommander, CAM_ORDER_ATTACK, {repair: 66});
 }
 
 //Destroying the New Paradigm base will activate all scav factories
@@ -235,7 +208,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.nplmraht, cTempl.nphmct, cTempl.npmmcht, cTempl.nplpodw ],
+			templates: [ cTempl.npmmcht, cTempl.npmflamht, cTempl.npmhmght, cTempl.nplmraht ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -245,9 +218,9 @@ function eventStartLevel()
 		"NPRightFactory": {
 			assembly: "NPRightAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
+			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
-			templates: [ cTempl.npmmorbht, cTempl.nplsensw, cTempl.nplhmghtt ],
+			templates: [ cTempl.nphmct, cTempl.npmmct, cTempl.npmmct ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -259,7 +232,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
-			templates: [ cTempl.npcybc, cTempl.npcybf, cTempl.npcybm ],
+			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybhg ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -271,7 +244,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.rbuggy, cTempl.kevbloke ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -282,7 +255,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.kevlance, cTempl.rbjeep, cTempl.kevbloke ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -293,7 +266,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.buscan, cTempl.rbjeep, cTempl.gbjeep, cTempl.kevlance, cTempl.minitruck ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -301,5 +274,63 @@ function eventStartLevel()
 		},
 	});
 
-	queue("enableNPFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	// Rank changes on difficulty:
+	// Green (SUPEREASY/EASY/MEDIUM)
+	// Trained (HARD)
+	// Regular (INSANE)
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? 1 : (difficulty - 1);
+	camSetDroidRank(getObject("npCommander"), COMMANDER_RANK);
+
+	npCommander = camManageGroup(camMakeGroup("npCommander"), CAM_ORDER_PATROL, {
+		pos: [ // These orders are overwritten later
+			camMakePos("patrolPos1"),
+			camMakePos("patrolPos2"),
+			camMakePos("patrolPos3"),
+		],
+		interval: camSecondsToMilliseconds(30),
+		repair: 66
+	});
+	camMakeRefillableGroup(
+		camMakeGroup("TankScoutForce"), {
+			templates: [
+				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, // Medium Cannons
+				cTempl.nphmct, cTempl.nphmct, // Medium Cannons (Mantis)
+				cTempl.npmrept, cTempl.npmrept, // Repair Turrets
+				cTempl.nphmct, cTempl.nphmct, // More Medium Cannons (Hard+)
+				cTempl.npmatt, cTempl.npmatt, // Lancers (Insane)
+			],
+			obj: "npCommander",
+			player: CAM_NEW_PARADIGM
+		}, CAM_ORDER_FOLLOW, {
+			leader: "npCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 33,
+			},
+			repair: 66,
+	});
+
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("npTruck1"), // Use the truck already on the map
+			structset: camAreaToStructSet("NPBase");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("npTruck2"),
+			structset: camAreaToStructSet("NPBase");
+	});
+
+	queue("enableSouthScavFactories", camChangeOnDiff(camMinutesToMilliseconds(0.5)));
+	queue("enableNorthFactories", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("enableNPVehicleFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	queue("activateNPLZTransporter", camChangeOnDiff(camMinutesToMilliseconds(9)));
+	queue("aggroNPCommander", camChangeOnDiff(camMinutesToMilliseconds(14)));
 }

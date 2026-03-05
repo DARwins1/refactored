@@ -192,7 +192,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cybla, cTempl.coscymc, cTempl.npcybg]
 		},
 		"COCybFacR-b2": {
 			assembly: "COCybFacR-b2Assembly",
@@ -204,7 +204,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.npcybf, cTempl.npcybm, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cybla, cTempl.cybfl, cTempl.cybhg, cTempl.coscymc, cTempl.npcybg]
 		},
 		"COHeavyFac-b4": {
 			assembly: "COHeavyFac-b4Assembly",
@@ -228,7 +228,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.npcybf, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cybla, cTempl.cybfl, cTempl.coscymc, cTempl.npcybg]
 		},
 	});
 

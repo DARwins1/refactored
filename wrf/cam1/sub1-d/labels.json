@@ -72,15 +72,15 @@
 		"pos": [8896, 1472]
 	},
 	"position_18": {
-		"label": "NPCybFactoryNEAssembly",
+		"label": "cybflactoryNEAssembly",
 		"pos": [8640, 2240]
 	},
 	"position_19": {
-		"label": "NPCybFactoryWAssembly",
+		"label": "cybflactoryWAssembly",
 		"pos": [4288, 4864]
 	},
 	"position_20": {
-		"label": "NPCybFactoryEAssembly",
+		"label": "cybflactoryEAssembly",
 		"pos": [5696, 4800]
 	},
 	"position_21": {
@@ -209,19 +209,19 @@
 		"type": 1
 	},
 	"object_4": {
-		"label": "NPCybFactoryNE",
+		"label": "cybflactoryNE",
 		"id": 324,
 		"player": 1,
 		"type": 1
 	},
 	"object_5": {
-		"label": "NPCybFactoryW",
+		"label": "cybflactoryW",
 		"id": 413,
 		"player": 1,
 		"type": 1
 	},
 	"object_6": {
-		"label": "NPCybFactoryE",
+		"label": "cybflactoryE",
 		"id": 414,
 		"player": 1,
 		"type": 1

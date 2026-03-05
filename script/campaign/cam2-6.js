@@ -149,7 +149,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.cocybtf, cTempl.cocybag, cTempl.npcybr, cTempl.coscyac, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cocybtf, cTempl.cocybag, cTempl.cybla, cTempl.coscyac, cTempl.npcybg]
 		},
 		"COCyborgFactory-b1": {
 			assembly: "COCyborgFactory-b1Assembly",
@@ -161,7 +161,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybag, cTempl.npcybr, cTempl.coscyac, cTempl.npcybg]
+			templates: [cTempl.cocybag, cTempl.cybla, cTempl.coscyac, cTempl.npcybg]
 		},
 		"COCyborgFactory-b2": {
 			assembly: "COCyborgFactory-b2Assembly",
@@ -173,7 +173,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.cocybtf, cTempl.coscytk, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cocybtf, cTempl.coscytk, cTempl.npcybg]
 		},
 		"COHeavyFactory-b2L": {
 			assembly: "COHeavyFactory-b2LAssembly",

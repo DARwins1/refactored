@@ -112,7 +112,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
 	// Replace flamer cyborgs with thermite
-	camUpgradeOnMapTemplates(cTempl.npcybf, cTempl.cocybtf, CAM_THE_COLLECTIVE);
+	camUpgradeOnMapTemplates(cTempl.cybfl, cTempl.cocybtf, CAM_THE_COLLECTIVE);
 
 	camSetEnemyBases({
 		"COBase1": {
@@ -146,7 +146,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybag, cTempl.npcybr, cTempl.cocybtf, cTempl.npcybc, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
+			templates: [cTempl.cocybag, cTempl.cybla, cTempl.cocybtf, cTempl.cybca, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
 		},
 		"COHeavyFacL-b2": {
 			assembly: "COHeavyFacL-b2Assembly",

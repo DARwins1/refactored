@@ -156,7 +156,7 @@ function eventStartLevel()
 				repair: 30,
 				count: -1,
 			},
-			templates: [cTempl.cocybag, cTempl.cocybtf, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cocybag, cTempl.cocybtf, cTempl.cybla, cTempl.coscymc, cTempl.npcybg]
 		},
 		"COCyborgFactoryR": {
 			assembly: "COCyborgFactoryRAssembly",
@@ -168,7 +168,7 @@ function eventStartLevel()
 				repair: 30,
 				count: -1,
 			},
-			templates: [cTempl.npcybr, cTempl.npcybc, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybla, cTempl.cybca, cTempl.coscymc, cTempl.npcybg]
 		},
 	});
 

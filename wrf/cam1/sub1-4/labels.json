@@ -1,0 +1,213 @@
+{
+	"position_0": {
+		"label": "StartPosition",
+		"pos": [576, 6592]
+	},
+
+
+	"position_1": {
+		"label": "TransporterEntry",
+		"pos": [768, 7936]
+	},
+
+
+	"position_2": {
+		"label": "TransporterExit",
+		"pos": [128, 7040]
+	},
+
+
+	"position_3": {
+		"label": "SouthScavFactoryAssembly",
+		"pos": [2624, 6848]
+	},
+
+
+	"position_4": {
+		"label": "NorthScavFactoryAssembly",
+		"pos": [6720, 1728]
+	},
+
+
+	"position_5": {
+		"label": "HeavyNPFactoryAssembly",
+		"pos": [3136, 3008]
+	},
+
+
+	"position_6": {
+		"label": "MediumNPFactoryAssembly",
+		"pos": [4032, 1984]
+	},
+
+
+	"position_7": {
+		"label": "nearSensor",
+		"pos": [3456, 3328]
+	},
+
+
+	"position_8": {
+		"label": "WestScavFactoryAssembly",
+		"pos": [2648, 643]
+	},
+
+
+	"area_0": {
+		"label": "RTLZ",
+		"pos1": [6656, 3840],
+		"pos2": [8191, 5376]
+	},
+
+
+	"area_1": {
+		"label": "LandingZone1",
+		"pos1": [384, 6400],
+		"pos2": [640, 6656]
+	},
+
+
+	"area_2": {
+		"label": "LandingZone2",
+		"pos1": [7296, 4480],
+		"pos2": [7552, 4736]
+	},
+
+
+	"area_3": {
+		"label": "SouthScavBase",
+		"pos1": [1600, 6464],
+		"pos2": [3776, 7872]
+	},
+
+
+	"area_4": {
+		"label": "NorthScavBase",
+		"pos1": [5696, 1472],
+		"pos2": [7872, 3264]
+	},
+
+
+	"area_5": {
+		"label": "AttackGroupLight",
+		"pos1": [3392, 2112],
+		"pos2": [3776, 2624]
+	},
+
+
+	"area_6": {
+		"label": "LandingZoneTrigger",
+		"pos1": [7232, 4416],
+		"pos2": [7744, 4928],
+		"subscriber": 0
+	},
+
+
+	"area_7": {
+		"label": "NPBaseDetectTrigger",
+		"pos1": [3840, 128],
+		"pos2": [4096, 4352],
+		"subscriber": 0
+	},
+
+
+	"area_8": {
+		"label": "NPBase",
+		"pos1": [2432, 1024],
+		"pos2": [5376, 3072]
+	},
+
+
+	"area_9": {
+		"label": "WestScavBase",
+		"pos1": [1792, 384],
+		"pos2": [3072, 896]
+	},
+
+
+	"area_10": {
+		"label": "AttackGroupMedium",
+		"pos1": [2944, 3584],
+		"pos2": [3584, 3968]
+	},
+
+
+	"object_0": {
+		"label": "NPCommandCenter",
+		"id": 216,
+		"player": 1,
+		"type": 1
+	},
+
+
+	"object_1": {
+		"label": "WestScavFactory",
+		"id": 556,
+		"player": 7,
+		"type": 1
+	},
+
+
+	"object_2": {
+		"label": "NorthScavFactory",
+		"id": 374,
+		"player": 7,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "NPResearchFacility",
+		"id": 458,
+		"player": 1,
+		"type": 1
+	},
+
+
+	"object_4": {
+		"label": "HeavyNPFactory",
+		"id": 461,
+		"player": 1,
+		"type": 1
+	},
+
+
+	"object_5": {
+		"label": "MediumNPFactory",
+		"id": 480,
+		"player": 1,
+		"type": 1
+	},
+
+
+	"object_6": {
+		"label": "npTruck1",
+		"id": 293,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_7": {
+		"label": "npTruck2",
+		"id": 357,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_8": {
+		"label": "npTruck3",
+		"id": 358,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_9": {
+		"label": "SouthScavFactory",
+		"id": 112,
+		"player": 7,
+		"type": 1
+	}
+}

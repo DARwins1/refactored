@@ -166,7 +166,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
+			templates: [cTempl.cybca, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
 		},
 		"COCyborgFac-b3": {
 			assembly: "base3CybAssembly",
@@ -178,7 +178,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybtf, cTempl.npcybr, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
+			templates: [cTempl.cocybtf, cTempl.cybla, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
 		},
 		"COHeavyFac-b4": {
 			assembly: "base4HeavyAssembly",
@@ -202,7 +202,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cocybag, cTempl.npcybc, cTempl.npcybr, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
+			templates: [cTempl.cocybag, cTempl.cybca, cTempl.cybla, cTempl.coscyac, cTempl.coscytk, cTempl.npcybg]
 		},
 		"COVtolFactory-b4": {
 			assembly: "base4VTOLAssembly",
