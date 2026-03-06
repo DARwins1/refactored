@@ -10,47 +10,28 @@ const mis_newParadigmRes = [
 	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-ROF01", "R-Sys-Engineering01",
 	"R-Wpn-Mortar-ROF01",
 ];
-
-camAreaEvent("tankTrapTrig", function(droid)
-{
-	camEnableFactory("NPFactoryW");
-	camEnableFactory("cybflactoryW");
-	camCallOnce("mrlGroupAttack");
-});
-
-camAreaEvent("northWayTrigger", function(droid)
-{
-	camEnableFactory("NPFactoryE");
-	camEnableFactory("cybflactoryE");
-	camCallOnce("mrlGroupAttack");
-});
+var npCommander;
 
 camAreaEvent("causeWayTrig", function(droid)
 {
-	camEnableFactory("NPFactoryNE");
-	camEnableFactory("cybflactoryNE");
-	camCallOnce("transportBaseSetup");
+	enableAllFactories();
+	aggroNPCommander();
 });
 
 camAreaEvent("westWayTrigger", function(droid)
 {
-	camEnableFactory("NPFactoryNE");
-	camEnableFactory("cybflactoryNE");
-	camEnableFactory("NPFactoryE");
-	camEnableFactory("cybflactoryE");
-	camCallOnce("mrlGroupAttack");
-	camCallOnce("transportBaseSetup");
+	enableAllFactories();
 });
 
 function transportBaseSetup()
 {
 	camDetectEnemyBase("NPLZGroup");
-	camSetBaseReinforcements("NPLZGroup", camChangeOnDiff(camMinutesToMilliseconds(10)), "getDroidsForNPLZ", CAM_REINFORCE_TRANSPORT, {
+	camSetBaseReinforcements("NPLZGroup", camChangeOnDiff(camMinutesToMilliseconds(8)), "getDroidsForNPLZ", CAM_REINFORCE_TRANSPORT, {
 		entry: { x: 2, y: 2 },
 		exit: { x: 2, y: 2 },
 		posLZ: camMakePos("NPLZ1"),
 		data: {
-			regroup: false,
+			regroup: true,
 			count: -1,
 			repair: 40,
 		},
@@ -68,21 +49,50 @@ function getDroidsForNPLZ()
 	{
 		lim = 10;
 	}
-	const templates = [ cTempl.nphhct, cTempl.nphhct, cTempl.npmmorbht, cTempl.npmmorbht, cTempl.npmbbht ];
+
+	const USE_ARTILLERY = (camRand(2) == 0);
+	let templates;
+
+	if (USE_ARTILLERY)
+	{
+		templates = [ cTempl.npmmorbht ];
+	}
+	else
+	{
+		templates = [ cTempl.npmatht, cTempl.npmbbht, cTempl.npmhmght, cTempl.npmmcht, cTempl.npmmraht ];
+	}
 
 	const droids = [];
 	for (let i = 0; i < lim; ++i)
 	{
-		droids.push(templates[camRand(templates.length)]);
+		droids.push(camRandFrom(templates));
 	}
+
+	if (USE_ARTILLERY)
+	{
+		// Ensure a sensor is with the group
+		droids.pop();
+		droids.push(cTempl.npmsensht);
+	}
+
 	return droids;
 }
 
-function HoverGroupPatrol()
+// Start moving attack/patrol groups around
+// Also activate some factories
+function groupOrders()
 {
+	// Ambush Groups
+	camManageGroup(camMakeGroup("MRL1"), CAM_ORDER_ATTACK, {
+		repair: 80,
+	});
+	camManageGroup(camMakeGroup("IDF1"), CAM_ORDER_ATTACK);
+	camManageGroup(camMakeGroup("IDF2"), CAM_ORDER_ATTACK);
+
+	// Hover Groups
 	camManageGroup(camMakeGroup("hoversAttack"), CAM_ORDER_ATTACK, {
-		pos: camMakePos("attackPoint2"),
-		fallback: camMakePos("cybRetreatPoint"),
+		pos: camMakePos("attackPoint"),
+		fallback: camMakePos("genRetreatPoint"),
 		morale: 50,
 		regroup: false
 	});
@@ -96,54 +106,35 @@ function HoverGroupPatrol()
 		interval: camMinutesToMilliseconds(1.5),
 		repair: 70
 	});
-}
 
-function cyborgGroupPatrol()
-{
-	camManageGroup(camMakeGroup("cyborgs1"), CAM_ORDER_PATROL, {
+	// Cyborg base patrols
+	camManageGroup(camMakeGroup("cyborgs"), CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("genRetreatPoint"),
 			camMakePos("cybRetreatPoint"),
-			camMakePos("NPTransportPos")
+			camMakePos("NPLZ1")
 		],
 		repair: 66
 	});
-	camManageGroup(camMakeGroup("cyborgs2"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("genRetreatPoint"),
-			camMakePos("cybRetreatPoint"),
-			camMakePos("NPTransportPos")
-		],
-		repair: 66
-	});
+
+	camEnableFactory("NPFactoryW");
+	camEnableFactory("cybflactoryW");
 }
 
-function mrlGroupAttack()
+// Enable the east the east and northeast NP factories, as well as the LZ
+function enableAllFactories()
 {
-	camManageGroup(camMakeGroup("MRL1"), CAM_ORDER_ATTACK, {
-		count: -1,
-		repair: 80,
-		regroup: false
-	});
+	camEnableFactory("NPFactoryE");
+	camEnableFactory("cybflactoryE");
+	camEnableFactory("NPFactoryNE");
+	camEnableFactory("cybflactoryNE");
+	camCallOnce("transportBaseSetup");
 }
 
-function IDFGroupAmbush()
+// Make the NP commander more aggressive
+function aggroNPCommander()
 {
-	camManageGroup(camMakeGroup("IDF1"), CAM_ORDER_ATTACK, {
-		count: -1,
-		regroup: false
-	});
-	camManageGroup(camMakeGroup("IDF2"), CAM_ORDER_ATTACK, {
-		count: -1,
-		regroup: false
-	});
-}
-
-function setupPatrols()
-{
-	IDFGroupAmbush();
-	HoverGroupPatrol();
-	cyborgGroupPatrol();
+	camManageGroup(npCommander, CAM_ORDER_ATTACK, {repair: 50});
 }
 
 function eventStartLevel()
@@ -217,7 +208,7 @@ function eventStartLevel()
 				repair: 66,
 				count: -1,
 			},
-			templates: [ cTempl.npmhmgh, cTempl.npmath, cTempl.nphhch, cTempl.npmmrah ] //Hover factory
+			templates: [ cTempl.npmhmgh, cTempl.npmath, cTempl.npmmrah ] //Hover factory
 		},
 		"NPFactoryE": {
 			assembly: "NPFactoryEAssembly",
@@ -229,7 +220,7 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.nplatht, cTempl.npmsensht, cTempl.npmmorbht, cTempl.npmmct, cTempl.nphhct ] //variety
+			templates: [ cTempl.npmatht, cTempl.npmmraht, cTempl.npmflamht, cTempl.npmmcht ] //variety
 		},
 		"NPFactoryNE": {
 			assembly: "NPFactoryNEAssembly",
@@ -241,7 +232,7 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.nphhct, cTempl.npmbbht, cTempl.npmmorbht ] //tough units
+			templates: [ cTempl.nphhct, cTempl.npmbbt, cTempl.npmatt ] //tough units
 		},
 		"cybflactoryW": {
 			assembly: "cybflactoryWAssembly",
@@ -253,7 +244,7 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
+			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr ] // General attack cyborgs
 		},
 		"cybflactoryE": {
 			assembly: "cybflactoryEAssembly",
@@ -265,7 +256,7 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
+			templates: [ cTempl.cybca, cTempl.cybrp ] // Cannons and mechanics
 		},
 		"cybflactoryNE": {
 			assembly: "cybflactoryNEAssembly",
@@ -277,11 +268,78 @@ function eventStartLevel()
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybla ]
+			templates: [ cTempl.cybfl, cTempl.cybla ] // Lancers and flamers
 		},
+	});
+
+	// Rank changes on difficulty:
+	// Trained (SUPEREASY/EASY/MEDIUM)
+	// Regular (HARD)
+	// Professional (INSANE)
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? 2 : (difficulty);
+	camSetDroidRank(getObject("npCommander"), COMMANDER_RANK);
+
+	npCommander = camManageGroup(camMakeGroup("npCommander"), CAM_ORDER_PATROL, {
+		pos: [ // These orders are overwritten later
+			camMakePos("genRetreatPoint"),
+			camMakePos("cybRetreatPoint"),
+			camMakePos("NPLZ1")
+		],
+		interval: camSecondsToMilliseconds(40),
+		repair: 50
+	});
+	camMakeRefillableGroup(
+		camMakeGroup("npCommandGroup"), {
+			templates: [
+				cTempl.nphhct, cTempl.nphhct, cTempl.nphhct,
+				cTempl.nphhct, cTempl.nphhct, cTempl.nphhct, // Heavy Cannons
+				cTempl.cybrp, cTempl.cybrp, cTempl.cybrp, cTempl.cybrp, // Mechanics
+				cTempl.npmmrat, cTempl.npmmrat, // MRAs (Hard+)
+				cTempl.npmmrat, cTempl.npmmrat, // More MRAs (Insane)
+			],
+			obj: "npCommander",
+			factories: ["NPFactoryNE", "cybflactoryNE"]
+		}, CAM_ORDER_FOLLOW, {
+			leader: "npCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 50,
+				regroup: true,
+				count: -1
+			},
+			repair: 50,
+	});
+
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPNorthEastGroup",
+			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Medium+)
+			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(180)),
+			truckDroid: getObject("npTruck1"), // Use the truck already on the map
+			structset: camAreaToStructSet("NPNorthEast");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPNorthEastGroup",
+			truckDroid: getObject("npTruck2"),
+			structset: camAreaToStructSet("NPNorthEast");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPMiddleGroup",
+			truckDroid: getObject("npTruck3"),
+			structset: camAreaToStructSet("NPMiddle");
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPLZGroup",
+			truckDroid: getObject("npTruck4"),
+			structset: camAreaToStructSet("NPLZBaseCleanup");
 	});
 
 	hackAddMessage("C1D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
-	queue("setupPatrols", camMinutesToMilliseconds(2.5));
+	queue("groupOrders", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
+	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	queue("aggroNPCommander", camChangeOnDiff(camMinutesToMilliseconds(14)));
 }

@@ -291,7 +291,7 @@ function eventStartLevel()
 		repair: 66
 	});
 	camMakeRefillableGroup(
-		camMakeGroup("TankScoutForce"), {
+		camMakeGroup("npCommandGroup"), {
 			templates: [
 				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, // Medium Cannons
 				cTempl.nphmct, cTempl.nphmct, // Medium Cannons (Mantis)

@@ -637,6 +637,9 @@ function camSetDroidRank(droid, rank)
 	{
 		switch (rank)
 		{
+			case "Rookie":
+				xpAmount = 0;
+				break;
 			case "Green":
 				xpAmount = 4;
 				break;

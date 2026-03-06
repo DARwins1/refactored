@@ -211,8 +211,6 @@ function spawnAttackWave(index)
 	}
 }
 
-//Sends a transport with cyborgs to an LZ three times before going to another
-//New Paradigm transport appears fifteen times before mission win
 // Send a transport to any built LZs
 function sendTransport()
 {

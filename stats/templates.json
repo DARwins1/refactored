@@ -1003,6 +1003,16 @@
             "Rocket-MRL"
         ]
     },
+    "NP-M-MRLS-Halftrack": {
+        "body": "Body8MBT",
+        "id": "NP-M-MRLS-Halftrack",
+        "name": "*NP-M-MRLS-Half-track*",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-MRL"
+        ]
+    },
     "NP-L-RocketPod-Wheels": {
         "body": "Body4ABT",
         "id": "NP-L-RocketPod-Wheels",
@@ -1071,6 +1081,17 @@
         "brain": "CommandBrain01",
         "id": "NP-M-Command-Track",
         "name": "*NP-M-Command-Track*",
+        "propulsion": "tracked01",
+        "type": "DROID_COMMAND",
+        "weapons": [
+            "CommandTurret1"
+        ]
+    },
+    "NP-H-Command-Track": {
+        "body": "Body12SUP",
+        "brain": "CommandBrain01",
+        "id": "NP-H-Command-Track",
+        "name": "*NP-H-Command-Track*",
         "propulsion": "tracked01",
         "type": "DROID_COMMAND",
         "weapons": [
