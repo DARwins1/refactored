@@ -15,4 +15,11 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
 	camPlayVideos({video: "SB1_5_MSG", type: MISS_MSG});
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha9.offWorld);
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(44, 36, 24);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

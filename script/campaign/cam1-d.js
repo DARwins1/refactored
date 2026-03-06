@@ -342,4 +342,13 @@ function eventStartLevel()
 	queue("groupOrders", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
 	queue("aggroNPCommander", camChangeOnDiff(camMinutesToMilliseconds(14)));
+
+	// Change the skybox to a night sky
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken the fog to be nearly pitch black
+	camSetFog(10, 10, 10);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Reverse the sun east/west direction
+	camSetSunPos(-225, -600, 450);
 }

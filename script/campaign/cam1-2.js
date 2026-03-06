@@ -156,4 +156,11 @@ function eventStartLevel()
 
 	queue("enableWestFactory", camChangeOnDiff(camSecondsToMilliseconds(30)));
 	queue("enableNWFactory", camChangeOnDiff(camMinutesToMilliseconds(4)));
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(44, 36, 24);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

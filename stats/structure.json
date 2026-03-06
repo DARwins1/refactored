@@ -3033,6 +3033,29 @@
         ],
         "width": 1
     },
+    "Plasmite-flamer-bunker": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 200,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "Plasmite-flamer-bunker",
+        "name": "Plasmite Flamer Bunker",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blcanpil.PIE"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "PlasmiteFlamer"
+        ],
+        "width": 1
+    },
     "CO-Tower-Projector": {
         "armour": 20,
         "breadth": 1,

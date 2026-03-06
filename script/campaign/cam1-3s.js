@@ -15,4 +15,9 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
 	camPlayVideos({video: "SB1_3_UPDATE", type: CAMP_MSG});
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha5.offWorld);
+
+	// Darken the fog to 2/3 default brightness
+	camSetFog(117, 95, 63);
+	// Move the sun slightly towards the east
+	camSetSunPos(-425, -400, 450);
 }

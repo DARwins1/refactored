@@ -1762,6 +1762,7 @@
         ]
     },
     "ViperMG01Wheels": {
+        "available": true,
         "body": "Body1REC",
         "id": "ViperMG01Wheels",
         "name": "Machinegun Viper Wheels",

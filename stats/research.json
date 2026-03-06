@@ -31,11 +31,9 @@
     "R-Comp-MissileCodes01": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
         "id": "R-Comp-MissileCodes01",
+        "keyTopic": 1,
         "imdName": "ICMSLCD.PIE",
         "name": "Missile Targeting Codes",
-        "requiredResearch": [
-            "CAM3RESEARCH"
-        ],
         "researchPoints": 55000,
         "researchPower": 450,
         "techCode": 1

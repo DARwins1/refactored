@@ -15,4 +15,11 @@ function eventStartLevel()
 	setMissionTime(camMinutesToSeconds((tweakOptions.classicTimers) ? 10 : 15));
 	camPlayVideos([{video: "CAM1_OUT", type: CAMP_MSG}, {video: "CAM1_OUT2", type: CAMP_MSG}, {video: "CAM2_BRIEF", type: CAMP_MSG}]);
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.beta1);
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(44, 36, 24);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

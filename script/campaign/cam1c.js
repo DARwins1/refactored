@@ -412,4 +412,11 @@ function eventStartLevel()
 	queue("sendRocketForce", camSecondsToMilliseconds(25));
 	queue("sendTankScoutForce", camSecondsToMilliseconds(30));
 	queue("enableNPFactory", camMinutesToMilliseconds(3));
+
+	// Darken the fog to 1/2 default brightness
+	camSetFog(88, 72, 48);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.45, .45, .4);
+	// Move the sun towards the west
+	camSetSunPos(425, -400, 450);
 }

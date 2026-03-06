@@ -168,4 +168,21 @@ function eventStartLevel()
 	camNeverGroupDroid(NPScout);
 	const pos = getObject("NPSensorWatch");
 	orderDroidLoc(NPScout, DORDER_MOVE, pos.x, pos.y);
+
+	// Darken the fog to 1/2 default brightness
+	// NOTE: default RGB is (176, 143, 95)
+	camSetFog(88, 72, 48);
+	// Darken the lighting and add a slight orange hue
+	// NOTE: default brightness is (.5, .5, .5)
+	camSetSunIntensity(.45, .45, .4);
+	// Move the sun towards the west
+	// NOTE: default position is (x: 225.0, y: -600.0, z: 450.0)
+	// Sun coordinates and their corresponding sun directions (where the sun is relative to the world):
+	// -x: EAST, +x: WEST
+	// -y: UP, +y: DOWN
+	// -z: NORTH, +z: SOUTH
+	// (remember that shadows are casted in the OPPOSITE direction of the sun)
+	// Also remember that these coordinates are normalized; the values of each axis only matter in respect to each other.
+	// e.g. (5, 4, 3) == (500, 400, 300)
+	camSetSunPos(425, -400, 450);
 }

@@ -66,4 +66,13 @@ function eventStartLevel()
 
 	camPlayVideos({video: "FLIGHT", type: CAMP_MSG});
 	hackAddMessage("C1-1_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
+
+	// Change the skybox to a night sky
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken the fog to be nearly pitch black
+	camSetFog(10, 10, 10);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Reverse the sun east/west direction
+	camSetSunPos(-225, -600, 450);
 }

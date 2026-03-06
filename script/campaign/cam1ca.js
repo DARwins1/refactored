@@ -306,4 +306,11 @@ function eventStartLevel()
 	// Begin attacks after 20 seconds
 	queue("startAttack", camSecondsToMilliseconds(20));
 	setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
+
+	// Darken the fog to 1/3 default brightness
+	camSetFog(59, 48, 32);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun far towards the west
+	camSetSunPos(500, -200, 200);
 }

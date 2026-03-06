@@ -15,4 +15,13 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	camPlayVideos({video: "SB1_4_MSG", type: MISS_MSG});
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha8.offWorld);
+
+	// Change the skybox to a night sky
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken the fog to be nearly pitch black
+	camSetFog(10, 10, 10);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Reverse the sun east/west direction
+	camSetSunPos(-225, -600, 450);
 }

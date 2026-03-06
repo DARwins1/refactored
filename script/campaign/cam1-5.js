@@ -333,4 +333,9 @@ function eventStartLevel()
 	queue("enableNPVehicleFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
 	queue("activateNPLZTransporter", camChangeOnDiff(camMinutesToMilliseconds(9)));
 	queue("aggroNPCommander", camChangeOnDiff(camMinutesToMilliseconds(14)));
+
+	// Darken the fog to 2/3 default brightness
+	camSetFog(117, 95, 63);
+	// Move the sun slightly towards the east
+	camSetSunPos(-425, -400, 450);
 }

@@ -18,4 +18,11 @@ function eventStartLevel()
 
 	// In case the player didn't get this in the last mission
 	enableResearch("R-Wpn-Rocket03-HvAT", CAM_HUMAN_PLAYER);
+
+	// Darken the fog to 1/2 default brightness
+	camSetFog(88, 72, 48);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.45, .45, .4);
+	// Move the sun towards the west
+	camSetSunPos(425, -400, 450);
 }

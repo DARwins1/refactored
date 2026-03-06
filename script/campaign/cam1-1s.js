@@ -76,4 +76,11 @@ function eventStartLevel()
 	}
 
 	checkForPowerModule();
+
+	// Darken the fog to 1/3 default brightness
+	camSetFog(59, 48, 32);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun far towards the west
+	camSetSunPos(500, -200, 200);
 }
