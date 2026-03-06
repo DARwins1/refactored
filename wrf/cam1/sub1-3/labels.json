@@ -130,6 +130,7 @@
 
 	"area_9": {
 		"label": "NorthConvoyTrigger",
+		"subscriber": 0,
 		"pos1": [4416, 64],
 		"pos2": [5952, 1984]
 	},
@@ -137,6 +138,7 @@
 
 	"area_10": {
 		"label": "SouthConvoyTrigger",
+		"subscriber": 0,
 		"pos1": [5824, 6080],
 		"pos2": [8000, 8000]
 	},
@@ -144,6 +146,7 @@
 
 	"area_11": {
 		"label": "WestConvoyTrigger",
+		"subscriber": 0,
 		"pos1": [192, 5568],
 		"pos2": [2624, 7488]
 	},

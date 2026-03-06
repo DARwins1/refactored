@@ -122,6 +122,7 @@
 
 	"area_7": {
 		"label": "AttackArea1",
+		"subscriber": 0,
 		"pos1": [4032, 8000],
 		"pos2": [5440, 9024]
 	},
@@ -129,6 +130,7 @@
 
 	"area_8": {
 		"label": "AttackArea2",
+		"subscriber": 0,
 		"pos1": [320, 9792],
 		"pos2": [6720, 13120]
 	},
@@ -136,6 +138,7 @@
 
 	"area_9": {
 		"label": "NPSensorTurn",
+		"subscriber": 1,
 		"pos1": [4600, 13376],
 		"pos2": [5300, 14528]
 	},
@@ -143,6 +146,7 @@
 
 	"area_10": {
 		"label": "NPSensorRemove",
+		"subscriber": 1,
 		"pos1": [6272, 13568],
 		"pos2": [7040, 14336]
 	},

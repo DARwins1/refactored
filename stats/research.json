@@ -4765,7 +4765,7 @@
     "R-Defense-BeamLasTower": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-BeamLasTower",
-        "msgName": "RES_EMP_PULSETOW",
+        "msgName": "RES_EMP_BEAMTOW",
         "name": "Flashlight Tower",
         "requiredResearch": [
             "R-Wpn-Laser01"
@@ -4799,7 +4799,7 @@
     "R-Defense-Rail1": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-Rail1",
-        "msgName": "RES_EMP_Rail2",
+        "msgName": "RES_EMP_Rail1",
         "name": "Needle Gun Bunker",
         "requiredResearch": [
             "R-Wpn-RailGun02"
@@ -4920,7 +4920,7 @@
     "R-Defense-WallTower-BeamLas": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallTower-BeamLas",
-        "msgName": "RES_WT14_PLS",
+        "msgName": "RES_WT14_BEAM",
         "name": "Flashlight Hardpoint",
         "requiredResearch": [
             "R-Wpn-Laser01"
@@ -8120,6 +8120,28 @@
             "Missile-VTOL-AT"
         ],
         "statID": "Missile-A-T"
+    },
+    "R-Wpn-MissileBB2": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-MissileBB2",
+        "keyTopic": 1,
+        "msgName": "RES_W_ASM_BB",
+        "name": "Devastator Missile",
+        "redComponents": [
+            "Rocket-BB",
+            "Rocket-VTOL-BB"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Missile-Accuracy01",
+            "R-Wpn-Missile2A-T"
+        ],
+        "researchPoints": 3600,
+        "researchPower": 450,
+        "resultComponents": [
+            "Missile-BB",
+            "Missile-VTOL-BB"
+        ],
+        "statID": "Missile-BB"
     },
     "R-Wpn-MdArtMissile": {
         "iconID": "IMAGE_RES_WEAPONTECH",

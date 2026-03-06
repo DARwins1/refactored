@@ -18,7 +18,7 @@
             "New Defensive Structure Available",
             "Mini-rocket armored strongpoint",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_Mpit": {
@@ -50,8 +50,9 @@
         "text": [
             "New Weapon Turret Available",
             ".50-calibre heavy machinegun",
-            "Best Targets: Infantry and Wheeled Vehicles",
-            "Body Points: Medium"
+            "Effective against: Infantry and wheeled vehicles",
+            "Ineffective against: Structures and tracked vehicles",
+            "Can attack aerial targets"
         ]
     },
     "RES_SY_CBSTU1": {
@@ -82,7 +83,7 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored hardpoint with Lancer AT missile",
+            "Armored hardpoint with Lancer AT rocket",
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Hard"
         ]
@@ -95,7 +96,7 @@
             "Cannon Upgrade",
             "Determines range to target",
             "Increases Cannon accuracy",
-            "All cannons upgraded automatically"
+            "All Cannons upgraded automatically"
         ]
     },
     "RES_W_CN_D4": {
@@ -117,7 +118,7 @@
             "Cannon Upgrade",
             "Automatic loading mechanism replaces manual loader",
             "Increases Cannon ROF",
-            "All cannons upgraded automatically"
+            "All Cannons upgraded automatically"
         ]
     },
     "RES_W_FL_ROF1": {
@@ -128,7 +129,7 @@
             "Flamer Upgrade",
             "Automatic loading mechanism replaces manual loader",
             "Increases Flamer ROF",
-            "All flamers upgraded automatically"
+            "All Flamers upgraded automatically"
         ]
     },
     "RES_W_M2": {
@@ -136,10 +137,15 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Indirect Fire Weapon Available",
-            "May be assigned to a sensor",
-            "Best Targets: Base structures, Infantry and Wheeled Vehicles",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Heavy artillery weapon firing high-explosive mortar shells",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Has a long weapon range",
+            "Must be stationary to fire",
+            "Obsoletes standard Mortar"
         ]
     },
     "RES_W_MG_ROF1": {
@@ -150,7 +156,7 @@
             "Machinegun Upgrade",
             "Chaingun mechanism replaces belt-feed",
             "Increases Machinegun ROF",
-            "All machineguns upgraded automatically"
+            "All Machineguns upgraded automatically"
         ]
     },
     "RES_W_M_AC1": {
@@ -171,8 +177,8 @@
         "text": [
             "Mortar Upgrade",
             "Automatic loader replaces manual feed",
-            "Increases Mortar ROF",
-            "All mortars upgraded automatically"
+            "Increases Mortar rate of fire",
+            "All Mortars upgraded automatically"
         ]
     },
     "RES_W_RK_HvAT": {
@@ -180,10 +186,12 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Rocket Available",
-            "Heavy anti-tank rocket",
-            "Best Targets: Vehicles",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Heavy rocket launcher firing powerful anti-tank rockets",
+            "Effective against: Vehicles",
+            "Ineffective against: Infantry and structures",
+            "Greater accuracy at longer ranges",
+            "Obsoletes Lancer and Mini-Rocket Pod"
         ]
     },
     "RES_W_RK_IDF": {
@@ -191,10 +199,16 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Rocket Available",
-            "Rocket artillery; can be assigned to a sensor",
-            "Best Targets: Base Structures and Infantry",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Rocket artillery weapon firing salvos of explosive rockets",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Has a very long delay between bursts",
+            "Greater accuracy at longer ranges",
+            "Extremely long weapon range",
+            "Must be stationary to fire",
+            "Unable to fire at enemies that are within close proximity"
         ]
     },
     "RES_W_RK_MRL1": {
@@ -202,10 +216,12 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Rocket Available",
-            "Fires salvoes of mini-rockets",
-            "Best Targets: Base Structures, Infantry and Wheeled Vehicles",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Short-ranged artillery firing salvos of explosive mini-rockets",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges"
         ]
     },
     "RES_W_SRK_AC2": {

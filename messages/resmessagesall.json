@@ -51,7 +51,8 @@
             "New Base Structure Available",
             "Refuels, rearms and repairs VTOLs",
             "Assign a VTOL by selecting the rearming pad as its target",
-            "The VTOL returns to the selected pad for rearming"
+            "The VTOL returns to the selected pad for rearming",
+            "VTOLs with lower weights rearm faster"
         ]
     },
     "RES_SY_CBSTW1": {
@@ -93,7 +94,7 @@
         "sequenceName": "res_droid.ogg",
         "text": [
             "Collective Heavy Body",
-            "More armor and body points than Python",
+            "More armor and hitpoints than Python",
             "Slower than Python",
             "High power costs and slow to produce"
         ]
@@ -105,8 +106,10 @@
         "text": [
             "New Propulsion Available for Design",
             "Vertical Take Off and Landing Propulsion",
-            "Speed: VTOL",
-            "Body Points: Low"
+            "Very fast movement speed",
+            "Can traverse over all terrain",
+            "VTOL units carry limited ammo; build rearming pads to restock ammunition and repair",
+            "Requires VTOL factory to produce"
         ]
     },
     "RES_W_CNAC2": {
@@ -125,10 +128,11 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Rocket Available",
-            "High explosive shaped charge missile",
-            "Best Targets: Structures",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Specialized shaped charge rocket designed to penetrate layers of concrete",
+            "Effective against: Structures",
+            "Ineffective against: Vehicles and Cyborgs",
+            "Greater accuracy at longer ranges"
         ]
     },
     "RES_W_RK_LTAT1": {
@@ -136,10 +140,11 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Rocket Available",
-            "Anti-tank rocket",
-            "Best Targets: Vehicles",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Dual-mounted anti-tank rocket launchers",
+            "Effective against: Vehicles",
+            "Ineffective against: Cyborgs and structures",
+            "Greater accuracy at longer ranges"
         ]
     },
     "RES_W_SRK_AC3": {
@@ -160,7 +165,11 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Grenade Launcher",
-            "Body Points: Medium",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Bunkers and tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Must be stationary to fire",
             "Requires Cyborg factory to produce"
         ]
     },"RES_CYW_THERM": {
@@ -170,12 +179,18 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Thermite Flamer",
-            "Body Points: Medium",
+            "Effective against: Infantry, vehicles and bunkers",
+            "Ineffective against: Non-bunker structures",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Can ignite enemy units and structures, causing damage over time",
+            "Flames can hit multiple units",
+            "Has a very short weapon range",
+            "Obsoletes Flamer Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
     "RES_CYS_REP": {
-        "id": "RES_CYW_REP",
+        "id": "RES_CYS_REP",
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_systech.ogg",
         "text": [
@@ -213,9 +228,14 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New Weapon Turret Available",
-            "Plasmite Flame-thrower",
-            "Best Targets: Bunkers, Vehicles and Infantry",
-            "Body Points: Very low"
+            "Heavy flame-thrower firing superheated Plasmite gel",
+            "Effective against: Infantry, vehicles and bunkers",
+            "Ineffective against: Non-bunker structures",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Can ignite enemy units causing damage over time",
+            "Flames can hit multiple units",
+            "Has a short weapon range",
+            "Obsoletes Inferno"
         ]
     },
     "RES_EMP_PFL": {
@@ -224,7 +244,7 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored strongpoint with Plasmite Flamer",
+            "Armored bunker with Plasmite Flamer",
             "Automatically targets enemies in range",
             "Defensive Strength: Bunker"
         ]
@@ -245,9 +265,11 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Assault Cannon",
-            "Body Points: Medium",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Obsoletes Super Heavy-Gunner Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -256,9 +278,12 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Scourge Missile Launcher",
-            "Body Points: Medium",
+            "Effective against: Vehicles",
+            "Ineffective against: Cyborgs and structures",
+            "Greater accuracy at longer ranges",
+            "Obsoletes Super TK Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -267,9 +292,13 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Hyper Velocity Cannon",
-            "Body Points: Medium",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Only causes damage on direct hit; no splash damage",
+            "Accuracy is unaffected by range",
+            "Can attack aerial targets",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -278,9 +307,11 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Medium Cannon",
-            "Body Points: Medium",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Obsoletes Heavy Gunner Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -289,9 +320,14 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Pulse Laser",
-            "Body Points: Medium",
+            "Effective against: Infantry and Hover vehicles",
+            "Ineffective against: Structures and Tracked vehicles",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Accuracy is unaffected by range",
+            "Can attack aerial targets",
+            "Obsoletes Flashlight Gunner Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -300,9 +336,12 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Rail Gun",
-            "Body Points: Medium",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Darts can hit multiple units",
+            "Obsoletes Needle Gunner Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -311,9 +350,12 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
         "text": [
-            "New Cyborg Available",
+            "New Super Cyborg Available",
             "Armed with Cyborg Tank Killer Rockets",
-            "Body Points: Medium",
+            "Effective against: Vehicles",
+            "Ineffective against: Cyborgs and structures",
+            "Greater accuracy at longer ranges",
+            "Obsoletes Lancer Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -336,7 +378,18 @@
             "New Defensive Structure Available",
             "Armored guard tower with Lancer AT Rocket",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
+        ]
+    },
+    "RES_EMP_BEAMTOW": {
+        "id": "RES_EMP_BEAMTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Flashlight Laser",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Hard"
         ]
     },
     "RES_EMP_PULSETOW": {
@@ -347,7 +400,7 @@
             "New Defensive Structure Available",
             "Armored guard tower with Pulse Laser",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_DEF_ASSTOW": {
@@ -358,7 +411,7 @@
             "New Defensive Structure Available",
             "Armored guard tower with Assault Gun",
             "Automatically targets enemies within sensor range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_REPTUHVY": {
@@ -370,6 +423,172 @@
             "Heavy repair unit",
             "Automatically Repairs Damaged Units",
             "Or damaged units may be selected as target"
+        ]
+    },
+    "RES_W_RK_LTAT1MK1": {
+        "id": "RES_W_RK_LTAT1MK1",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_weapons.ogg",
+        "text": [
+            "New Weapon Turret Available",
+            "Single-shot anti-tank rocket launcher",
+            "Effective against: Vehicles",
+            "Ineffective against: Infantry and structures",
+            "Greater accuracy at longer ranges"
+        ]
+    },
+    "RES_IMORT": {
+        "id": "RES_IMORT",
+        "imdName": "MICAPSUL.PIE",
+        "sequenceName": "res_weapons.ogg",
+        "text": [
+            "New Weapon Turret Available",
+            "Artillery weapon firing incendiary mortar shells",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Greater accuracy at longer ranges",
+            "Can ignite enemy units and structures, causing damage over time",
+            "Has a long weapon range",
+            "Must be stationary to fire",
+            "Obsoletes standard Mortar"
+        ]
+    },
+    "RES_EMP_FLAM": {
+        "id": "RES_EMP_FLAM",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored strongpoint with Flamer",
+            "Automatically targets enemies in range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_EMP_CANN": {
+        "id": "RES_EMP_CANN",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored strongpoint with Light Cannon",
+            "Automatically targets enemies in range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_EMP_HFLA": {
+        "id": "RES_EMP_HFLA",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored strongpoint with Inferno Flamer",
+            "Automatically targets enemies in range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_CYW_HMG": {
+        "id": "RES_CYW_HMG",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "Armed with Cyborg Heavy Machinegun",
+            "Effective against: Infantry and wheeled vehicles",
+            "Ineffective against: Structures and tracked vehicles",
+            "Can attack aerial targets",
+            "Obsoletes and replaces Machinegunner Cyborg",
+            "Requires Cyborg factory to produce"
+        ]
+    },
+    "RES_W_RK_MRL2": {
+        "id": "RES_W_RK_MRL2",
+        "imdName": "MICAPSUL.PIE",
+        "sequenceName": "res_weapons.ogg",
+        "text": [
+            "New Weapon Turret Available",
+            "Short-ranged artillery firing salvos of high-explosive rockets",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Obsoletes Mini-Rocket Array"
+        ]
+    },
+    "RES_EMP_MRLHVY": {
+        "id": "RES_EMP_MRL",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Mini-rocket armored strongpoint",
+            "Assigned automatically to nearest sensor or CB tower",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_CYW_HVYMOR": {
+        "id": "RES_CYW_HVYMOR",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "New Super Cyborg Available",
+            "Armed with Cyborg Heavy Grenade Launcher",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Bunkers and tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Must be stationary to fire",
+            "Obsoletes Grenadier Cyborg",
+            "Requires Cyborg factory to produce"
+        ]
+    },
+    "RES_W_RK_BALAT": {
+        "id": "RES_W_RK_BALAT",
+        "imdName": "MICAPSUL.PIE",
+        "sequenceName": "res_weapons.ogg",
+        "text": [
+            "New Weapon Turret Available",
+            "Heavy rocket launcher firing powerful, long range anti-tank rockets",
+            "Effective against: Vehicles",
+            "Ineffective against: Cyborgs and structures",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Has a long weapon range",
+            "Must be stationary to fire",
+            "Unable to fire at enemies that are within a close proximity"
+        ]
+    },
+    "RES_EMP_BALAT": {
+        "id": "RES_EMP_BALAT",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored strongpoint with Ballista rocket",
+            "Automatically targets enemies in range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_EMP_HVCTOW": {
+        "id": "RES_EMP_HVCTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Hyper Velocity Cannon",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Hard"
+        ]
+    },
+    "RES_EMP_TKTOW": {
+        "id": "RES_EMP_TKTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Tank Killer Rocket",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Hard"
         ]
     }
 }

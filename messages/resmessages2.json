@@ -6,7 +6,7 @@
         "text": [
             "Cyborg Materials Improved",
             "Layered dense composite alloys and energy-absorbing fibres",
-            "Increases Kinetic Armor and Body Points",
+            "Increases Kinetic Armor and Hitpoints",
             "All Cyborgs upgraded automatically"
         ]
     },
@@ -17,7 +17,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Bunker Buster rocket",
-            "Body Points: Medium",
+            "Hitpoints: Medium",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -28,8 +28,11 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Assault Gun",
-            "Body Points: Medium",
-            "Requires Cyborg factory to produce"
+            "Effective against: Infantry and hover vehicles",
+            "Ineffective against: Tracked vehicles and structures",
+            "Can attack aerial targets",
+            "Requires Cyborg factory to produce",
+            "Obsoletes and replaces Heavy Machinegunner Cyborg"
         ]
     },
     "RES_CY_AH1": {
@@ -51,7 +54,7 @@
             "New Defensive Structure Available",
             "Reinforced tower with Assault Gun",
             "Automatically targets enemies in range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Hard"
         ]
     },
     "RES_DF_WU4": {
@@ -61,7 +64,7 @@
         "text": [
             "Defenses Improved",
             "High-tensile concrete reinforced with boron",
-            "Increases Armor and Body Points",
+            "Increases Armor and Hitpoints",
             "All defenses and walls upgraded automatically"
         ]
     },
@@ -72,7 +75,7 @@
         "text": [
             "New Defensive Structure Available",
             "AA Site with Cyclone Flak Turret",
-            "Automatically targets VTOLs",
+            "Automatically targets airborne enemies",
             "Defensive Strength: Medium"
         ]
     },
@@ -83,7 +86,7 @@
         "text": [
             "New Defensive Structure Available",
             "AA Site with Hurricane Gun Turret",
-            "Automatically targets VTOL",
+            "Automatically targets airborne enemies",
             "Defensive Strength: Medium"
         ]
     },
@@ -94,7 +97,7 @@
         "text": [
             "New Defensive Structure Available",
             "AA Site with Whirlwind Gun Turret",
-            "Automatically targets VTOLs",
+            "Automatically targets airborne enemies",
             "Defensive Strength: Medium"
         ]
     },
@@ -117,7 +120,7 @@
             "New Defensive Structure Available",
             "Armored howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_HPV": {
@@ -126,9 +129,9 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored strongpoint with Hyper-Velocity Cannon",
+            "Armored bunker with Hyper-Velocity Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_EMP_HVATR": {
@@ -137,9 +140,9 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored strongpoint with Tank Killer rocket",
+            "Armored bunker with Tank Killer rocket",
             "Automatically targets enemies in range",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_EMP_HVFL": {
@@ -148,9 +151,9 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored strongpoint with Inferno Flamer",
+            "Armored bunker with Inferno Flamer",
             "Automatically targets enemies in range",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_EMP_HvHOW": {
@@ -161,7 +164,7 @@
             "New Defensive Structure Available",
             "Armored Ground Shaker howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_HvyMor": {
@@ -183,7 +186,7 @@
             "New Defensive Structure Available",
             "Indirect fire rocket battery",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_IncHOW": {
@@ -194,7 +197,7 @@
             "New Defensive Structure Available",
             "Armored Hellstorm howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_RotCan": {
@@ -205,7 +208,7 @@
             "New Defensive Structure Available",
             "Armored strongpoint with Assault Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_RotHOW": {
@@ -216,7 +219,7 @@
             "New Defensive Structure Available",
             "Armored Hellstorm howitzer emplacement",
             "Assigned automatically to nearest sensor or CB tower",
-            "Defensive Strength: Hard"
+            "Defensive Strength: Medium"
         ]
     },
     "RES_EMP_RotMor": {
@@ -236,9 +239,14 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New Weapon Turret Available",
-            "Heavy Flame-thrower firing Propylene Oxide gel",
-            "Best Targets: Bunkers, Vehicles and Infantry",
-            "Body Points: Low"
+            "Heavy dual flame-thrower firing Propylene Oxide gel",
+            "Effective against: Infantry, vehicles and bunkers",
+            "Ineffective against: Non-bunker structures",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Can ignite enemy units, causing damage over time",
+            "Flames can hit multiple units",
+            "Has a very short weapon range",
+            "Obsoletes standard Flamer"
         ]
     },
     "RES_HALFT2": {
@@ -248,7 +256,7 @@
         "text": [
             "Vehicle Propulsion Improved",
             "New armored construction",
-            "Increases Body Points",
+            "Increases Hitpoints",
             "All half-tracks upgraded automatically"
         ]
     },
@@ -268,10 +276,21 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_struttech.ogg",
         "text": [
-            "Vehicle Production Improved",
-            "New Robotic Techniques improve factory production",
+            "Production Improved",
+            "New Robotic Mechanisms improves factory production",
             "Increases factory production rate",
-            "All vehicle factories upgraded automatically"
+            "All factories upgraded automatically"
+        ]
+    },
+    "RES_ST_FU7": {
+        "id": "RES_ST_FU7",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "Production Improved",
+            "New Advanced Technology improves factory production",
+            "Increases factory production rate",
+            "All factories upgraded automatically"
         ]
     },
     "RES_ST_MAT4": {
@@ -281,7 +300,7 @@
         "text": [
             "Increases Damage Resistance",
             "Hardened Base Structure Materials",
-            "Increases Armor and Body Points",
+            "Increases Armor and Hitpoints",
             "All base structures upgraded automatically"
         ]
     },
@@ -290,10 +309,10 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_struttech.ogg",
         "text": [
-            "Repair Facility Improved",
-            "New robotic repair techniques",
+            "Repairing Improved",
+            "New robotic repair systems",
             "Increases Repair Speed",
-            "All repair facilities upgraded automatically"
+            "All repair facilities and mobile repair units upgraded automatically"
         ]
     },
     "RES_ST_RU4": {
@@ -323,8 +342,7 @@
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_struttech.ogg",
         "text": [
-            "VTOL Rearming Times Reduced",
-            "Automated VTOL Rearming",
+            "New automatic rearm and repair systems",
             "Reduces rearming time",
             "All rearming pads upgraded automatically"
         ]
@@ -335,9 +353,10 @@
         "sequenceName": "res_systech.ogg",
         "text": [
             "Improved Sensor Tower Available",
-            "New construction techniques improve tower",
+            "New construction techniques improve tower structural integrity",
             "Replaces existing sensor tower",
-            "May be assigned as spotter for indirect fire weapons"
+            "May be assigned as spotter for indirect fire weapons",
+            "Defensive Strength: Hard"
         ]
     },
     "RES_SY_VCBSTU1": {
@@ -380,7 +399,7 @@
         "text": [
             "Vehicle Propulsion Improved",
             "New armored construction",
-            "Increases Body Points",
+            "Increases Hitpoints",
             "All tracks upgraded automatically"
         ]
     },
@@ -401,7 +420,7 @@
         "sequenceName": "res_droid.ogg",
         "text": [
             "Collective Light Body",
-            "Superior armor and body points to Viper",
+            "Superior armor and hitpoints to Viper",
             "Slower than Viper",
             "High power costs and slower to produce than Viper"
         ]
@@ -412,7 +431,7 @@
         "sequenceName": "res_droid.ogg",
         "text": [
             "Collective Medium Body",
-            "Superior armor and body points to Cobra",
+            "Superior armor and hitpoints to Cobra",
             "Slower than Cobra",
             "High power costs and slower to produce than Cobra"
         ]
@@ -424,7 +443,7 @@
         "text": [
             "Vehicle Engine Upgrade",
             "Turbo-Charged Engine",
-            "Improves vehicle speed",
+            "Reduces the impact of weight on vehicle speed",
             "All vehicles upgraded automatically"
         ]
     },
@@ -435,7 +454,7 @@
         "text": [
             "Vehicle Bodies Improved",
             "Layered dense composite alloys and energy-absorbing fibres",
-            "Increases kinetic armor and body points",
+            "Increases kinetic armor and hitpoints",
             "All vehicles upgraded automatically"
         ]
     },
@@ -446,7 +465,7 @@
         "text": [
             "Vehicle Propulsion Improved",
             "New armored construction",
-            "Increases Body Points",
+            "Increases Hitpoints",
             "All hovers upgraded automatically"
         ]
     },
@@ -457,7 +476,7 @@
         "text": [
             "Vehicle Propulsion Improved",
             "New armored construction",
-            "Increases Body Points",
+            "Increases Hitpoints",
             "All wheels upgraded automatically"
         ]
     },
@@ -478,7 +497,7 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored hardpoint with Tank Killer AT missile",
+            "Armored hardpoint with Tank Killer AT rocket",
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Hard"
         ]
@@ -512,8 +531,7 @@
         "text": [
             "New AA Turret Available",
             "Twin 80mm flak weapon",
-            "Aerial targets only",
-            "Body Points: Medium"
+            "Aerial targets only"
         ]
     },
     "RES_W_AA2": {
@@ -524,7 +542,7 @@
             "New AA Turret Available",
             "Quad 80mm flak weapon",
             "Aerial targets only",
-            "Body Points: Medium"
+            "Obsoletes Hurricane AA"
         ]
     },
     "RES_W_AA3": {
@@ -533,9 +551,8 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New AA Turret Available",
-            "30mm Anti-Aircraft machinegun",
-            "Aerial targets only",
-            "Body Points: Medium"
+            "Quad 30mm Anti-Aircraft machinegun",
+            "Aerial targets only"
         ]
     },
     "RES_W_AA4": {
@@ -544,9 +561,9 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New AA Turret Available",
-            "Quad 30mm Anti-Aircraft machinegun",
+            "Dual 80mm Anti-Aircraft machinegun",
             "Aerial targets only",
-            "Body Points: Medium"
+            "Obsoletes Cyclone AA"
         ]
     },
     "RES_W_AAAC1": {
@@ -555,7 +572,7 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "AA Upgrade",
-            "Detects and locks-on to VTOL engine emissions",
+            "Computer automatically scans area for potential targets",
             "Increases AA accuracy",
             "All AA weapons upgraded automatically"
         ]
@@ -600,8 +617,10 @@
         "text": [
             "New Bomb Bay Available",
             "Drops High Explosive Cluster bombs",
-            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
-            "Body Points: Low"
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Provides substantial bonus HP",
+            "Can only be equipped onto VTOLs"
         ]
     },
     "RES_W_BMB2": {
@@ -609,10 +628,13 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Bomb Bay Available",
+            "New Heavy Bomb Bay Available",
             "Drops High Explosive Armor Piercing bombs",
-            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
-            "Body Points: Low"
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Provides substantial bonus HP",
+            "Can only be equipped onto VTOLs",
+            "Obsoletes Cluster Bomb Bay"
         ]
     },
     "RES_W_CN5": {
@@ -621,9 +643,11 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New Weapon Turret Available",
-            "76mm hyper-velocity quad-barrel automatic-cannon",
-            "Best Targets: Vehicles and Structures",
-            "Body Points: High"
+            "Rapid fire 76mm rotary auto-cannon",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Provides substantial bonus HP",
+            "Obsoletes Medium Cannon"
         ]
     },
     "RES_W_CN_4A": {
@@ -632,9 +656,14 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "New Weapon Turret Available",
-            "Hyper-velocity automatic-cannon firing 88mm rounds",
-            "Best Targets: Vehicles and Structures",
-            "Body Points: Medium"
+            "Versatile hyper-velocity cannon firing 88mm rounds",
+            "Effective against: Vehicles and structures",
+            "Ineffective against: Bunkers and cyborgs",
+            "Only causes damage on direct hit; no splash damage",
+            "Accuracy is unaffected by range",
+            "Can attack aerial targets",
+            "Provides substantial bonus HP",
+            "Obsoletes Light Cannon"
         ]
     },
     "RES_W_FL_D4": {
@@ -653,10 +682,15 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Indirect Fire Weapon Available",
+            "New Weapon Turret Available",
             "155mm Howitzer may be assigned to a sensor",
-            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
-            "Body Points: Low"
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Very powerful area-of-effect damage; use with caution",
+            "Greater accuracy at longer ranges",
+            "Has a very long weapon range",
+            "Must be stationary to fire"
         ]
     },
     "RES_W_HMK1": {
@@ -664,10 +698,14 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Indirect Fire Weapon Available",
-            "105mm Howitzer may be assigned to a sensor",
-            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
-            "Body Points: Low"
+            "New Weapon Turret Available",
+            "105mm Howitzer firing explosive artillery shells",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Has a very long weapon range",
+            "Must be stationary to fire"
         ]
     },
     "RES_W_HOWAC1": {
@@ -708,10 +746,16 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Indirect Fire Weapon Available",
-            "105m Howitzer firing incendiaries, may be assigned to a sensor",
-            "Best Targets: Structures, Infantry and Vehicles",
-            "Body Points: Low"
+            "New Weapon Turret Available",
+            "105mm Howitzer firing incendiary artillery shells",
+            "Effective against: Cyborgs, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Can ignite enemy units and structures, causing damage over time",
+            "Has a very long weapon range",
+            "Must be stationary to fire"
         ]
     },
     "RES_W_M3": {
@@ -719,10 +763,14 @@
         "imdName": "MICAPSUL.PIE",
         "sequenceName": "res_weapons.ogg",
         "text": [
-            "New Indirect Fire Weapon Available",
-            "May be assigned to a sensor",
-            "Best Targets: Structures, Infantry, Wheeled and Hover Vehicles",
-            "Body Points: Very Low"
+            "New Weapon Turret Available",
+            "Rotary artillery weapon firing explosive mortar shells in rapid succession",
+            "Effective against: Infantry, Hover vehicles and structures",
+            "Ineffective against: Tracked vehicles and bunkers",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Has a long weapon range",
+            "Must be stationary to fire"
         ]
     },
     "RES_W_MG_D5": {
@@ -766,7 +814,7 @@
             "New Proximity Bomb Turret Available",
             "Bomb turret explodes in proximity to enemy",
             "Best Targets: Base Structures and Defenses",
-            "Body Points: Medium"
+            "Hitpoints: Medium"
         ]
     },
     "RES_W_PBMB2": {
@@ -777,7 +825,7 @@
             "New Proximity Bomb Turret Available",
             "Superbomb turret explodes in proximity to enemy",
             "Best Targets: Base Structures and Defenses",
-            "Body Points: Medium"
+            "Hitpoints: Medium"
         ]
     },
     "RES_W_RK_D4": {
