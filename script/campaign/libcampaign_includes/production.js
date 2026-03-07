@@ -338,41 +338,6 @@ function camUpgradeOnMapStructures(struct1, struct2, playerId, excluded)
 	}
 }
 
-//;; ## camSetPreDamageModifier(playerId, droidRange[, structRange[, excludedTemplates]])
-//;;
-//;; Damages all units and structures belonging to the given player to the given HP ranges.
-//;; Applies this modifier to all units and structures currently on the map, as well as any units
-//;; either produced or brought in via reinforcements later in the mission.
-//;; Ignores any units that match the list of excluded templates.
-//;; Ranges should be specified as [LOWER_BOUND, UPPER_BOUND] (e.g. [40, 70] for 40% to 70% HP)
-//;;
-//;; @param {number} playerId
-//;; @param {number[]} droidRange
-//;; @param {number[]} structRange
-//;; @param {Object[]} [excluded]
-//;; @returns {void}
-//;;
-function camSetPreDamageModifier(playerId, droidRange, structRange, excludedTemplates)
-{
-	__camPreDamageModifier[playerId] = {
-		droidRange: droidRange,
-		structRange: (camDef(structRange)) ? structRange : droidRange,
-		excludedTemplates: excludedTemplates
-	};
-
-	const droids = enumDroid(playerId);
-	for (const droid of droids)
-	{
-		__camPreDamageDroid(droid);
-	}
-
-	const structures = enumStruct(playerId);
-	for (const struct of structures)
-	{
-		__camPreDamageStruct(struct);
-	}
-}
-
 //;; ## camAddDroid(playerId, position, template[, droidName])
 //;;
 //;; Wrapper function for addDroid().
@@ -487,20 +452,20 @@ function __camBuildDroid(template, structure)
 		return false;
 	}
 
-	if (template.prop.contains("V-Tol") && structure.stattype !== VTOL_FACTORY)
+	if (template.prop.includes("V-Tol") && structure.stattype !== VTOL_FACTORY)
 	{
 		// If not a VTOL factory and the template is a VTOL then keep it in the
 		// queue until a factory can deal with it.
 		return false;
 	}
-	if (template.prop.contains("CyborgLegs") && structure.stattype !== CYBORG_FACTORY)
+	if (template.prop.includes("CyborgLegs") && structure.stattype !== CYBORG_FACTORY)
 	{
 		// Likewise, if not a cyborg factory and the template is a cyborg then
 		// keep it in the queue until a cyborg factory can deal with it.
 		return false;
 	}
-	if ((template.prop.contains("wheeled") || template.prop.contains("HalfTrack") 
-		|| template.prop.contains("tracked") || template.prop.contains("hover")) 
+	if ((template.prop.includes("wheeled") || template.prop.includes("HalfTrack") 
+		|| template.prop.includes("tracked") || template.prop.includes("hover")) 
 		&& structure.stattype !== FACTORY)
 	{
 		// Finally, don't build normal units in cyborg or VTOL factories

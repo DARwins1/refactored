@@ -382,7 +382,7 @@ function camMakeGroup(what, playerFilter)
 {
 	if (!camDef(playerFilter))
 	{
-		playerFilter = ALL_PLAYERS;
+		playerFilter = ENEMIES;
 	}
 	let array;
 	let obj;
@@ -1337,7 +1337,7 @@ function __camResetPower()
 function __camGetPowerLimit()
 {
 	let powerLimit;
-	if (!tweakOptions.rec_timerlessMode || (camDef(__camNextLevel) && (__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A0_OUT)))
+	if (!tweakOptions.ref_timerlessMode || (camDef(__camNextLevel) && (__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A0_OUT)))
 	{
 		powerLimit = __camPowerLimits[difficulty];
 	}

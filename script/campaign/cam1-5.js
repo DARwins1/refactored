@@ -108,13 +108,7 @@ function sendNPTransport()
 		camSendReinforcement(CAM_NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
 			entry: { x: 2, y: 42 },
 			exit: { x: 2, y: 42 },
-			order: CAM_ORDER_ATTACK,
-			data: {
-				regroup: false,
-				count: -1,
-				pos: camMakePos("NPBase"),
-				repair: 66,
-			},
+			order: CAM_ORDER_ATTACK
 		});
 	}
 }
@@ -170,7 +164,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"NPRightFactory": { tech: "R-Struc-Factory-Upgrade01" }, // Automated Manufacturing
-		"NPLeftFactory": { tech: "R-Vehicle-Body08" }, // Scorpion
+		"NPCommandCenter": { tech: "R-Defense-WallUpgrade03" }, // Improved Hardcrete Mk3
 		"NPResearchFacility": { tech: "R-Comp-SynapticLink" }, // Synaptic Link
 	});
 
@@ -207,7 +201,7 @@ function eventStartLevel()
 			assembly: "NPLeftAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			templates: [ cTempl.npmmcht, cTempl.npmflamht, cTempl.npmhmght, cTempl.nplmraht ],
 			data: {
 				regroup: false,
@@ -219,7 +213,7 @@ function eventStartLevel()
 			assembly: "NPRightAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
 			templates: [ cTempl.nphmct, cTempl.npmmct, cTempl.npmmct ],
 			data: {
 				regroup: false,
@@ -291,7 +285,7 @@ function eventStartLevel()
 		repair: 66
 	});
 	camMakeRefillableGroup(
-		camMakeGroup("npCommandGroup"), {
+		camMakeGroup("NPCommandGroup"), {
 			templates: [
 				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, // Medium Cannons
 				cTempl.nphmct, cTempl.nphmct, // Medium Cannons (Mantis)
@@ -317,7 +311,7 @@ function eventStartLevel()
 			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck1"), // Use the truck already on the map
-			structset: camAreaToStructSet("NPBase");
+			structset: camAreaToStructSet("NPBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
@@ -325,7 +319,7 @@ function eventStartLevel()
 			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck2"),
-			structset: camAreaToStructSet("NPBase");
+			structset: camAreaToStructSet("NPBase")
 	});
 
 	queue("enableSouthScavFactories", camChangeOnDiff(camMinutesToMilliseconds(0.5)));

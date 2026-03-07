@@ -273,6 +273,7 @@ function eventStartLevel()
 		CAM_NEW_PARADIGM, {
 			label: "NPBaseGroup",
 			rebuildTruck: false, // Can't rebuild this truck
+			truckDroid: getObject("NPTruck"), // Use the pre-placed truck on the map
 			structset: camAreaToStructSet("NPBase")
 	});
 

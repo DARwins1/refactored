@@ -176,12 +176,7 @@ function camGrantBonusPower()
 {
 	if (__camNeedBonusTime && !__camBonusPowerGranted)
 	{
-		if (camDiscoverCampaign() === __CAM_PROLOGUE_CAMPAIGN_NUMBER)
-		{
-			return; // Don't grant bonus power in the prologue
-		}
-
-		if (!tweakOptions.rec_timerlessMode)
+		if (!tweakOptions.ref_timerlessMode)
 		{
 			// Calculate bonus power based on remaining mission time
 			let bonusTime = getMissionTime();
@@ -196,10 +191,10 @@ function camGrantBonusPower()
 			// In Timerless mode, just set the player to max power at the end of the level
 			setPower(__camGetPowerLimit(), CAM_HUMAN_PLAYER);
 		}
-	setPowerModifier(0, CAM_HUMAN_PLAYER); // Stop power generation entirely
-	setMissionTime(-1); // Disable mission timer
+		setPowerModifier(0, CAM_HUMAN_PLAYER); // Stop power generation entirely
+		setMissionTime(-1); // Disable mission timer
 
-	__camBonusPowerGranted = true;
+		__camBonusPowerGranted = true;
 	}
 }
 
@@ -561,7 +556,7 @@ function __camShowVictoryConditions()
 	}
 
 	const __TOTAL_ARTIFACTS = Object.keys(__camArtifacts).length;
-	if (__camVictoryData.showArtifacts && __TOTAL_ARTIFACTS > 0)
+	if (__TOTAL_ARTIFACTS > 0)
 	{
 		console(__camNumArtifacts + "/" + __TOTAL_ARTIFACTS + " " + _("Artifacts collected"));
 	}

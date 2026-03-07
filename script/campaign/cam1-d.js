@@ -118,16 +118,16 @@ function groupOrders()
 	});
 
 	camEnableFactory("NPFactoryW");
-	camEnableFactory("cybflactoryW");
+	camEnableFactory("NPCybFactoryW");
 }
 
 // Enable the east the east and northeast NP factories, as well as the LZ
 function enableAllFactories()
 {
 	camEnableFactory("NPFactoryE");
-	camEnableFactory("cybflactoryE");
+	camEnableFactory("NPCybFactoryE");
 	camEnableFactory("NPFactoryNE");
-	camEnableFactory("cybflactoryNE");
+	camEnableFactory("NPCybFactoryNE");
 	camCallOnce("transportBaseSetup");
 }
 
@@ -234,8 +234,8 @@ function eventStartLevel()
 			},
 			templates: [ cTempl.nphhct, cTempl.npmbbt, cTempl.npmatt ] //tough units
 		},
-		"cybflactoryW": {
-			assembly: "cybflactoryWAssembly",
+		"NPCybFactoryW": {
+			assembly: "NPCybFactoryWAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
@@ -246,8 +246,8 @@ function eventStartLevel()
 			},
 			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr ] // General attack cyborgs
 		},
-		"cybflactoryE": {
-			assembly: "cybflactoryEAssembly",
+		"NPCybFactoryE": {
+			assembly: "NPCybFactoryEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
@@ -258,8 +258,8 @@ function eventStartLevel()
 			},
 			templates: [ cTempl.cybca, cTempl.cybrp ] // Cannons and mechanics
 		},
-		"cybflactoryNE": {
-			assembly: "cybflactoryNEAssembly",
+		"NPCybFactoryNE": {
+			assembly: "NPCybFactoryNEAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
@@ -298,7 +298,7 @@ function eventStartLevel()
 				cTempl.npmmrat, cTempl.npmmrat, // More MRAs (Insane)
 			],
 			obj: "npCommander",
-			factories: ["NPFactoryNE", "cybflactoryNE"]
+			factories: ["NPFactoryNE", "NPCybFactoryNE"]
 		}, CAM_ORDER_FOLLOW, {
 			leader: "npCommander",
 			suborder: CAM_ORDER_ATTACK,
@@ -316,25 +316,28 @@ function eventStartLevel()
 			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Medium+)
 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(180)),
 			truckDroid: getObject("npTruck1"), // Use the truck already on the map
-			structset: camAreaToStructSet("NPNorthEast");
+			structset: camAreaToStructSet("NPNorthEast")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastGroup",
+			rebuildTruck: false,
 			truckDroid: getObject("npTruck2"),
-			structset: camAreaToStructSet("NPNorthEast");
+			structset: camAreaToStructSet("NPNorthEast")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPMiddleGroup",
+			rebuildTruck: false,
 			truckDroid: getObject("npTruck3"),
-			structset: camAreaToStructSet("NPMiddle");
+			structset: camAreaToStructSet("NPMiddle")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPLZGroup",
+			rebuildTruck: false,
 			truckDroid: getObject("npTruck4"),
-			structset: camAreaToStructSet("NPLZBaseCleanup");
+			structset: camAreaToStructSet("NPLZBaseCleanup")
 	});
 
 	hackAddMessage("C1D_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);

@@ -573,6 +573,7 @@ function __camTruckTick()
 			let minDistIndex = -1;
 			const structSet = ti.structset;
 			let artiBlock = false;
+			let destructibleBlock = false;
 			
 			// Find the closest spot that we want to build on
 			for (let j = 0; j < structSet.length; j++)
@@ -580,10 +581,11 @@ function __camTruckTick()
 				// Check the structure spot and see if it's unobstructed, except:
 				// When we're trying to build Oil Derricks, we want those ON the oil resource!
 				// If the blocking object is an artifact, pick it up instead!
+				// If the blocking object is a destructible feature (i.e. a tree), blow it up first!
 				const structSpot = getObject(structSet[j].x, structSet[j].y);
 				if (structSpot === null ||
 					(structSet[j].stat === "A0ResourceExtractor" && structSpot.type === FEATURE) ||
-					(structSpot.type === FEATURE && structSpot.stattype === ARTIFACT))
+					(structSpot.type === FEATURE && (structSpot.stattype === ARTIFACT || structSpot.damageable)))
 				{
 					// Compare the distance between the truck and the structure location
 					const __DISTANCE = distBetweenTwoPoints(truck.x, truck.y, structSet[j].x, structSet[j].y);
@@ -591,13 +593,24 @@ function __camTruckTick()
 					{
 						minDist = __DISTANCE;
 						minDistIndex = j;
-						if (structSpot !== null &&structSpot.type === FEATURE && structSpot.stattype === ARTIFACT)
+						if (structSpot !== null && structSpot.type === FEATURE)
 						{
-							artiBlock = true;
+							if (structSpot.stattype === ARTIFACT)
+							{
+								// This spot is blocked by an artifact
+								artiBlock = true;
+							}
+							else if (structSpot.damageable)
+							{
+								// This spot is blocked by a destructible feature
+								destructibleBlock = true;
+							}
 						}
 						else
 						{
+							// This spot isn't blocked by anything
 							artiBlock = false;
+							destructibleBlock = false;
 						}
 					}
 				}
@@ -606,20 +619,26 @@ function __camTruckTick()
 			// If we found a clear spot, build the structure
 			if (minDistIndex !== -1)
 			{
-				if (!artiBlock)
-				{
-					// Build the structure
-					enableStructure(structSet[minDistIndex].stat, __PLAYER);
-					orderDroidBuild(truck, DORDER_BUILD, structSet[minDistIndex].stat, 
-						structSet[minDistIndex].x, structSet[minDistIndex].y, 
-						structSet[minDistIndex].rot * 90);
-				}
-				else
+				if (artiBlock)
 				{
 					// Pick up the artifact and build the structure over it
 					// The artifact will be reassigned to the new structure later
 					orderDroidObj(truck, DORDER_RECOVER, getObject(structSet[minDistIndex].x, structSet[minDistIndex].y));
 					// We'll handle building the structure on the next truck tick...
+				}
+				else
+				{
+					if (destructibleBlock)
+					{
+						// If we're being blocked by a destructible feature, blow it up with a psychic truck blast
+						camSafeRemoveObject(getObject(structSet[minDistIndex].x, structSet[minDistIndex].y), true);
+					}
+
+					// Build the structure
+					enableStructure(structSet[minDistIndex].stat, __PLAYER);
+					orderDroidBuild(truck, DORDER_BUILD, structSet[minDistIndex].stat, 
+						structSet[minDistIndex].x, structSet[minDistIndex].y, 
+						structSet[minDistIndex].rot * 90);
 				}
 				
 				orderGiven = true;

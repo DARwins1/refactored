@@ -205,7 +205,6 @@ function cam_eventDroidBuilt(droid, structure)
 		__camAssignTruck(droid);
 		return;
 	}
-	__camPreDamageDroid(droid);
 	__camAddDroidToFactoryGroup(droid, structure);
 }
 

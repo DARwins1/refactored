@@ -50,7 +50,7 @@ function checkForPowerModule()
 	if (cheat || powerModuleBuilt())
 	{
 		camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
-		setMissionTime(camChangeOnDiff(camMinutesToSeconds(15)) + getMissionTime()); // +15 min for offworld
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)) + getMissionTime()); // +10 min for offworld
 		secondVideo();
 
 		if (powModVideoPlayed)

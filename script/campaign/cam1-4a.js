@@ -144,7 +144,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
 	camSetArtifacts({
-		"NPCommandCenter": { tech: "R-Defense-WallUpgrade03" }, // Improved Hardcrete Mk3
+		"NPCommandCenter": { tech: "R-Vehicle-Body08" }, // Scorpion
 		"NPResearchFacility": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
 		"MediumNPFactory": { tech: "R-Wpn-Rocket01-LtAT" }, // Lancer
 		"HeavyNPFactory": { tech: "R-Vehicle-Prop-Tracks" }, // Tracked Propulsion
@@ -241,21 +241,21 @@ function eventStartLevel()
 			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck1"), // Use the truck already on the map
-			structset: camAreaToStructSet("NPBase");
+			structset: camAreaToStructSet("NPBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPBaseGroup",
 			rebuildTruck: false, // Don't rebuild this truck ever
 			truckDroid: getObject("npTruck2"),
-			structset: camAreaToStructSet("NPBase");
+			structset: camAreaToStructSet("NPBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPBaseGroup",
 			rebuildTruck: false, // Nor this one
 			truckDroid: getObject("npTruck3"),
-			structset: camAreaToStructSet("NPBase");
+			structset: camAreaToStructSet("NPBase")
 	});
 
 	queue("enableSouthScavFactory", camChangeOnDiff(camSecondsToMilliseconds(10)));

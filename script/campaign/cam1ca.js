@@ -195,7 +195,7 @@ function prepAttackWave(index)
 {
 	playSound(cam_sounds.enemyUnitDetected);
 	hackAddMessage(mis_attackWaveMessages[index], PROX_MSG, CAM_HUMAN_PLAYER, false);
-	queue("spawnAttackWave", camSecondsToMilliseconds(20), index);
+	queue("spawnAttackWave", camSecondsToMilliseconds(20), "" + index);
 }
 
 // Spawn the attack wave and remove the red blip

@@ -107,8 +107,7 @@ function __camDispatchTransporterUnsafe()
 	for (let i = 0, l = list.length; i < l; ++i)
 	{
 		const template = list[i];
-		const __PROP = __camChangePropulsion(template.prop, __PLAYER);
-		const droid = addDroid(__PLAYER, -1, -1, "Reinforcement", template.body, __PROP, "", "", template.weap);
+		const droid = camAddDroid(__PLAYER, -1, template);
 		droids.push(droid);
 		addDroidToTransporter(transporter, droid);
 	}
@@ -163,15 +162,8 @@ function __camLandTransporter(player, pos)
 		__camTransporterMessage = undefined;
 	}
 	camTrace("Landing transport for player", player);
-	playSound(cam_sounds.transport.incomingEnemyTransport, pos.x, pos.y, 0);
+	// playSound(cam_sounds.transport.incomingEnemyTransport, pos.x, pos.y, 0);
 	camManageGroup(camMakeGroup(ti.droids), ti.order, ti.data);
-	if (player !== CAM_HUMAN_PLAYER)
-	{
-		for (let i = 0, len = ti.droids.length; i < len; ++i)
-		{
-			camSetDroidExperience(ti.droids[i]);
-		}
-	}
 }
 
 function __camRemoveIncomingTransporter(player)
@@ -180,5 +172,11 @@ function __camRemoveIncomingTransporter(player)
 	if (camDef(__camIncomingTransports[player]))
 	{
 		delete __camIncomingTransports[player];
+	}
+
+	// Also place the no-build area in the corner of the map where it won't annoy anybody
+	if (player !== CAM_HUMAN_PLAYER)
+	{
+		setNoGoArea(0, 0, 3, 3, player);
 	}
 }

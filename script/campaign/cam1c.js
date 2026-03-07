@@ -101,8 +101,6 @@ camAreaEvent("NPLZ1Trigger", function()
 			posLZ: camMakePos("EastNPLZ")
 		}
 	);
-
-	camCallOnce("activateLZDefenders");
 });
 
 camAreaEvent("NPLZ2Trigger", function()
@@ -218,14 +216,14 @@ function eventStartLevel()
 			assembly: "ScavSouthFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.buscan, cTempl.rbjeep, cTempl.trike, cTempl.buggy ]
 		},
 		"ScavEastFactory": {
 			assembly: "ScavEastFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.firetruck, cTempl.rbuggy, cTempl.bjeep, cTempl.kevbloke ]
 		},
 		"ScavNorthFactory": {
@@ -239,7 +237,7 @@ function eventStartLevel()
 			assembly: "NPCentralFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			data: {
 				regroup: false,
 				repair: 40,
@@ -268,48 +266,48 @@ function eventStartLevel()
 			label: "NPEastBaseGroup",
 			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("NPEastBase");
+			truckDroid: getObject("npTruck1"),
+			structset: camAreaToStructSet("NPEastBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastGeneratorGroup",
 			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("NPNorthEastGenerator");
+			truckDroid: getObject("npTruck2"),
+			structset: camAreaToStructSet("NPNorthEastGenerator")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastBaseGroup",
 			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("NPNorthEastBase");
+			truckDroid: getObject("npTruck3"),
+			structset: camAreaToStructSet("NPNorthEastBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPCentralBaseGroup",
 			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("CentralBase");
+			truckDroid: getObject("npTruck4"),
+			structset: camAreaToStructSet("CentralBase")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPLZ1Group",
 			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("NPLZ1");
+			truckDroid: getObject("npTruck5"),
+			structset: camAreaToStructSet("NPLZ1")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPLZ2Group",
 			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
-			template: cTempl.npmtruckht,
-			structset: camAreaToStructSet("NPLZ2");
+			truckDroid: getObject("npTruck6"),
+			structset: camAreaToStructSet("NPLZ2")
 	});
 
 	// Rank changes on difficulty:
@@ -341,7 +339,7 @@ function eventStartLevel()
 			},
 			repair: 66,
 	});
-	NPAmbushCommander = camMakeGroup("AmbushForce"); // Gets orders later
+	NPAmbushCommander = camMakeGroup("AmbushForceCommander"); // Gets orders later
 	camMakeRefillableGroup(
 		camMakeGroup("AmbushForce"), {
 			templates: [
@@ -367,6 +365,7 @@ function eventStartLevel()
 			camMakePos("TankPatrolPos2"),
 			camMakePos("NPNorthFactoryAssembly")
 		],
+		repair: 40,
 		interval: camSecondsToMilliseconds(30)
 	});
 	camMakeRefillableGroup(

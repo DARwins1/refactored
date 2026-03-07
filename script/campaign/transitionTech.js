@@ -77,8 +77,8 @@ const mis_alphaResearchNew = [
 	"R-Wpn-Rocket01-LtAT", // Artifact
 	"R-Defense-WallTower06", "R-Defense-LancerTower", "R-Defense-Pillbox06",
 	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-Accuracy02",
-	"R-Defense-WallUpgrade03", // Artifact
-	"R-Struc-Materials03",
+	"R-Vehicle-Body08", // Artifact
+	"R-Vehicle-Engine02",
 
 	// 9
 	"R-Comp-SynapticLink", // Artifact
@@ -89,9 +89,9 @@ const mis_alphaResearchNew = [
 	"R-Cyb-Sys-Repair", "R-Cyb-Sys-Construct", "R-Cyb-Wpn-Grenade",
 	"R-Cyborg-Metals01", "R-Cyborg-Metals02",
 	"R-Struc-Factory-Upgrade01", // Artifact
-	"R-Struc-RprFac-Upgrade01", 
-	"R-Vehicle-Body08", // Artifact
-	"R-Vehicle-Engine02",
+	"R-Struc-RprFac-Upgrade01",
+	"R-Defense-WallUpgrade03", // Artifact
+	"R-Struc-Materials03",
 
 	// 10
 	"R-Wpn-Rocket03-HvAT", // Artifact

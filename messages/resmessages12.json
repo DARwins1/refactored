@@ -52,7 +52,8 @@
             ".50-calibre heavy machinegun",
             "Effective against: Infantry and wheeled vehicles",
             "Ineffective against: Structures and tracked vehicles",
-            "Can attack aerial targets"
+            "Can attack aerial targets",
+            "Obsoletes Twin Machinegun"
         ]
     },
     "RES_SY_CBSTU1": {

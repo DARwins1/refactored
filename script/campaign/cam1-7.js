@@ -51,9 +51,7 @@ function startConvoy()
 	addLabel(commDroid, "npCommander");
 	camSetDroidRank(commDroid, COMMANDER_RANK);
 	camManageGroup(camMakeGroup(commDroid), CAM_ORDER_COMPROMISE, {pos: camMakePos("NPLZ")});
-	camSetArtifacts({
-		"npCommander": { tech: "R-Vehicle-Metals03" }, // Composite Alloys Mk3
-	});
+	camAddArtifact("npCommander", "R-Vehicle-Metals03"); // Composite Alloys Mk3
 
 	const convoyDroids = [
 		cTempl.nphhct, cTempl.nphhct, // Heavy Cannons
@@ -97,6 +95,10 @@ function sendTransport()
 	if (enumArea("NPLZ", CAM_NEW_PARADIGM, false).filter((obj) => (obj.type === STRUCTURE && obj.status === BUILT)).length < 1)
 	{
 		return; // Not built :(
+	}
+	else
+	{
+		pos = camMakePos("NPLZ");
 	}
 
 	// Cyborgs...
@@ -219,7 +221,7 @@ function eventStartLevel()
 			assembly: "middleAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
 			data: {
 				regroup: true,
 				count: -1,
@@ -230,14 +232,14 @@ function eventStartLevel()
 			assembly: "southAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
 			templates: [ cTempl.firetruck, cTempl.gbjeep, cTempl.gbjeep, cTempl.buscan ]
 		},
 		"scavNorthEastFactory": {
 			assembly: "northAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			rdata: {
 				regroup: true,
 				count: -1,
@@ -267,7 +269,7 @@ function eventStartLevel()
 	hackAddMessage("C1-7_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); //Canyon
 	queue("enableScavFactories", camChangeOnDiff(camSecondsToMilliseconds(30)));
 	queue("npAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
-	queue("startConvoy", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("startConvoy", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	setTimer("trackArtiHolder", camSecondsToMilliseconds(3));
 

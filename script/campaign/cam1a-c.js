@@ -70,7 +70,7 @@ function prepAttackWave(index)
 {
 	playSound(cam_sounds.enemyUnitDetected);
 	hackAddMessage(mis_attackWaveMessages[index], PROX_MSG, CAM_HUMAN_PLAYER, false);
-	queue("spawnAttackWave", camSecondsToMilliseconds(20), index);
+	queue("spawnAttackWave", camSecondsToMilliseconds(20), "" + index);
 }
 
 // Spawn the attack wave and remove the red blip
@@ -159,7 +159,7 @@ function spawnAttackWave(index)
 	}
 
 	hackRemoveMessage(mis_attackWaveMessages[index], PROX_MSG, CAM_HUMAN_PLAYER, false);
-	if (index !== "5")
+	if (index !== "4")
 	{
 		// Spawn a group of droids
 		camSendReinforcement(CAM_NEW_PARADIGM, getObject(attackEntrances[index]), attackDroids[index], CAM_REINFORCE_GROUND, {
@@ -191,16 +191,13 @@ function spawnAttackWave(index)
 		// Also include a special Mantis tank
 		const busterDroid = camAddDroid(CAM_NEW_PARADIGM, camMakePos(attackEntrances[index]), cTempl.nphbbt);
 		// Order the tank to follow the commander
-		camManageGroup(camMakeGroup(busterDroid), CAM_ORDER_ATTACK, {
-			order: CAM_ORDER_FOLLOW,
-			data: {
-				leader: "npCommander",
-				suborder: CAM_ORDER_ATTACK
-			}
+		camManageGroup(camMakeGroup(busterDroid), CAM_ORDER_FOLLOW, {
+			leader: "npCommander",
+			suborder: CAM_ORDER_ATTACK
 		});
 		// Make this tank drop an artifact
 		addLabel(busterDroid, "npBusterTank");
-		camAddArtifact({"npBusterTank": { tech: "R-Wpn-Rocket03-HvAT" }}); // Bunker Buster
+		camAddArtifact("npBusterTank", "R-Wpn-Rocket03-HvAT"); // Bunker Buster
 	}
 	
 	sendLZTrucks(index); // Also try sending a truck

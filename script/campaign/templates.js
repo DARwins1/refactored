@@ -62,9 +62,9 @@ npmflamht: { body: "Body8MBT", prop: "HalfTrack", weap: "Flame1Mk1" }, // Flamer
 nplsensw: { body: "Body4ABT", prop: "wheeled01", weap: "SensorTurret1Mk1" }, // Sensor Bug Wheels
 npmsensht: { body: "Body8MBT", prop: "HalfTrack", weap: "SensorTurret1Mk1" }, // Sensor Scorpion Halftracks
 
-npmcomht: { body: "Body8MBT", prop: "HalfTrack", weap: "CommandTurret1" }, // Command Turret Scorpion Halftracks
-npmcomt: { body: "Body8MBT", prop: "tracked01", weap: "CommandTurret1" }, // Command Turret Scorpion Tracks
-nphcomt: { body: "Body12SUP", prop: "tracked01", weap: "CommandTurret1" }, // Command Turret Mantis Tracks
+npmcomht: { body: "Body8MBT", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Scorpion Halftracks
+npmcomt: { body: "Body8MBT", prop: "tracked01", weap: "CommandBrain01" }, // Command Turret Scorpion Tracks
+nphcomt: { body: "Body12SUP", prop: "tracked01", weap: "CommandBrain01" }, // Command Turret Mantis Tracks
 
 npmrept: { body: "Body8MBT", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Scorpion Tracks
 

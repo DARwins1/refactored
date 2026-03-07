@@ -338,6 +338,54 @@
 	},
 
 
+	"object_9": {
+		"label": "npTruck5",
+		"id": 3727,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_10": {
+		"label": "npTruck1",
+		"id": 3723,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_11": {
+		"label": "npTruck2",
+		"id": 3724,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_12": {
+		"label": "npTruck3",
+		"id": 3725,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_13": {
+		"label": "npTruck4",
+		"id": 3726,
+		"player": 1,
+		"type": 0
+	},
+
+
+	"object_14": {
+		"label": "npTruck6",
+		"id": 3728,
+		"player": 1,
+		"type": 0
+	},
+
+
 	"radius_0": {
 		"label": "RemoveBeacon",
 		"pos": [7168, 13888],
