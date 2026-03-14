@@ -872,7 +872,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD2.pie"
+            "blguardn.pie"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -904,7 +904,30 @@
         ],
         "width": 1
     },
-    "CO-Tower-HMG": {
+    "CO-GuardTower6": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "CO-GuardTower6",
+        "name": "Collective Mini-Rocket Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "blguardn.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-Pod"
+        ],
+        "width": 1
+    },
+    "CO-Tower-MG3": {
         "armour": 10,
         "breadth": 1,
         "buildPoints": 300,
@@ -912,7 +935,7 @@
         "ecmID": "ZNULLECM",
         "height": 2,
         "hitpoints": 600,
-        "id": "CO-Tower-HMG",
+        "id": "CO-Tower-MG3",
         "name": "Collective Heavy Machinegun Tower",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
@@ -950,7 +973,7 @@
         ],
         "width": 1
     },
-    "CO-WallTower-HvATRkt": {
+    "CO-Tower-HvATRkt": {
         "armour": 15,
         "breadth": 1,
         "buildPoints": 400,
@@ -958,7 +981,7 @@
         "ecmID": "ZNULLECM",
         "height": 2,
         "hitpoints": 800,
-        "id": "CO-WallTower-HvATRkt",
+        "id": "CO-Tower-HvATRkt",
         "name": "Collective Tank Killer Hardpoint",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",

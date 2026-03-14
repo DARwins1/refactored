@@ -77,8 +77,8 @@ function getDroidsForNXLZ()
 	//Choose 10 out of this big pile of units
 	const COUNT = 10;
 	const units = [cTempl.npmbbht, cTempl.npmmct, cTempl.npmsensht, cTempl.npmhmgh, cTempl.nphhct, cTempl.npmmorbht, cTempl.nplatht,
-	 cTempl.cohct, cTempl.comrlt, cTempl.comagt, cTempl.comhpv, cTempl.comhltat, cTempl.cohript, cTempl.comit, cTempl.comrotmh, cTempl.cohbbt, cTempl.cohact,
-	  cTempl.cybla, cTempl.npcybg, cTempl.coscymc, cTempl.cocybtf, cTempl.cocybag, cTempl.coscyac, cTempl.coscytk]; 
+	 cTempl.cohhct, cTempl.commrat, cTempl.comagt, cTempl.comhpvt, cTempl.comhatt, cTempl.cohript, cTempl.comit, cTempl.comrotmt, cTempl.cohbbt, cTempl.cohact,
+	  cTempl.cybla, cTempl.npcybg, cTempl.scymc, cTempl.cybth, cTempl.cybag, cTempl.scyac, cTempl.scytk]; 
 
 	const droids = [];
 	for (let i = 0; i < COUNT; ++i)

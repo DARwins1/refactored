@@ -208,7 +208,7 @@ function camSetRefillableGroupData(group, groupData)
 	};
 }
 
-//;; ## camGetRefillableGroupTemplates(group, allTemplates)
+//;; ## camGetRefillableGroupTemplates(group[, allTemplates])
 //;;
 //;; Returns the templates of the units currently missing from the group
 //;; If `allTemplates` is true, then returns the entire group template list instead

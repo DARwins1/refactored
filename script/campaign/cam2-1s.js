@@ -1,22 +1,25 @@
-/*
-SUB_2_1S campaign script
-Authors: Cristian Odorico (Alpha93) / KJeff01
- */
 include("script/campaign/libcampaign.js");
+
+const mis_Labels = {
+	startPos: {x: 88, y: 101},
+	lz: {x: 86, y: 99, x2: 88, y2: 101},
+	trPlace: {x: 87, y: 100},
+	trExit: {x: 70, y: 126}
+};
 
 function eventStartLevel()
 {
-	//Set Victory Conditions
-	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "SUB_2_1");
-	//Setup Transport
-	camSetupTransporter(87, 100, 70, 126);
-	//Centre View on Area
-	centreView(88, 101);
-	//Setup Landing Zone
-	setNoGoArea(86, 99, 88, 101, CAM_HUMAN_PLAYER);
-	setNoGoArea(49, 83, 51, 85, CAM_THE_COLLECTIVE);
-	//Set Mission Time
+	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.beta2.offWorld);
+	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
+	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
+	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
-	//Give player briefings
 	camPlayVideos([{video: "MB2_1_MSG", type: CAMP_MSG}, {video: "MB2_1_MSG2", type: MISS_MSG}]);
+
+	// Darken the fog to 1/2 default brightness
+	camSetFog(8, 8, 32);
+	// Darken the lighting and add a slight blue hue
+	camSetSunIntensity(.35, .35, .45);
+	// Move the sun towards the west
+	camSetSunPos(425, -300, 350);
 }

@@ -7,13 +7,13 @@
         "C1A-C_LZ4": { "audio": "pcv396.ogg", "message": "NPLZ_MSG", "type": 0, "x": 9792, "y": 12224, "z": 0 },
         "C1A-C_LZ5": { "audio": "pcv396.ogg", "message": "NPLZ_MSG", "type": 0, "x": 1728, "y": 9024, "z": 0 },
         "C1A-C_LZ6": { "audio": "pcv396.ogg", "message": "NPLZ_MSG", "type": 0, "x": 1216, "y": 2112, "z": 0 },
-        "C1A-C_WAVE1": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15680, "y": 15936, "z": 0 },
-        "C1A-C_WAVE2": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 11968, "y": 15936, "z": 0 },
-        "C1A-C_WAVE3": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 12736, "y": 448, "z": 0 },
-        "C1A-C_WAVE4": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15168, "y": 448, "z": 0 },
-        "C1A-C_WAVE5": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 9664, "y": 448, "z": 0 },
-        "C1A-C_WAVE6": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15936, "y": 4544, "z": 0 },
-        "C1A-C_WAVE7": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 448, "y": 7616, "z": 0 },
-        "C1A-C_WAVE8": { "audio": "pcv396.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 448, "y": 3904, "z": 0 }
+        "C1A-C_WAVE1": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15680, "y": 15936, "z": 0 },
+        "C1A-C_WAVE2": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 11968, "y": 15936, "z": 0 },
+        "C1A-C_WAVE3": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 12736, "y": 448, "z": 0 },
+        "C1A-C_WAVE4": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15168, "y": 448, "z": 0 },
+        "C1A-C_WAVE5": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 9664, "y": 448, "z": 0 },
+        "C1A-C_WAVE6": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15936, "y": 4544, "z": 0 },
+        "C1A-C_WAVE7": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 448, "y": 7616, "z": 0 },
+        "C1A-C_WAVE8": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 448, "y": 3904, "z": 0 }
     }
 }

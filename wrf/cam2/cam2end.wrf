@@ -1,0 +1,15 @@
+/*
+ * Cam2End.wrf
+ *
+ */
+
+/* Directory for Proximity messages and mission briefs */
+directory	"messages"
+file		FLIC		"brief2-dii.json"
+file		PROX		"prox2e.json"
+
+directory "script"
+file JAVASCRIPT "rules.js"
+
+directory	"script/campaign"
+file		JAVASCRIPT		"cam2-end.js"

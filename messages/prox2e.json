@@ -1,0 +1,28 @@
+{
+    "type": "wz2100.proxmsgs.v1",
+    "msgs": {
+        "C2E_LZ1": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 4160, "y": 13888, "z": 0 },
+        "C2E_LZ2": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 2368, "y": 2240, "z": 0 },
+        "C2E_LZ3": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 2624, "y": 6208, "z": 0 },
+        "C2E_LZ4": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 8512, "y": 1216, "z": 0 },
+        "C2E_LZ5": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 13120, "y": 2752, "z": 0 },
+        "C2E_LZ6": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 7872, "y": 5440, "z": 0 },
+        "C2E_LZ7": { "audio": "pcv396.ogg", "message": "COLZ_MSG", "type": 0, "x": 15168, "y": 15040, "z": 0 },
+        "C2E_G_ENTRY1": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 6720, "y": 15808, "z": 0 },
+        "C2E_G_ENTRY2": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 1088, "y": 15808, "z": 0 },
+        "C2E_G_ENTRY3": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 576, "y": 14400, "z": 0 },
+        "C2E_G_ENTRY4": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 576, "y": 8768, "z": 0 },
+        "C2E_G_ENTRY5": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 576, "y": 569, "z": 0 },
+        "C2E_G_ENTRY6": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 5824, "y": 576, "z": 0 },
+        "C2E_G_ENTRY7": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 12224, "y": 576, "z": 0 },
+        "C2E_G_ENTRY8": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15552, "y": 576, "z": 0 },
+        "C2E_G_ENTRY9": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15808, "y": 4416, "z": 0 },
+        "C2E_G_ENTRY10": { "audio": "pcv378.ogg", "message": "ENEMYUNIT_MSG", "type": 0, "x": 15808, "y": 15808, "z": 0 },
+        "C2E_A_ENTRY1": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 12736, "y": 448, "z": 0 },
+        "C2E_A_ENTRY2": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 15936, "y": 8384, "z": 0 },
+        "C2E_A_ENTRY3": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 15936, "y": 3648, "z": 0 },
+        "C2E_A_ENTRY4": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 4672, "y": 448, "z": 0 },
+        "C2E_A_ENTRY5": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 448, "y": 3648, "z": 0 },
+        "C2E_A_ENTRY6": { "audio": "pcv378.ogg", "message": "ENEMYVTOL_MSG", "type": 0, "x": 448, "y": 12992, "z": 0 },
+    }
+}

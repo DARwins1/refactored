@@ -1,138 +1,319 @@
 {
 	"position_0": {
 		"label": "startPosition",
-		"pos": [704, 704]
+		"pos": [1344, 1088]
 	},
+
+
 	"position_1": {
 		"label": "transporterEntry",
-		"pos": [128, 640]
+		"pos": [70, 1270]
 	},
+
+
 	"position_2": {
 		"label": "transporterExit",
-		"pos": [1408, 128]
+		"pos": [1785, 76]
 	},
+
+
 	"position_3": {
-		"label": "vtolAppearPos",
-		"pos": [5952, 7872]
+		"label": "COCentralAssembly",
+		"pos": [7100, 5946]
 	},
+
+
 	"position_4": {
-		"label": "vtolRemovePos",
-		"pos": [128, 2560]
+		"label": "COHoverAssembly",
+		"pos": [8329, 8716]
 	},
+
+
 	"position_5": {
-		"label": "northGate",
-		"pos": [3648, 1984]
+		"label": "hoverPatrolPos1",
+		"pos": [1095, 5213]
 	},
+
+
 	"position_6": {
-		"label": "southGate",
-		"pos": [5056, 7616]
+		"label": "hoverPatrolPos2",
+		"pos": [2456, 3260]
 	},
+
+
 	"position_7": {
-		"label": "westOfBase",
-		"pos": [2240, 440]
+		"label": "hoverPatrolPos3",
+		"pos": [4228, 6176]
 	},
+
+
 	"position_8": {
-		"label": "northDefense",
-		"pos": [4160, 1216]
+		"label": "hoverPatrolPos4",
+		"pos": [4452, 8803]
 	},
+
+
 	"position_9": {
-		"label": "uplinkPos",
-		"pos": [4600, 4800]
-	},
-	"position_10": {
-		"label": "COHeavyFactoryAssembly",
-		"pos": [5248, 3200]
-	},
-	"position_11": {
 		"label": "COSouthCyborgFactoryAssembly",
-		"pos": [4160, 3776]
+		"pos": [5305, 7468]
 	},
+
+
+	"position_10": {
+		"label": "eastPatrolPos1",
+		"pos": [7292, 3695]
+	},
+
+
+	"position_11": {
+		"label": "eastPatrolPos2",
+		"pos": [5746, 1409]
+	},
+
+
+	"position_12": {
+		"label": "eastPatrolPos3",
+		"pos": [3963, 3496]
+	},
+
+
+	"position_13": {
+		"label": "eastPatrolPos4",
+		"pos": [9081, 2182]
+	},
+
+
+	"position_14": {
+		"label": "southPatrolPos1",
+		"pos": [2350, 9342]
+	},
+
+
+	"position_15": {
+		"label": "southPatrolPos2",
+		"pos": [3144, 6229]
+	},
+
+
+	"position_16": {
+		"label": "southPatrolPos3",
+		"pos": [3916, 4637]
+	},
+
 
 	"area_0": {
-		"label": "landingZone",
-		"pos1": [640, 512],
-		"pos2": [896, 640]
-	},
-	"area_1": {
-		"label": "RTLZ",
-		"pos1": [0, 0],
-		"pos2": [2048, 2048]
-	},
-	"area_2": {
 		"label": "baseCleanup",
-		"pos1": [1000, 1000],
-		"pos2": [7000, 7000]
-	},
-	"area_3": {
-		"label": "uplinkClearArea",
-		"pos1": [4200, 4200],
-		"pos2": [5400, 5400]
-	},
-	"area_4": {
-		"label": "COLandingZone",
-		"pos1": [5376, 3584],
-		"pos2": [5632, 3840]
+		"pos1": [3072, 3072],
+		"pos2": [9088, 9088]
 	},
 
+
+	"area_1": {
+		"label": "vtolBaseCleanup",
+		"pos1": [384, 5632],
+		"pos2": [2304, 8064]
+	},
+
+
+	"area_2": {
+		"label": "RTLZ",
+		"pos1": [0, 0],
+		"pos2": [2304, 2304]
+	},
+
+
+	"area_3": {
+		"label": "landingZone",
+		"pos1": [1152, 896],
+		"pos2": [1408, 1152]
+	},
+
+
+	"area_4": {
+		"label": "cybAmbushGroup",
+		"pos1": [9216, 384],
+		"pos2": [9856, 640]
+	},
+
+
+	"area_5": {
+		"label": "eastComGroup",
+		"pos1": [8576, 2816],
+		"pos2": [9472, 3072]
+	},
+
+
+	"area_6": {
+		"label": "southComGroup",
+		"pos1": [1024, 8448],
+		"pos2": [1920, 8704]
+	},
+
+
 	"object_0": {
-		"label": "COCommandCenter",
-		"id": 2414,
+		"label": "coTruck1",
+		"id": 4312,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_1": {
+		"label": "COCentralFactoryR",
+		"id": 4300,
 		"player": 2,
 		"type": 1
 	},
-	"object_1": {
+
+
+	"object_2": {
+		"label": "COCentralFactoryL",
+		"id": 4538,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "CONorthCyborgFactory1",
+		"id": 4690,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_4": {
+		"label": "COSouthCyborgFactory",
+		"id": 4265,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_5": {
+		"label": "COCommandCenter",
+		"id": 4262,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_6": {
+		"label": "COCommandRelay",
+		"id": 4263,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_7": {
+		"label": "COHowitzerEmplacement",
+		"id": 4334,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_8": {
 		"label": "uplink",
-		"id": 3223,
+		"id": 4304,
 		"player": 1,
 		"type": 1
 	},
-	"object_2": {
-		"label": "COHeavyFactoryA",
-		"id": 4378,
-		"player": 2,
-		"type": 1
-	},
-	"object_3": {
-		"label": "COSouthCyborgFactory",
-		"id": 2419,
-		"player": 2,
-		"type": 1
-	},
-	"object_4": {
+
+
+	"object_9": {
 		"label": "COResearchLab",
-		"id": 4172,
-		"player": 2,
-		"type": 1
-	},
-	"object_5": {
-		"label": "COCommandRelay",
-		"id": 2415,
-		"player": 2,
-		"type": 1
-	},
-	"object_6": {
-		"label": "COHeavyFactoryB",
-		"id": 4380,
-		"player": 2,
-		"type": 1
-	},
-	"object_7": {
-		"label": "COHeavyFactoryC",
-		"id": 4376,
-		"player": 2,
-		"type": 1
-	},
-	"object_8": {
-		"label": "COHeavyFactoryD",
-		"id": 4374,
+		"id": 4337,
 		"player": 2,
 		"type": 1
 	},
 
-	"radius_0": {
-		"label": "vtolRemoveZone",
-		"subscriber": 2,
-		"pos": [128, 2560],
-		"radius": 200
+
+	"object_10": {
+		"label": "coVtolCBTower",
+		"id": 4408,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_11": {
+		"label": "coTruck2",
+		"id": 4349,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_12": {
+		"label": "CONorthCyborgFactory2",
+		"id": 4689,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_13": {
+		"label": "COHoverFactory",
+		"id": 4536,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_14": {
+		"label": "coVtolTowerW",
+		"id": 4399,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_15": {
+		"label": "coVtolTowerNE",
+		"id": 4766,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_16": {
+		"label": "coVtolTowerC",
+		"id": 4776,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_17": {
+		"label": "COVtolFactory",
+		"id": 4366,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_18": {
+		"label": "coCommanderEast",
+		"id": 4821,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_19": {
+		"label": "coCommanderSouth",
+		"id": 4820,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_20": {
+		"label": "coTruck3",
+		"id": 4852,
+		"player": 2,
+		"type": 0
 	}
 }

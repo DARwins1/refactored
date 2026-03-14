@@ -1,0 +1,8 @@
+{
+    "type": "wz2100.proxmsgs.v1",
+    "msgs": {
+        "C2A_BASE1": { "audio": "pcv393.ogg", "message": "COLBASE_MSG", "type": 0, "x": 13120, "y": 9792, "z": 256 },
+        "C2A_BASE2": { "audio": "pcv393.ogg", "message": "COLBASE_MSG", "type": 0, "x": 10816, "y": 9920, "z": 64 },
+        "C2A_BASE3": { "audio": "pcv396.ogg", "message": "COLLZ_MSG", "type": 0, "x": 15040, "y": 15040, "z": 64 }
+    }
+}

@@ -335,7 +335,7 @@
         "msgName": "RES_CY_AH1",
         "name": "Cyborg Thermal Armor",
         "requiredResearch": [
-            "R-Cyborg-Metals05"
+            "R-Cyborg-Metals04"
         ],
         "researchPoints": 1100,
         "researchPower": 112,
@@ -356,7 +356,7 @@
         "imdName": "icamrhot.pie",
         "name": "Cyborg Thermal Armor Mk2",
         "requiredResearch": [
-            "R-Cyborg-Metals06",
+            "R-Cyborg-Metals05",
             "R-Cyborg-Armor-Heat01"
         ],
         "researchPoints": 1500,
@@ -379,6 +379,7 @@
         "imdName": "icamrhot.pie",
         "name": "Cyborg Thermal Armor Mk3",
         "requiredResearch": [
+            "R-Cyborg-Metals06",
             "R-Cyborg-Armor-Heat02"
         ],
         "researchPoints": 1900,
@@ -489,6 +490,9 @@
         "id": "R-Cyborg-Hvywpn-Acannon",
         "msgName": "RES_CYW_H_AC",
         "name": "Super Auto-Cannon Cyborg",
+        "redComponents": [
+            "Cyb-Hvywpn-Mcannon"
+        ],
         "requiredResearch": [
             "R-Wpn-Cannon5",
             "R-Cyborg-Hvywpn-HPV"
@@ -507,7 +511,6 @@
         "name": "Super HPC Cyborg",
         "requiredResearch": [
             "R-Cyborg-Hvywpn-Mcannon",
-            "R-Struc-Research-Upgrade02",
             "R-Wpn-Cannon4AMk1"
         ],
         "researchPoints": 1900,
@@ -522,6 +525,9 @@
         "id": "R-Cyborg-Hvywpn-Mcannon",
         "msgName": "RES_CYW_H_MC",
         "name": "Super Heavy-Gunner",
+        "redComponents": [
+            "CyborgCannon"
+        ],
         "requiredResearch": [
             "R-Wpn-Cannon2Mk1",
             "R-Cyborg-Metals03"
@@ -554,11 +560,14 @@
         "statID": "Cyb-Hvywpn-Grenade"
     },
     "R-Cyborg-Hvywpn-PulseLsr": {
-    "disabledWhen": 2,
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Hvywpn-PulseLsr",
         "msgName": "RES_CYW_H_PLAS",
         "name": "Super Pulse Laser Cyborg",
+        "redComponents": [
+            "CyborgRotMG",
+            "Cyb-Wpn-Laser"
+        ],
         "requiredResearch": [
             "R-Wpn-Laser02"
         ],
@@ -577,7 +586,8 @@
         "redComponents": [
             "Cyb-Hvywpn-HPV",
             "Cyb-Hvywpn-Mcannon",
-            "Cyb-Hvywpn-Acannon"
+            "Cyb-Hvywpn-Acannon",
+            "Cyb-Wpn-Rail1"
         ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
@@ -594,6 +604,9 @@
         "id": "R-Cyborg-Hvywpn-TK",
         "msgName": "RES_CYW_H_TK",
         "name": "Super Tank-Killer Cyborg",
+        "redComponents": [
+            "CyborgRocket"
+        ],
         "requiredResearch": [
             "R-Cyborg-Metals04",
             "R-Wpn-Rocket07-Tank-Killer"
@@ -660,6 +673,9 @@
         "name": "Thermite Flamer Cyborg",
         "redComponents": [
             "CyborgFlamer01"
+        ],
+        "replacedComponents": [
+            "CyborgFlamer01:Cyb-Wpn-Thermite"
         ],
         "requiredResearch": [
             "R-Wpn-Flame2",
@@ -743,7 +759,8 @@
         "msgName": "RES_CYW_MG4",
         "name": "Assault Gunner Cyborg",
         "replacedComponents": [
-            "CyborgChaingun:CyborgRotMG"
+            "CyborgChaingun:CyborgRotMG",
+            "CyborgHeavyChaingun:CyborgRotMG"
         ],
         "requiredResearch": [
             "R-Wpn-MG4"
@@ -990,7 +1007,7 @@
         "id": "R-Wpn-Cannon-Damage05",
         "name": "APFSDS Cannon Rounds Mk2",
         "requiredResearch": [
-            "R-Wpn-Cannon3Mk1",
+            "R-Wpn-Cannon4AMk1",
             "R-Wpn-Cannon-Damage04"
         ],
         "researchPoints": 2100,
@@ -1020,7 +1037,7 @@
         "id": "R-Wpn-Cannon-Damage06",
         "name": "APFSDS Cannon Rounds Mk3",
         "requiredResearch": [
-            "R-Wpn-Cannon5",
+            "R-Wpn-Cannon3Mk1",
             "R-Wpn-Cannon-Damage05"
         ],
         "researchPoints": 2400,
@@ -1078,6 +1095,7 @@
     "R-Wpn-Cannon-Damage08": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Cannon-Damage08",
+        "keyTopic": 1,
         "name": "HVAPFSDS Cannon Rounds Mk2",
         "requiredResearch": [
             "R-Wpn-Cannon-Damage07"
@@ -1170,7 +1188,7 @@
         "name": "Cannon Autoloader Mk2",
         "requiredResearch": [
             "R-Wpn-Cannon-ROF01",
-            "R-Struc-Factory-Upgrade02"
+            "R-Wpn-Rocket-ROF02"
         ],
         "researchPoints": 1600,
         "researchPower": 187,
@@ -1257,6 +1275,7 @@
     "R-Wpn-Cannon-ROF05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Cannon-ROF05",
+        "keyTopic": 1,
         "name": "Cannon Rapid Loader Mk2",
         "requiredResearch": [
             "R-Wpn-Cannon-ROF04"
@@ -1370,6 +1389,7 @@
         "msgName": "RES_W_CN_4A",
         "name": "Hyper Velocity Cannon",
         "redComponents": [
+            "Cannon1Mk1",
             "Cannon1-VTOL"
         ],
         "requiredResearch": [
@@ -1390,7 +1410,7 @@
         "msgName": "RES_W_CN5",
         "name": "Assault Cannon",
         "redComponents": [
-            "Cannon1Mk1"
+            "Cannon2A-TMk1"
         ],
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
@@ -1558,7 +1578,7 @@
         "name": "Superhot Flamer Gel Mk3",
         "requiredResearch": [
             "R-Wpn-Flamer-Damage05",
-            "R-Wpn-Flamer-ROF03"
+            "R-Struc-Research-Upgrade02"
         ],
         "researchPoints": 2100,
         "researchPower": 350,
@@ -1585,11 +1605,11 @@
     "R-Wpn-Flamer-Damage07": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Flamer-Damage07",
+        "keyTopic": 1,
         "msgName": "RES_W_FL_D7",
         "name": "Superhot Plasmite Gel",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage06",
-            "R-Wpn-Plasmite-Flamer"
+            "R-Wpn-Flamer-Damage06"
         ],
         "researchPoints": 2400,
         "researchPower": 412,
@@ -1609,7 +1629,7 @@
                 "value": 25
             }
         ],
-        "statID": "PlasmiteFlamer",
+        "statID": "Flame2",
         "subgroupIconID": "IMAGE_RES_GRPDAM"
     },
     "R-Wpn-Flamer-Damage08": {
@@ -1617,7 +1637,8 @@
         "id": "R-Wpn-Flamer-Damage08",
         "name": "Superhot Plasmite Gel Mk2",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage07"
+            "R-Wpn-Flamer-Damage07",
+            "R-Wpn-Flamer-Plasmite"
         ],
         "researchPoints": 2800,
         "researchPower": 450,
@@ -1646,7 +1667,8 @@
         "id": "R-Wpn-Flamer-Damage09",
         "name": "Superhot Plasmite Gel Mk3",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage08"
+            "R-Wpn-Flamer-Damage08",
+            "R-Wpn-Energy-Damage03"
         ],
         "researchPoints": 3200,
         "researchPower": 450,
@@ -1737,7 +1759,7 @@
         "name": "Flamer Autoloader Mk3",
         "requiredResearch": [
             "R-Wpn-Flamer-ROF02",
-            "R-Struc-Research-Upgrade02"
+            "R-Wpn-Flamer-Plasmite"
         ],
         "researchPoints": 2700,
         "researchPower": 350,
@@ -1788,7 +1810,7 @@
         ],
         "requiredResearch": [
             "R-Wpn-Flamer-Damage03",
-            "R-Wpn-Flamer-ROF01"
+            "R-Wpn-Flamer01Mk1"
         ],
         "researchPoints": 1800,
         "researchPower": 225,
@@ -1797,9 +1819,9 @@
         ],
         "statID": "Flame2"
     },
-    "R-Wpn-Plasmite-Flamer": {
+    "R-Wpn-Flamer-Plasmite": {
         "iconID": "IMAGE_RES_WEAPONTECH",
-        "id": "R-Wpn-Plasmite-Flamer",
+        "id": "R-Wpn-Flamer-Plasmite",
         "keyTopic": 1,
         "msgName": "RES_PLFL",
         "name": "Plasmite Flamer",
@@ -1807,8 +1829,7 @@
             "Flame2"
         ],
         "requiredResearch": [
-            "R-Wpn-Flame2",
-            "R-Struc-Research-Upgrade03"
+            "R-Wpn-Flame2"
         ],
         "researchPoints": 3600,
         "researchPower": 225,
@@ -1911,10 +1932,10 @@
     "R-Wpn-MG-Damage05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-Damage05",
+        "keyTopic": 1,
         "msgName": "RES_W_MG_D5",
         "name": "Tungsten-Tipped MG Bullets",
         "requiredResearch": [
-            "R-Wpn-MG-ROF02",
             "R-Wpn-MG-Damage04"
         ],
         "researchPoints": 1800,
@@ -1937,7 +1958,7 @@
         "name": "Tungsten-Tipped MG Bullets Mk2",
         "requiredResearch": [
             "R-Wpn-MG-Damage05",
-            "R-Wpn-MG-ROF03"
+            "R-Wpn-MG-ROF02"
         ],
         "researchPoints": 2100,
         "researchPower": 212,
@@ -1980,11 +2001,11 @@
     "R-Wpn-MG-Damage08": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-Damage08",
-        "keyTopic": 1,
         "msgName": "RES_W_MG_D8",
         "name": "Depleted Uranium MG Bullets",
         "requiredResearch": [
-            "R-Wpn-MG-Damage07"
+            "R-Wpn-MG-Damage07",
+            "R-Wpn-MG-ROF03"
         ],
         "researchPoints": 2700,
         "researchPower": 287,
@@ -2003,6 +2024,7 @@
     "R-Wpn-MG-Damage09": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-Damage09",
+        "keyTopic": 1,
         "name": "Depleted Uranium MG Bullets Mk2",
         "requiredResearch": [
             "R-Wpn-MG-Damage08"
@@ -2055,11 +2077,11 @@
     "R-Wpn-MG-ROF02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-ROF02",
-        "keyTopic": 1,
         "msgName": "RES_W_MG_ROF2",
         "name": "Rapid Fire Chaingun Upgrade",
         "requiredResearch": [
-            "R-Wpn-MG-ROF01"
+            "R-Wpn-MG-ROF01",
+            "R-Struc-Factory-Upgrade02"
         ],
         "researchPoints": 1600,
         "researchPower": 150,
@@ -2085,11 +2107,11 @@
     "R-Wpn-MG-ROF03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-ROF03",
-        "keyTopic": 1,
         "msgName": "RES_W_MG_ROF3",
         "name": "Hyper Fire Chaingun Upgrade",
         "requiredResearch": [
-            "R-Wpn-MG-ROF02"
+            "R-Wpn-MG-ROF02",
+            "R-Struc-Factory-Upgrade03"
         ],
         "researchPoints": 2100,
         "researchPower": 212,
@@ -2186,7 +2208,7 @@
         "requiredResearch": [
             "R-Wpn-MG3Mk1",
             "R-Wpn-MG-Damage05",
-            "R-Wpn-MG-ROF03"
+            "R-Wpn-MG-ROF02"
         ],
         "researchPoints": 2400,
         "researchPower": 225,
@@ -2263,8 +2285,7 @@
         "name": "Target Acquisition Mortar Shells",
         "requiredResearch": [
             "R-Wpn-Mortar-Acc02",
-            "R-Wpn-Howitzer-Accuracy02",
-            "R-Struc-Research-Upgrade02"
+            "R-Wpn-Howitzer-Accuracy02"
         ],
         "researchPoints": 2200,
         "researchPower": 287,
@@ -2404,8 +2425,7 @@
         "msgName": "RES_W_M_D4",
         "name": "HEAP Mortar Shells",
         "requiredResearch": [
-            "R-Wpn-Mortar-Damage03",
-            "R-Wpn-Howitzer-Damage01"
+            "R-Wpn-Mortar-Damage03"
         ],
         "researchPoints": 2000,
         "researchPower": 287,
@@ -2440,7 +2460,8 @@
         "id": "R-Wpn-Mortar-Damage05",
         "name": "HEAP Mortar Shells Mk2",
         "requiredResearch": [
-            "R-Wpn-Mortar-Damage04"
+            "R-Wpn-Mortar-Damage04",
+            "R-Wpn-Cannon-Damage05"
         ],
         "researchPoints": 2400,
         "researchPower": 350,
@@ -2477,7 +2498,7 @@
         "name": "HEAP Mortar Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage05",
-            "R-Wpn-Cannon-Damage06"
+            "R-Wpn-Mortar3"
         ],
         "researchPoints": 2800,
         "researchPower": 412,
@@ -2543,7 +2564,8 @@
         "id": "R-Wpn-Mortar-ROF02",
         "name": "Mortar Autoloader Mk2",
         "requiredResearch": [
-            "R-Wpn-Cannon-ROF02"
+            "R-Wpn-Mortar-ROF01",
+            "R-Wpn-Rocket-ROF02"
         ],
         "researchPoints": 1800,
         "researchPower": 187,
@@ -2572,7 +2594,8 @@
         "id": "R-Wpn-Mortar-ROF03",
         "name": "Mortar Autoloader Mk3",
         "requiredResearch": [
-            "R-Wpn-Cannon-ROF03"
+            "R-Wpn-Mortar-ROF02",
+            "R-Wpn-Mortar3"
         ],
         "researchPoints": 2400,
         "researchPower": 250,
@@ -2671,8 +2694,7 @@
             "Mortar1Mk1"
         ],
         "requiredResearch": [
-            "R-Wpn-Mortar02Hvy",
-            "R-Wpn-Mortar-ROF03"
+            "R-Wpn-Mortar02Hvy"
         ],
         "researchPoints": 2800,
         "researchPower": 312,
@@ -2775,11 +2797,11 @@
     "R-Wpn-Rocket-Accuracy04": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-Accuracy04",
-        "keyTopic": 1,
         "msgName": "RES_W_SRK_AC3",
         "name": "Thermal Imaging Rockets",
         "requiredResearch": [
-            "R-Wpn-Rocket-Accuracy03"
+            "R-Wpn-Rocket-Accuracy03",
+            "R-Wpn-Rocket08-Ballista"
         ],
         "researchPoints": 2300,
         "researchPower": 225,
@@ -2924,10 +2946,10 @@
     "R-Wpn-Rocket-Damage05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-Damage05",
-        "keyTopic": 1,
         "name": "HEAT Rocket Warhead Mk2",
         "requiredResearch": [
-            "R-Wpn-Rocket-Damage04"
+            "R-Wpn-Rocket-Damage04",
+            "R-Wpn-Rocket06-IDF"
         ],
         "researchPoints": 2200,
         "researchPower": 187,
@@ -2957,7 +2979,7 @@
         "name": "HEAT Rocket Warhead Mk3",
         "requiredResearch": [
             "R-Wpn-Rocket-Damage05",
-            "R-Wpn-Rocket06-IDF"
+            "R-Wpn-Rocket07-Tank-Killer"
         ],
         "researchPoints": 2600,
         "researchPower": 250,
@@ -3044,11 +3066,10 @@
     "R-Wpn-Rocket-ROF02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-ROF02",
-        "keyTopic": 1,
         "name": "Rocket Autoloader Mk2",
         "requiredResearch": [
             "R-Wpn-Rocket-ROF01",
-            "R-Wpn-Rocket-Damage02"
+            "R-Wpn-Rocket02-MRLHvy"
         ],
         "researchPoints": 2000,
         "researchPower": 112,
@@ -3075,10 +3096,10 @@
     "R-Wpn-Rocket-ROF03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-ROF03",
-        "keyTopic": 1,
         "name": "Rocket Autoloader Mk3",
         "requiredResearch": [
-            "R-Wpn-Rocket-ROF02"
+            "R-Wpn-Rocket-ROF02",
+            "R-Wpn-Rocket-Damage07"
         ],
         "researchPoints": 2600,
         "researchPower": 225,
@@ -3135,6 +3156,25 @@
         ],
         "statID": "Rocket-MRL"
     },
+    "R-Wpn-Rocket02-MRLHvy": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-Rocket02-MRLHvy",
+        "keyTopic": 1,
+        "msgName": "RES_W_RK_MRL2",
+        "name": "Heavy Rocket Array",
+        "redComponents": [
+            "Rocket-MRL"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRL"
+        ],
+        "researchPoints": 1600,
+        "researchPower": 123,
+        "resultComponents": [
+            "Rocket-MRL-Hvy"
+        ],
+        "statID": "Rocket-MRL-Hvy"
+    },
     "R-Wpn-Rocket03-HvAT": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket03-HvAT",
@@ -3177,7 +3217,7 @@
         "name": "Ripple Rockets",
         "requiredResearch": [
             "R-Wpn-Rocket02-MRL",
-            "R-Sys-CBSensor-Tower01"
+            "R-Sys-CBSensor-Turret01"
         ],
         "researchPoints": 2400,
         "researchPower": 225,
@@ -3208,6 +3248,22 @@
             "Rocket-VTOL-HvyA-T"
         ],
         "statID": "Rocket-HvyA-T"
+    },
+    "R-Wpn-Rocket08-Ballista": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-Rocket08-Ballista",
+        "keyTopic": 1,
+        "msgName": "RES_W_RK_BALAT",
+        "name": "Ballista AT Rocket",
+        "requiredResearch": [
+            "R-Wpn-Rocket03-HvAT"
+        ],
+        "researchPoints": 2100,
+        "researchPower": 334,
+        "resultComponents": [
+            "Rocket-Ballista"
+        ],
+        "statID": "Rocket-Ballista"
     },
     "R-Wpn-AAGun-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
@@ -3274,7 +3330,7 @@
         "msgName": "RES_W_AAAC3",
         "name": "AA Target Prediction Computer",
         "requiredResearch": [
-            "R-Wpn-Rail-Accuracy01",
+            "R-Wpn-Missile-Accuracy01",
             "R-Wpn-AAGun-Accuracy02"
         ],
         "researchPoints": 2000,
@@ -3362,7 +3418,7 @@
         "name": "AA HE Flak Mk3",
         "requiredResearch": [
             "R-Wpn-AAGun-Damage02",
-            "R-Wpn-AAGun03"
+            "R-Wpn-AAGun02"
         ],
         "researchPoints": 1800,
         "researchPower": 262,
@@ -3389,6 +3445,7 @@
     "R-Wpn-AAGun-Damage04": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Damage04",
+        "keyTopic": 1,
         "msgName": "RES_W_AAD4",
         "name": "AA HEAP Flak",
         "requiredResearch": [
@@ -3419,6 +3476,7 @@
     "R-Wpn-AAGun-Damage05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Damage05",
+        "keyTopic": 1,
         "name": "AA HEAP Flak Mk2",
         "requiredResearch": [
             "R-Wpn-AAGun-Damage04"
@@ -3448,6 +3506,7 @@
     "R-Wpn-AAGun-Damage06": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Damage06",
+        "keyTopic": 1,
         "name": "AA HEAP Flak Mk3",
         "requiredResearch": [
             "R-Wpn-AAGun-Damage05"
@@ -3481,7 +3540,7 @@
         "name": "AA Ammunition Hopper",
         "requiredResearch": [
             "R-Wpn-MG-ROF01",
-            "R-Wpn-AAGun-Damage01"
+            "R-Wpn-AAGun03"
         ],
         "researchPoints": 1200,
         "researchPower": 112,
@@ -3509,7 +3568,8 @@
         "id": "R-Wpn-AAGun-ROF02",
         "name": "AA Ammunition Hopper Mk2",
         "requiredResearch": [
-            "R-Wpn-AAGun-ROF01"
+            "R-Wpn-AAGun-ROF01",
+            "R-Wpn-MG-ROF02"
         ],
         "researchPoints": 1600,
         "researchPower": 150,
@@ -3569,7 +3629,7 @@
         "msgName": "RES_W_AAROF4",
         "name": "AA Chainfeed Loader",
         "requiredResearch": [
-            "R-Wpn-Cannon-ROF04",
+            "R-Wpn-AAGun-Damage04",
             "R-Wpn-AAGun-ROF03"
         ],
         "researchPoints": 2400,
@@ -3598,7 +3658,8 @@
         "id": "R-Wpn-AAGun-ROF05",
         "name": "AA Chainfeed Loader Mk2",
         "requiredResearch": [
-            "R-Wpn-AAGun-ROF04"
+            "R-Wpn-AAGun-ROF04",
+            "R-Wpn-AAGun-Damage05"
         ],
         "researchPoints": 2800,
         "researchPower": 312,
@@ -3627,7 +3688,8 @@
         "id": "R-Wpn-AAGun-ROF06",
         "name": "AA Chainfeed Loader Mk3",
         "requiredResearch": [
-            "R-Wpn-AAGun-ROF05"
+            "R-Wpn-AAGun-ROF05",
+            "R-Wpn-AAGun-Damage06"
         ],
         "researchPoints": 3200,
         "researchPower": 375,
@@ -3707,12 +3769,12 @@
     "R-Wpn-Bomb-Damage01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Bomb-Damage01",
+        "keyTopic": 1,
         "imdName": "trlvtlhe.PIE",
         "msgName": "RES_W_BAC1",
         "name": "HE Bomb Shells",
         "requiredResearch": [
-            "R-Wpn-Bomb01",
-            "R-Wpn-Mortar-Acc02"
+            "R-Wpn-Bomb01"
         ],
         "researchPoints": 1600,
         "researchPower": 225,
@@ -3749,7 +3811,8 @@
         "msgName": "RES_W_BAC2",
         "name": "Improved Bomb Warhead",
         "requiredResearch": [
-            "R-Wpn-Bomb-Damage01"
+            "R-Wpn-Bomb-Damage01",
+            "R-Wpn-Howitzer-Damage04"
         ],
         "researchPoints": 2400,
         "researchPower": 287,
@@ -3781,12 +3844,12 @@
     "R-Wpn-Bomb-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Bomb-Damage03",
-        "keyTopic": 1,
         "imdName": "trlvtlhe.PIE",
         "msgName": "RES_W_BAC3",
         "name": "Advanced Bomb Warhead",
         "requiredResearch": [
-            "R-Wpn-Bomb-Damage02"
+            "R-Wpn-Bomb-Damage02",
+            "R-Wpn-Howitzer-Damage06"
         ],
         "researchPoints": 3200,
         "researchPower": 350,
@@ -3876,7 +3939,6 @@
             "Bomb3-VTOL-LtINC"
         ],
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage06",
             "R-Wpn-Bomb03",
             "R-Wpn-Bomb02"
         ],
@@ -3952,7 +4014,7 @@
         "msgName": "RES_W_HOWAC3",
         "name": "Target Prediction Artillery Shells",
         "requiredResearch": [
-            "R-Wpn-Rail-Accuracy01",
+            "R-Wpn-Missile-Accuracy01",
             "R-Wpn-Howitzer-Accuracy02"
         ],
         "researchPoints": 2200,
@@ -4017,7 +4079,8 @@
         "id": "R-Wpn-Howitzer-Damage02",
         "name": "HE Howitzer Shells Mk2",
         "requiredResearch": [
-            "R-Wpn-Howitzer-Damage01"
+            "R-Wpn-Howitzer-Damage01",
+            "R-Wpn-Cannon-Damage07"
         ],
         "researchPoints": 1600,
         "researchPower": 250,
@@ -4088,11 +4151,10 @@
     "R-Wpn-Howitzer-Damage04": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Howitzer-Damage04",
+        "keyTopic": 1,
         "msgName": "RES_W_HOWD4",
         "name": "HEAP Howitzer Shells",
         "requiredResearch": [
-            "R-Wpn-Howitzer03-Rot",
-            "R-Wpn-Cannon-Damage07",
             "R-Wpn-Howitzer-Damage03"
         ],
         "researchPoints": 2200,
@@ -4128,7 +4190,8 @@
         "id": "R-Wpn-Howitzer-Damage05",
         "name": "HEAP Howitzer Shells Mk2",
         "requiredResearch": [
-            "R-Wpn-Howitzer-Damage04"
+            "R-Wpn-Howitzer-Damage04",
+            "R-Struc-Research-Upgrade03"
         ],
         "researchPoints": 2500,
         "researchPower": 375,
@@ -4165,7 +4228,7 @@
         "name": "HEAP Howitzer Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Howitzer-Damage05",
-            "R-Wpn-Bomb-Damage03"
+            "R-Wpn-Howitzer03-Rot"
         ],
         "researchPoints": 2800,
         "researchPower": 437,
@@ -4230,8 +4293,8 @@
         "id": "R-Wpn-Howitzer-ROF02",
         "name": "Howitzer Autoloader Mk2",
         "requiredResearch": [
-            "R-Wpn-Mortar-ROF02",
-            "R-Wpn-Howitzer-ROF01"
+            "R-Wpn-Howitzer-ROF01",
+            "R-Wpn-Cannon-ROF04"
         ],
         "researchPoints": 2000,
         "researchPower": 250,
@@ -4260,7 +4323,7 @@
         "id": "R-Wpn-Howitzer-ROF03",
         "name": "Howitzer Autoloader Mk3",
         "requiredResearch": [
-            "R-Wpn-Mortar-ROF03",
+            "R-Wpn-HvyHowitzer",
             "R-Wpn-Howitzer-ROF02"
         ],
         "researchPoints": 2500,
@@ -4291,8 +4354,8 @@
         "msgName": "RES_W_HOWRF4",
         "name": "Howitzer Fast Loader",
         "requiredResearch": [
-            "R-Wpn-Mortar-ROF04",
-            "R-Wpn-Howitzer-ROF03"
+            "R-Wpn-Howitzer-ROF03",
+            "R-Wpn-Howitzer03-Rot"
         ],
         "researchPoints": 3000,
         "researchPower": 375,
@@ -4514,6 +4577,7 @@
     "R-Defense-WallUpgrade06": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallUpgrade06",
+        "keyTopic": 1,
         "imdName": "BLWALLH.PIE",
         "name": "Supercrete Mk3",
         "requiredResearch": [
@@ -4574,6 +4638,7 @@
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallUpgrade08",
         "imdName": "BLWALLH.PIE",
+        "keyTopic": 1,
         "name": "Plascrete Mk2",
         "requiredResearch": [
             "R-Defense-WallUpgrade07"
@@ -4635,7 +4700,8 @@
         "name": "Scourge Missile Tower",
         "redStructures": [
             "GuardTower5",
-            "GuardTower6"
+            "GuardTower6",
+            "GuardTower-TK"
         ],
         "requiredResearch": [
             "R-Wpn-Missile2A-T"
@@ -4679,6 +4745,40 @@
             "PillBoxTK"
         ],
         "statID": "PillBoxTK"
+    },
+    "R-Defense-HvyAT-Tower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-HvyAT-Tower",
+        "msgName": "RES_EMP_TKTOW",
+        "name": "Tank Killer Tower",
+        "redStructures": [
+            "GuardTower5",
+            "GuardTower6H"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Rocket07-Tank-Killer"
+        ],
+        "researchPoints": 900,
+        "researchPower": 136,
+        "resultStructures": [
+            "GuardTower-TK"
+        ],
+        "statID": "GuardTower-TK"
+    },
+    "R-Defense-Ballista": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-Ballista",
+        "msgName": "RES_EMP_BALAT",
+        "name": "Ballista Emplacement",
+        "requiredResearch": [
+            "R-Wpn-Rocket08-Ballista"
+        ],
+        "researchPoints": 950,
+        "researchPower": 167,
+        "resultStructures": [
+            "Emplacement-Ballista"
+        ],
+        "statID": "Emplacement-Ballista"
     },
     "R-Defense-HvyArtMissile": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -4727,7 +4827,7 @@
             "Tower-Projector"
         ],
         "requiredResearch": [
-            "R-Wpn-Plasmite-Flamer"
+            "R-Wpn-Flamer-Plasmite"
         ],
         "researchPoints": 1200,
         "researchPower": 125,
@@ -4810,7 +4910,7 @@
         "msgName": "RES_EMP_Rail1",
         "name": "Needle Gun Bunker",
         "requiredResearch": [
-            "R-Wpn-RailGun02"
+            "R-Wpn-RailGun01"
         ],
         "researchPoints": 1200,
         "researchPower": 450,
@@ -4895,7 +4995,8 @@
         "msgName": "RES_WT9_ATM",
         "name": "Scourge Missile Hardpoint",
         "redStructures": [
-            "WallTower-HvATrocket"
+            "WallTower-HvATrocket",
+            "PillBoxTK"
         ],
         "requiredResearch": [
             "R-Wpn-Missile2A-T"
@@ -4950,7 +5051,7 @@
             "Wall-RotMg"
         ],
         "requiredResearch": [
-            "R-Wpn-Laser01"
+            "R-Wpn-Laser02"
         ],
         "researchPoints": 1200,
         "researchPower": 450,
@@ -5051,6 +5152,25 @@
             "Emplacement-MRL-pit"
         ],
         "statID": "Emplacement-MRL-pit"
+    },
+    "R-Defense-MRLHvy": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-MRLHvy",
+        "msgName": "RES_EMP_MRLHVY",
+        "name": "Heavy Rocket Battery",
+        "redStructures": [
+            "Emplacement-MRL-pit"
+        ],
+        "requiredResearch": [
+            "R-Defense-HardcreteWall",
+            "R-Wpn-Rocket02-MRLHvy"
+        ],
+        "researchPoints": 400,
+        "researchPower": 67,
+        "resultStructures": [
+            "Emplacement-MRLHvy-pit"
+        ],
+        "statID": "Emplacement-MRLHvy-pit"
     },
     "R-Defense-MortarPit": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -5178,7 +5298,7 @@
             "GuardTower2"
         ],
         "requiredResearch": [
-            "R-Wpn-MG1Mk1",
+            "R-Wpn-MG3Mk1",
             "R-Defense-HardcreteWall"
         ],
         "researchPoints": 600,
@@ -5279,7 +5399,7 @@
             "R-Wpn-Cannon3Mk1"
         ],
         "researchPoints": 1200,
-        "researchPower": 75,
+        "researchPower": 200,
         "resultStructures": [
             "WallTower04"
         ],
@@ -5373,6 +5493,22 @@
         ],
         "statID": "PillBoxHPC"
     },
+    "R-Defense-HVCTower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-HVCTower",
+        "msgName": "RES_EMP_HVCTOW",
+        "name": "Hyper Velocity Cannon Tower",
+        "requiredResearch": [
+            "R-Defense-HardcreteWall",
+            "R-Wpn-Cannon4AMk1"
+        ],
+        "researchPoints": 450,
+        "researchPower": 126,
+        "resultStructures": [
+            "GuardTower-HVC"
+        ],
+        "statID": "GuardTower-HVC"
+    },
     "R-Defense-Howitzer": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-Howitzer",
@@ -5461,7 +5597,7 @@
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-Pillbox-RotMG",
         "msgName": "RES_DEF_RotMG",
-        "name": "Rotary MG Bunker",
+        "name": "Assault Gun Bunker",
         "redStructures": [
             "PillBox1"
         ],
@@ -5746,6 +5882,7 @@
         "imdName": "icmolql.pie",
         "name": "Hardened Base Structure Materials Mk3",
         "requiredResearch": [
+            "R-Defense-WallUpgrade06",
             "R-Struc-Materials05"
         ],
         "researchPoints": 2100,
@@ -5805,7 +5942,8 @@
         "imdName": "icmolql.pie",
         "name": "Advanced Base Structure Materials Mk2",
         "requiredResearch": [
-            "R-Struc-Materials07"
+            "R-Struc-Materials07",
+            "R-Defense-WallUpgrade08"
         ],
         "researchPoints": 2700,
         "researchPower": 437,
@@ -5834,7 +5972,8 @@
         "imdName": "icmolql.pie",
         "name": "Advanced Base Structure Materials Mk3",
         "requiredResearch": [
-            "R-Struc-Materials08"
+            "R-Struc-Materials08",
+            "R-Defense-WallUpgrade09"
         ],
         "researchPoints": 3000,
         "researchPower": 450,
@@ -5969,7 +6108,7 @@
         "name": "Automated VTOL Rearming",
         "requiredResearch": [
             "R-Struc-VTOLPad",
-            "R-Sys-Engineering02"
+            "R-Struc-Factory-Upgrade01"
         ],
         "researchPoints": 1600,
         "researchPower": 150,
@@ -6188,11 +6327,11 @@
         "iconID": "IMAGE_RES_STRUCTURETECH",
         "id": "R-Struc-Factory-Upgrade04",
         "imdName": "BLFACT1.PIE",
-        "keyTopic": 1,
         "name": "Self-Replicating Manufacturing",
         "category": "Production",
         "requiredResearch": [
-            "R-Struc-Factory-Upgrade03"
+            "R-Struc-Factory-Upgrade03",
+            "R-Struc-Research-Upgrade03"
         ],
         "researchPoints": 2800,
         "researchPower": 450,
@@ -6849,7 +6988,8 @@
         "msgName": "RES_V_B09",
         "name": "Heavy Body - Tiger",
         "requiredResearch": [
-            "R-Vehicle-Body02"
+            "R-Vehicle-Body02",
+            "R-Vehicle-Body06"
         ],
         "researchPoints": 2800,
         "researchPower": 262,
@@ -7017,7 +7157,7 @@
         "imdName": "iceng.pie",
         "name": "Turbo-Charged Engine Mk2",
         "requiredResearch": [
-            "R-Vehicle-Body09",
+            "R-Struc-Power-Upgrade01",
             "R-Vehicle-Engine04"
         ],
         "researchPoints": 1700,
@@ -7040,7 +7180,8 @@
         "imdName": "iceng.pie",
         "name": "Turbo-Charged Engine Mk3",
         "requiredResearch": [
-            "R-Vehicle-Engine05"
+            "R-Vehicle-Engine05",
+            "R-Vehicle-Body09"
         ],
         "researchPoints": 1900,
         "researchPower": 343,
@@ -7465,7 +7606,7 @@
         "msgName": "RES_V_AH1",
         "name": "Thermal Armor",
         "requiredResearch": [
-            "R-Vehicle-Metals05"
+            "R-Vehicle-Metals04"
         ],
         "researchPoints": 1200,
         "researchPower": 150,
@@ -7486,7 +7627,7 @@
         "imdName": "icamrhot.pie",
         "name": "Thermal Armor Mk2",
         "requiredResearch": [
-            "R-Vehicle-Metals06",
+            "R-Vehicle-Metals05",
             "R-Vehicle-Armor-Heat01"
         ],
         "researchPoints": 1600,
@@ -7509,6 +7650,7 @@
         "imdName": "icamrhot.pie",
         "name": "Thermal Armor Mk3",
         "requiredResearch": [
+            "R-Vehicle-Metals06",
             "R-Vehicle-Armor-Heat02"
         ],
         "researchPoints": 2000,
@@ -7658,7 +7800,7 @@
         "name": "Hi-Energy Laser Emitter Mk2",
         "requiredResearch": [
             "R-Wpn-Energy-Damage01",
-            "R-Wpn-Energy-ROF01"
+            "R-Struc-Research-Upgrade03"
         ],
         "researchPoints": 2200,
         "researchPower": 450,
@@ -7688,7 +7830,7 @@
         "name": "Hi-Energy Laser Emitter Mk3",
         "requiredResearch": [
             "R-Wpn-Laser02",
-            "R-Wpn-Energy-ROF02"
+            "R-Wpn-Energy-Damage02"
         ],
         "researchPoints": 2700,
         "researchPower": 450,
@@ -7718,7 +7860,7 @@
         "msgName": "RES_LASROF1",
         "name": "Thermopole Energizer",
         "requiredResearch": [
-            "R-Wpn-Energy-Damage01"
+            "R-Wpn-Energy-Accuracy01"
         ],
         "researchPoints": 1800,
         "researchPower": 450,
@@ -7746,8 +7888,8 @@
         "id": "R-Wpn-Energy-ROF02",
         "name": "Thermopole Energizer Mk2",
         "requiredResearch": [
-            "R-Wpn-Laser02",
-            "R-Wpn-Energy-ROF01"
+            "R-Wpn-Energy-ROF01",
+            "R-Struc-Research-Upgrade03"
         ],
         "researchPoints": 2400,
         "researchPower": 450,
@@ -7776,8 +7918,8 @@
         "id": "R-Wpn-Energy-ROF03",
         "name": "Thermopole Energizer Mk3",
         "requiredResearch": [
-            "R-Wpn-Energy-Damage03",
-            "R-Wpn-Energy-ROF02"
+            "R-Wpn-Energy-ROF02",
+            "R-Wpn-Laser02"
         ],
         "researchPoints": 3000,
         "researchPower": 450,
@@ -7821,6 +7963,12 @@
         "keyTopic": 1,
         "msgName": "RES_W_LAS2",
         "name": "Pulse Laser",
+        "redComponents": [
+            "Laser3BEAMMk1",
+            "Laser3BEAM-VTOL",
+            "MG4ROTARYMk1",
+            "MG4ROTARY-VTOL"
+        ],
         "requiredResearch": [
             "R-Wpn-Laser01"
         ],
@@ -7835,11 +7983,11 @@
     "R-Wpn-Missile-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Missile-Accuracy01",
+        "keyTopic": 1,
         "msgName": "RES_W_MS_AC1",
         "name": "Target Prediction Missiles",
         "requiredResearch": [
-            "R-Wpn-Missile-Damage01",
-            "R-Wpn-Rail-Accuracy01"
+            "R-Wpn-Missile-Damage01"
         ],
         "researchPoints": 1600,
         "researchPower": 450,
@@ -7868,8 +8016,8 @@
         "msgName": "RES_W_MS_AC2",
         "name": "Search & Destroy Missiles",
         "requiredResearch": [
-            "R-Wpn-Missile-Damage02",
-            "R-Wpn-MdArtMissile"
+            "R-Wpn-Missile-Accuracy01",
+            "R-Struc-Research-Upgrade03"
         ],
         "researchPoints": 2000,
         "researchPower": 450,
@@ -7926,6 +8074,7 @@
         "id": "R-Wpn-Missile-Damage02",
         "name": "Advanced Missile Warhead Mk2",
         "requiredResearch": [
+            "R-Wpn-Missile-Damage01",
             "R-Wpn-Missile2A-T"
         ],
         "researchPoints": 2400,
@@ -7956,7 +8105,7 @@
         "name": "Advanced Missile Warhead Mk3",
         "requiredResearch": [
             "R-Wpn-Missile-Damage02",
-            "R-Wpn-HvArtMissile"
+            "R-Wpn-MissileBB2"
         ],
         "researchPoints": 3000,
         "researchPower": 450,
@@ -7986,7 +8135,6 @@
         "msgName": "RES_W_MS_ROF1",
         "name": "Advanced Missile Allocation System",
         "requiredResearch": [
-            "R-Wpn-Missile-Damage02",
             "R-Wpn-Missile2A-T"
         ],
         "researchPoints": 2000,
@@ -8016,8 +8164,7 @@
         "name": "Advanced Missile Allocation System Mk2",
         "requiredResearch": [
             "R-Wpn-MdArtMissile",
-            "R-Wpn-Missile-ROF01",
-            "R-Wpn-Missile-Damage02"
+            "R-Wpn-Missile-ROF01"
         ],
         "researchPoints": 2500,
         "researchPower": 450,
@@ -8047,8 +8194,7 @@
         "name": "Advanced Missile Allocation System Mk3",
         "requiredResearch": [
             "R-Wpn-Missile-ROF02",
-            "R-Wpn-Missile-Damage03",
-            "R-Wpn-HvArtMissile"
+            "R-Wpn-Missile-HvSAM"
         ],
         "researchPoints": 3000,
         "researchPower": 450,
@@ -8116,7 +8262,7 @@
             "Rocket-VTOL-HvyA-T"
         ],
         "requiredResearch": [
-            "R-Wpn-Missile-Accuracy01"
+            "R-Wpn-Missile-LtSAM"
         ],
         "researchPoints": 3400,
         "researchPower": 450,
@@ -8137,7 +8283,6 @@
             "Rocket-VTOL-BB"
         ],
         "requiredResearch": [
-            "R-Wpn-Missile-Accuracy01",
             "R-Wpn-Missile2A-T"
         ],
         "researchPoints": 3600,
@@ -8157,7 +8302,7 @@
         "researchPoints": 3600,
         "researchPower": 450,
         "redComponents": [
-            "Rocket-MRL"
+            "Rocket-MRL-Hvy"
         ],
         "resultComponents": [
             "Missile-MdArt"
@@ -8189,8 +8334,8 @@
         "msgName": "RES_W_RAIL_AC1",
         "name": "Target Prediction Computer",
         "requiredResearch": [
-            "R-Wpn-Rail-Damage01",
-            "R-Struc-Research-Upgrade03"
+            "R-Wpn-Missile-Accuracy01",
+            "R-Wpn-RailGun01"
         ],
         "researchPoints": 1600,
         "researchPower": 450,
@@ -8278,7 +8423,7 @@
         "name": "Hardened Rail Dart Mk3",
         "requiredResearch": [
             "R-Wpn-Rail-Damage02",
-            "R-Wpn-RailGun02"
+            "R-Wpn-RailGun03"
         ],
         "researchPoints": 3000,
         "researchPower": 450,
@@ -8308,7 +8453,7 @@
         "msgName": "RES_W_RAIL_ROF1",
         "name": "Rail Gun ROF",
         "requiredResearch": [
-            "R-Wpn-Rail-Accuracy01"
+            "R-Wpn-RailGun01"
         ],
         "researchPoints": 2000,
         "researchPower": 450,
@@ -8337,7 +8482,7 @@
         "name": "Rail Gun ROF Mk2",
         "requiredResearch": [
             "R-Wpn-Rail-ROF01",
-            "R-Wpn-Rail-Damage02"
+            "R-Wpn-RailGun02"
         ],
         "researchPoints": 2600,
         "researchPower": 450,
@@ -8367,7 +8512,7 @@
         "name": "Rail Gun ROF Mk3",
         "requiredResearch": [
             "R-Wpn-Rail-ROF02",
-            "R-Wpn-Rail-Damage03"
+            "R-Wpn-Energy-ROF03"
         ],
         "researchPoints": 3200,
         "researchPower": 450,

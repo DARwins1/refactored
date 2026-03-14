@@ -8,7 +8,7 @@ const mis_newParadigmRes = [
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Cannon-ROF01",
 	"R-Wpn-Mortar-Damage03", "R-Wpn-Rocket-Accuracy02", "R-Wpn-Cannon-Accuracy01",
 	"R-Wpn-Rocket-Damage03", "R-Wpn-Rocket-ROF01", "R-Sys-Engineering01",
-	"R-Wpn-Mortar-ROF01",
+	"R-Wpn-Mortar-ROF01", "R-Struc-RprFac-Upgrade01",
 ];
 var npCommander;
 

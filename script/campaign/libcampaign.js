@@ -152,6 +152,7 @@ const cam_levels = {
 	beta6: {pre: "SUB_2_5S", offWorld: "SUB_2_5"},
 	beta7: {pre: "SUB_2DS", offWorld: "SUB_2D"},
 	beta8: {pre: "SUB_2_6S", offWorld: "SUB_2_6"},
+	betaExtra: "CAM_2E",
 	beta9: {pre: "SUB_2_7S", offWorld: "SUB_2_7"},
 	beta10: {pre: "SUB_2_8S", offWorld: "SUB_2_8"},
 	betaEnd: "CAM_2END",
@@ -178,9 +179,9 @@ const __cam_betaLevels = [
 	cam_levels.beta1, cam_levels.beta2.pre, cam_levels.beta2.offWorld, cam_levels.beta3,
 	cam_levels.beta4.pre, cam_levels.beta4.offWorld, cam_levels.beta5, cam_levels.beta6.pre,
 	cam_levels.beta6.offWorld, cam_levels.beta7.pre, cam_levels.beta7.offWorld,
-	cam_levels.beta8.pre, cam_levels.beta8.offWorld, cam_levels.beta9.pre,
-	cam_levels.beta9.offWorld, cam_levels.beta10.pre, cam_levels.beta10.offWorld,
-	cam_levels.betaEnd
+	cam_levels.beta8.pre, cam_levels.beta8.offWorld, cam_levels.betaExtra,
+	cam_levels.beta9.pre, cam_levels.beta9.offWorld, cam_levels.beta10.pre,
+	cam_levels.beta10.offWorld, cam_levels.betaEnd
 ];
 const __cam_gammaLevels = [
 	cam_levels.gamma1, cam_levels.gamma2.pre, cam_levels.gamma2.offWorld, cam_levels.gamma3,
@@ -374,10 +375,10 @@ const __camDefaultSunStats = {
 var __camSunStats;
 const __CAM_GRADUAL_TICK_RATE = 100;
 const CAM_WEATHER_DEFAULT = 0; // Set weather based on tileset
-const CAM_WEATHER_CLEAR = 1; // No weather
-const CAM_WEATHER_RAIN = 2; // Intermittent rain
+const CAM_WEATHER_CLEAR = 1; // No weather (default for arizona)
+const CAM_WEATHER_RAIN = 2; // Intermittent rain (default for urban)
 const CAM_WEATHER_RAINSTORM = 3; // Constant rain
-const CAM_WEATHER_SNOW = 4; // Intermittent snow
+const CAM_WEATHER_SNOW = 4; // Intermittent snow (default for rockies)
 const CAM_WEATHER_SNOWSTORM = 5; // Constant snow
 var __camWeatherType;
 const CAM_SKY_DAY = 0;

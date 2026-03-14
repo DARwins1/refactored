@@ -99,7 +99,7 @@ function sendPlayerTransporter()
 	}
 
 	const droids = [];
-	const list = [cTempl.prhasgnt, cTempl.prhct, cTempl.prhaacnt, cTempl.prtruck];
+	const list = [cTempl.prhasgnt, cTempl.prhct, cTempl.prhaacnt, cTempl.prmtruckt];
 
 	// send 4 Assault Guns, 2 Heavy Cannons, 2 Cyclone AA Turrets and 2 Trucks
 	for (let i = 0, d = list.length; i < 10; ++i)
