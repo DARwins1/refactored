@@ -56,6 +56,7 @@ const mis_Labels = {
 	vtolSpawnPos5: {x: 1, y: 28},
 	vtolSpawnPos6: {x: 1, y: 101},
 };
+const MIS_ASSAULT_DELAY = camSecondsToMilliseconds(20);
 var truckJob1;
 var truckJob2;
 var truckJob3;
@@ -111,16 +112,16 @@ function groundAssault(index)
 	let bIndices;
 	switch (index)
 	{
-		case 1:
+		case "1":
 			bIndices = [1, 2];
 			break;
-		case 2:
+		case "2":
 			bIndices = [4, 5];
 			break;
-		case 3:
+		case "3":
 			bIndices = [1, 3, 5];
 			break;
-		case 4:
+		case "4":
 			bIndices = [1, 2, 6, 7];
 			break;
 	}
@@ -135,7 +136,7 @@ function groundAssault(index)
 	playSound(cam_sounds.enemyUnitDetected);
 	
 	// Queue the actual units
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "" + index);
+	queue("groundAssaultWave", MIS_ASSAULT_DELAY, "" + index);
 }
 
 function airAssault(index)
@@ -143,10 +144,10 @@ function airAssault(index)
 	let bIndex;
 	switch (index)
 	{
-		case 1:
+		case "1":
 			bIndex = 6;
 			break;
-		case 2:
+		case "2":
 			bIndex = 4;
 			break;
 	}
@@ -155,7 +156,7 @@ function airAssault(index)
 
 	playSound(cam_sounds.incomingAirStrike);
 
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "" + index);
+	queue("airAssaultWave", MIS_ASSAULT_DELAY, "" + index);
 }
 
 function activateGroundBlip(index)
@@ -217,7 +218,7 @@ function groundAssaultWave(index)
 	let waveTemplates;
 	switch (index)
 	{
-		case 1:
+		case "1":
 			waveTemplates = [
 				[ // South entry templates (+commander)
 					cTempl.cohhct, cTempl.cohhct, cTempl.cohhct, cTempl.cohhct, // 4 Heavy Cannons
@@ -246,7 +247,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.southEntrance, waveTemplates[0], cTempl.cohcomt);
 			sendCollectiveGroundWave(mis_Labels.southwestEntrance, waveTemplates[1]);
 			break;
-		case 2:
+		case "2":
 			waveTemplates = [
 				[ // West1 entry templates
 					cTempl.cohhct, cTempl.cohhct, cTempl.cohhct, cTempl.cohhct, // 4 Heavy Cannons
@@ -265,7 +266,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.westEntrance1, waveTemplates[0]);
 			sendCollectiveGroundWave(mis_Labels.westEntrance2, waveTemplates[1]);
 			break;
-		case 3:
+		case "3":
 			waveTemplates = [
 				[ // South entry templates
 					cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac,
@@ -282,7 +283,7 @@ function groundAssaultWave(index)
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 6 Tank Killers
 				],
 				[ // West1 entry templates
-					cTempl.cohrat, cTempl.cohrat, cTempl.cohrat, cTempl.cohrat, // 4 HRAs
+					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
 					cTempl.cohbbt, cTempl.cohbbt, // 2 Bunker Busters
 					cTempl.comit, cTempl.comit, cTempl.comit, cTempl.comit, // 4 Infernos
 					cTempl.comaat, cTempl.comaat, // 2 Cyclones
@@ -302,7 +303,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.westEntrance3, waveTemplates[1], cTempl.comcomt);
 			sendCollectiveGroundWave(mis_Labels.westEntrance1, waveTemplates[2]);
 			break;
-		case 4:
+		case "4":
 			waveTemplates = [
 				[ // South entry templates (+commander)
 					cTempl.comaat, cTempl.comaat, cTempl.comaat, cTempl.comaat, // 4 Cyclones
@@ -363,9 +364,9 @@ function airAssaultWave(index)
 
 	const vtolData1 = {
 		templates: [ // Bombers
-			[cTempl.colbombv], // Cluster Bombs
-			[cTempl.comthermv], // Thermite Bombs
-			[cTempl.comhbombv], // HEAP Bombs
+			[cTempl.colcbv], // Cluster Bombs
+			[cTempl.comtbv], // Thermite Bombs
+			[cTempl.comhbv], // HEAP Bombs
 		],
 		extras: [
 			{limit: 4},
@@ -389,11 +390,11 @@ function airAssaultWave(index)
 
 	switch (index)
 	{
-		case 1:
+		case "1":
 			entrance = mis_Labels.vtolSpawnPos6;
 			vtolData = vtolData1;
 			break;
-		case 2:
+		case "2":
 			entrance = mis_Labels.vtolSpawnPos4;
 			vtolData = vtolData2;
 			break;
@@ -461,9 +462,7 @@ function supportAttack()
 
 	let numGroups = 0;
 	if (difficulty >= MEDIUM) numGroups++;
-	if (difficulty >= HARD) numGroups++;
 	if (difficulty == INSANE) numGroups++;
-	if (getMissionTime() < camMinutesToSeconds(10)) numGroups++;
 
 	if (numGroups > 0)
 	{
@@ -530,7 +529,7 @@ function sendCollectiveTransporter()
 {
 	// Choose a built LZ (prioritizing ones closer to the player's base)
 	let pos;
-	else if (!camBaseIsEliminated("NorthLZ"))
+	if (!camBaseIsEliminated("NorthLZ"))
 	{
 		pos = mis_Labels.lzPos4;
 	}
@@ -589,7 +588,7 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Destroy all Collective reinforcements"));
 
-	camSetStandardWinLossConditions(CAM_VICTORY_TIMEOUT, cam_levels.beta9.pre, {
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.beta9.pre, {
 		callback: "extraVictoryCondition"
 	});
 

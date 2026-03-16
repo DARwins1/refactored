@@ -99,7 +99,7 @@ function eventStartLevel()
 	setAlliance(CAM_THE_COLLECTIVE, MIS_UPLINK_PLAYER, true);
 
 	// Set uplink team colour to white.
-	changePlayerColour(MIS_TRANSPORT_TEAM_PLAYfER, 10);
+	changePlayerColour(MIS_UPLINK_PLAYER, 10);
 
 	camSetEnemyBases({
 		"COCentralBase": {
@@ -107,6 +107,7 @@ function eventStartLevel()
 			detectMsg: "C2D_BASE1",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			player: CAM_THE_COLLECTIVE
 		},
 		"COVtolBase": {
 			cleanup: "vtolBaseCleanup",
@@ -224,7 +225,8 @@ function eventStartLevel()
 				cTempl.comrept, cTempl.comrept, // Repair Turrets (Hard+)
 				cTempl.comrept, cTempl.comrept, // More Repair Turrets (Insane)
 			],
-			obj: "coCommanderEast"
+			obj: "coCommanderEast",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coCommanderEast",
 			repair: 67,
@@ -252,7 +254,8 @@ function eventStartLevel()
 				cTempl.comact, cTempl.comact, // Assault Cannons (Hard+)
 				cTempl.comact, cTempl.comact, // More Assault Cannons (Insane)
 			],
-			obj: "coCommanderSouth"
+			obj: "coCommanderSouth",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coCommanderSouth",
 			repair: 67,
@@ -269,6 +272,7 @@ function eventStartLevel()
 				cTempl.comhatv, cTempl.comhatv,
 			],
 			obj: "coVtolTowerW",
+			globalFill: true // The Collective only has 1 VTOL factory on this level but whatever
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerW",
 			suborder: CAM_ORDER_ATTACK
@@ -279,6 +283,7 @@ function eventStartLevel()
 				cTempl.comacv, cTempl.comacv,
 			],
 			obj: "coVtolCBTower",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolCBTower",
 			suborder: CAM_ORDER_ATTACK
@@ -293,6 +298,7 @@ function eventStartLevel()
 				cTempl.colpbv,
 			],
 			obj: "coVtolTowerNE",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerNE",
 			suborder: CAM_ORDER_ATTACK
@@ -307,6 +313,7 @@ function eventStartLevel()
 				cTempl.colagv,
 			],
 			obj: "coVtolTowerC",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerC",
 			suborder: CAM_ORDER_ATTACK
@@ -350,7 +357,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COVtolBase",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck3"),
 			structset: camAreaToStructSet("vtolBaseCleanup")

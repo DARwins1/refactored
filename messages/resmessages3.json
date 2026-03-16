@@ -1038,6 +1038,7 @@
             "New SAM Turret Available",
             "Quad launcher firing guided surface-to-air missiles",
             "Aerial targets only",
+            "Causes damage in an area on impact",
             "Obsoletes Avenger SAM"
         ]
     },
@@ -1048,7 +1049,8 @@
         "text": [
             "New SAM Turret Available",
             "Dual launcher firing guided surface-to-air missiles",
-            "Aerial targets only"
+            "Aerial targets only",
+            "Causes damage in an area on impact"
         ]
     },
     "RES_W_MS_MART": {

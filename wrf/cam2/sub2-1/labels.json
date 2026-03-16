@@ -19,6 +19,7 @@
 
 	"area_0": {
 		"label": "crashSite",
+		"subscriber": 0,
 		"pos1": [6080, 1088],
 		"pos2": [6976, 1856]
 	},

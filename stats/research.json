@@ -1065,10 +1065,10 @@
     "R-Wpn-Cannon-Damage07": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Cannon-Damage07",
+        "keyTopic": 1,
         "msgName": "RES_W_CN_D7",
         "name": "HVAPFSDS Cannon Rounds",
         "requiredResearch": [
-            "R-Wpn-MG-Damage08",
             "R-Wpn-Cannon-Damage06"
         ],
         "researchPoints": 2700,
@@ -5640,7 +5640,7 @@
         "requiredResearch": [
             "R-Wpn-Mortar3"
         ],
-        "researchPoints": 4800,
+        "researchPoints": 1400,
         "researchPower": 150,
         "resultStructures": [
             "Emplacement-RotMor"

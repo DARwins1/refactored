@@ -349,7 +349,8 @@ function eventStartLevel()
 				cTempl.cohhrat, cTempl.cohhrat, // HRAs (Hard+)
 				cTempl.scytk, cTempl.scytk, // Super Tank Killers (Insane)
 			],
-			obj: "coCommanderHeavy"
+			obj: "coCommanderHeavy",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coCommanderHeavy",
 			repair: 67,
@@ -380,6 +381,7 @@ function eventStartLevel()
 				cTempl.colatv,
 			],
 			obj: "coVtolTowerE", // Don't refill this group if the tower is gone
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerE", // Assigned to the western VTOL Radar Tower
 			suborder: CAM_ORDER_ATTACK // Attack the player if the tower dies
@@ -394,6 +396,7 @@ function eventStartLevel()
 				cTempl.colagv,
 			],
 			obj: "coVtolTowerW",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerW",
 			suborder: CAM_ORDER_ATTACK

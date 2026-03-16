@@ -2216,7 +2216,7 @@
         "id": "P0-AASite-SAM1",
         "name": "Avenger SAM Site",
         "resistance": 300,
-        "sensorID": "NavGunSensor",
+        "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
             "Blaamnt1.PIE"
@@ -2239,7 +2239,7 @@
         "id": "P0-AASite-SAM2",
         "name": "Vindicator SAM Site",
         "resistance": 300,
-        "sensorID": "NavGunSensor",
+        "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
             "Blaamnt1.PIE"
@@ -2696,7 +2696,7 @@
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
-        "id": "CO-PillBox-RotMG",
+        "id": "CO-Pillbox-RotMG",
         "name": "Collective Assault Gun Bunker",
         "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",

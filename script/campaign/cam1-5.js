@@ -294,6 +294,7 @@ function eventStartLevel()
 				cTempl.npmatt, cTempl.npmatt, // Lancers (Insane)
 			],
 			obj: "npCommander",
+			globalFill: true,
 			player: CAM_NEW_PARADIGM
 		}, CAM_ORDER_FOLLOW, {
 			leader: "npCommander",

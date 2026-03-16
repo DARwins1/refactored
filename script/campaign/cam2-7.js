@@ -158,7 +158,7 @@ function eventStartLevel()
 			assembly: "base2HeavyAssembly",
 			order: CAM_ORDER_PATROL,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				pos: [
 					camMakePos("hoverPos4"),
@@ -177,7 +177,7 @@ function eventStartLevel()
 			assembly: "base2CybAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
 				repair: 40,
 			},
@@ -187,19 +187,19 @@ function eventStartLevel()
 			assembly: "base3CybAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
 				regroup: true,
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.scyac, cTempl.scytk]
+			templates: [cTempl.scyac, cTempl.cybla]
 		},
 		"COHeavyFac-b4": {
 			assembly: "base4Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			data: {
 				repair: 20,
 			},
@@ -209,7 +209,7 @@ function eventStartLevel()
 			assembly: "base4Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				regroup: true,
 				repair: 40,
@@ -220,7 +220,7 @@ function eventStartLevel()
 		"COVtolFactory-b4": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			templates: [cTempl.comhbv, cTempl.comtbv]
 		},
 	});
@@ -250,7 +250,8 @@ function eventStartLevel()
 				cTempl.comhatt, cTempl.comhatt, // Tank Killers (Hard+)
 				cTempl.comhatt, cTempl.comhatt, // More Tank Killers (Insane)
 			],
-			obj: "coCommander"
+			obj: "coCommander",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coCommander",
 			repair: 67,
@@ -266,7 +267,8 @@ function eventStartLevel()
 			templates: [ // 4 Tank Killers
 				cTempl.comhatv, cTempl.comhatv, cTempl.comhatv, cTempl.comhatv,
 			],
-			obj: "coVtolStrike"
+			obj: "coVtolStrike",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolStrike",
 			suborder: CAM_ORDER_DEFEND,
@@ -284,7 +286,8 @@ function eventStartLevel()
 				cTempl.comhatv,
 				cTempl.colagv,
 			],
-			obj: "coVtolTowerW"
+			obj: "coVtolTowerW",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerW",
 			suborder: CAM_ORDER_ATTACK
@@ -298,7 +301,8 @@ function eventStartLevel()
 				cTempl.comtbv,
 				cTempl.comacv,
 			],
-			obj: "coVtolTowerE"
+			obj: "coVtolTowerE",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTowerE",
 			suborder: CAM_ORDER_ATTACK

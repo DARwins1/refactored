@@ -29,10 +29,10 @@ function vtolGroupAttack()
 function setupLandGroups()
 {
 	const hovers = enumArea("NWTankGroup", CAM_THE_COLLECTIVE, false).filter((obj) => (
-		obj.type === DROID && obj.propulsion === tProp.tank.hover
+		obj.type === DROID && obj.propulsion === "hover01"
 	));
 	const tanks = enumArea("NWTankGroup", CAM_THE_COLLECTIVE, false).filter((obj) => (
-		obj.type === DROID && obj.propulsion !== tProp.tank.hover
+		obj.type === DROID && obj.propulsion !== "hover01"
 	));
 
 	camManageGroup(camMakeGroup(hovers), CAM_ORDER_PATROL, {
@@ -173,7 +173,8 @@ function eventStartLevel()
 				cTempl.comhatv,
 				cTempl.colagv,
 			],
-			obj: "coVtolTower"
+			obj: "coVtolTower",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coVtolTower",
 			suborder: CAM_ORDER_ATTACK

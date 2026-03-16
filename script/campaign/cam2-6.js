@@ -115,6 +115,7 @@ function eventStartLevel()
 		"COMediumFactory": { tech: "R-Wpn-Cannon-Damage07" }, // HVAPFSDS Cannon Rounds
 		"COHeavyFactory-b2": { tech: "R-Struc-Factory-Upgrade03" }, // Advanced Manufacturing
 		"COResearchLab": { tech: "R-Wpn-Bomb02" }, // HEAP Bombs
+		"COWhirlwind": { tech: "R-Wpn-AAGun04" }, // Whirlwind
 	});
 
 	camSetEnemyBases({
@@ -223,7 +224,8 @@ function eventStartLevel()
 				cTempl.cybag, cTempl.cybag, // More Assault Gunners (Hard+)
 				cTempl.scytk, cTempl.scytk, // More Super Tank Killers (Insane)
 			],
-			obj: "coMediumCommander"
+			obj: "coMediumCommander",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "coMediumCommander",
 			repair: 67,
@@ -252,7 +254,7 @@ function eventStartLevel()
 			label: "COUplinkBase",
 			respawnDelay: TRUCK_TIME,
 			template: cTempl.comtruckht,
-			structset: camAreaToStructSet("uplinkBaseCleanup").filter((struct) => (struct.stat !== "Uplink Centre")))
+			structset: camAreaToStructSet("uplinkBaseCleanup").filter((struct) => (struct.stat !== "UplinkCentre"))
 	});
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {

@@ -188,14 +188,6 @@
 
 
 	"object_5": {
-		"label": "COSensorTower",
-		"id": 627,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_6": {
 		"label": "uplink",
 		"id": 449,
 		"player": 2,
@@ -203,7 +195,7 @@
 	},
 
 
-	"object_7": {
+	"object_6": {
 		"label": "COHeavyFactory-b2",
 		"id": 476,
 		"player": 2,
@@ -211,7 +203,7 @@
 	},
 
 
-	"object_8": {
+	"object_7": {
 		"label": "COCommandCenter",
 		"id": 197,
 		"player": 2,
@@ -219,11 +211,27 @@
 	},
 
 
-	"object_9": {
+	"object_8": {
 		"label": "coMediumCommander",
 		"id": 682,
 		"player": 2,
 		"type": 0
+	},
+
+
+	"object_9": {
+		"label": "COSensorTower",
+		"id": 627,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_10": {
+		"label": "COWhirlwind",
+		"id": 620,
+		"player": 2,
+		"type": 1
 	},
 
 

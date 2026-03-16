@@ -160,6 +160,7 @@ function eventStartLevel()
 	}
 
 	victoryFlag = false;
+	transUnitIDs = [];
 	queue("setupCyborgGroups", camSecondsToMilliseconds(5));
 
 	// Darken the fog to 1/2 default brightness

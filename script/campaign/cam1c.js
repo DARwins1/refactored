@@ -330,6 +330,7 @@ function eventStartLevel()
 				cTempl.npmlcht, cTempl.npmlcht, // More Light Cannons (Insane)
 			],
 			obj: "TankScoutForceCommander",
+			globalFill: true,
 			player: CAM_NEW_PARADIGM // Only refill from NP factories
 		}, CAM_ORDER_FOLLOW, {
 			leader: "TankScoutForceCommander",
@@ -350,6 +351,7 @@ function eventStartLevel()
 				cTempl.nplpodw, cTempl.nplpodw, // More Mini-Rocket Pods (Insane)
 			],
 			obj: "AmbushForceCommander",
+			globalFill: true,
 			player: CAM_NEW_PARADIGM
 		}, CAM_ORDER_FOLLOW, {
 			leader: "AmbushForceCommander",
@@ -378,6 +380,7 @@ function eventStartLevel()
 				cTempl.npmrept, cTempl.npmrept, // Repair Turrets (Insane)
 			],
 			obj: "TankForceCommander",
+			globalFill: true,
 			player: CAM_NEW_PARADIGM
 		}, CAM_ORDER_FOLLOW, {
 			leader: "TankForceCommander",

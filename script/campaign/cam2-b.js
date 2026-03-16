@@ -67,8 +67,8 @@ function ambushPlayer()
 				cTempl.comhpvt, cTempl.comhpvt, // Hyper Velocity Cannons (Hard+)
 				cTempl.comhpvt, cTempl.comhpvt, // More Hyper Velocity Cannons (Insane)
 			],
-			// No need to specify player or factories here
 			obj: "COCommander",
+			globalFill: true
 		}, CAM_ORDER_FOLLOW, {
 			leader: "COCommander",
 			repair: 67,

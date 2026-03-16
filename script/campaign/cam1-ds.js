@@ -16,6 +16,9 @@ function eventStartLevel()
 	camPlayVideos([{video: "MB1D_MSG", type: CAMP_MSG}, {video: "MB1D_MSG2", type: MISS_MSG}]);
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha12.offWorld);
 
+	// In case the player didn't get this in the last mission
+	enableResearch("R-Vehicle-Metals03", CAM_HUMAN_PLAYER);
+
 	// Darken the fog to 1/3 default brightness
 	camSetFog(59, 48, 32);
 	// Darken the lighting and add a slight orange hue

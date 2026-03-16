@@ -120,9 +120,9 @@ function vtolAttack()
 
 // Returns true if the name of a structure is related to the nuclear reactor (cooling towers, reactor, etc.)
 // Used to prevent Collective trucks from rebuilding the reactor
-function isReactorStruct(structname)
+function isReactorStruct(statName)
 {
-	return (obj.name === "Nuclear Reactor" || obj.name === "Cooling Tower" || obj.name === "Scavenger Power Generator")
+	return (statName === "NuclearReactor" || statName === "CoolingTower" || statName === "A0BaBaPowerGenerator")
 }
 
 function eventStartLevel()

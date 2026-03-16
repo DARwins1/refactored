@@ -46,10 +46,15 @@ camAreaEvent("escapeZone", function(droid)
 		camSafeRemoveObject(droid, false);
 		queue("camCallOnce", camSecondsToMilliseconds(0.3), "showGameOver");
 	}
-	else
+	else if (commanderAdvancing)
 	{
-		resetLabel("escapeZone", CAM_THE_COLLECTIVE);
+		// If a non-commander droid enters the escape zone, detach the escort from the commander to prevent them from body blocking its escape
+		camManageGroup(escortGroup, CAM_ORDER_ATTACK, {
+			repair: 67,
+			removable: false
+		});
 	}
+	resetLabel("escapeZone", CAM_THE_COLLECTIVE);
 });
 
 function enableAllFactories()
@@ -101,15 +106,25 @@ function eventAttacked(victim, attacker)
 		victim.player === CAM_THE_COLLECTIVE &&
 		wayPointReached && commanderAdvancing && //only if the commander is escaping to the south
 		victim.group === commanderGroup &&
-		camGetRefillableGroupTemplates(escortGroup, allTemplates).length > 0)
+		camGetRefillableGroupTemplates(escortGroup).length > 4)
 	{
-		// If the commander is attacked and the escort group is missing droids, fall back to base
+		// If the commander is attacked and the escort group is missing too many droids, fall back to base
 		commanderAdvancing = false;
 		playerWarned = false;
 		camManageGroup(commanderGroup, CAM_ORDER_DEFEND, {
 			pos: camMakePos("wayPoint"),
 			radius: 6,
 			repair: 67
+		});
+
+		// Make sure the escort group falls back with the commander
+		camManageGroup(escortGroup, CAM_ORDER_FOLLOW, {
+			leader: "COCommander",
+			repair: 67,
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 67
+			}
 		});
 	}
 }
@@ -125,19 +140,19 @@ function convoyTick()
 
 	if (!wayPointReached && camWithinArea("COCommander", "westBaseCleanup"))
 	{
-		wayPointReached;
+		wayPointReached = true;
 	}
 
 	if (wayPointReached && !commanderAdvancing)
 	{
-		const MISSING_DROIDS = camGetRefillableGroupTemplates(escortGroup, allTemplates).length;
+		const MISSING_DROIDS = camGetRefillableGroupTemplates(escortGroup).length;
 
-		if (!MISSING_DROIDS && getObject("coCommander").health > 95)
+		if (MISSING_DROIDS < 4 && getObject("COCommander").health > 95)
 		{
-			// Order the commander to advance if it's fully healed and the escort group is full
+			// Order the commander to advance if it's fully healed and the escort group is missing less than 4 droids
 			commanderAdvancing = true;
 			camManageGroup(commanderGroup, CAM_ORDER_COMPROMISE, {
-				pos: camMakePos("escapeZone")
+				pos: camMakePos("escapePos")
 			});
 		}
 	}	
@@ -201,6 +216,8 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	setAlliance(CAM_NEXUS, CAM_THE_COLLECTIVE, true);
 
 	playerWarned = false;
 	commanderAdvancing = false;
@@ -279,9 +296,9 @@ function eventStartLevel()
 				cTempl.cohact, // Assault Cannon
 				cTempl.scyac, cTempl.scyac, cTempl.scyac, // Super Auto-Cannons
 				cTempl.comsenst, // Sensor
-				cTempl.comsenst, // Repair Turret
+				cTempl.comrept, // Repair Turret
 				cTempl.comhatt, cTempl.comhatt, // Tank Killers
-				cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // HVCs
+				cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // HVCs
 				cTempl.cohact, cTempl.cohact, // Assault Cannons (Hard+)
 				cTempl.cohhrat, cTempl.cohhrat, // HRAs (Insane)
 			],

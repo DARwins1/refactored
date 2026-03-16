@@ -48,7 +48,7 @@ function camManageTrucks(player, data)
 		respawnDelay: camDef(data.respawnDelay) ? data.respawnDelay : 0,
 		rebuildTruck: camDef(data.rebuildTruck) ? data.rebuildTruck : true,
 		rebuildBase: camDef(data.rebuildBase) ? data.rebuildBase : false,
-		area: camDef(data.area) ? data.area : (camDef(__camEnemyBases[data.label]) ? getObject(__camEnemyBases[data.label].cleanup) : undefined), // NOTE: This checks if a base already exists!
+		area: camDef(data.area) ? data.area : (camDef(__camEnemyBases[data.label]) ? __camEnemyBases[data.label].cleanup : undefined), // NOTE: This checks if a base already exists!
 		pos: camDef(data.pos) ? camMakePos(data.pos) : (camDef(data.area) ? camMakePos(data.area) : (camDef(__camEnemyBases[data.label]) ? camMakePos(__camEnemyBases[data.label].cleanup) : undefined)),
 		enabled: camDef(data.enabled) ? data.enabled : true, // If set to false, do not rebuild or manage
 	});
@@ -704,7 +704,11 @@ function __camTruckTick()
 		if (camDef(ti.area) && !orderGiven && truck.action === 0) /* DACTION_NONE */
 		{
 			let pos;
-			const baseArea = ti.area;
+			let baseArea = ti.area;
+			if (camIsString(baseArea))
+			{
+				baseArea = getObject(baseArea);
+			}
 			
 			const __BASE_WIDTH = Math.abs(baseArea.x2 - baseArea.x);
 			const __BASE_HEIGHT = Math.abs(baseArea.y2 - baseArea.y);

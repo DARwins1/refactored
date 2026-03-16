@@ -3,6 +3,7 @@ include("script/campaign/templates.js");
 include("script/campaign/structSets.js");
 
 var allowWin;
+var lastTransportAlert;
 const mis_collectiveRes = [
 	"R-Wpn-MG-Damage08", "R-Wpn-MG-ROF03",
 	"R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF02",
@@ -57,6 +58,7 @@ const mis_Labels = {
 	vtolSpawnPos5: {x: 1, y: 28},
 	vtolSpawnPos6: {x: 1, y: 101},
 };
+const MIS_ASSAULT_DELAY = camSecondsToMilliseconds(20);
 var truckJob1;
 var truckJob2;
 var truckJob3;
@@ -123,6 +125,24 @@ function eventTransporterLaunch(transporter)
 	}
 }
 
+function eventTransporterArrived(transport)
+{
+	if (transport.player === CAM_HUMAN_PLAYER)
+	{
+		transportReturnAlert();
+	}
+}
+
+// This function is needed to ensure that the return alert is only played ONCE per trip
+function transportReturnAlert()
+{
+	if (lastTransportAlert + camSecondsToMilliseconds(30) < gameTime)
+	{
+		lastTransportAlert = gameTime;
+		playSound(cam_sounds.transport.transportReturningToBase);
+	}
+}
+
 //Attack every 30 seconds.
 function vtolAttack()
 {
@@ -158,28 +178,28 @@ function groundAssault(index)
 	let bIndices;
 	switch (index)
 	{
-		case 1:
+		case "1":
 			bIndices = [1, 4];
 			break;
-		case 2:
+		case "2":
 			bIndices = [3, 5, 6];
 			break;
-		case 3:
+		case "3":
 			bIndices = [2, 6, 7];
 			break;
-		case 4:
+		case "4":
 			bIndices = [5, 9, 10];
 			break;
-		case 5:
+		case "5":
 			bIndices = [4, 5];
 			break;
-		case 6:
+		case "6":
 			bIndices = [2, 6, 10];
 			break;
-		case 7:
+		case "7":
 			bIndices = [5, 7, 8, 9];
 			break;
-		case 8:
+		case "8":
 			bIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 			break;
 	}
@@ -194,7 +214,7 @@ function groundAssault(index)
 	playSound(cam_sounds.enemyUnitDetected);
 	
 	// Queue the actual units
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "" + index);
+	queue("groundAssaultWave", MIS_ASSAULT_DELAY, "" + index);
 }
 
 function airAssault(index)
@@ -202,23 +222,23 @@ function airAssault(index)
 	let bIndices;
 	switch (index)
 	{
-		case 1:
-			bIndices = [];
+		case "1":
+			bIndices = [4];
 			break;
-		case 2:
-			bIndices = [];
+		case "2":
+			bIndices = [3, 6];
 			break;
-		case 3:
-			bIndices = [];
+		case "3":
+			bIndices = [1, 2, 5];
 			break;
-		case 4:
-			bIndices = [];
+		case "4":
+			bIndices = [3, 5];
 			break;
-		case 5:
-			bIndices = [];
+		case "5":
+			bIndices = [1, 4, 6];
 			break;
-		case 6:
-			bIndices = [];
+		case "6":
+			bIndices = [1, 2, 3, 4, 5, 6];
 			break;
 	}
 
@@ -229,7 +249,7 @@ function airAssault(index)
 
 	playSound(cam_sounds.incomingAirStrike);
 
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "" + index);
+	queue("airAssaultWave", MIS_ASSAULT_DELAY, "" + index);
 }
 
 function activateGroundBlip(index)
@@ -297,10 +317,10 @@ function groundAssaultWave(index)
 	let waveTemplates;
 	switch (index)
 	{
-		case 1:
+		case "1":
 			waveTemplates = [
 				[ // West2 entry templates
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 3 Heavy Cannons
+					cTempl.cohhct, cTempl.cohhct, cTempl.cohhct, // 3 Heavy Cannons
 					cTempl.commct, cTempl.commct, cTempl.commct, cTempl.commct, // 4 Medium Cannons
 					cTempl.cybag, cTempl.cybag, cTempl.cybag,
 					cTempl.cybag, cTempl.cybag, cTempl.cybag, // 6 Heavy Machinegunners
@@ -315,7 +335,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.westEntrance2, waveTemplates[0]);
 			sendCollectiveGroundWave(mis_Labels.southEntrance, waveTemplates[1]);
 			break;
-		case 2:
+		case "2":
 			waveTemplates = [
 				[ // Northwest entry templates
 					cTempl.commct, cTempl.commct, cTempl.commct,
@@ -350,9 +370,9 @@ function groundAssaultWave(index)
 
 			sendCollectiveGroundWave(mis_Labels.northwestEntrance, waveTemplates[0]);
 			sendCollectiveGroundWave(mis_Labels.westEntrance1, waveTemplates[1], cTempl.comcomt);
-			sendCollectiveGroundWave(mis_Labels.westEntrance2, waveTemplates[2]);
+			sendCollectiveGroundWave(mis_Labels.westEntrance3, waveTemplates[2]);
 			break;
-		case 3:
+		case "3":
 			waveTemplates = [
 				[ // North entry templates (+commander)
 					cTempl.cohhct, cTempl.cohhct, cTempl.cohhct,
@@ -393,7 +413,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.northwestEntrance, waveTemplates[1]);
 			sendCollectiveGroundWave(mis_Labels.southwestEntrance, waveTemplates[2]);
 			break;
-		case 4:
+		case "4":
 			waveTemplates = [
 				[ // West1 entry templates
 					cTempl.cohact, cTempl.cohact, cTempl.cohact, 
@@ -425,7 +445,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.eastEntrance, waveTemplates[1]);
 			sendCollectiveGroundWave(mis_Labels.southeastEntrance, waveTemplates[2]);
 			break;
-		case 5:
+		case "5":
 			waveTemplates = [
 				[ // West1 entry templates (+commander)
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt,
@@ -457,9 +477,9 @@ function groundAssaultWave(index)
 			}
 
 			sendCollectiveGroundWave(mis_Labels.westEntrance1, waveTemplates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave(mis_Labels.eastEntrance, waveTemplates[1], cTempl.cohcomt);
+			sendCollectiveGroundWave(mis_Labels.westEntrance2, waveTemplates[1], cTempl.cohcomt);
 			break;
-		case 6:
+		case "6":
 			waveTemplates = [
 				[ // Southeast entry templates
 					cTempl.comit, cTempl.comit, cTempl.comit,
@@ -500,7 +520,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.southwestEntrance, waveTemplates[1]);
 			sendCollectiveGroundWave(mis_Labels.northwestEntrance, waveTemplates[2], cTempl.cohcomt);
 			break;
-		case 7:
+		case "7":
 			waveTemplates = [
 				[ // West1 entry templates
 					cTempl.cybag, cTempl.cybag, cTempl.cybag, cTempl.cybag, 
@@ -551,7 +571,7 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave(mis_Labels.northEntrance, waveTemplates[2], cTempl.cohcomt);
 			sendCollectiveGroundWave(mis_Labels.eastEntrance, waveTemplates[3], cTempl.cohcomt);
 			break;
-		case 8:
+		case "8":
 			// NOTE: ALL of these have commanders!!!
 			// (But since there's < 2 minutes left in the mission, most of these guys probably won't actually see any action)
 			waveTemplates = [
@@ -679,7 +699,7 @@ function airAssaultWave(index)
 		templates: [ // Anti-unit stuff
 			[cTempl.colagv], // Assault Guns
 			[cTempl.colatv], // Lancers
-			[cTempl.colphosv], // Phosphor Bombs
+			[cTempl.colpbv], // Phosphor Bombs
 		],
 		extras: [
 			{limit: 4},
@@ -689,9 +709,9 @@ function airAssaultWave(index)
 	};
 	const vtolData2 = {
 		templates: [ // Bombers
-			[cTempl.colbombv], // Cluster Bombs
-			[cTempl.comthermv], // Thermite Bombs
-			[cTempl.comhbombv], // HEAP Bombs
+			[cTempl.colcbv], // Cluster Bombs
+			[cTempl.comtbv], // Thermite Bombs
+			[cTempl.comhbv], // HEAP Bombs
 		],
 		extras: [
 			{limit: 4},
@@ -715,27 +735,27 @@ function airAssaultWave(index)
 
 	switch (index)
 	{
-		case 1:
+		case "1":
 			entrances = [mis_Labels.vtolSpawnPos4];
 			vtolData = vtolData2;
 			break;
-		case 2:
+		case "2":
 			entrances = [mis_Labels.vtolSpawnPos3, mis_Labels.vtolSpawnPos6];
 			vtolData = vtolData1;
 			break;
-		case 3:
+		case "3":
 			entrances = [mis_Labels.vtolSpawnPos1, mis_Labels.vtolSpawnPos2, mis_Labels.vtolSpawnPos5];
 			vtolData = vtolData3;
 			break;
-		case 4:
+		case "4":
 			entrances = [mis_Labels.vtolSpawnPos3, mis_Labels.vtolSpawnPos5];
 			vtolData = vtolData2;
 			break;
-		case 5:
+		case "5":
 			entrances = [mis_Labels.vtolSpawnPos1, mis_Labels.vtolSpawnPos4, mis_Labels.vtolSpawnPos6];
 			vtolData = vtolData1;
 			break;
-		case 6:
+		case "6":
 			entrances = [
 				mis_Labels.vtolSpawnPos1, mis_Labels.vtolSpawnPos2, mis_Labels.vtolSpawnPos3,
 				mis_Labels.vtolSpawnPos4, mis_Labels.vtolSpawnPos5, mis_Labels.vtolSpawnPos6
@@ -1054,7 +1074,7 @@ function missionSetup()
 	queue("airAssault", camMinutesToMilliseconds(29), "6"); // at 1 minute remaining
 
 	// Smaller untelegraphed attacks every few minutes
-	setTimer("supportAttack", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
+	setTimer("supportAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(3.5)));
 
 	// Visually shift the sky and weather over the course of the mission
@@ -1089,7 +1109,7 @@ function eventStartLevel()
 	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
 
 	// Grant a minute-long "grace" period where nothing happens
-	setMissionTime(camSecondsToMilliseconds(62));
+	setMissionTime(62);
 
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 
@@ -1213,6 +1233,7 @@ function eventStartLevel()
 		false, // Blip #6
 	];
 	colCommanderIndex = 0;
+	lastTransportAlert = 0;
 
 	allowWin = false;
 	camPlayVideos([{video: "MB2_DII_MSG", type: CAMP_MSG}, {video: "MB2_DII_MSG2", type: MISS_MSG}]);

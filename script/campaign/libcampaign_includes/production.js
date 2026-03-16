@@ -630,7 +630,7 @@ function __camContinueProduction(structure)
 	}
 
 	// Check if a refillable group needs a replacement unit
-	const refillableTemplate = __camGetRefillableTemplateForFactory(flabel, struct);
+	const refillableTemplate = __camGetRefillableTemplateForFactory(flabel);
 	if (camDef(refillableTemplate))
 	{
 		// Build this template instead, and assign it to the refillable group

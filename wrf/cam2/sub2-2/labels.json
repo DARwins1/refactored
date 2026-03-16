@@ -59,6 +59,12 @@
 	},
 
 
+	"position_10": {
+		"label": "escapePos",
+		"pos": [1026, 7996]
+	},
+
+
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [5504, 7168],
@@ -95,30 +101,31 @@
 
 
 	"area_5": {
-		"label": "escapeZone",
-		"pos1": [384, 7808],
-		"pos2": [1664, 8064]
-	},
-
-
-	"area_6": {
 		"label": "warningZone",
 		"pos1": [0, 6016],
 		"pos2": [1920, 8191]
 	},
 
 
-	"area_7": {
+	"area_6": {
 		"label": "nxGroup",
 		"pos1": [7552, 1280],
 		"pos2": [7808, 1536]
 	},
 
 
-	"area_8": {
+	"area_7": {
 		"label": "nxRemoveZone",
 		"pos1": [7552, 128],
 		"pos2": [8064, 512]
+	},
+
+
+	"area_8": {
+		"label": "escapeZone",
+		"pos1": [384, 7424],
+		"pos2": [1664, 8064],
+		"subscriber": 2
 	},
 
 

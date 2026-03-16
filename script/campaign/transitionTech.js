@@ -220,14 +220,17 @@ const mis_betaResearchNew = [
 	"R-Struc-Materials06",
 	"R-Wpn-Cannon-Damage07", // Artifact
 	"R-Wpn-Howitzer-Damage02",
+	"R-Wpn-AAGun04", // Artifact
+	"R-Defense-AASite-QuadRotMg", "R-Wpn-AAGun-ROF03",
+
+	// E
+
 
 	// 9
 	"R-Wpn-Rocket-Damage07", // Artifact
 	"R-Wpn-Rocket-ROF03",
 	"R-Wpn-Cannon-ROF04", // Artifact
 	"R-Wpn-Howitzer-ROF02", "R-Wpn-Mortar-ROF04",
-	"R-Wpn-AAGun04", // Artifact
-	"R-Defense-AASite-QuadRotMg", "R-Wpn-AAGun-ROF03",
 	"R-Vehicle-Body09", // Artifact
 	"R-Vehicle-Metals06", "R-Cyborg-Metals06", "R-Vehicle-Engine06",
 	"R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",

@@ -414,8 +414,14 @@ function __camGetMissingGroupTemplates(group, returnFirst, factory)
 }
 
 // Gets a template to be built by the given factory
-function __camGetRefillableTemplateForFactory(factoryLabel, factory)
+function __camGetRefillableTemplateForFactory(factoryLabel)
 {
+	const factory = getObject(factoryLabel);
+	if (factory === null)
+	{
+		return; // Factory destroyed?
+	}
+
 	for (const group in __camRefillableGroupInfo)
 	{		
 		if (!__camAllowGroupAutoRefilling(group))

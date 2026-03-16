@@ -118,11 +118,13 @@ function sendTransport()
 	});
 }
 
-// If the NP commander is at the LZ, remove it and prep for mission failure
+// If the NP commander is at the LZ, steal the artifact and prep for mission failure
 function eventTransporterLanded(transport)
 {
-	if (transport.player === CAM_NEW_PARADIGM && (getObject("npCommander") !== null) && camWithinArea("npCommander", "NPLZ"))
+	if (transport.player === CAM_NEW_PARADIGM && getObject("npCommander") !== null && camWithinArea("npCommander", "NPLZ"))
 	{
+		// Artifact being stolen
+		camDeleteArtifact("npCommander");
 		enemyStoleArtifact = true;
 		playSound(cam_sounds.enemyEscaping);
 	}
