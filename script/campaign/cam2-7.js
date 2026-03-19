@@ -122,7 +122,6 @@ function eventStartLevel()
 	camSetArtifacts({
 		"COHeavyFac-Arti-b2": { tech: ["R-Wpn-Cannon-ROF04"] }, // Cannon Rapid Loader
 		"COTankKillerHardpoint": { tech: "R-Wpn-Rocket-Damage07" }, // HESH Rocket Warhead
-		"COWhirlwind": { tech: "R-Wpn-AAGun04" }, // Whirlwind
 		"COHeavyFac-b4": { tech: "R-Vehicle-Body09" }, // Tiger
 	});
 

@@ -269,7 +269,7 @@
             "Armed with Cyborg Assault Cannon",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
-            "Obsoletes Super Heavy-Gunner Cyborg",
+            "Obsoletes and replaces Super Heavy-Gunner Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -283,7 +283,7 @@
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Greater accuracy at longer ranges",
-            "Obsoletes Super TK Cyborg",
+            "Obsoletes and replaces Super Tank-Killer Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -342,6 +342,7 @@
             "Ineffective against: Bunkers and cyborgs",
             "Darts can hit multiple units",
             "Obsoletes Needle Gunner Cyborg",
+            "Obsoletes and replaces Super HPC Cyborg and Super Auto-Cannon Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },
@@ -539,6 +540,21 @@
             "Greater accuracy at longer ranges",
             "Must be stationary to fire",
             "Obsoletes Grenadier Cyborg",
+            "Requires Cyborg factory to produce"
+        ]
+    },
+    "RES_CYW_SERAPH": {
+        "id": "RES_CYW_SERAPH",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "New Super Cyborg Available",
+            "Armed with Cyborg Seraph Missile Launcher",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Bunkers and tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Obsoletes and replaces Super Heavy Grenadier Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },

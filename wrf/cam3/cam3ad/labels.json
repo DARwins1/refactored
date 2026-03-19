@@ -3,54 +3,92 @@
 		"label": "startPosition",
 		"pos": [5696, 31424]
 	},
+
+
 	"position_1": {
-		"label": "healthRetreat",
-		"pos": [4928, 16704]
-	},
-	"position_2": {
-		"label": "vtolRemovePos",
-		"pos": [2816, 32384]
-	},
-	"position_3": {
-		"label": "vtolAppearPosW",
-		"pos": [576, 18176]
-	},
-	"position_4": {
 		"label": "vtolAppearPosE",
-		"pos": [8000, 18432]
+		"pos": [7232, 15834]
 	},
-	"position_5": {
-		"label": "phantomFacNorth",
-		"pos": [320, 3136]
+
+
+	"position_2": {
+		"label": "vtolAppearPosW",
+		"pos": [406, 16599]
 	},
-	"position_6": {
-		"label": "phantomFacWest",
-		"pos": [64, 17728]
+
+
+	"position_3": {
+		"label": "nxETransPos",
+		"pos": [7104, 18745]
 	},
-	"position_7": {
-		"label": "phantomFacEast",
-		"pos": [8000, 21440]
+
+
+	"position_4": {
+		"label": "nxWTransPos",
+		"pos": [2364, 20160]
 	},
-	"position_8": {
-		"label": "phantomFacMiddle",
-		"pos": [8000, 18880]
-	},
+
 
 	"area_0": {
 		"label": "landingZone",
-		"pos1": [6200, 31160],
-		"pos2": [6600, 31560]
+		"pos1": [6272, 31232],
+		"pos2": [6528, 31488]
 	},
+
+
 	"area_1": {
 		"label": "NXlandingZone",
 		"pos1": [896, 6656],
 		"pos2": [1152, 6912]
 	},
 
+
+	"area_2": {
+		"label": "phantomFacNorth",
+		"pos1": [4736, 16512],
+		"pos2": [5120, 16768]
+	},
+
+
+	"area_3": {
+		"label": "phantomFacWest",
+		"pos1": [128, 17792],
+		"pos2": [384, 18560]
+	},
+
+
+	"area_4": {
+		"label": "phantomFacMiddle",
+		"pos1": [7808, 18944],
+		"pos2": [8064, 19712]
+	},
+
+
+	"area_5": {
+		"label": "phantomFacEast",
+		"pos1": [7808, 20864],
+		"pos2": [8064, 21504]
+	},
+
+
+	"area_6": {
+		"label": "westLZStructs",
+		"pos1": [1920, 19328],
+		"pos2": [2816, 20736]
+	},
+
+
+	"area_7": {
+		"label": "eastLZStructs",
+		"pos1": [6272, 18176],
+		"pos2": [7552, 19328]
+	},
+
+
 	"radius_0": {
 		"label": "vtolRemoveZone",
-		"subscriber": 3,
-		"pos": [2816, 32384],
+		"pos": [2222, 16463],
+		"subscriber": 2,
 		"radius": 250
 	}
 }

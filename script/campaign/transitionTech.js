@@ -279,26 +279,26 @@ const mis_gammaResearchNew = [
 
 	//2
 	"R-Wpn-Missile2A-T", // Artifact
-	"R-Cyborg-Wpn-ATMiss", "R-Defense-GuardTower-ATMiss", "R-Defense-WallTower-A-Tmiss",
-	"R-Cyborg-Hvywpn-A-T", "R-Wpn-Missile-Damage02", "R-Wpn-Missile-ROF01",
+	"R-Defense-GuardTower-ATMiss", "R-Defense-WallTower-A-Tmiss",
+	"R-Cyborg-Hvywpn-A-T", "R-Defense-ATMiss", "R-Wpn-Missile-Damage02", "R-Wpn-Missile-ROF01",
 	"R-Vehicle-Body03", // Artifact
 	"R-Vehicle-Metals07", "R-Cyborg-Metals07", "R-Vehicle-Engine07",
 	"R-Vehicle-Armor-Heat04", "R-Cyborg-Armor-Heat04",
 	"R-Wpn-Flamer-Damage07", // Artifact
 
 	// 3
-	"R-Defense-WallUpgrade08", // Artifact
-	"R-Struc-Materials08",
-	"R-Wpn-Howitzer-Damage04", // Artifact
-	"R-Wpn-Bomb-Damage02",
 	"R-Wpn-Laser01", // Artifact
 	"R-Defense-BeamLasTower", "R-Defense-PrisLas", "R-Defense-WallTower-BeamLas",
 	"R-Cyborg-Wpn-Laser1", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage01",
 	"R-Wpn-Energy-ROF01",
 	"R-Wpn-AAGun-Damage04", // Artifact
 	"R-Wpn-AAGun-ROF04",
+	"R-Wpn-Howitzer-Damage05", // Artifact
+	"R-Wpn-Bomb-Damage02",
+	"R-Defense-WallUpgrade08", // Artifact
+	"R-Struc-Materials08",
 	"R-Wpn-MdArtMissile", // Artifact
-	"R-Defense-MdArtMissile", "R-Wpn-Missile-ROF02", 
+	"R-Defense-MdArtMissile", "R-Cyb-Hvywpn-Seraph", "R-Wpn-Missile-ROF02", 
 
 	// 4
 	"R-Wpn-RailGun02", // Artifact
@@ -307,8 +307,7 @@ const mis_gammaResearchNew = [
 
 	// 5
 	"R-Sys-Resistance-Upgrade01", // Granted
-	"R-Sys-Resistance-Upgrade02", "R-Sys-Resistance-Upgrade03", "R-Sys-Resistance-Upgrade04",
-	// TODO: Compress into one upgrade?
+	"R-Sys-Resistance-Upgrade02", "R-Sys-Resistance-Upgrade03",
 
 	// 6
 	"R-Vehicle-Body07", // Artifact
@@ -320,8 +319,10 @@ const mis_gammaResearchNew = [
 	"R-Wpn-Missile-Damage03",
 	"R-Wpn-AAGun-Damage05", // Artifact
 	"R-Wpn-AAGun-ROF05",
+	"R-Wpn-Howitzer03-Rot", // Artifact
+	"R-Defense-RotHow", "R-Wpn-Howitzer-Damage06", "R-Wpn-Howitzer-ROF04",
 	"R-Struc-Research-Upgrade03", // Artifact
-	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF02", "R-Wpn-Howitzer-Damage05",
+	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF02",
 	"R-Struc-Factory-Upgrade04", "R-Wpn-Missile-Accuracy02",
 
 	// 7
@@ -330,14 +331,14 @@ const mis_gammaResearchNew = [
 	"R-Wpn-Energy-Damage03", "R-Wpn-Energy-ROF03", "R-Cyborg-Hvywpn-PulseLsr",
 	"R-Wpn-Flamer-Damage09", "R-Wpn-Rail-ROF03",
 	"R-Wpn-Missile-HvSAM", // Artifact
-	"R-Defense-SamSite2", "R-Wpn-Missile-ROF03",
+	"R-Defense-SamSite2",
 	"R-Defense-WallUpgrade09", // Artifact
 	"R-Struc-Materials09",
-	"R-Wpn-Howitzer03-Rot", // Artifact
-	"R-Defense-RotHow", "R-Wpn-Howitzer-Damage06", "R-Wpn-Howitzer-ROF04",
-	"R-Wpn-Bomb-Damage03",
+	"R-Wpn-Bomb-Damage03", // Artifact
 	"R-Wpn-AAGun-Damage06", // Artifact
 	"R-Wpn-AAGun-ROF06",
+	"R-Wpn-HvArtMissile", // Artifact
+	"R-Defense-HvyArtMissile", "R-Wpn-Missile-ROF03",
 
 	// 8
 	"R-Sys-Resistance", // Granted
@@ -349,8 +350,6 @@ const mis_gammaResearchNew = [
 	"R-Vehicle-Body10", // Artifact
 	"R-Vehicle-Metals09", "R-Vehicle-Armor-Heat06", "R-Vehicle-Engine09",
 	"R-Cyborg-Metals09", "R-Cyborg-Armor-Heat06",
-	"R-Wpn-HvArtMissile", // Artifact
-	"R-Defense-HvyArtMissile", 
 
 	// END AT:
 	// "R-Wpn-MG-Damage08", "R-Wpn-MG-ROF03",
@@ -371,11 +370,6 @@ const mis_gammaResearchNew = [
 	// "R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
 	// "R-Vehicle-Engine09",
 	// "R-Struc-Research-Upgrade03",
-
-	// UNUSED (DELETE LATER):
-	// "R-Wpn-MG-Damage09",
-	// "R-Wpn-Cannon-Damage08", "R-Wpn-Cannon-Damage09",
-	// "R-Wpn-Cannon-ROF05", "R-Wpn-Cannon-ROF06", 
 ];
 
 //...

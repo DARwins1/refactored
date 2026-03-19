@@ -184,7 +184,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase1",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck1"),
 			structset: camAreaToStructSet("COBase1Cleanup")
@@ -192,7 +192,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase2",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck2"),
 			structset: camAreaToStructSet("COBase2Cleanup")
@@ -200,7 +200,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase2",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck3"),
 			structset: camAreaToStructSet("COBase2Cleanup")
@@ -208,7 +208,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase3",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck4"),
 			structset: camAreaToStructSet("COBase3Cleanup")

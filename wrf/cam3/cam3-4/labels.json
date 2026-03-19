@@ -1,0 +1,468 @@
+{
+	"position_0": {
+		"label": "startPosition",
+		"pos": [11200, 1472]
+	},
+
+
+	"position_1": {
+		"label": "transportEntryExit",
+		"pos": [11776, 1536]
+	},
+
+
+	"position_2": {
+		"label": "SWPatrolPos1",
+		"pos": [1600, 8000]
+	},
+
+
+	"position_3": {
+		"label": "SWPatrolPos2",
+		"pos": [4160, 8128]
+	},
+
+
+	"position_4": {
+		"label": "SWPatrolPos3",
+		"pos": [5056, 10560]
+	},
+
+
+	"position_5": {
+		"label": "SEPatrolPos1",
+		"pos": [11328, 6976]
+	},
+
+
+	"position_6": {
+		"label": "SEPatrolPos2",
+		"pos": [10432, 9664]
+	},
+
+
+	"position_7": {
+		"label": "NEPatrolPos1",
+		"pos": [10240, 5632]
+	},
+
+
+	"position_8": {
+		"label": "NEPatrolPos2",
+		"pos": [4800, 5696]
+	},
+
+
+	"position_9": {
+		"label": "NWPatrolPos1",
+		"pos": [5824, 832]
+	},
+
+
+	"position_10": {
+		"label": "NX-NEFactoryAssembly",
+		"pos": [8640, 4288]
+	},
+
+
+	"position_11": {
+		"label": "NX-SWFactoryAssembly",
+		"pos": [3008, 8768]
+	},
+
+
+	"position_12": {
+		"label": "NX-SEFactoryAssembly",
+		"pos": [10816, 11328]
+	},
+
+
+	"position_13": {
+		"label": "NX-VtolFactoryAssembly",
+		"pos": [6964, 11071]
+	},
+
+
+	"position_14": {
+		"label": "NX-SWCyborgFactoryAssembly",
+		"pos": [966, 11362]
+	},
+
+
+	"position_15": {
+		"label": "gammaCybAssembly",
+		"pos": [1001, 953]
+	},
+
+
+	"position_16": {
+		"label": "gammaAssembly1",
+		"pos": [2283, 1332]
+	},
+
+
+	"position_17": {
+		"label": "gammaAssembly2",
+		"pos": [554, 4147]
+	},
+
+
+	"position_18": {
+		"label": "NWPatrolPos2",
+		"pos": [1382, 2597]
+	},
+
+
+	"position_19": {
+		"label": "NWPatrolPos3",
+		"pos": [3756, 3770]
+	},
+
+
+	"position_20": {
+		"label": "NWPatrolPos4",
+		"pos": [4606, 2458]
+	},
+
+
+	"position_21": {
+		"label": "NWPatrolPos5",
+		"pos": [3534, 1776]
+	},
+
+
+	"position_22": {
+		"label": "NEPatrolPos3",
+		"pos": [7480, 6954]
+	},
+
+
+	"position_23": {
+		"label": "NX-SECyborgFactoryAssembly",
+		"pos": [11282, 10933]
+	},
+
+
+	"position_24": {
+		"label": "trophyPatrolPos1",
+		"pos": [3852, 8931]
+	},
+
+
+	"position_25": {
+		"label": "trophyPatrolPos2",
+		"pos": [2090, 8258]
+	},
+
+
+	"area_0": {
+		"label": "landingZone",
+		"pos1": [11008, 1280],
+		"pos2": [11264, 1536]
+	},
+
+
+	"area_1": {
+		"label": "SWBaseCleanup",
+		"pos1": [0, 7168],
+		"pos2": [4864, 12160]
+	},
+
+
+	"area_2": {
+		"label": "vtolBaseCleanup",
+		"pos1": [5376, 9472],
+		"pos2": [8576, 12032]
+	},
+
+
+	"area_3": {
+		"label": "RTLZ",
+		"pos1": [10112, 512],
+		"pos2": [11776, 2304]
+	},
+
+
+	"area_4": {
+		"label": "WBaseCleanup",
+		"pos1": [6912, 128],
+		"pos2": [8960, 1920]
+	},
+
+
+	"area_5": {
+		"label": "NWBaseCleanup",
+		"pos1": [384, 640],
+		"pos2": [3328, 4480]
+	},
+
+
+	"area_6": {
+		"label": "NEBaseCleanup",
+		"pos1": [6784, 3072],
+		"pos2": [9472, 4992]
+	},
+
+
+	"area_7": {
+		"label": "gammaCommandGroup",
+		"pos1": [1536, 2176],
+		"pos2": [2048, 2816]
+	},
+
+
+	"area_8": {
+		"label": "NWPatrolGroup",
+		"pos1": [3456, 1152],
+		"pos2": [3712, 1408]
+	},
+
+
+	"area_9": {
+		"label": "NEPatrolGroup",
+		"pos1": [7040, 5632],
+		"pos2": [7296, 5888]
+	},
+
+
+	"area_10": {
+		"label": "SEPatrolGroup",
+		"pos1": [9344, 9728],
+		"pos2": [9600, 10112]
+	},
+
+
+	"area_11": {
+		"label": "SEBaseCleanup",
+		"pos1": [10112, 7040],
+		"pos2": [11776, 11648]
+	},
+
+
+	"area_12": {
+		"label": "SWPatrolGroup",
+		"pos1": [5760, 8832],
+		"pos2": [6272, 9344]
+	},
+
+
+	"area_13": {
+		"label": "trophyCommandGroup",
+		"pos1": [2432, 8320],
+		"pos2": [2944, 8960]
+	},
+
+
+	"area_14": {
+		"label": "vtolGroup1",
+		"pos1": [5760, 11008],
+		"pos2": [6016, 11392]
+	},
+
+
+	"area_15": {
+		"label": "vtolGroup2",
+		"pos1": [6016, 11008],
+		"pos2": [6272, 11392]
+	},
+
+
+	"object_0": {
+		"label": "NX-SWCyborgFactory2",
+		"id": 246,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_1": {
+		"label": "NX-HQ",
+		"id": 237,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_2": {
+		"label": "NX-SWFactory",
+		"id": 812,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "gammaFactory2",
+		"id": 724,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_4": {
+		"label": "gammaFactory1",
+		"id": 751,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_5": {
+		"label": "NX-SEFactory",
+		"id": 733,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_6": {
+		"label": "NX-VtolFactory1",
+		"id": 748,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_7": {
+		"label": "NX-VtolFactory2",
+		"id": 746,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_8": {
+		"label": "nxTruck3",
+		"id": 756,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_9": {
+		"label": "nxVtolTowerE",
+		"id": 1638,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_10": {
+		"label": "nxVtolTowerCB",
+		"id": 1161,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_11": {
+		"label": "gammaCyborgFactory",
+		"id": 1288,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_12": {
+		"label": "nxTruck1",
+		"id": 755,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_13": {
+		"label": "nxTruck4",
+		"id": 758,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_14": {
+		"label": "nxTruck2",
+		"id": 757,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_15": {
+		"label": "NX-NEFactory",
+		"id": 729,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_16": {
+		"label": "gammaCommander",
+		"id": 1447,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_17": {
+		"label": "gammaTruck2",
+		"id": 1461,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_18": {
+		"label": "gammaTruck1",
+		"id": 1460,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_19": {
+		"label": "nxTruck5",
+		"id": 1462,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_20": {
+		"label": "gammaVtolTower",
+		"id": 1488,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_21": {
+		"label": "trophyCommander",
+		"id": 1579,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_22": {
+		"label": "NX-SWCyborgFactory1",
+		"id": 238,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_23": {
+		"label": "nxVtolTowerS",
+		"id": 1572,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_24": {
+		"label": "nxVtolTowerW",
+		"id": 1637,
+		"player": 3,
+		"type": 1
+	}
+}

@@ -330,6 +330,9 @@ function eventStartLevel()
 			structset: camAreaToStructSet("westBaseCleanup")
 	});
 
+	// Make sure this gets reset if destroyed and rebuilt
+	camAutoReplaceObjectLabel("COCommandCenter");
+
 	// Set up this sight trigger group
 	nxGroupST = camMakeGroup(getObject("nxGroup"));
 	addLabel({type: GROUP, id: nxGroupST}, "nxGroupST", false);

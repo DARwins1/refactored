@@ -1405,7 +1405,7 @@
         "armour": 10,
         "breadth": 1,
         "buildPoints": 400,
-        "buildPower": 225,
+        "buildPower": 250,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 400,
@@ -1421,6 +1421,29 @@
         "type": "DEFENSE",
         "weapons": [
             "Laser2PULSEMk1"
+        ],
+        "width": 1
+    },
+    "Emplacement-Plasmite": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 225,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "Emplacement-Plasmite",
+        "name": "Plasmite Flamer Emplacement",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLHARDPT.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "PlasmiteFlamer"
         ],
         "width": 1
     },
@@ -1566,7 +1589,7 @@
         "armour": 10,
         "breadth": 1,
         "buildPoints": 300,
-        "buildPower": 325,
+        "buildPower": 200,
         "ecmID": "ZNULLECM",
         "height": 2,
         "hitpoints": 600,
@@ -1589,7 +1612,7 @@
         "armour": 10,
         "breadth": 1,
         "buildPoints": 300,
-        "buildPower": 200,
+        "buildPower": 175,
         "ecmID": "ZNULLECM",
         "height": 2,
         "hitpoints": 600,
@@ -1973,7 +1996,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "blmssilo.pie"
+            "blbunkms.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2091,6 +2114,29 @@
         "type": "DEFENSE",
         "weapons": [
             "Laser3BEAMMk1"
+        ],
+        "width": 1
+    },
+    "NX-WallTower-PulseLas": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "NX-WallTower-PulseLas",
+        "name": "*NX-WallTower-PulseLas*",
+        "resistance": 300,
+        "sensorID": "NavGunSensor",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARD3.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Laser2PULSEMk1"
         ],
         "width": 1
     },
@@ -2435,11 +2481,34 @@
         ],
         "width": 1
     },
-    "PillBoxFlash": {
+    "PillBoxScourge": {
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
         "buildPower": 200,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "PillBoxScourge",
+        "name": "Scourge Missile Bunker",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blcanpil.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Missile-A-T"
+        ],
+        "width": 1
+    },
+    "PillBoxFlash": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 175,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
@@ -2485,7 +2554,7 @@
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
-        "buildPower": 200,
+        "buildPower": 175,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
@@ -2508,7 +2577,7 @@
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
-        "buildPower": 275,
+        "buildPower": 250,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
@@ -3060,7 +3129,7 @@
         "armour": 20,
         "breadth": 1,
         "buildPoints": 400,
-        "buildPower": 200,
+        "buildPower": 225,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 700,
@@ -3268,7 +3337,7 @@
         "armour": 15,
         "breadth": 1,
         "buildPoints": 400,
-        "buildPower": 300,
+        "buildPower": 275,
         "combinesWithWall": true,
         "ecmID": "ZNULLECM",
         "height": 2,

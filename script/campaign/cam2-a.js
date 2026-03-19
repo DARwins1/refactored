@@ -182,14 +182,9 @@ function setUnitRank(transport)
 		droids = enumDroid(CAM_HUMAN_PLAYER).filter((dr) => (!camIsTransporter(dr)));
 	}
 
-	for (let i = 0, len = droids.length; i < len; ++i)
+	for (const droid of droids)
 	{
-		const droid = droids[i];
-		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
-		{
-			const USE_COMMAND_RANK = (droid.droidType === DROID_COMMAND || droid.droidType === DROID_SENSOR);
-			camSetDroidRank(droid, ranks[mapRun ? 0 : (transporterIndex - 1)]);
-		}
+		camSetDroidRank(droid, ranks[mapRun ? 0 : (transporterIndex - 1)]);
 	}
 }
 
@@ -264,7 +259,6 @@ function eventStartLevel()
 	// NOTE: This is set to Beta 3 by default.
 	// If the player's transport is shot down, then set the next mission to Beta 2 instead.
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.beta3);
-	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
@@ -377,11 +371,11 @@ function eventStartLevel()
 		}
 
 		// Send a pre-filled transport with a commander and some high-rank droids
-		const firstTransportDroids = [ // 1 Command Turret, 4 Lancer Cyborgs, 3 Light Cannons
-			cTempl.prhcomht, // Command Turret
-			cTempl.scymc, cTempl.scymc, cTempl.scymc, // Super Heavy Gunners
-			cTempl.prhatht, cTempl.prhatht, cTempl.prhatht, // Lancers
-			cTempl.prhhmght, cTempl.prhhmght, cTempl.prhhmght, // HMGs
+		const firstTransportDroids = [
+			cTempl.prhcomht, // 1 Command Turret
+			cTempl.scymc, cTempl.scymc, cTempl.scymc, // 3 Super Heavy Gunners
+			cTempl.prhatht, cTempl.prhatht, cTempl.prhatht, // 3 Lancers
+			cTempl.prhhmght, cTempl.prhhmght, cTempl.prhhmght, // 3 HMGs
 		];
 
 		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,

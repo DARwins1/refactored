@@ -829,7 +829,8 @@
             "Sophisticated missile launcher firing anti-tank missiles",
             "Effective against: Vehicles",
             "Ineffective against: Infantry and structures",
-            "Greater accuracy at longer ranges"
+            "Greater accuracy at longer ranges",
+            "Obsoletes Tank Killer"
         ]
     },
     "RES_W_ASM_BB": {
@@ -1124,7 +1125,7 @@
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
             "Darts can hit multiple units",
-            "Obsoletes Needle Gun"
+            "Obsoletes Needle Gun, Assault Cannon, and Hyper Velocity Cannon"
         ]
     },
     "RES_W_RAIL3": {
@@ -1137,7 +1138,7 @@
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
             "Darts can hit multiple units",
-            "Obsoletes Rail Gun"
+            "Obsoletes Rail Gun and Heavy Cannon"
         ]
     },
     "RES_W_RAIL_AC1": {

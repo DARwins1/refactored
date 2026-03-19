@@ -3,49 +3,74 @@
 // Debugging helpers.
 ////////////////////////////////////////////////////////////////////////////////
 
-//;; ## camMarkTiles(label|labels)
+//;; ## camMarkTiles(what[, debug])
 //;;
-//;; Mark area on the map by label(s), but only if debug mode is enabled.
+//;; Mark area on the map, can be a label, position, or area.
+//;; If `debug` is true or undefined, only display the tiles when in debug mode.
 //;; Otherwise, remember what to mark in case it is going to be.
 //;;
-//;; @param {string|string[]} label
+//;; @param {string|string[]} what
+//;; @param {bool} debug
 //;; @returns {void}
 //;;
-function camMarkTiles(label)
+function camMarkTiles(what, debug = true)
 {
-	if (camIsString(label))
+	if (!(what instanceof Array))
 	{
-		__camMarkedTiles[label] = true;
+		__camMarkedTiles[__camMarkedTilesIdx++] = {what: what, debug: debug};
 	}
 	else
 	{
-		for (let i = 0, l = label.length; i < l; ++i)
+		for (let i = 0, l = what.length; i < l; ++i)
 		{
-			__camMarkedTiles[label[i]] = true;
+			__camMarkedTiles[__camMarkedTilesIdx++] = {what: what[i], debug: debug};
 		}
 	}
 	// apply instantly
 	__camUpdateMarkedTiles();
 }
 
-//;; ## camUnmarkTiles(label|labels)
+//;; ## camUnmarkTiles(what)
 //;;
-//;; No longer mark area(s) with given label(s) in debug mode.
+//;; No longer mark area(s).
+//;; If `what` is CAM_ALL_NON_DEBUG_TILES, unmark all non-debug exclusive tiles.
 //;;
-//;; @param {string|string[]} label
+//;; @param {string|string[]} what
 //;; @returns {void}
 //;;
-function camUnmarkTiles(label)
+function camUnmarkTiles(what)
 {
-	if (camIsString(label))
+	if (what === CAM_ALL_NON_DEBUG_TILES)
 	{
-		delete __camMarkedTiles[label];
+		for (const i in __camMarkedTiles)
+		{
+			if (!__camMarkedTiles[i].debug)
+			{
+				delete __camMarkedTiles[i];
+			}
+		}
+	}
+	else if (!(what instanceof Array))
+	{
+		for (const i in __camMarkedTiles)
+		{
+			if (__camCompareLabelPosOrArea(__camMarkedTiles[i].what, what))
+			{
+				delete __camMarkedTiles[i];
+			}
+		}
 	}
 	else
 	{
-		for (let i = 0, l = label.length; i < l; ++i)
+		for (let i = 0, l = what.length; i < l; ++i)
 		{
-			delete __camMarkedTiles[label[i]];
+			for (const j in __camMarkedTiles)
+			{
+				if (__camCompareLabelPosOrArea(__camMarkedTiles[j].what, what[i]))
+				{
+					delete __camMarkedTiles[j];
+				}
+			}
 		}
 	}
 	// apply instantly
@@ -142,11 +167,36 @@ function camIsCheating()
 function __camUpdateMarkedTiles()
 {
 	hackMarkTiles();
-	if (camIsCheating() && camDef(__camMarkedTiles))
+	if (camDef(__camMarkedTiles))
 	{
-		for (const label in __camMarkedTiles)
+		for (const i in __camMarkedTiles)
 		{
-			hackMarkTiles(label);
+			const marker = __camMarkedTiles[i];
+			if (!camDef(marker))
+			{
+				continue;
+			}
+
+			if (!marker.debug || (marker.debug && camIsCheating()))
+			{
+				if (camIsString(marker.what))
+				{
+					hackMarkTiles(marker.what); // Label
+				}
+				else if (camDef(marker.what.x2))
+				{
+					hackMarkTiles(marker.what.x, marker.what.y, marker.what.x2, marker.what.y2); // Area
+				}
+				else if (camDef(marker.what.x))
+				{
+					hackMarkTiles(marker.what.x, marker.what.y); // Position
+				}
+				else
+				{
+					// ???
+					camDebug("Tried to mark tiles with unkown data!");
+				}
+			}
 		}
 	}
 }
@@ -182,4 +232,42 @@ function __camGenericDebug(flag, functionName, args, err, backtrace)
 function __camBacktrace()
 {
 	return debugGetBacktrace();
+}
+
+function __camCompareLabelPosOrArea(a, b)
+{
+	if (camDef(a.x2)) // A is area
+	{
+		if (!camDef(b.x2)) // B is not an area
+		{
+			return false;
+		}
+		else
+		{
+			return (
+				a.x === b.x &&
+				a.y === b.y &&
+				a.x2 === b.x2 &&
+				a.y2 === b.y2
+			);
+		}
+	}
+	else if (camDef(a.x)) // A is position
+	{
+		if (!camDef(b.x)) // B is not a position
+		{
+			return false;
+		}
+		else
+		{
+			return (
+				a.x === b.x &&
+				a.y === b.y
+			);
+		}
+	}
+	else // String?
+	{
+		return a === b; // Try comparing directly
+	}
 }

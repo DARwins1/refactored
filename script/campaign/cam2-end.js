@@ -964,16 +964,14 @@ function sendSupportWave(entrance)
 }
 
 // Send trucks to attempt building Collective LZs
-function sendLZTrucks(entrance, index)
+function sendLZTrucks(entrance, truckJob)
 {
-	const truckJobs = [truckJob1, truckJob2, truckJob3, truckJob4, truckJob5, truckJob6, truckJob7];
-
 	// Don't send a truck if there's already one working on this LZ
-	if (!camGetTruck(truckJobs[index]))
+	if (!camGetTruck(truckJob))
 	{
 		const tPos = camMakePos(entrance);
 		const tTemp = cTempl.comtruckht;
-		camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp), truckJobs[index]);
+		camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp), truckJob);
 	}
 }
 

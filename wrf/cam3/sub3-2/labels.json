@@ -1,0 +1,164 @@
+{
+	"position_0": {
+		"label": "startPosition",
+		"pos": [1728, 448]
+	},
+
+
+	"position_1": {
+		"label": "transporterEntry",
+		"pos": [1024, 128]
+	},
+
+
+	"position_2": {
+		"label": "transporterExit",
+		"pos": [128, 640]
+	},
+
+
+	"position_3": {
+		"label": "vtolAppearPos",
+		"pos": [192, 11456]
+	},
+
+
+	"position_4": {
+		"label": "healthRetreatPos",
+		"pos": [4928, 10816]
+	},
+
+
+	"position_5": {
+		"label": "SW-PhantomFactory",
+		"pos": [64, 10816]
+	},
+
+
+	"position_6": {
+		"label": "patrolPos1",
+		"pos": [3028, 9647]
+	},
+
+
+	"position_7": {
+		"label": "patrolPos2",
+		"pos": [3931, 11119]
+	},
+
+
+	"position_8": {
+		"label": "patrolPos3",
+		"pos": [2829, 7628]
+	},
+
+
+	"position_9": {
+		"label": "patrolPos4",
+		"pos": [887, 6224]
+	},
+
+
+	"area_0": {
+		"label": "landingZone",
+		"pos1": [1536, 640],
+		"pos2": [1792, 896]
+	},
+
+
+	"area_1": {
+		"label": "RTLZ",
+		"pos1": [448, 0],
+		"pos2": [2580, 1728]
+	},
+
+
+	"area_2": {
+		"label": "laserTankGroup",
+		"pos1": [4288, 10688],
+		"pos2": [4928, 11200]
+	},
+
+
+	"area_3": {
+		"label": "cyborgGroup",
+		"pos1": [448, 2112],
+		"pos2": [1088, 2752]
+	},
+
+
+	"area_4": {
+		"label": "rescueTrigger",
+		"pos1": [3776, 9536],
+		"pos2": [5504, 11648],
+		"subscriber": 0
+	},
+
+
+	"area_5": {
+		"label": "phantomFacTrigger",
+		"pos1": [64, 4544],
+		"pos2": [5504, 5568],
+		"subscriber": 0
+	},
+
+
+	"area_6": {
+		"label": "railGroup",
+		"pos1": [1280, 10368],
+		"pos2": [1664, 10624]
+	},
+
+
+	"area_7": {
+		"label": "baseCleanup",
+		"pos1": [512, 9984],
+		"pos2": [2432, 11392]
+	},
+
+
+	"area_8": {
+		"label": "SE-PhantomFactory",
+		"pos1": [5248, 10624],
+		"pos2": [5504, 11392]
+	},
+
+
+	"area_9": {
+		"label": "NE-PhantomFactory",
+		"pos1": [5376, 3072],
+		"pos2": [5504, 3712]
+	},
+
+
+	"object_0": {
+		"label": "nxTruck",
+		"id": 393,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_1": {
+		"label": "NXartiRail",
+		"id": 403,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_2": {
+		"label": "NXCommandCenter",
+		"id": 392,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"radius_0": {
+		"label": "vtolRemoveZone",
+		"pos": [1792, 11648],
+		"subscriber": 3,
+		"radius": 250
+	}
+}

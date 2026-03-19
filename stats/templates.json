@@ -3,7 +3,7 @@
         "body": "Body1REC",
         "id": "ASPOTTER",
         "name": "*SPOTTER*",
-        "propulsion": "tracked03",
+        "propulsion": "tracked01",
         "type": "DROID",
         "weapons": [
             "QuadMg1AAGun"
@@ -944,6 +944,17 @@
             "Cyb-Hvywpn-Grenade"
         ]
     },
+    "Cyb-Hvy-Seraph": {
+        "available": true,
+        "body": "CyborgHeavyBody",
+        "id": "Cyb-Hvy-Seraph",
+        "name": "Super Seraph Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "Cyb-Hvywpn-Seraph"
+        ]
+    },
     "Cyb-Hvy-PulseLsr": {
         "available": true,
         "body": "CyborgHeavyBody",
@@ -1050,6 +1061,17 @@
         "type": "CYBORG",
         "weapons": [
             "Cyb-Wpn-Thermite"
+        ]
+    },
+    "Cyb-Plasmite": {
+        "available": true,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Plasmite",
+        "name": "Plasmite Flamer Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "Cyb-Wpn-Plasmite"
         ]
     },
     "NP-H-HvyCannon-Hover": {
@@ -1304,10 +1326,10 @@
         "type": "DROID"
     },
     "NX-Cyb-Miss-JUMP": {
-        "body": "CyborgLightBody",
+        "body": "CybNXJmpBody",
         "id": "NX-Cyb-Miss-JUMP",
         "name": "*NX-Cyb-Miss-JUMP*",
-        "propulsion": "CyborgLegs",
+        "propulsion": "CyborgLegs02",
         "sensor": "NavGunSensor",
         "type": "CYBORG",
         "weapons": [
@@ -1315,21 +1337,32 @@
         ]
     },
     "NX-Cyb-PulseLas-JUMP": {
-        "body": "CyborgLightBody",
+        "body": "CybNXJmpBody",
         "id": "NX-Cyb-PulseLas-JUMP",
         "name": "*NX-Cyb-PulseLas-JUMP*",
-        "propulsion": "CyborgLegs",
+        "propulsion": "CyborgLegs02",
         "sensor": "NavGunSensor",
         "type": "CYBORG",
         "weapons": [
-            "NX-CyborgPulseLas"
+            "NX-CyborgLas"
+        ]
+    },
+    "NX-Cyb-Plasmite-JUMP": {
+        "body": "CybNXJmpBody",
+        "id": "NX-Cyb-Plasmite-JUMP",
+        "name": "*NX-Cyb-Plasmite-JUMP*",
+        "propulsion": "CyborgLegs02",
+        "sensor": "NavGunSensor",
+        "type": "CYBORG",
+        "weapons": [
+            "NX-CyborgPlasFlame"
         ]
     },
     "NX-Cyb-Rail1-JUMP": {
-        "body": "CyborgLightBody",
+        "body": "CybNXJmpBody",
         "id": "NX-Cyb-Rail1-JUMP",
         "name": "*NX-Cyb-JUMP*",
-        "propulsion": "CyborgLegs",
+        "propulsion": "CyborgLegs02",
         "sensor": "NavGunSensor",
         "type": "CYBORG",
         "weapons": [
@@ -1340,7 +1373,7 @@
         "body": "Body10MBT",
         "id": "NX-H-CBS-Hover",
         "name": "*NX-H-CBS-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "Sys-CBTurret01",
         "type": "DROID"
     },
@@ -1348,7 +1381,7 @@
         "body": "Body10MBT",
         "id": "NX-H-HvMiss-Hover",
         "name": "*NX-H-HvMiss-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1359,7 +1392,7 @@
         "body": "Body7ABT",
         "id": "NX-H-Rail2-VTOL",
         "name": "*NX-H-Rail2-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1370,18 +1403,29 @@
         "body": "Body10MBT",
         "id": "NX-H-Rail3-Hover",
         "name": "*NX-H-Rail3-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
             "RailGun3Mk1"
         ]
     },
+    "NX-H-MdArt-Hover": {
+        "body": "Body10MBT",
+        "id": "NX-H-MdArt-Hover",
+        "name": "*NX-H-MdArt-Hover*",
+        "propulsion": "hover02",
+        "sensor": "NavGunSensor",
+        "type": "DROID",
+        "weapons": [
+            "Missile-MdArt"
+        ]
+    },
     "NX-L-Flash-Hover": {
         "body": "Body3MBT",
         "id": "NX-L-Flash-Hover",
         "name": "*NX-L-Flash-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1392,7 +1436,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Link-Hov",
         "name": "*NX-L-Link-Hov*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1403,7 +1447,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Missile-A-T-VTOL",
         "name": "*NX-L-ASMiss-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1414,7 +1458,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Missile-MdArt-Hover",
         "name": "*NX-L-MdMiss-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1425,7 +1469,7 @@
         "body": "Body3MBT",
         "id": "NX-L-PulseLas-VTOL",
         "name": "*NX-L-PulseLas-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1436,7 +1480,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Rail1-VTOL",
         "name": "*NX-L-Rail1-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1447,7 +1491,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Repair-Hover",
         "name": "*NX-L-Repair-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "repair": "LightRepair1",
         "sensor": "NavGunSensor",
         "type": "DROID"
@@ -1456,7 +1500,7 @@
         "body": "Body3MBT",
         "id": "NX-L-Sens-Hov",
         "name": "*NX-L-Sens-Hov*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "SensorTurret1Mk1",
         "type": "DROID"
     },
@@ -1464,7 +1508,7 @@
         "body": "Body7ABT",
         "id": "NX-M-Bomb2-VTOL",
         "name": "*NX-M-Bomb2-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1475,7 +1519,7 @@
         "body": "Body7ABT",
         "id": "NX-M-Bomb4-VTOL",
         "name": "*NX-M-Bomb4-VTOL*",
-        "propulsion": "V-Tol",
+        "propulsion": "V-Tol02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1487,7 +1531,7 @@
         "brain": "CommandBrain01",
         "id": "NX-M-Com-Hover",
         "name": "*NX-M-Com-Track*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID_COMMAND",
         "weapons": [
@@ -1499,7 +1543,7 @@
         "construct": "Spade1Mk1",
         "id": "NX-M-Con-Hover",
         "name": "*NX-M-Con-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "CONSTRUCT"
     },
@@ -1507,7 +1551,7 @@
         "body": "Body7ABT",
         "id": "NX-M-HvSam-Hover",
         "name": "*NX-M-HvSam-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1518,7 +1562,7 @@
         "body": "Body7ABT",
         "id": "NX-M-Link-Hover",
         "name": "*NX-M-Link-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1529,29 +1573,51 @@
         "body": "Body7ABT",
         "id": "NX-M-Missile-A-T-Hover",
         "name": "*NX-M-ATMiss-Hov*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
             "Missile-A-T"
         ]
     },
+    "NX-M-Missile-BB-Hover": {
+        "body": "Body7ABT",
+        "id": "NX-M-Missile-BB-Hover",
+        "name": "*NX-M-BBMiss-Hov*",
+        "propulsion": "hover02",
+        "sensor": "NavGunSensor",
+        "type": "DROID",
+        "weapons": [
+            "Missile-BB"
+        ]
+    },
     "NX-M-PulseLas-Hover": {
         "body": "Body7ABT",
         "id": "NX-M-PulseLas-Hover",
         "name": "*NX-M-Laser2-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
             "Laser2PULSEMk1"
         ]
     },
+    "NX-M-Plasmite-Hover": {
+        "body": "Body7ABT",
+        "id": "NX-M-Plasmite-Hover",
+        "name": "*NX-M-Plasmite-Hover*",
+        "propulsion": "hover02",
+        "sensor": "NavGunSensor",
+        "type": "DROID",
+        "weapons": [
+            "PlasmiteFlamer"
+        ]
+    },
     "NX-M-Rail2-Hover": {
         "body": "Body7ABT",
         "id": "NX-M-Rail2-Hover",
         "name": "*NX-M-Rail2-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "NavGunSensor",
         "type": "DROID",
         "weapons": [
@@ -1562,7 +1628,7 @@
         "body": "Body7ABT",
         "id": "NX-M-Strike-Hover",
         "name": "*NX-M-Strike-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "Sys-VstrikeTurret01",
         "type": "DROID"
     },
@@ -1570,7 +1636,7 @@
         "body": "Body7ABT",
         "id": "NX-M-VTOLCBS-Hover",
         "name": "*NX-M-VTOLCBS-Hover*",
-        "propulsion": "hover01",
+        "propulsion": "hover02",
         "sensor": "Sys-VTOLCBTurret01",
         "type": "DROID"
     },
@@ -1679,6 +1745,16 @@
             "AAGun2Mk1"
         ]
     },
+    "P0cam3PyRotAAHT": {
+        "body": "Body11ABT",
+        "id": "P0cam3PyRotAAHT",
+        "name": "Whirlwind AA Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "QuadRotAAGun"
+        ]
+    },
     "P0cam3PyHPVcanTrk": {
         "body": "Body11ABT",
         "id": "P0cam3PyHPVcanTrk",
@@ -1694,6 +1770,16 @@
         "id": "P0cam3PyHvyATTrk",
         "name": "Tank Killer Python Tracks",
         "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-HvyA-T"
+        ]
+    },
+    "P0cam3PyHvyATHT": {
+        "body": "Body11ABT",
+        "id": "P0cam3PyHvyATHT",
+        "name": "Tank Killer Python Half-tracks",
+        "propulsion": "HalfTrack",
         "type": "DROID",
         "weapons": [
             "Rocket-HvyA-T"

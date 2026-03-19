@@ -122,7 +122,6 @@ const cam_resistance_circuits = {
 	first: "R-Sys-Resistance-Upgrade01",
 	second: "R-Sys-Resistance-Upgrade02",
 	third: "R-Sys-Resistance-Upgrade03",
-	fourth: "R-Sys-Resistance-Upgrade04"
 };
 
 const CAM_GAMMA_OUT = "GAMMA_OUT"; //Fake next level for the final Gamma mission.
@@ -288,8 +287,11 @@ const cam_sounds = {
 	enemyUnitDetected: "pcv378.ogg",
 	enemyVtolsDetected: "pcv388.ogg",
 	incomingAirStrike: "pcv634.ogg",
+	giftReceived: "pcv482.ogg",
 	beacon: "beacon.ogg",
+	uplink: "uplink.ogg",
 	tracker: "pcv657.ogg", // Used to place a red dot on the minimap
+	errorBeep: "beep8.ogg",
 	soundIdentifier: ".ogg", //Used by video.js to check for sound before a video.
 };
 
@@ -313,9 +315,11 @@ const CAM_REINFORCE_CONDITION_ARTIFACTS = 4;
 
 //debug
 var __camMarkedTiles = {};
+var __camMarkedTilesIdx = 0;
 var __camCheatMode = false;
 var __camDebuggedOnce = {};
 var __camTracedOnce = {};
+const CAM_ALL_NON_DEBUG_TILES = 0;
 
 //events
 var __camSaveLoading;
@@ -435,7 +439,7 @@ const CAM_MINUTES_IN_HOUR = 60;
 const cam_trComps = {
 	name: "Transport",
 	body: "TransporterBody",
-	propulsion: "V-Tol",
+	propulsion: "V-TolTrans",
 	weapon: "MG3-VTOL"
 };
 var __camNumTransporterExits;

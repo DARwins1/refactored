@@ -1058,18 +1058,18 @@ function camFactoryCanProduceTemplate(template, factory)
 		case CYBORG_FACTORY:
 		{
 			// Cyborg Legs
-			return (template.prop === "CyborgLegs" || template.prop === "CyborgLegs02" || template.prop === "CyborgLegs03" || template.prop === "BoomTickLegs");
+			return (template.prop === "CyborgLegs" || template.prop === "CyborgLegs02");
 		}
 		case VTOL_FACTORY:
 		{
 			// Any VTOL or Helicopter propulsion
-			return (template.prop === "V-Tol" || template.prop === "V-Tol02" || template.prop === "V-Tol03" || template.prop === "Helicopter");
+			return (template.prop === "V-Tol" || template.prop === "V-Tol02" || template.prop === "Helicopter");
 		}
 		case FACTORY:
 		{
 			// Anything else
-			return (template.prop !== "V-Tol" && template.prop !== "V-Tol02" && template.prop !== "V-Tol03" && template.prop !== "Helicopter"
-				&& template.prop !== "CyborgLegs" && template.prop !== "CyborgLegs02" && template.prop !== "CyborgLegs03" && template.prop !== "BoomTickLegs");
+			return (template.prop !== "V-Tol" && template.prop !== "V-Tol02" && template.prop !== "Helicopter"
+				&& template.prop !== "CyborgLegs" && template.prop !== "CyborgLegs02");
 		}
 		default:
 		{

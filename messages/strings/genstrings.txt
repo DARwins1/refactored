@@ -32,9 +32,9 @@ NPLZ_MSG			_("New Paradigm Landing Zone")
 COLBASE_MSG			_("Collective Base")
 COLPOST_MSG			_("Collective Outpost")
 COLLZ_MSG			_("Collective Landing Zone")
-NEXUSBASE_MSG		_("NEXUS Base")
-NEXUSPOST_MSG		_("NEXUS Outpost")
-NEXUSLZ_MSG			_("NEXUS Landing Zone")
+NEXBASE_MSG			_("NEXUS Base")
+NEXPOST_MSG			_("NEXUS Outpost")
+NEXLZ_MSG			_("NEXUS Landing Zone")
 MISSIONTARGET_MSG	_("Mission Target")
 
 /* incoming transmission */
