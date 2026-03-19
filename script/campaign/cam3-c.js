@@ -218,6 +218,20 @@ function betaAlive()
 	}
 }
 
+// Remove the repair facilities placed in the limbo LZ
+function removeLimboRepair()
+{
+	const objs = enumArea("limboDroidLZ");
+
+	for (const obj of objs)
+	{
+		if (obj.type === STRUCTURE && obj.stattype === REPAIR_FACILITY)
+		{
+			camSafeRemoveObject(obj);
+		}
+	}
+}
+
 function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Reunite a part of Beta team with a Gamma team outpost"));
@@ -236,6 +250,17 @@ function eventStartLevel()
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(limboLZ.x, limboLZ.y, limboLZ.x2, limboLZ.y2, -1);
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)));
+
+	const droids = enumDroid(CAM_HUMAN_PLAYER, DROID_WEAPON);
+	for (const droid of droids)
+	{
+		// Recycle the stashed EXP from Gamma 2
+		if (droid.name === "*EXP Stash*")
+		{
+			orderDroid(droid, DORDER_RECYCLE);
+		}
+	}
+	queue("removeLimboRepair", camSecondsToMilliseconds(0.4));
 
 	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 	camCompleteRequiredResearch(mis_gammaAllyRes, MIS_GAMMA_PLAYER);
@@ -365,4 +390,9 @@ function eventStartLevel()
 
 	queue("setupPatrolGroups", camSecondsToMilliseconds(10));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
+
+	// Darken the fog to 3/4 default brightness
+	camSetFog(137, 167, 177);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

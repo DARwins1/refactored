@@ -71,6 +71,7 @@ function camEnemyBaseEliminated()
 
 function mockBattle()
 {
+	camSetObjectVision(MIS_GAMMA_PLAYER); // Grant vision to the player
 	setAlliance(MIS_GAMMA_PLAYER, CAM_NEXUS, false); //brief mockup battle
 
 	queue("setupCapture", camSecondsToMilliseconds(12));
@@ -92,6 +93,8 @@ function trapSprung()
 	camCompleteRequiredResearch(mis_nexusRes, MIS_GAMMA_PLAYER); //They get even more research.
 	camPlayVideos({video: "MB3_B_MSG3", type: CAMP_MSG});
 	hackRemoveMessage("CM3B_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	camSetObjectVision(MIS_GAMMA_PLAYER, false); // Stop granting vision to the player
 
 	// Add an extra hour
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(60)) + getMissionTime());
@@ -435,4 +438,9 @@ function eventStartLevel()
 
 	queue("transferPower", camSecondsToMilliseconds(3));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(8)));
+
+	// Darken the fog to 3/4 default brightness
+	camSetFog(137, 167, 177);
+	// Move the sun towards the west
+	camSetSunPos(425, -400, 450);
 }

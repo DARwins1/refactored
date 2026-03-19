@@ -327,7 +327,7 @@
             "Thermal weapon; Damage bypasses kinetic armor of target",
             "Accuracy is unaffected by range",
             "Can attack aerial targets",
-            "Obsoletes Flashlight Gunner Cyborg",
+            "Obsoletes Flashlight Gunner and Assault Gunner Cyborgs",
             "Requires Cyborg factory to produce"
         ]
     },

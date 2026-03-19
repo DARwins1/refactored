@@ -25,6 +25,7 @@ const mis_nexusRes = [
 const mis_hackedProductionName = "???"; // The name of all NEXUS units built from player factories
 var winFlag;
 var lastResCheckFailed, playerWarned;
+var playerTrueColour, nxTrueColour;
 var hackIdx;
 var truckJob1;
 var truckJob2;
@@ -362,6 +363,7 @@ function eventResearched(research, structure, player)
 
 		winFlag = true;
 		camSetNexusState(false);
+		colourReset();
 	}
 }
 
@@ -432,7 +434,6 @@ function hackPlayer()
 				if (!getResearch(cam_resistance_circuits.second).done)
 				{
 					absorbObject(target); // Take it
-					sound = cam_sounds.nexus.researchAbsorbed;
 				}
 				else
 				{
@@ -447,7 +448,6 @@ function hackPlayer()
 			if (!getResearch(cam_resistance_circuits.first).done && camGetDroidRank(target) < 3) // Below "Regular"
 			{
 				absorbObject(target); // Take it
-				sound = cam_sounds.nexus.unitAbsorbed;
 			}
 			else if (!target.isVTOL || (target.isVTOL && (target.action === DACTION_NONE || target.action === DACTION_WAITDURINGREARM)))
 			{
@@ -466,15 +466,6 @@ function hackPlayer()
 				for (const struct of targetStructs)
 				{
 					absorbObject(struct); // Take it
-				}
-
-				if (target.stattype === DEFENSE)
-				{
-					sound = cam_sounds.nexus.defensesAbsorbed;
-				}
-				else
-				{
-					sound = cam_sounds.nexus.structureAbsorbed;
 				}
 			}
 			else
@@ -623,8 +614,44 @@ function synapticsSound()
 	if (camDef(hq) && hq !== null)
 	{
 		absorbObject(hq);
-		playSound(cam_sounds.nexus.structureAbsorbed);
 	}
+}
+
+// A cosmetic effect that momentarily swaps the player's and NEXUS' team colors
+// Becomes less common as the player researches resistance upgrades
+function colourPulse()
+{
+	if (getResearch(cam_resistance_circuits.third).done)
+	{
+		removeTimer("colourPulse");
+		return;
+	}
+	else if (getResearch(cam_resistance_circuits.second).done && camRand(12) === 0)
+	{
+		return;
+	}
+	else if (getResearch(cam_resistance_circuits.first).done && camRand(6) === 0)
+	{
+		return;
+	}
+	else if (camRand(3) === 0)
+	{
+		return;
+	}
+
+	changePlayerColour(CAM_HUMAN_PLAYER, nxTrueColour);
+	changePlayerColour(CAM_NEXUS, playerTrueColour);
+
+	// Colour effect lasts for a random amount of time
+	const DURATION = 0.6 + (camRand(8) * 0.2); // 0.6 to 2.0 seconds
+	queue("colourReset", camSecondsToMilliseconds(DURATION));
+}
+
+// Revert the colour-swapping effect
+function colourReset()
+{
+	changePlayerColour(CAM_HUMAN_PLAYER, playerTrueColour);
+	changePlayerColour(CAM_NEXUS, nxTrueColour);
 }
 
 // winFlag is set in eventResearched.
@@ -734,10 +761,19 @@ function eventStartLevel()
 	lastResCheckFailed = false;
 	playerWarned = false;
 	hackIdx = 0;
+	playerTrueColour = playerData[CAM_HUMAN_PLAYER].colour;
+	nxTrueColour = playerData[CAM_NEXUS].colour;
 	
+	setTimer("colourPulse", camSecondsToMilliseconds(32));
+
 	queue("synapticsSound", camSecondsToMilliseconds(2.5));
 
 	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	setTimer("hackPlayer", camChangeOnDiff(camSecondsToMilliseconds(8)));
 	setTimer("checkResearchStalled", camSecondsToMilliseconds(5));
+
+	// Darken the fog to 1/2 default brightness
+	camSetFog(91, 113, 118);
+	// Move the sun far towards the east
+	camSetSunPos(-500, -200, 200);
 }

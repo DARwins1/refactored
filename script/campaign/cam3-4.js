@@ -21,8 +21,8 @@ const mis_nexusRes = [
 	"R-Vehicle-Engine09",
 	"R-Sys-NEXUSrepair",
 ];
-const mis_defaultFog = {r:182, g:225, b:236};
-const mis_defaultSun = {r:0.5, g:0.5, b:0.5};
+const mis_defaultFog = {r:10, g:10, b:10};
+const mis_defaultSun = {r:0.35, g:0.35, b:0.4};
 var empCharge; // Decrements over time; EMP attack when zero
 var playerWarned; // Warn the player when an EMP attack is imminent
 var gammaCommanderDeathTime;
@@ -227,7 +227,7 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, CAM_GAMMA_OUT, {
 		area: "RTLZ",
 		reinforcements: camMinutesToSeconds(1),
-		annihilate: true
+		eliminateBases: true
 	});
 
 	centreView(startPos.x, startPos.y);
@@ -459,7 +459,9 @@ function eventStartLevel()
 			rebuildBase: true,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("nxTruck3"),
-			structset: camAreaToStructSet("NEBaseCleanup")
+			structset: camAreaToStructSet("NEBaseCleanup").filter((struct) => (
+				struct.stat !== "CoolingTower" && struct.stat !== "NuclearReactor"
+			))
 	});
 	camManageTrucks(
 		CAM_NEXUS, {
@@ -717,4 +719,14 @@ function eventStartLevel()
 	queue("enableStrikeGroups", camChangeOnDiff(camMinutesToMilliseconds(8)));
 	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
 	queue("enableEMPAttack", camChangeOnDiff(camMinutesToMilliseconds(12)));
+
+	// Darken the fog to be nearly pitch black
+	camSetFog(mis_defaultFog.r, mis_defaultFog.g, mis_defaultFog.b); // r:10, g:10, b:10
+	// Darken the lighting and add a slight blue hue
+	camSetSunIntensity(mis_defaultSun.r, mis_defaultSun.g, mis_defaultSun.b); // r:0.35, g:0.35, b:0.4
+	// Move the sun towards the east
+	camSetSunPos(-225, -600, 450);
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Stop the snow
+	camSetWeather(CAM_WEATHER_CLEAR);
 }

@@ -955,7 +955,7 @@
             "Thermal weapon; Damage bypasses kinetic armor of target",
             "Accuracy is unaffected by range",
             "Can attack aerial targets",
-            "Obsoletes Flashlight"
+            "Obsoletes Flashlight and Assault Gun"
         ]
     },
     "RES_W_MG_D10": {

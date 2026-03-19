@@ -397,6 +397,7 @@ var __camSkyboxType;
 //nexus
 var __camLastNexusAttack;
 var __camNexusActivated;
+var __camCapturedFactoryIdx;
 
 //production
 var __camFactoryInfo;

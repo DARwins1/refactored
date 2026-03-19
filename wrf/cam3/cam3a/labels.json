@@ -66,20 +66,20 @@
 
 
 	"position_11": {
-		"label": "NXcybFac-b3Assembly",
-		"pos": [5568, 8896]
-	},
-
-
-	"position_12": {
 		"label": "NXb2Assembly",
 		"pos": [1600, 14912]
 	},
 
 
-	"position_13": {
+	"position_12": {
 		"label": "NXcybFac-b4Assembly",
 		"pos": [2112, 8896]
+	},
+
+
+	"position_13": {
+		"label": "NXcybFac-b3Assembly",
+		"pos": [6571, 8704]
 	},
 
 
@@ -154,6 +154,22 @@
 
 
 	"object_0": {
+		"label": "NXPowerGenArti",
+		"id": 901,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_1": {
+		"label": "NXResearchLabArti",
+		"id": 1011,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_2": {
 		"label": "NXCommandCenter",
 		"id": 170,
 		"player": 3,
@@ -161,15 +177,7 @@
 	},
 
 
-	"object_1": {
-		"label": "NXcybFac-b3",
-		"id": 88,
-		"player": 3,
-		"type": 1
-	},
-
-
-	"object_2": {
+	"object_3": {
 		"label": "NXcybFac-b4",
 		"id": 240,
 		"player": 3,
@@ -177,17 +185,9 @@
 	},
 
 
-	"object_3": {
+	"object_4": {
 		"label": "NXcybFac-b2",
 		"id": 187,
-		"player": 3,
-		"type": 1
-	},
-
-
-	"object_4": {
-		"label": "NXPowerGenArti",
-		"id": 901,
 		"player": 3,
 		"type": 1
 	},
@@ -202,8 +202,8 @@
 
 
 	"object_6": {
-		"label": "NXResearchLabArti",
-		"id": 1011,
+		"label": "NXcybFac-b3",
+		"id": 88,
 		"player": 3,
 		"type": 1
 	},

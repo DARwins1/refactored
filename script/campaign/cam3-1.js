@@ -106,6 +106,22 @@ function nukeAndCountSurvivors()
 		}
 	}
 
+	if (foundUnit)
+	{
+		// Also stash player EXP with these droids
+		let droidExp = -1;
+		while (droidExp != 0)
+		{
+			const droid = camAddDroid(CAM_HUMAN_PLAYER, "valleySafeZone", cTempl.plmgw, "*EXP Stash*");
+			droidExp = droid.experience;
+			if (!droidExp)
+			{
+				// Don't keep extra droids with no EXP
+				camSafeRemoveObject(droid);
+			}
+		}
+	}
+
 	return foundUnit; //Must have saved at least one unit to win.
 }
 
@@ -393,4 +409,11 @@ function eventStartLevel()
 	queue("hoverAttack", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(5)));
+
+	// Dim the fog and make it gray
+	camSetFog(111, 111, 111);
+	// Darken the lighting
+	camSetSunIntensity(.4, .4, .4);
+	// Constant snow
+	camSetWeather(CAM_WEATHER_SNOWSTORM);
 }

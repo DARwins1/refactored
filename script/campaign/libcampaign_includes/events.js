@@ -146,6 +146,7 @@ function cam_eventStartLevel()
 	__camSunTargetIntensity = {time: 0};
 	__camPlayerVisibilities = [];
 	__camBonusPowerGranted = false;
+	__camCapturedFactoryIdx = 0;
 	__camAiPowerReset(); //grant power to the AI
 	camSetFog(); // Set fog to it's default color
 	camSetSunPos(); // Set the sun to it's default position
@@ -179,7 +180,7 @@ function cam_eventDroidBuilt(droid, structure)
 	{
 		return;
 	}
-	if (camGetNexusState() && droid.player === CAM_NEXUS && __camNextLevel === cam_levels.gamma6 && camRand(100) < 7)
+	if (camGetNexusState() && droid.player === CAM_NEXUS)
 	{
 		// Occasionally hint that NEXUS is producing units on Gamma 5.
 		playSound(cam_sounds.nexus.productionCompleted);
@@ -492,6 +493,11 @@ function cam_eventObjectTransfer(obj, from)
 			else
 			{
 				snd = cam_sounds.nexus.structureAbsorbed;
+
+				if (obj.stattype === FACTORY || obj.stattype === CYBORG_FACTORY || obj.stattype === VTOL_FACTORY)
+				{
+					__camManageCapturedFactory(obj);
+				}
 			}
 		}
 		else if (obj.type === DROID)

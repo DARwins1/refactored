@@ -207,6 +207,92 @@ function doAddHQGuideTopic()
 	addGuideTopic("wz2100::structures::hq", SHOWTOPIC_FIRSTADD);
 }
 
+// Allow the player to change to colors that are hard-coded to be unselectable
+function eventChat(from, to, message)
+{
+	let colour = 0;
+	switch (message)
+	{
+		case "green me":
+			colour = 0; // Green
+			break;
+		case "orange me":
+			colour = 1; // Orange
+			break;
+		case "grey me":
+		case "gray me":
+			colour = 2; // Gray
+			break;
+		case "black me":
+			colour = 3; // Black
+			break;
+		case "red me":
+			colour = 4; // Red
+			break;
+		case "blue me":
+			colour = 5; // Blue
+			break;
+		case "pink me":
+			colour = 6; // Pink
+			break;
+		case "aqua me":
+		case "cyan me":
+			colour = 7; // Cyan
+			break;
+		case "yellow me":
+			colour = 8; // Yellow
+			break;
+		case "purple me":
+			colour = 9; // Purple
+			break;
+		case "white me":
+			colour = 10; // White
+			break;
+		case "bright blue me":
+		case "bright me":
+			colour = 11; // Bright Blue
+			break;
+		case "neon green me":
+		case "neon me":
+		case "bright green me":
+			colour = 12; // Neon Green
+			break;
+		case "infrared me":
+		case "infra red me":
+		case "infra me":
+		case "dark red me":
+			colour = 13; // Infrared
+			break;
+		case "ultraviolet me":
+		case "ultra violet me":
+		case "ultra me":
+		case "uv me":
+		case "dark blue me":
+			colour = 14; // Ultraviolet
+			break;
+		case "brown me":
+		case "dark green me":
+			colour = 15; // Brown
+			break;
+		default:
+			return; // Some other message; do nothing
+	}
+
+	playerColour = colour;
+	changePlayerColour(CAM_HUMAN_PLAYER, colour);
+	adaptColors();
+	playSound("beep6.ogg");
+}
+
+function adaptColors()
+{
+	// Make sure the scavengers aren't choosing conflicting colors with the player
+	changePlayerColour(CAM_SCAV_6, (playerColour !== 6) ? 6 : 9); // Set to pink or purple
+	changePlayerColour(CAM_SCAV_6, (playerColour !== 7) ? 7 : 12); // Set to cyan or neon gree
+	// This is set for future levels
+	changePlayerColour(CAM_NEW_PARADIGM, (playerColour !== 1) ? 1 : 8); // Set to orange or yellow
+}
+
 function eventStartLevel()
 {
 	const PLAYER_POWER = 1300;
@@ -224,6 +310,9 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_playerRes, CAM_HUMAN_PLAYER);
 
 	setPower(PLAYER_POWER, CAM_HUMAN_PLAYER);
+
+	playerColour = playerData[0].colour;
+	adaptColors();
 
 	camSetArtifacts({
 		"base1ArtifactPos": { tech: "R-Wpn-MG-Damage01" }, // Hardened MG Bullets

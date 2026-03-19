@@ -85,3 +85,88 @@ function camGetNexusState()
 
 //////////// privates
 
+// Start managing a factory that was stolen from the player by NEXUS
+function __camManageCapturedFactory(factory)
+{
+	// Select templates based on the type of factory that was captured
+	let templates;
+	let throttle;
+	// Instead of a pre-defined list, sample all of the player's units on the map...
+	const droids = enumDroid(CAM_HUMAN_PLAYER);
+	templates = [];
+	for (const droid of droids)
+	{
+		if (droid.droidType !== DROID_COMMAND) // We don't want NEXUS to spam useless commanders if the player has them
+		{
+			// NOTE: This assumes that the player doesn't have any multi-weapon units!
+			templates.push({body: droid.body, prop: droid.propulsion, weap: droid.weapons[0].name});
+		}
+	}
+	// templates = camRemoveDuplicates(templates);
+
+	if (factory.stattype === FACTORY) // Standard factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(60));
+		templates = templates.filter((temp) => (temp.prop !== "CyborgLegs" && temp.prop !== "V-Tol")); // Filter out all cyborgs and VTOLs
+		if (structInfo.modules < 2)
+		{
+			templates = templates.filter((temp) => ( // Filter out all heavy bodies
+				temp.body !== "Body11ABT" && 
+				temp.body !== "Body12SUP" && 
+				temp.body !== "Body9REC" &&
+				temp.body !== "Body10MBT"
+			));
+		}
+		if (structInfo.modules < 1)
+		{
+			templates = templates.filter((temp) => ( // Filter out all medium bodies
+				temp.body !== "Body5REC" &&
+				temp.body !== "Body8MBT" &&
+				temp.body !== "Body6SUPP" &&
+				temp.body !== "Body7ABT"
+			));
+		}
+	}
+	else if (factory.stattype === CYBORG_FACTORY) // Cyborg factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(40));
+		templates = templates.filter((temp) => (temp.prop === "CyborgLegs")); // Filter out all non-cyborgs
+	}
+	else // VTOL factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(70));
+		templates = templates.filter((temp) => (temp.prop === "V-Tol")); // Filter out all non-VTOLs
+		if (structInfo.modules < 2)
+		{
+			templates = templates.filter((temp) => ( // Filter out all heavy bodies
+				temp.body !== "Body11ABT" && 
+				temp.body !== "Body12SUP" && 
+				temp.body !== "Body9REC" &&
+				temp.body !== "Body10MBT"
+			));
+		}
+		if (structInfo.modules < 1)
+		{
+			templates = templates.filter((temp) => ( // Filter out all medium bodies
+				temp.body !== "Body5REC" &&
+				temp.body !== "Body8MBT" &&
+				temp.body !== "Body6SUPP" &&
+				temp.body !== "Body7ABT"
+			));
+		}
+	}
+
+	// Start managing the factory!
+	const fLabel = "capturedFactory" + __camCapturedFactoryIdx++;
+	addLabel(newStruct, fLabel);
+	camSetFactoryData(fLabel, {
+		order: CAM_ORDER_ATTACK,
+		throttle: throttle,
+		groupSize: 3,
+		data: {
+			repair: 50,
+		},
+		templates: templates
+	});
+	camEnableFactory(fLabel);
+}

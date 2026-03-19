@@ -37,17 +37,25 @@ camAreaEvent("vtolRemoveZone", function(droid)
 
 function setUnitRank(transport)
 {
-	const ranks = ["Hero", "Special", "Elite", "Veteran"];
+	const ranks = (transporterIndex == 1) ? ["Hero"] : ["Special", "Elite", "Veteran"];
 	const droids = enumCargo(transport);
 
-	for (const droid of droids)
+	for (const i in droids)
 	{
-		camSetDroidRank(droid, ranks[transporterIndex - 1]);
+		camSetDroidRank(droids[i], camRandFrom(ranks));
 	}
 }
 
+//Bump the rank of the first batch of transport droids as a reward.
 function eventTransporterLanded(transport)
 {
+	if (!camDef(transporterIndex))
+	{
+		transporterIndex = 0;
+	}
+
+	transporterIndex += 1;
+
 	if (startedFromMenu)
 	{
 		setUnitRank(transport);
@@ -58,7 +66,7 @@ function eventTransporterLanded(transport)
 function camEnemyBaseEliminated()
 {
 	activateSecondFactories();
-	enableAllFactories();
+	enableFinalFactories();
 	camCallOnce("vtolAttack");
 }
 
@@ -70,66 +78,9 @@ function activateSecondFactories()
 }
 
 // Enable the NW Cyborg Factory
-function enableAllFactories()
+function enableFinalFactories()
 {
 	camEnableFactory("NXcybFac-b4");
-}
-
-//Extra transport units are only awarded to those who start Gamma campaign
-//from the main menu.
-function sendPlayerTransporter()
-{
-	const transportLimit = 4; //Max of four transport loads if starting from menu.
-	if (!camDef(transporterIndex))
-	{
-		transporterIndex = 0;
-	}
-
-	if (transporterIndex === transportLimit)
-	{
-		removeTimer("sendPlayerTransporter");
-		return;
-	}
-
-	const droids = [];
-	const bodyList = [tBody.tank.tiger, tBody.tank.tiger, tBody.tank.python, tBody.tank.mantis];
-	const propulsionList = [tProp.tank.hover, tProp.tank.hover, tProp.tank.tracks];
-	const weaponList = [
-		tWeap.tank.assaultCannon, tWeap.tank.assaultCannon, tWeap.tank.inferno,
-		tWeap.tank.inferno, tWeap.tank.assaultGun, tWeap.tank.assaultGun,
-		tWeap.tank.hyperVelocityCannon, tWeap.tank.tankKiller
-	];
-	const specialList = [tConstruct.truck, tConstruct.truck, tCommand.commander, tCommand.commander];
-	const BODY = bodyList[camRand(bodyList.length)];
-	const PROP = propulsionList[camRand(propulsionList.length)];
-
-	for (let i = 0; i < 10; ++i)
-	{
-		let prop = PROP;
-		let weap = (!transporterIndex && (i < specialList.length)) ? specialList[i] : weaponList[camRand(weaponList.length)];
-		if (transporterIndex === 1 && i < 4)
-		{
-			weap = tWeap.tank.whirlwind; //Bring 4 Whirlwinds on the 2nd transport.
-		}
-		if (BODY === tBody.tank.mantis)
-		{
-			prop = tProp.tank.tracks; //Force Mantis to use Tracks.
-		}
-		if (weap === tConstruct.truck)
-		{
-			prop = tProp.tank.hover; //Force trucks to use Hover.
-		}
-		droids.push({ body: BODY, prop: prop, weap: weap });
-	}
-
-	camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), droids,
-		CAM_REINFORCE_TRANSPORT, {
-			entry: { x: 63, y: 118 },
-			exit: { x: 63, y: 118 }
-		}
-	);
-
-	transporterIndex += 1;
 }
 
 //Setup Nexus VTOL hit and runners.
@@ -150,6 +101,90 @@ function vtolAttack()
 	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter", ext);
 }
 
+// Allow the player to change to colors that are hard-coded to be unselectable
+function eventChat(from, to, message)
+{
+	let colour = 0;
+	switch (message)
+	{
+		case "green me":
+			colour = 0; // Green
+			break;
+		case "orange me":
+			colour = 1; // Orange
+			break;
+		case "grey me":
+		case "gray me":
+			colour = 2; // Gray
+			break;
+		case "black me":
+			colour = 3; // Black
+			break;
+		case "red me":
+			colour = 4; // Red
+			break;
+		case "blue me":
+			colour = 5; // Blue
+			break;
+		case "pink me":
+			colour = 6; // Pink
+			break;
+		case "aqua me":
+		case "cyan me":
+			colour = 7; // Cyan
+			break;
+		case "yellow me":
+			colour = 8; // Yellow
+			break;
+		case "purple me":
+			colour = 9; // Purple
+			break;
+		case "white me":
+			colour = 10; // White
+			break;
+		case "bright blue me":
+		case "bright me":
+			colour = 11; // Bright Blue
+			break;
+		case "neon green me":
+		case "neon me":
+		case "bright green me":
+			colour = 12; // Neon Green
+			break;
+		case "infrared me":
+		case "infra red me":
+		case "infra me":
+		case "dark red me":
+			colour = 13; // Infrared
+			break;
+		case "ultraviolet me":
+		case "ultra violet me":
+		case "ultra me":
+		case "uv me":
+		case "dark blue me":
+			colour = 14; // Ultraviolet
+			break;
+		case "brown me":
+		case "dark green me":
+			colour = 15; // Brown
+			break;
+		default:
+			return; // Some other message; do nothing
+	}
+
+	playerColour = colour;
+	changePlayerColour(CAM_HUMAN_PLAYER, colour);
+	adaptColors();
+	playSound("beep6.ogg");
+}
+
+
+function adaptColors()
+{
+	// Make sure NEXUS isn't choosing conflicting colors with the player
+	changePlayerColour(CAM_NEXUS, (playerColour !== 3) ? 3 : 14); // Set to black or ultraviolet
+}
+
 function eventStartLevel()
 {
 	const PLAYER_POWER = 16000;
@@ -165,6 +200,9 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	playerColour = playerData[0].colour;
+	adaptColors();
 
 	camSetArtifacts({
 		"NXPowerGenArti": { tech: "R-Struc-Power-Upgrade02" }, // Vapor Turbine Generator
@@ -334,20 +372,24 @@ function eventStartLevel()
 
 		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
 			CAM_REINFORCE_TRANSPORT, {
-				entry: { x: 87, y: 126 },
-				exit: { x: 87, y: 126 }
+				entry: tEnt,
+				exit: tExt
 			}
 		);
 	}
-	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
+
+	setReinforcementTime(camMinutesToSeconds(3)); // 3 min.
+
+	if (!startedFromMenu)
 	{
-		startedFromMenu = true;
-		sendPlayerTransporter();
-		setTimer("sendPlayerTransporter", camMinutesToMilliseconds(5));
-	}
-	else
-	{
-		setReinforcementTime(camMinutesToSeconds(3)); // 3 min.
+		// Prevent the player from bringing recycled unit EXP from Beta
+		let droidExp = -1;
+		while (droidExp != 0)
+		{
+			const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.plmgw, "EXP Sink");
+			droidExp = droid.experience;
+			camSafeRemoveObject(droid);
+		}
 	}
 
 	// NOTE: The west base doesn't have any trucks because it's small and insignificant.
@@ -389,7 +431,7 @@ function eventStartLevel()
 		camMakeGroup("hoverPatrolGrp"), {
 			templates: patrolTemplates,
 			globalFill: true
-		}, CAM_ORDER_PATROL{
+		}, CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("hoverGrpPos1"),
 			camMakePos("hoverGrpPos2"),
@@ -433,4 +475,21 @@ function eventStartLevel()
 	queue("activateSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
 	queue("camCallOnce", camChangeOnDiff(camMinutesToMilliseconds(12)), "vtolAttack");
 	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(18)));
+
+	// Darken the fog to 1/2 default brightness and add a slight red tint
+	// NOTE: default RGB for the rocky skies is (182, 225, 236)
+	camSetFog(121, 123, 118);
+	// Darken the lighting slightly and add a slight orange hue
+	// NOTE: default brightness is (.5, .5, .5)
+	camSetSunIntensity(.45, .45, .4);
+	// Move the sun towards the east
+	// NOTE: default position is (x: 225.0, y: -600.0, z: 450.0)
+	// Sun coordinates and their corresponding sun directions (where the sun is relative to the world):
+	// -x: EAST, +x: WEST
+	// -y: UP, +y: DOWN
+	// -z: NORTH, +z: SOUTH
+	// (remember that shadows are casted in the OPPOSITE direction of the sun)
+	// Also remember that these coordinates are normalized; the values of each axis only matter in respect to each other.
+	// e.g. (5, 4, 3) == (500, 400, 300)
+	camSetSunPos(-425, -400, 450);
 }

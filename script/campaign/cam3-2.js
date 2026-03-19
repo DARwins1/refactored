@@ -264,4 +264,12 @@ function eventStartLevel()
 
 	setTimer("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(4.5)));
 	setTimer("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(6.5)));
+
+	// Darken the fog to be nearly pitch black
+	camSetFog(10, 10, 10);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Move the sun towards the east
+	camSetSunPos(-225, -600, 450);
+	camSetSkyType(CAM_SKY_NIGHT);
 }

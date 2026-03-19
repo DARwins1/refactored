@@ -38,8 +38,8 @@ const mis_researchTargets = {
 	missileCode3: "R-Comp-MissileCodes03",
 	resistance: "R-Sys-Resistance"
 };
-const mis_defaultFog = {r:182, g:225, b:236};
-const mis_defaultSun = {r:0.5, g:0.5, b:0.5};
+const mis_defaultFog = {r:146, g:167, b:177};
+const mis_defaultSun = {r:0.45, g:0.45, b:0.4};
 var winFlag;
 var mapLimit;
 var lastResCheckFailed, playerWarned;
@@ -745,4 +745,13 @@ function eventStartLevel()
 	camPlayVideos({video: "MB3_AD2_MSG", type: MISS_MSG});
 
 	setTimer("checkResearchStalled", camSecondsToMilliseconds(5));
+
+	// Darken the fog to 3/4 default brightness and add a slight red tint
+	camSetFog(mis_defaultFog.r, mis_defaultFog.g, mis_defaultFog.b); // r:146, g:167, b:177
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(mis_defaultSun.r, mis_defaultSun.g, mis_defaultSun.b); // r:0.45, g:0.45, b:0.4
+	// Move the sun towards the west
+	camSetSunPos(425, -400, 450);
+	// Stop the snow
+	camSetWeather(CAM_WEATHER_CLEAR);
 }

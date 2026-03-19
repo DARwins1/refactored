@@ -167,7 +167,6 @@ function groupOrders()
 //Get some higher rank droids.
 function setUnitRank(transport)
 {
-	const ranks = ["Elite", "Veteran", "Professional", "Regular"];
 	let droids;
 	let mapRun = false;
 
@@ -182,9 +181,10 @@ function setUnitRank(transport)
 		droids = enumDroid(CAM_HUMAN_PLAYER).filter((dr) => (!camIsTransporter(dr)));
 	}
 
+	const ranks = (mapRun || transporterIndex == 1) ? ["Elite"] : ["Veteran", "Professional", "Regular"];
 	for (const droid of droids)
 	{
-		camSetDroidRank(droid, ranks[mapRun ? 0 : (transporterIndex - 1)]);
+		camSetDroidRank(droid, camRandFrom(ranks));
 	}
 }
 
@@ -248,6 +248,91 @@ function eventGameLoaded()
 	}
 }
 
+// Allow the player to change to colors that are hard-coded to be unselectable
+function eventChat(from, to, message)
+{
+	let colour = 0;
+	switch (message)
+	{
+		case "green me":
+			colour = 0; // Green
+			break;
+		case "orange me":
+			colour = 1; // Orange
+			break;
+		case "grey me":
+		case "gray me":
+			colour = 2; // Gray
+			break;
+		case "black me":
+			colour = 3; // Black
+			break;
+		case "red me":
+			colour = 4; // Red
+			break;
+		case "blue me":
+			colour = 5; // Blue
+			break;
+		case "pink me":
+			colour = 6; // Pink
+			break;
+		case "aqua me":
+		case "cyan me":
+			colour = 7; // Cyan
+			break;
+		case "yellow me":
+			colour = 8; // Yellow
+			break;
+		case "purple me":
+			colour = 9; // Purple
+			break;
+		case "white me":
+			colour = 10; // White
+			break;
+		case "bright blue me":
+		case "bright me":
+			colour = 11; // Bright Blue
+			break;
+		case "neon green me":
+		case "neon me":
+		case "bright green me":
+			colour = 12; // Neon Green
+			break;
+		case "infrared me":
+		case "infra red me":
+		case "infra me":
+		case "dark red me":
+			colour = 13; // Infrared
+			break;
+		case "ultraviolet me":
+		case "ultra violet me":
+		case "ultra me":
+		case "uv me":
+		case "dark blue me":
+			colour = 14; // Ultraviolet
+			break;
+		case "brown me":
+		case "dark green me":
+			colour = 15; // Brown
+			break;
+		default:
+			return; // Some other message; do nothing
+	}
+
+	playerColour = colour;
+	changePlayerColour(CAM_HUMAN_PLAYER, colour);
+	adaptColors();
+	playSound("beep6.ogg");
+}
+
+
+function adaptColors()
+{
+	// Make sure other factions aren't choosing conflicting colors with the player
+	changePlayerColour(CAM_THE_COLLECTIVE, (playerColour !== 2) ? 2 : 10); // Set to gray or white
+	changePlayerColour(CAM_NEXUS, (playerColour !== 3) ? 3 : 14); // Set to black or ultraviolet
+}
+
 function eventStartLevel()
 {
 	const PLAYER_POWER = 5000;
@@ -264,6 +349,9 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	playerColour = playerData[0].colour;
+	adaptColors();
 
 	camSetArtifacts({
 		"COCommandCenter": { tech: "R-Sys-Engineering02" }, // Improved Engineering
@@ -380,8 +468,8 @@ function eventStartLevel()
 
 		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
 			CAM_REINFORCE_TRANSPORT, {
-				entry: { x: 87, y: 126 },
-				exit: { x: 87, y: 126 }
+				entry: tEnt,
+				exit: tExt
 			}
 		);
 	}

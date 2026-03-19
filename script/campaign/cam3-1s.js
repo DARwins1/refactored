@@ -15,4 +15,9 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(75)));
 	camPlayVideos([{video: "MB3_1A_MSG", type: CAMP_MSG}, {video: "MB3_1A_MSG2", type: MISS_MSG}]);
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.gamma2.offWorld);
+
+	// Dim the fog a bit
+	camSetFog(137, 167, 177);
+	// Move the sun slightly towards the east
+	camSetSunPos(-225, -600, 450);
 }

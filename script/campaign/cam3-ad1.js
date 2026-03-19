@@ -23,7 +23,7 @@ const mis_nexusRes = [ // NEXUS is maxed-out on upgrades at this point
 	"R-Vehicle-Engine09",
 	"R-Sys-NEXUSrepair",
 ];
-const mis_defaultFog = {r:182, g:225, b:236};
+const mis_defaultFog = {r:137, g:167, b:177};
 const mis_defaultSun = {r:0.5, g:0.5, b:0.5};
 var capturedSilos; // victory flag letting us know if we captured any silos.
 var mapLimit; //LasSat slowly creeps toward missile silos.

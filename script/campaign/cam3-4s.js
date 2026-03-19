@@ -18,4 +18,11 @@ function eventStartLevel()
 	setPower(playerPower(CAM_HUMAN_PLAYER) + 50000, CAM_HUMAN_PLAYER);
 	camPlayVideos([{video: "MB3_4_MSG", type: CAMP_MSG}, {video: "MB3_4_MSG2", type: MISS_MSG}]);
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.gammaEnd.offWorld);
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(46, 56, 59);
+	// Darken the lighting
+	camSetSunIntensity(.4, .4, .4);
+	// Move the sun far towards the west
+	camSetSunPos(500, -200, 200);
 }
