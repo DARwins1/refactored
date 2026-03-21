@@ -16,7 +16,7 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF02", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals08", "R-Cyborg-Metals08",
 	"R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Vehicle-Engine08",
@@ -56,44 +56,29 @@ function checkResearchStalled()
 	const res2 = getResearch(cam_resistance_circuits.second);
 	const res3 = getResearch(cam_resistance_circuits.third);
 
-	if ((res1.started && !res1.done) ||
-		(res2.started && !res2.done) ||
-		(res3.started && !res3.done))
+	if ((!res1.started && !res1.done) ||
+		(res1.done && !res2.started && !res2.done) ||
+		(res2.done && !res3.started && !res3.done))
 	{
-		// Research is in progress...
-		// Check to make sure that at least one research facility is alive and working
-		let working = false;
-		const labs = enumStruct(CAM_HUMAN_PLAYER, RESEARCH_LAB);
-
-		for (const lab of labs)
+		// No research is in progress!
+		if (!lastResCheckFailed)
 		{
-			if (!structureIdle(lab))
-			{
-				working = true;
-			}
+			// This check failed, mark it and remember for the next check
+			lastResCheckFailed = true;
 		}
-
-		if (!working)
+		else if (!playerWarned) // Don't spam the player with warnings
 		{
-			if (!lastResCheckFailed)
-			{
-				// This check failed, mark it and remember for the next check
-				lastResCheckFailed = true;
-			}
-			else if (!playerWarned) // Don't spam the player with warnings
-			{
-				// This check and the previous one failed, warn the player that they're not progressing
-				console(_("----- CRITICAL RESEARCH STALLED -----"));
-				playSound(cam_sounds.errorBeep);
-				playerWarned = true;
-			}
+			// This check and the previous one failed, warn the player that they're not progressing
+			console(_("----- CRITICAL RESEARCH STALLED -----"));
+			playSound(cam_sounds.beacon);
+			playerWarned = true;
 		}
-		else
-		{
-			// This check passed, reset vars
-			lastResCheckFailed = false;
-			playerWarned = false;
-		}
+	}
+	else
+	{
+		// This check passed, reset vars
+		lastResCheckFailed = false;
+		playerWarned = false;
 	}
 }
 
@@ -264,7 +249,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, ["vtolAppearPos1", "vtolAppearPos2"], "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, ["vtolAppearPos1", "vtolAppearPos2"], "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
 }
 
 // Focus on important player structures
@@ -279,7 +264,7 @@ function vtolStrike()
 		dynamic: true,
 		callback: "getDevastatorTargets" // Used to get targets for VTOL strikes
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, ["vtolAppearPos1", "vtolAppearPos2"], "vtolRemoveZone", [cTempl.nxldevv], camChangeOnDiff(camMinutesToMilliseconds(1)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, ["vtolAppearPos1", "vtolAppearPos2"], "vtolRemoveZone", [cTempl.nxldevv], camChangeOnDiff(camMinutesToMilliseconds(1)), undefined, ext);
 }
 
 // Returns a list of objects to be targeted by Devastator VTOL strikes
@@ -314,6 +299,10 @@ function getDevastatorTargets()
 // Player can win once all remaining enemies are cleaned up.
 function eventResearched(research, structure, player)
 {
+	if (!camDef(structure) || !structure)
+	{
+		return;
+	}
 	if (research.name === cam_resistance_circuits.first)
 	{
 		// Set up ground and air attacks
@@ -327,10 +316,10 @@ function eventResearched(research, structure, player)
 		queue("vtolStrike", camChangeOnDiff(camMinutesToMilliseconds(1)));
 
 		// Check all of the player's factories for hacked templates in progress
-		const factories = enumStruct(CAM_HUMAN_PLAYER, FACTORY).concat(CAM_HUMAN_PLAYER, CYBORG_FACTORY).concat(CAM_HUMAN_PLAYER, VTOL_FACTORY);
+		const factories = enumStruct(CAM_HUMAN_PLAYER, FACTORY).concat(enumStruct(CAM_HUMAN_PLAYER, CYBORG_FACTORY), enumStruct(CAM_HUMAN_PLAYER, VTOL_FACTORY));
 		for (const factory of factories)
 		{
-			if (getDroidProduction(target).name === mis_hackedProductionName)
+			if (!structureIdle(factory) && getDroidProduction(factory).name === mis_hackedProductionName)
 			{
 				// Replace the hacked template with a mundane one
 				let template;
@@ -359,7 +348,7 @@ function eventResearched(research, structure, player)
 		// Stop all ground and air attacks
 		removeTimer("sendEdgeMapDroids");
 		removeTimer("sendNXTransporter");
-		camSetVtolData(false); // Stop VTOL attacks
+		camSetVtolSpawnStateAll(false); // Stop VTOL attacks
 
 		winFlag = true;
 		camSetNexusState(false);
@@ -405,17 +394,21 @@ function hackPlayer()
 	let sound;
 	const DACTION_NONE = 0;
 	const DACTION_WAITDURINGREARM = 35;
-	switch (camRand(5))
+	switch (camRand(4))
 	{
 		case 0: // Target a Factory (any type)
-			const factories = enumStruct(CAM_HUMAN_PLAYER, FACTORY).concat(CAM_HUMAN_PLAYER, CYBORG_FACTORY).concat(CAM_HUMAN_PLAYER, VTOL_FACTORY);
+			const factories = enumStruct(CAM_HUMAN_PLAYER, FACTORY).concat(enumStruct(CAM_HUMAN_PLAYER, CYBORG_FACTORY), enumStruct(CAM_HUMAN_PLAYER, VTOL_FACTORY));
+			if (!factories.length)
+			{
+				return;
+			}
 			target = camRandFrom(factories); // Choose a random factory
 			if (!getResearch(cam_resistance_circuits.second).done && structureIdle(target))
 			{
 				nexusManufacture(target); // Start building a NEXUS unit under the player's nose
 				// No sound; we're trying to be sneaky here :P
 			}
-			else if (!getDroidProduction(target).propulsion.includes("02")) // Don't blow up a factory that is already building for NEXUS
+			else if (!structureIdle(target) && !getDroidProduction(target).propulsion.includes("02")) // Don't blow up a factory that is already building for NEXUS
 			{
 				camSafeRemoveObject(target, true); // Blow it up
 				sound = cam_sounds.nexus.structureNeutralized;
@@ -423,6 +416,15 @@ function hackPlayer()
 			break;
 		case 1: // Target a Research Facility
 			const labs = enumStruct(CAM_HUMAN_PLAYER, RESEARCH_LAB);
+			if (!labs.length)
+			{
+				return;
+			}
+			if (camRand(labs.length + 2) <= 1) // 2 / (*number of research labs* + 2) chance of failing here
+			{
+				// Do this to avoid breaking the player's research labs faster than they can build them
+				return;
+			}
 			target = camRandFrom(labs); // Choose a random lab
 			if (structureIdle(target))
 			{
@@ -444,6 +446,10 @@ function hackPlayer()
 			break;
 		case 2: // Target a unit (any type)
 			const units = enumDroid(CAM_HUMAN_PLAYER);
+			if (!units.length)
+			{
+				return;
+			}
 			target = camRandFrom(units); // Choose a random droid
 			if (!getResearch(cam_resistance_circuits.first).done && camGetDroidRank(target) < 3) // Below "Regular"
 			{
@@ -455,17 +461,21 @@ function hackPlayer()
 				sound = cam_sounds.nexus.unitNeutralized; // Yes, I know this stretches the definition of "neutralized"
 			}
 			break;
-		case 2: // Target a structure (any type)
+		case 3: // Target a structure (any type)
 			const structs = enumStruct(CAM_HUMAN_PLAYER).filter((struct) => (struct.stattype !== WALL && struct.stattype !== GATE));
+			if (!structs.length)
+			{
+				return;
+			}
 			target = camRandFrom(structs); // Choose a random (non-wall) structure
 			if (!getResearch(cam_resistance_circuits.second).done)
 			{
 				// Capture everything around the target
-				let radius = (difficulty < INSANE) ? 2 : 3;
-				const targetStructs = enumRange(target.x, target.y, radius, CAM_HUMAN_PLAYER, false).filter((obj) => (obj.type === STRUCTURE));
+				const RADIUS = (difficulty < INSANE) ? 2 : 3;
+				const targetStructs = enumRange(target.x, target.y, RADIUS, CAM_HUMAN_PLAYER, false).filter((obj) => (obj.type === STRUCTURE));
 				for (const struct of targetStructs)
 				{
-					absorbObject(struct); // Take it
+					absorbObject(struct); // Take it all
 				}
 			}
 			else
@@ -488,6 +498,7 @@ function hackPlayer()
 	if (camDef(sound))
 	{
 		playSound(sound);
+		queue("camNexusLaugh", camSecondsToMilliseconds(1.5));
 	}
 }
 
@@ -501,7 +512,7 @@ function nexusManufacture(factory)
 	switch (factory.stattype)
 	{
 		case FACTORY:
-			temps = [cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmscouh, cTempl.nxlflash, cTempl.nxmserh, cTempl.nxmplash];
+			temps = [cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmscouh, cTempl.nxlflash, cTempl.nxhserh, cTempl.nxmplash];
 			break;
 		case CYBORG_FACTORY:
 			temps = [cTempl.ncyne, cTempl.ncysc, cTempl.ncyla, cTempl.ncypl];
@@ -525,6 +536,7 @@ function nexusManufacture(factory)
 		additive = "-ND";
 	}
 
+	const template = camRandFrom(temps);
 	makeComponentAvailable(template.body + additive, CAM_HUMAN_PLAYER);
 	makeComponentAvailable(template.prop, CAM_HUMAN_PLAYER);
 	makeComponentAvailable(template.weap + additive, CAM_HUMAN_PLAYER);
@@ -609,7 +621,7 @@ function synapticsSound()
 {
 	playSound(cam_sounds.nexus.synapticLinksActivated);
 
-	const hq = enumStruct(player, HQ)[0];
+	const hq = enumStruct(CAM_HUMAN_PLAYER, HQ)[0];
 
 	if (camDef(hq) && hq !== null)
 	{
@@ -770,7 +782,7 @@ function eventStartLevel()
 
 	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	setTimer("hackPlayer", camChangeOnDiff(camSecondsToMilliseconds(8)));
-	setTimer("checkResearchStalled", camSecondsToMilliseconds(5));
+	setTimer("checkResearchStalled", camSecondsToMilliseconds(8));
 
 	// Darken the fog to 1/2 default brightness
 	camSetFog(91, 113, 118);

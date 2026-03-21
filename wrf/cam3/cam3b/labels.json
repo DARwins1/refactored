@@ -78,8 +78,14 @@
 
 
 	"position_13": {
-		"label": "gammaDefensePos",
-		"pos": [1749, 2395]
+		"label": "gammaDefensePos1",
+		"pos": [561, 2365]
+	},
+
+
+	"position_14": {
+		"label": "gammaDefensePos2",
+		"pos": [2885, 1748]
 	},
 
 
@@ -114,7 +120,8 @@
 	"area_4": {
 		"label": "mockBattleTrigger",
 		"pos1": [0, 4096],
-		"pos2": [8064, 4864]
+		"pos2": [8064, 4864],
+		"subscriber": 0
 	},
 
 

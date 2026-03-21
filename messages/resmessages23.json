@@ -193,7 +193,8 @@
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
             "Greater accuracy at longer ranges",
             "Has a very long weapon range",
-            "Must be stationary to fire"
+            "Must be stationary to fire",
+            "Obsoletes standard Howitzer and all mortars"
         ]
     }
 }

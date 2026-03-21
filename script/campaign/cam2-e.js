@@ -5,7 +5,7 @@ include("script/campaign/structSets.js");
 var wavesDone; // True if all attack waves have spawned
 const mis_collectiveRes = [
 	"R-Wpn-MG-Damage08", "R-Wpn-MG-ROF03",
-	"R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF03",
 	"R-Wpn-Cannon-Damage07", "R-Wpn-Cannon-ROF04", "R-Wpn-Cannon-Accuracy02",
 	"R-Wpn-Mortar-Damage06", "R-Wpn-Mortar-ROF04", "R-Wpn-Mortar-Acc03", 
 	"R-Wpn-Rocket-Damage07", "R-Wpn-Rocket-ROF03", "R-Wpn-Rocket-Accuracy04",

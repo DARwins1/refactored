@@ -147,6 +147,7 @@ function cam_eventStartLevel()
 	__camPlayerVisibilities = [];
 	__camBonusPowerGranted = false;
 	__camCapturedFactoryIdx = 0;
+	__camLastStructureAbsorbedSoundAlert = gameTime;
 	__camAiPowerReset(); //grant power to the AI
 	camSetFog(); // Set fog to it's default color
 	camSetSunPos(); // Set the sun to it's default position
@@ -480,7 +481,7 @@ function cam_eventObjectTransfer(obj, from)
 	if (camGetNexusState() && from === CAM_HUMAN_PLAYER && obj.player === CAM_NEXUS)
 	{
 		let snd;
-		if (obj.type === STRUCTURE)
+		if (obj.type === STRUCTURE && (gameTime >= __camLastStructureAbsorbedSoundAlert + camSecondsToMilliseconds(2)))
 		{
 			if (obj.stattype === DEFENSE)
 			{
@@ -499,6 +500,7 @@ function cam_eventObjectTransfer(obj, from)
 					__camManageCapturedFactory(obj);
 				}
 			}
+			__camLastStructureAbsorbedSoundAlert = gameTime; // Prevent these sound effects from being spammed when structure clusters are absorbed
 		}
 		else if (obj.type === DROID)
 		{
@@ -507,8 +509,8 @@ function cam_eventObjectTransfer(obj, from)
 		if (camDef(snd))
 		{
 			playSound(snd);
+			queue("camNexusLaugh", camSecondsToMilliseconds(1.5));
 		}
-		queue("camNexusLaugh", camSecondsToMilliseconds(1.5));
 	}
 }
 

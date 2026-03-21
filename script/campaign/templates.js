@@ -40,7 +40,7 @@ cybls: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Laser" }, /
 ncyne: { body: "CybNXJmpBody", prop: "CyborgLegs02", weap: "NX-Cyb-Rail1" }, // NEXUS Needle Cyborg
 ncysc: { body: "CybNXJmpBody", prop: "CyborgLegs02", weap: "NX-CyborgMiss" }, // NEXUS Scourge Cyborg
 ncyla: { body: "CybNXJmpBody", prop: "CyborgLegs02", weap: "NX-CyborgLas" }, // NEXUS Flashlight Cyborg
-ncypl: { body: "CybNXJmpBody", prop: "CyborgLegs02", weap: "NX-CyborgPlaseFlame" }, // NEXUS Plasmite Flamer Cyborg
+ncypl: { body: "CybNXJmpBody", prop: "CyborgLegs02", weap: "NX-CyborgPlasFlame" }, // NEXUS Plasmite Flamer Cyborg
 
 // New Paradigm Units:
 npmtruckht: { body: "Body8MBT", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Scorpion Halftracks

@@ -137,7 +137,7 @@ const camGamma5NXLZStructsNE = [
 	{stat: "Emplacement-Howitzer150", x: 47, y: 8}, {stat: "Emplacement-Howitzer150", x: 49, y: 8}, {stat: "Emplacement-Howitzer150", x: 49, y: 6},
 	{stat: "AASite-QuadRotMg", x: 48, y: 10}, {stat: "AASite-QuadRotMg", x: 53, y: 5}, {stat: "AASite-QuadRotMg", x: 58, y: 7},
 	{stat: "Pillbox-RotMG", x: 47, y: 11}, {stat: "Pillbox-RotMG", x: 53, y: 13}, {stat: "PillBoxTK", x: 50, y: 12},
-	{stat: "Sys-CBTower", x: 48, y: 7}, {stat: "Sys-SensoTower02", x: 51, y: 11},
+	{stat: "Sys-CB-Tower01", x: 48, y: 7}, {stat: "Sys-SensoTower02", x: 51, y: 11},
 ];
 
 // Northwest LZ
@@ -180,7 +180,7 @@ const camGamma8NXLZStructsW = [
 	{stat: "Pillbox-RotMG", x: 15, y: 160}, {stat: "Pillbox-RotMG", x: 18, y: 161}, {stat: "Pillbox-RotMG", x: 21, y: 160},
 	{stat: "AASite-QuadRotMg", x: 15, y: 151}, {stat: "AASite-QuadRotMg", x: 21, y: 151}, {stat: "AASite-QuadRotMg", x: 21, y: 154},
 	{stat: "WallTower04", x: 16, y: 155}, {stat: "WallTower04", x: 20, y: 155}, {stat: "WallTower04", x: 16, y: 159},
-	{stat: "WallTower04", x: 20, y: 159}, {stat: "Sys-SensoTower02", x: 18, y: 160}, {stat: "Sys-CBTower", x: 15, y: 154},
+	{stat: "WallTower04", x: 20, y: 159}, {stat: "Sys-SensoTower02", x: 18, y: 160}, {stat: "Sys-CB-Tower01", x: 15, y: 154},
 	{stat: "Emplacement-RotHow", x: 16, y: 153}, {stat: "Emplacement-RotHow", x: 18, y: 153}, {stat: "Emplacement-RotHow", x: 20, y: 153},
 	{stat: "Emplacement-RotHow", x: 17, y: 151}, {stat: "Emplacement-RotHow", x: 19, y: 151},
 ];

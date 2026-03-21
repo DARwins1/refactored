@@ -679,7 +679,8 @@ function camSetDroidRank(droid, rank)
 
 	if (droid.droidType === DROID_COMMAND)
 	{
-		xpAmount *= 4; // Commanders need 4x the xp
+		// TODO: Read brain.json for these values?
+		xpAmount *= 2; // Commanders need 2x the xp
 	}
 
 	setDroidExperience(droid, xpAmount);

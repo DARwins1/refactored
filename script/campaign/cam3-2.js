@@ -17,14 +17,14 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF01", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals08", "R-Cyborg-Metals08",
 	"R-Vehicle-Armor-Heat04", "R-Cyborg-Armor-Heat04",
 	"R-Vehicle-Engine08",
 	"R-Sys-NEXUSrepair",
 ];
 var alphaUnitIDs;
-var railGroup;
+var flamerGroup;
 
 //Remove Nexus VTOL droids.
 camAreaEvent("vtolRemoveZone", function(droid)
@@ -64,7 +64,7 @@ function alphaWarning()
 
 	// Also start moving some groups around
 	// This group carries an artifact
-	camManageGroup(railGroup, CAM_ORDER_ATTACK, {
+	camManageGroup(flamerGroup, CAM_ORDER_ATTACK, {
 		regroup: true,
 		count: -1
 	});
@@ -170,7 +170,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
 }
 
 function alphaTeamAlive()
@@ -219,7 +219,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_gammaAllyRes, MIS_ALPHA_PLAYER);
 
 	camSetArtifacts({
-		"NXartiRail": { tech: "R-Wpn-RailGun02" }, // Rail Gun
+		"NXartiFlamer": { tech: "R-Wpn-Flamer-Plasmite" }, // Plasmite Flamer
 	});
 
 	camSetEnemyBases({
@@ -237,7 +237,7 @@ function eventStartLevel()
 			label: "NXOutpost",
 			rebuildBase: tweakOptions.ref_timerlessMode,
 			truckDroid: getObject("nxTruck"),
-			structset: camAreaToStructSet("NXEastBaseCleanup")
+			structset: camAreaToStructSet("baseCleanup")
 	});
 
 	centreView(startPos.x, startPos.y);
@@ -255,7 +255,7 @@ function eventStartLevel()
 		camSetDroidRank(droid, "Hero");
 	}
 
-	railGroup = camMakeGroup("railGroup");
+	flamerGroup = camMakeGroup("flamerGroup");
 
 	hackAddMessage("C3-2_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 

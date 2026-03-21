@@ -15,12 +15,13 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage03", "R-Wpn-Energy-ROF03", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals09", "R-Cyborg-Metals09",
 	"R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
 	"R-Vehicle-Engine09",
 	"R-Sys-NEXUSrepair",
 ];
+const MIS_GAMMA_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(6));
 const mis_defaultFog = {r:10, g:10, b:10};
 const mis_defaultSun = {r:0.35, g:0.35, b:0.4};
 var empCharge; // Decrements over time; EMP attack when zero
@@ -49,7 +50,7 @@ function enableFinalFactories()
 
 function enableEMPAttack()
 {
-	console(_("WARNING: EMP Weapon Detected"));
+	console(_("----- WARNING: EMP WEAPON DETECTED ------"));
 	playSound(cam_sounds.beacon);
 	setTimer("chargeEMP", camSecondsToMilliseconds(1));
 }
@@ -72,6 +73,7 @@ function chargeEMP()
 		{
 			empAttack(); // Unleash the EMP
 			empCharge = chargeDiffs[difficulty];
+			playerWarned = false;
 		}
 		else
 		{
@@ -110,7 +112,9 @@ function empAttack()
 	for (const droid of droids)
 	{
 		if (droid.droidType !== DROID_SUPERTRANSPORTER &&
-			(!droid.isVTOL || (droid.isVTOL && (droid.action === DACTION_NONE || droid.action === DACTION_WAITDURINGREARM))))
+				(!droid.isVTOL ||
+					(droid.isVTOL &&
+						(droid.action === DACTION_NONE || droid.action === DACTION_WAITDURINGREARM))))
 		{
 			fireWeaponAtObj("EMP-Cannon", droid, CAM_NEXUS); // Stun it
 		}
@@ -333,7 +337,7 @@ function eventStartLevel()
 				repairPos: camMakePos("NX-SWFactoryAssembly"),
 				count: -1,
 			},
-			templates: [cTempl.nxmlinkh, cTempl.nxmdevh, cTempl.nxmpulseh]
+			templates: [cTempl.nxmlinkh, cTempl.nxhdevh, cTempl.nxmpulseh]
 		},
 		"NX-SWCyborgFactory1": {
 			assembly: "NX-SWCyborgFactoryAssembly",
@@ -564,7 +568,7 @@ function eventStartLevel()
 				cTempl.prhraat, cTempl.prhraat, // 2 More Whirlwinds (Hard+)
 				cTempl.prhhct, cTempl.prhhct, // 2 More Heavy Cannons (Insane)
 			],
-			factories: ["gammaFactory1", "gammaFactory2", "gammaCyborgFactory"]
+			factories: ["gammaFactory1", "gammaFactory2", "gammaCyborgFactory"],
 			obj: "gammaCommander"
 		}, CAM_ORDER_FOLLOW, {
 			leader: "gammaCommander",

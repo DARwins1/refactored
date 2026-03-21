@@ -15,7 +15,7 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage01", "R-Wpn-Energy-ROF01", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade07", "R-Struc-Materials07",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals07", "R-Cyborg-Metals07",
 	"R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
 	"R-Vehicle-Engine07",
@@ -49,7 +49,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(3)), "NXCommandCenter", ext);
 }
 
 function hoverAttack()
@@ -112,7 +112,7 @@ function nukeAndCountSurvivors()
 		let droidExp = -1;
 		while (droidExp != 0)
 		{
-			const droid = camAddDroid(CAM_HUMAN_PLAYER, "valleySafeZone", cTempl.plmgw, "*EXP Stash*");
+			const droid = camAddDroid(CAM_HUMAN_PLAYER, "valleySafeZone", cTempl.prlmgw, "*EXP Stash*");
 			droidExp = droid.experience;
 			if (!droidExp)
 			{
@@ -162,7 +162,7 @@ function setupNextMission()
 			],
 			interval: camSecondsToMilliseconds(15),
 			regroup: true,
-			count: -1
+			count: -1,
 			morale: 25,
 			fallback: camMakePos("hillGroupCyborgs")
 		});

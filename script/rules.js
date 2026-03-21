@@ -285,6 +285,7 @@ function eventStartLevel()
 	{
 		//eventGameInit is too early to notice units placed from eventStartLevel.
 		//Fire off a reticule button update again after all of the eventStartLevel events happen.
+		const TICK_TIME = 100;
 		queue("setMainReticule", TICK_TIME);
 	}
 }

@@ -96,7 +96,9 @@ function __camManageCapturedFactory(factory)
 	templates = [];
 	for (const droid of droids)
 	{
-		if (droid.droidType !== DROID_COMMAND) // We don't want NEXUS to spam useless commanders if the player has them
+		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_COMMAND &&
+			droid.droidType !== DROID_REPAIR && droid.droidType !== DROID_SENSOR &&
+			droid.droidType !== DROID_SUPERTRANSPORTER)
 		{
 			// NOTE: This assumes that the player doesn't have any multi-weapon units!
 			templates.push({body: droid.body, prop: droid.propulsion, weap: droid.weapons[0].name});
@@ -108,7 +110,7 @@ function __camManageCapturedFactory(factory)
 	{
 		throttle = camChangeOnDiff(camSecondsToMilliseconds(60));
 		templates = templates.filter((temp) => (temp.prop !== "CyborgLegs" && temp.prop !== "V-Tol")); // Filter out all cyborgs and VTOLs
-		if (structInfo.modules < 2)
+		if (factory.modules < 2)
 		{
 			templates = templates.filter((temp) => ( // Filter out all heavy bodies
 				temp.body !== "Body11ABT" && 
@@ -117,7 +119,7 @@ function __camManageCapturedFactory(factory)
 				temp.body !== "Body10MBT"
 			));
 		}
-		if (structInfo.modules < 1)
+		if (factory.modules < 1)
 		{
 			templates = templates.filter((temp) => ( // Filter out all medium bodies
 				temp.body !== "Body5REC" &&
@@ -136,7 +138,7 @@ function __camManageCapturedFactory(factory)
 	{
 		throttle = camChangeOnDiff(camSecondsToMilliseconds(70));
 		templates = templates.filter((temp) => (temp.prop === "V-Tol")); // Filter out all non-VTOLs
-		if (structInfo.modules < 2)
+		if (factory.modules < 2)
 		{
 			templates = templates.filter((temp) => ( // Filter out all heavy bodies
 				temp.body !== "Body11ABT" && 
@@ -145,7 +147,7 @@ function __camManageCapturedFactory(factory)
 				temp.body !== "Body10MBT"
 			));
 		}
-		if (structInfo.modules < 1)
+		if (factory.modules < 1)
 		{
 			templates = templates.filter((temp) => ( // Filter out all medium bodies
 				temp.body !== "Body5REC" &&
@@ -158,7 +160,7 @@ function __camManageCapturedFactory(factory)
 
 	// Start managing the factory!
 	const fLabel = "capturedFactory" + __camCapturedFactoryIdx++;
-	addLabel(newStruct, fLabel);
+	addLabel(factory, fLabel);
 	camSetFactoryData(fLabel, {
 		order: CAM_ORDER_ATTACK,
 		throttle: throttle,

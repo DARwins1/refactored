@@ -323,6 +323,7 @@ const CAM_ALL_NON_DEBUG_TILES = 0;
 
 //events
 var __camSaveLoading;
+var __camLastStructureAbsorbedSoundAlert;
 
 //group
 var __camNewGroupCounter;

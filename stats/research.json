@@ -471,7 +471,8 @@
         "msgName": "RES_CYW_H_AT",
         "name": "Super Scourge Cyborg",
         "redComponents": [
-            "Cyb-Hvywpn-TK"
+            "Cyb-Hvywpn-TK",
+            "Cyb-Wpn-Atmiss"
         ],
         "replacedComponents": [
             "Cyb-Hvywpn-TK:Cyb-Hvywpn-A-T"
@@ -576,7 +577,7 @@
             "Cyb-Hvywpn-Grenade:Cyb-Hvywpn-Seraph"
         ],
         "requiredResearch": [
-            "R-Defense-MdArtMissile",
+            "R-Wpn-MdArtMissile",
             "R-Cyb-Hvywpn-Grenade"
         ],
         "researchPoints": 2100,
@@ -700,7 +701,7 @@
     },
     "R-Cyb-Wpn-Thermite": {
         "iconID": "IMAGE_RES_CYBORGTECH",
-        "id": "R-Cyborg-Wpn-Flamer",
+        "id": "R-Cyb-Wpn-Thermite",
         "msgName": "RES_CYW_THERM",
         "name": "Thermite Flamer Cyborg",
         "redComponents": [
@@ -719,6 +720,29 @@
             "Cyb-Wpn-Thermite"
         ],
         "statID": "Cyb-Wpn-Thermite"
+    },
+    "R-Cyb-Wpn-Plasmite": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyb-Wpn-Plasmite",
+        "msgName": "RES_CYW_PLAS",
+        "name": "Plasmite Flamer Cyborg",
+        "redComponents": [
+            "Cyb-Wpn-Thermite"
+        ],
+        "replacedComponents": [
+            "CyborgFlamer01:Cyb-Wpn-Plasmite",
+            "Cyb-Wpn-Thermite:Cyb-Wpn-Plasmite"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Flamer-Plasmite",
+            "R-Cyb-Wpn-Thermite"
+        ],
+        "researchPoints": 2100,
+        "researchPower": 336,
+        "resultComponents": [
+            "Cyb-Wpn-Plasmite"
+        ],
+        "statID": "Cyb-Wpn-Plasmite"
     },
     "R-Cyb-Sys-Repair": {
         "iconID": "IMAGE_RES_CYBORGTECH",
@@ -1644,7 +1668,7 @@
                 "value": -20
             }
         ],
-        "statID": "Flame1Mk1",
+        "statID": "Flame2",
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
     },
@@ -1654,7 +1678,7 @@
         "name": "Flamer Autoloader Mk3",
         "requiredResearch": [
             "R-Wpn-Flamer-ROF02",
-            "R-Wpn-Flamer-Plasmite"
+            "R-Wpn-Cannon-ROF04"
         ],
         "researchPoints": 2700,
         "researchPower": 350,
@@ -1674,7 +1698,7 @@
                 "value": -20
             }
         ],
-        "statID": "Flame1Mk1",
+        "statID": "Flame2",
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
     },
@@ -3317,11 +3341,11 @@
     "R-Wpn-AAGun-Damage04": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Damage04",
-        "keyTopic": 1,
         "msgName": "RES_W_AAD4",
         "name": "AA HEAP Flak",
         "requiredResearch": [
-            "R-Wpn-AAGun-Damage03"
+            "R-Wpn-AAGun-Damage03",
+            "R-Wpn-AAGun-Accuracy03"
         ],
         "researchPoints": 2200,
         "researchPower": 300,
@@ -3500,7 +3524,7 @@
         "msgName": "RES_W_AAROF4",
         "name": "AA Chainfeed Loader",
         "requiredResearch": [
-            "R-Wpn-AAGun-Damage04",
+            "R-Wpn-AAGun-Accuracy03",
             "R-Wpn-AAGun-ROF03"
         ],
         "researchPoints": 2400,
@@ -4285,7 +4309,9 @@
         "msgName": "RES_W_RHOW",
         "name": "Rotary Howitzer - Hellstorm",
         "redComponents": [
-            "Howitzer105Mk1"
+            "Howitzer105Mk1",
+            "Mortar2Mk1",
+            "Mortar3ROTARYMk1"
         ],
         "requiredResearch": [
             "R-Wpn-HvyHowitzer"
@@ -4538,6 +4564,7 @@
     "R-Defense-WallUpgrade09": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallUpgrade09",
+        "keyTopic": 1,
         "imdName": "BLWALLH.PIE",
         "name": "Plascrete Mk3",
         "requiredResearch": [
@@ -4693,8 +4720,7 @@
         "msgName": "RES_EMP_MdAM",
         "name": "Seraph Missile Battery",
         "redStructures": [
-            "Emplacement-MortarPit02",
-            "Emplacement-MRL-pit"
+            "Emplacement-MRLHvy-pit"
         ],
         "requiredResearch": [
             "R-Wpn-MdArtMissile"
@@ -4833,7 +4859,9 @@
         "msgName": "RES_EMP_RotHOW",
         "name": "Hellstorm Emplacement",
         "redStructures": [
-            "Emplacement-Howitzer105"
+            "Emplacement-Howitzer105",
+            "Emplacement-MortarPit02",
+            "Emplacement-RotMor"
         ],
         "requiredResearch": [
             "R-Wpn-Howitzer03-Rot"
@@ -4957,7 +4985,9 @@
         "redStructures": [
             "Wall-VulcanCan",
             "WallTower-HPVcannon",
-            "GuardTower-Rail1"
+            "WallTower04",
+            "GuardTower-Rail1",
+            "GuardTower-HVC"
         ],
         "requiredResearch": [
             "R-Wpn-RailGun02"
@@ -4975,8 +5005,7 @@
         "msgName": "RES_WT15_RL3",
         "name": "Gauss Cannon Hardpoint",
         "redStructures": [
-            "WallTower-Rail2",
-            "WallTower04"
+            "WallTower-Rail2"
         ],
         "requiredResearch": [
             "R-Wpn-RailGun03"
@@ -6498,7 +6527,6 @@
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-Resistance-Upgrade02",
         "imdName": "ICCCCONS.PIE",
-        "msgName": "RES_SY_RESU3",
         "name": "NEXUS Resistance Circuits Mk2",
         "requiredResearch": [
             "R-Sys-Resistance-Upgrade01"
@@ -6527,7 +6555,6 @@
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-Resistance-Upgrade03",
         "imdName": "ICCCCONS.PIE",
-        "msgName": "RES_SY_RESU4",
         "name": "NEXUS Resistance Circuits Mk3",
         "requiredResearch": [
             "R-Sys-Resistance-Upgrade02"
@@ -7622,7 +7649,7 @@
                 "value": 10
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPACC"
     },
     "R-Wpn-Energy-Damage01": {
@@ -7651,7 +7678,7 @@
                 "value": 25
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPDAM"
     },
     "R-Wpn-Energy-Damage02": {
@@ -7680,7 +7707,7 @@
                 "value": 25
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPDAM",
         "techCode": 1
     },
@@ -7710,7 +7737,7 @@
                 "value": 25
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPDAM",
         "techCode": 1
     },
@@ -7740,7 +7767,7 @@
                 "value": -20
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPROF"
     },
     "R-Wpn-Energy-ROF02": {
@@ -7769,7 +7796,7 @@
                 "value": -20
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
     },
@@ -7799,7 +7826,7 @@
                 "value": -20
             }
         ],
-        "statID": "Laser2PULSEMk1",
+        "statID": "Laser3BEAMMk1",
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
     },
@@ -7877,7 +7904,7 @@
         "name": "Search & Destroy Missiles",
         "requiredResearch": [
             "R-Wpn-Missile-Accuracy01",
-            "R-Struc-Research-Upgrade03"
+            "R-Wpn-MissileBB2"
         ],
         "researchPoints": 2000,
         "researchPower": 450,
@@ -8421,6 +8448,7 @@
         "msgName": "RES_W_RAIL2",
         "name": "Rail Gun",
         "redComponents": [
+            "Cannon375mmMk1",
             "Cannon4AUTOMk1",
             "Cannon4AUTO-VTOL",
             "Cannon5VulcanMk1",
@@ -8446,8 +8474,7 @@
         "msgName": "RES_W_RAIL3",
         "name": "Gauss Cannon",
         "redComponents": [
-            "RailGun2Mk1",
-            "Cannon375mmMk1"
+            "RailGun2Mk1"
         ],
         "requiredResearch": [
             "R-Wpn-RailGun02"

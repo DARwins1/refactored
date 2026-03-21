@@ -425,7 +425,7 @@ function __camVictoryOffworld()
 				__camTriggerLastAttack();
 			}
 		}
-		else
+		else if (!__ELIM_BASES)
 		{
 			if (!__FORCE_LZ && !__ENEMY_LEN)
 			{

@@ -18,7 +18,7 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF01", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade08", "R-Struc-Materials08",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals07", "R-Cyborg-Metals07",
 	"R-Vehicle-Armor-Heat04", "R-Cyborg-Armor-Heat04",
 	"R-Vehicle-Engine07",
@@ -51,7 +51,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
 }
 
 camAreaEvent("mockBattleTrigger", function(droid)
@@ -106,6 +106,10 @@ function trapSprung()
 
 	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	queue("aggroGammaCommander", camMinutesToMilliseconds(12));
+
+	// FIXME: If this isn't here, NEXUS' attack droids will get stuck behind their own gates.
+	camUpgradeOnMapStructures("A0HardcreteMk1Gate", "A0HardcreteMk1Gate", MIS_GAMMA_PLAYER);
+	camUpgradeOnMapStructures("A0HardcreteMk1Gate", "A0HardcreteMk1Gate", CAM_NEXUS);
 }
 
 function enableAllFactories()
@@ -122,7 +126,7 @@ function sendNXTransporter()
 	if (camCountStructuresInArea("eastLZStructs", CAM_NEXUS) === 0 &&
 		camCountStructuresInArea("westLZStructs", CAM_NEXUS) === 0)
 	{
-		return; //Call off transport when both west and east Nexus bases are destroyed.
+		return; // Both west and east Nexus bases are destroyed.
 	}
 
 	const LZ_ALIAS = "CM3B_TRANS"; //1 and 2
@@ -145,7 +149,7 @@ function sendNXTransporter()
 	if (camDef(pos))
 	{
 		camSendReinforcement(CAM_NEXUS, camMakePos(pos), list, CAM_REINFORCE_TRANSPORT, {
-			message: LZ_ALIAS + lzNum,
+			// message: LZ_ALIAS + lzNum,
 			entry: { x: 62, y: 4 },
 			exit: { x: 62, y: 4 }
 		});
@@ -250,9 +254,9 @@ function eventStartLevel()
 	camSetArtifacts({
 		"NXCommandCenter": { tech: "R-Defense-WallUpgrade08" }, // Plascrete Mk2
 		"NXCyborgFactory": { tech: "R-Wpn-Laser01" }, // Flashlight
-		"gammaResLabArti": { tech: "R-Wpn-AAGun-Damage04" }, // AA HEAP Flak
+		"gammaResLabArti": { tech: "R-Wpn-AAGun-Damage05" }, // AA HEAP Flak Mk2
 		"gammaFactory": { tech: "R-Wpn-Howitzer-Damage05" }, // HEAP Howitzer Shells Mk2
-		"NXHeavyFactory": { tech: "R-Wpn-MdArtMissile" }, // Seraph Missile
+		"NXFactory": { tech: "R-Wpn-MdArtMissile" }, // Seraph Missile
 	});
 
 	camSetEnemyBases({
@@ -372,8 +376,12 @@ function eventStartLevel()
 			templates: [cTempl.prhcomt],
 			factories: ["gammaFactory"],
 			callback: "allowGammaCommanderRebuild" // Allow Gamma to rebuild this commander after a delay
-		}, CAM_ORDER_DEFEND, {
-			pos: camMakePos("gammaDefensePos"), // Sit around the base for now
+		}, CAM_ORDER_PATROL, { // Sit around the base for now
+			pos: [
+				camMakePos("gammaDefensePos1"),
+				camMakePos("gammaDefensePos2"),
+			],
+			interval: camSecondsToMilliseconds(30),
 			repair: 75,
 			repairPos: camMakePos("gammaAssembly"),
 			radius: 16
@@ -389,7 +397,7 @@ function eventStartLevel()
 				cTempl.cybrp, cTempl.cybrp, // 2 More Mechanics (Hard+)
 				cTempl.prhagt, cTempl.prhagt, // 2 More Assault Guns (Insane)
 			],
-			factories: ["gammaFactory", "gammaCyborgFactory"]
+			factories: ["gammaFactory", "gammaCyborgFactory"],
 			obj: "gammaCommander"
 		}, CAM_ORDER_FOLLOW, {
 			leader: "gammaCommander",

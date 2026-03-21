@@ -42,14 +42,14 @@
 
 
 	"position_7": {
-		"label": "gammaCentralAssembly",
-		"pos": [4406, 21610]
+		"label": "gammaNorthAssembly",
+		"pos": [3338, 17030]
 	},
 
 
 	"position_8": {
-		"label": "gammaNorthAssembly",
-		"pos": [3338, 17030]
+		"label": "gammaCentralAssembly",
+		"pos": [4072, 21778]
 	},
 
 
@@ -68,63 +68,48 @@
 
 
 	"area_2": {
-		"label": "NEgroup",
-		"pos1": [6848, 18112],
-		"pos2": [7232, 18752]
-	},
-
-
-	"area_3": {
 		"label": "Egroup",
 		"pos1": [6720, 20928],
 		"pos2": [7232, 21440]
 	},
 
 
-	"area_4": {
+	"area_3": {
 		"label": "gammaBaseTrigger",
 		"pos1": [192, 22208],
-		"pos2": [2368, 24256],
-		"subscriber": 0
+		"pos2": [2368, 24256]
 	},
 
 
-	"area_5": {
+	"area_4": {
 		"label": "betaUnits",
 		"pos1": [512, 18816],
 		"pos2": [1152, 19328]
 	},
 
 
-	"area_6": {
+	"area_5": {
 		"label": "ambushGroup1",
 		"pos1": [5376, 23040],
 		"pos2": [5632, 23424]
 	},
 
 
-	"area_7": {
-		"label": "ambushGroup2",
-		"pos1": [5120, 22784],
-		"pos2": [5376, 23040]
-	},
-
-
-	"area_8": {
+	"area_6": {
 		"label": "northBaseCleanup",
 		"pos1": [2560, 16512],
 		"pos2": [4864, 18816]
 	},
 
 
-	"area_9": {
+	"area_7": {
 		"label": "centralBaseCleanup",
 		"pos1": [2816, 19968],
 		"pos2": [5632, 22656]
 	},
 
 
-	"area_10": {
+	"area_8": {
 		"label": "southBaseCleanup",
 		"pos1": [5632, 21760],
 		"pos2": [7808, 23680]
@@ -180,6 +165,14 @@
 
 
 	"object_6": {
+		"label": "gammaCentralFactory",
+		"id": 1727,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_7": {
 		"label": "gammaNorthFactory",
 		"id": 1841,
 		"player": 3,
@@ -187,17 +180,9 @@
 	},
 
 
-	"object_7": {
+	"object_8": {
 		"label": "gammaCybFactory",
 		"id": 690,
-		"player": 3,
-		"type": 1
-	},
-
-
-	"object_8": {
-		"label": "gammaCentralFactory",
-		"id": 1727,
 		"player": 3,
 		"type": 1
 	},

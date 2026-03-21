@@ -44,51 +44,51 @@
 
 
 	"area_2": {
-		"label": "phantomFacNorth",
-		"pos1": [4736, 16512],
-		"pos2": [5120, 16768]
-	},
-
-
-	"area_3": {
 		"label": "phantomFacWest",
 		"pos1": [128, 17792],
 		"pos2": [384, 18560]
 	},
 
 
-	"area_4": {
+	"area_3": {
 		"label": "phantomFacMiddle",
 		"pos1": [7808, 18944],
 		"pos2": [8064, 19712]
 	},
 
 
-	"area_5": {
+	"area_4": {
 		"label": "phantomFacEast",
 		"pos1": [7808, 20864],
 		"pos2": [8064, 21504]
 	},
 
 
-	"area_6": {
+	"area_5": {
 		"label": "westLZStructs",
 		"pos1": [1920, 19328],
 		"pos2": [2816, 20736]
 	},
 
 
-	"area_7": {
+	"area_6": {
 		"label": "eastLZStructs",
 		"pos1": [6272, 18176],
 		"pos2": [7552, 19328]
 	},
 
 
+	"area_7": {
+		"label": "phantomFacNorth",
+		"pos1": [4992, 17792],
+		"pos2": [5632, 18048]
+	},
+
+
 	"radius_0": {
 		"label": "vtolRemoveZone",
 		"pos": [2222, 16463],
-		"subscriber": 2,
+		"subscriber": 3,
 		"radius": 250
 	}
 }

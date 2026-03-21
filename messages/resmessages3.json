@@ -519,8 +519,7 @@
         "text": [
             "Computer Technology Breakthrough",
             "Improved NEXUS resistance circuitry",
-            "Reduced chance of NEXUS take-over",
-            "Special rank units are protected"
+            "Reduced chance of NEXUS take-over"
         ]
     },
     "RES_SY_RESU3": {
@@ -530,8 +529,7 @@
         "text": [
             "Computer Technology Breakthrough",
             "Improved NEXUS resistance circuitry",
-            "Reduced chance of NEXUS take-over",
-            "Elite and Veteran rank units and Factories are protected"
+            "Reduced chance of NEXUS take-over"
         ]
     },
     "RES_SY_RESU4": {
@@ -541,8 +539,7 @@
         "text": [
             "Computer Technology Breakthrough",
             "Improved NEXUS resistance circuitry",
-            "Reduced chance of NEXUS take-over",
-            "Professional and Regular rank units are protected"
+            "Reduced chance of NEXUS take-over"
         ]
     },
     "RES_SY_RESU5": {
@@ -1125,7 +1122,7 @@
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
             "Darts can hit multiple units",
-            "Obsoletes Needle Gun, Assault Cannon, and Hyper Velocity Cannon"
+            "Obsoletes Needle Gun and all cannons"
         ]
     },
     "RES_W_RAIL3": {
@@ -1138,7 +1135,7 @@
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
             "Darts can hit multiple units",
-            "Obsoletes Rail Gun and Heavy Cannon"
+            "Obsoletes Rail Gun"
         ]
     },
     "RES_W_RAIL_AC1": {

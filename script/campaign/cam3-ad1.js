@@ -17,7 +17,7 @@ const mis_nexusRes = [ // NEXUS is maxed-out on upgrades at this point
 	"R-Wpn-Energy-Damage03", "R-Wpn-Energy-ROF03", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals09", "R-Cyborg-Metals09",
 	"R-Vehicle-Armor-Heat06", "R-Cyborg-Armor-Heat06",
 	"R-Vehicle-Engine09",
@@ -68,9 +68,9 @@ function initLasSat()
 	const chargeDiffs = [ // Charge decrements every 1/10th of a second
 		200, // SUPEREASY
 		150, // EASY
-		100, // MEDIUM
-		80, // HARD
-		60, // INSANE
+		120, // MEDIUM
+		100, // HARD
+		80, // INSANE
 	];
 	if (camDef(target))
 	{
@@ -136,7 +136,7 @@ function laserSatTick()
 		{
 			satData.driftX = true;
 		}
-		else if (satData.x <= mapWidth)
+		else if (satData.x >= mapWidth)
 		{
 			satData.driftX = false;
 		}
@@ -144,7 +144,7 @@ function laserSatTick()
 		{
 			satData.driftY = true;
 		}
-		else if (satData.y <= mapLimit)
+		else if (satData.y >= mapLimit)
 		{
 			satData.driftY = false;
 		}
@@ -170,11 +170,11 @@ function laserSatTick()
 	camUnmarkTiles(CAM_ALL_NON_DEBUG_TILES); // Clear previously marked tiles
 	// Mark tiles to show where the LasSat is aiming
 	let tiles;
-	if (charge >= 80)
+	if (satData.charge >= 80)
 	{
 		tiles = {x: satData.x, y: satData.y}; // Single dot
 	}
-	else if (charge >= 50)
+	else if (satData.charge >= 50)
 	{
 		tiles = [ // Cross
 			{x: satData.x, y: satData.y},
@@ -184,10 +184,10 @@ function laserSatTick()
 			{x: satData.x, y: satData.y - 1},
 		];
 	}
-	else if (charge >= 20)
+	else if (satData.charge >= 20)
 	{
 		tiles = [ // "Circle"
-			{x: satData.x - 1, y: satData.y - 1, x2: satData.x + 1, y2: satData.y + 1},
+			{x: satData.x - 1, y: satData.y - 1, x2: satData.x + 2, y2: satData.y + 2},
 			{x: satData.x + 2, y: satData.y},
 			{x: satData.x - 2, y: satData.y},
 			{x: satData.x, y: satData.y + 2},
@@ -207,6 +207,13 @@ function laserSatTick()
 			{x: satData.x, y: satData.y - 2},
 		];
 	}
+	camMarkTiles(tiles, false);
+
+	if (satData.charge === 30)
+	{
+		// Audio alert
+		playSound(cam_sounds.laserSatelliteFiring);
+	}
 
 	if (--satData.charge === 0)
 	{
@@ -218,7 +225,7 @@ function laserSatTick()
 // Fire the LasSat
 function laserSatStrike(target)
 {
-	let effectDelay = false;
+	let instantEffects = true;
 	if (camDef(target))
 	{
 		// We have a target lock, fire the LasSat directly at it
@@ -229,20 +236,20 @@ function laserSatStrike(target)
 		// No target lock, fire the LasSat at whatever it was aiming at
 		fireWeaponAtLoc("LasSat", satData.x, satData.y, CAM_NEXUS, true);
 
-		if (getObject(satData.x, satData.y) !== null)
+		if (getObject(satData.x, satData.y) === null)
 		{
 			// Firing at a location is instant if there's a structure there
-			effectDelay = true;
+			instantEffects = false;
 		}
 	}
 
-	if (!effectDelay)
+	if (instantEffects)
 	{
 		blastEffects();
 	}
 	else
 	{
-		queue("effectDelay", camSecondsToMilliseconds(1.5));
+		queue("blastEffects", camSecondsToMilliseconds(1.5));
 	}
 
 	// Reset LasSat data
@@ -256,8 +263,8 @@ function laserSatStrike(target)
 // Temporarily redden the skies whenever the LasSat fires
 function blastEffects()
 {
-	camSetFog(182, 113, 118);
-	camSetSunIntensity(0.5, 0.3, 0.25);
+	camSetFog(182, 167, 177); // Unaltered: r:137, g:167, b:177
+	camSetSunIntensity(0.6, 0.4, 0.4); // Unaltered: r:0.5, g:0.5, b:0.5
 
 	camGradualFog(camSecondsToMilliseconds(4), mis_defaultFog.r, mis_defaultFog.g, mis_defaultFog.b);
 	camGradualSunIntensity(camSecondsToMilliseconds(4), mis_defaultSun.r, mis_defaultSun.g, mis_defaultSun.b);
@@ -287,7 +294,7 @@ function getStrikeTargets()
 //Donate the silos to the player. Allow capturedSilos victory flag to be true.
 function captureSilos()
 {
-	playSound(cam_sounds.objectiveCaptured);
+	playSound(cam_sounds.objective.objectiveCaptured);
 	hackRemoveMessage("CM3D1_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 	camAbsorbPlayer(MIS_SILO_PLAYER, CAM_HUMAN_PLAYER);
 	capturedSilos = true;
@@ -378,11 +385,10 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 
 	camSetArtifacts({
-		"NXbase2HeavyFac": { tech: "R-Wpn-Laser02" }, // Pulse Laser
+		"NXbase2HeavyFac2": { tech: "R-Wpn-Laser02" }, // Pulse Laser
 		"NXbase1VtolFacArti": { tech: "R-Wpn-Bomb-Damage03" }, // Advanced Bomb Warhead
 		"NXcommandCenter": { tech: "R-Defense-WallUpgrade09" }, // Plascrete Mk3
 		"NXvindicator": { tech: "R-Wpn-Missile-HvSAM" }, // Vindicator SAM
-		"gammaResearch": { tech: "R-Wpn-AAGun-Damage06" }, // AA HEAP Flak Mk3
 		"NXarchEmp": { tech: "R-Wpn-HvArtMissile" }, // Archangel Missile
 	});
 
@@ -395,6 +401,7 @@ function eventStartLevel()
 			detectMsg: "CM3D1_BASE1",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			player: CAM_NEXUS
 		},
 		"NXVtolBase": {
 			cleanup: "vtolBaseCleanup",
@@ -665,7 +672,7 @@ function eventStartLevel()
 				cTempl.scyhc, cTempl.scyhc, // 2 More Super HPCs (Hard+)
 				cTempl.prhhatht, cTempl.prhhatht, // 2 More Tank Killers (Insane)
 			],
-			factories: ["gammaFactory1", "gammaFactory2", "gammaCybFactory"]
+			factories: ["gammaFactory1", "gammaFactory2", "gammaCybFactory"],
 			obj: "gammaCommander"
 		}, CAM_ORDER_FOLLOW, {
 			leader: "gammaCommander",

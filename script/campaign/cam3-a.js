@@ -4,7 +4,7 @@ include("script/campaign/templates.js");
 
 const mis_nexusRes = [
 	"R-Wpn-MG-Damage08", "R-Wpn-MG-ROF03",
-	"R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-Flamer-Damage06", "R-Wpn-Flamer-ROF03",
 	"R-Wpn-Cannon-Damage07", "R-Wpn-Cannon-ROF04", "R-Wpn-Cannon-Accuracy02",
 	"R-Wpn-Mortar-Damage06", "R-Wpn-Mortar-ROF04", "R-Wpn-Mortar-Acc03", 
 	"R-Wpn-Rocket-Damage07", "R-Wpn-Rocket-ROF03", "R-Wpn-Rocket-Accuracy04",
@@ -16,7 +16,7 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage01", "R-Wpn-Energy-ROF01", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade07", "R-Struc-Materials07",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals07", "R-Cyborg-Metals07",
 	"R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
 	"R-Vehicle-Engine07",
@@ -98,7 +98,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true // Change attack rate based on how many VTOLs are shot down
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(3)), "COCommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(3)), "NXCommandCenter", ext);
 }
 
 // Allow the player to change to colors that are hard-coded to be unselectable
@@ -386,7 +386,7 @@ function eventStartLevel()
 		let droidExp = -1;
 		while (droidExp != 0)
 		{
-			const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.plmgw, "EXP Sink");
+			const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.prlmgw, "EXP Sink");
 			droidExp = droid.experience;
 			camSafeRemoveObject(droid);
 		}

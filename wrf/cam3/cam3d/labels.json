@@ -258,6 +258,14 @@
 
 
 	"object_12": {
+		"label": "gammaResearch",
+		"id": 1874,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_13": {
 		"label": "NXbase2HeavyFac1",
 		"id": 1617,
 		"player": 3,
@@ -265,7 +273,7 @@
 	},
 
 
-	"object_13": {
+	"object_14": {
 		"label": "NXbase2CyborgFac1",
 		"id": 1493,
 		"player": 3,
@@ -273,7 +281,15 @@
 	},
 
 
-	"object_14": {
+	"object_15": {
+		"label": "nxVtolTowerE",
+		"id": 1883,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_16": {
 		"label": "nxVtolTowerW",
 		"id": 1882,
 		"player": 3,
@@ -281,17 +297,9 @@
 	},
 
 
-	"object_15": {
+	"object_17": {
 		"label": "gammaVtolTower",
 		"id": 1881,
-		"player": 3,
-		"type": 1
-	},
-
-
-	"object_16": {
-		"label": "nxVtolTowerE",
-		"id": 1883,
 		"player": 3,
 		"type": 1
 	}

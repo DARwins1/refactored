@@ -905,7 +905,7 @@
         "buildPower": 30,
         "class": "Cyborgs",
         "droidType": "CYBORG",
-        "hitpoints": 370,
+        "hitpoints": 250,
         "id": "CybNXJmpBody",
         "model": "cybd_std.pie",
         "name": "*CybNXJmpBody*",

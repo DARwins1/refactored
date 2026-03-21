@@ -104,7 +104,7 @@
 
 
 	"area_6": {
-		"label": "railGroup",
+		"label": "flamerGroup",
 		"pos1": [1280, 10368],
 		"pos2": [1664, 10624]
 	},
@@ -140,18 +140,18 @@
 
 
 	"object_1": {
-		"label": "NXartiRail",
-		"id": 403,
-		"player": 3,
-		"type": 0
-	},
-
-
-	"object_2": {
 		"label": "NXCommandCenter",
 		"id": 392,
 		"player": 3,
 		"type": 1
+	},
+
+
+	"object_2": {
+		"label": "NXartiFlamer",
+		"id": 427,
+		"player": 3,
+		"type": 0
 	},
 
 

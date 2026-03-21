@@ -172,7 +172,8 @@
             "Must be stationary to fire",
             "Requires Cyborg factory to produce"
         ]
-    },"RES_CYW_THERM": {
+    },
+    "RES_CYW_THERM": {
         "id": "RES_CYW_THERM",
         "imdName": "MICAPSUL.pie",
         "sequenceName": "res_droid.ogg",
@@ -185,7 +186,23 @@
             "Can ignite enemy units and structures, causing damage over time",
             "Flames can hit multiple units",
             "Has a very short weapon range",
-            "Obsoletes Flamer Cyborg",
+            "Obsoletes and replaces Flamer Cyborg",
+            "Requires Cyborg factory to produce"
+        ]
+    },
+    "RES_CYW_PLAS": {
+        "id": "RES_CYW_PLAS",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "New Cyborg Available",
+            "Armed with Cyborg Plasmite Flamer",
+            "Effective against: Infantry, vehicles and bunkers",
+            "Ineffective against: Non-bunker structures",
+            "Thermal weapon; Damage bypasses kinetic armor of target",
+            "Can ignite enemy units and structures, causing damage over time",
+            "Flames can hit multiple units",
+            "Obsoletes and replaces Thermite Flamer Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },

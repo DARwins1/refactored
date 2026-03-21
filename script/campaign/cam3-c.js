@@ -9,7 +9,7 @@ const mis_nexusRes = [
 	"R-Wpn-Cannon-Damage07", "R-Wpn-Cannon-ROF04", "R-Wpn-Cannon-Accuracy02",
 	"R-Wpn-Mortar-Damage06", "R-Wpn-Mortar-ROF04", "R-Wpn-Mortar-Acc03", 
 	"R-Wpn-Rocket-Damage07", "R-Wpn-Rocket-ROF03", "R-Wpn-Rocket-Accuracy04",
-	"R-Wpn-AAGun-Damage05", "R-Wpn-AAGun-ROF05", "R-Wpn-AAGun-Accuracy03",
+	"R-Wpn-AAGun-Damage06", "R-Wpn-AAGun-ROF06", "R-Wpn-AAGun-Accuracy03",
 	"R-Wpn-Howitzer-Damage06", "R-Wpn-Howitzer-ROF04", "R-Wpn-Howitzer-Accuracy03",
 	"R-Wpn-Bomb-Damage02",
 	"R-Wpn-Missile-Damage03", "R-Wpn-Missile-ROF02", "R-Wpn-Missile-Accuracy02",
@@ -17,7 +17,7 @@ const mis_nexusRes = [
 	"R-Wpn-Energy-Damage03", "R-Wpn-Energy-ROF02", "R-Wpn-Energy-Accuracy01",
 	"R-Defense-WallUpgrade09", "R-Struc-Materials09",
 	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
-	"R-Struc-Factory-Upgrade03", "R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
 	"R-Vehicle-Metals09", "R-Cyborg-Metals09",
 	"R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
 	"R-Vehicle-Engine09",
@@ -48,12 +48,6 @@ function ambushAttack()
 		repair: 80,
 		repairPos: camMakePos("NXAssembly")
 	});
-
-	camManageGroup(camMakeGroup("ambushGroup2"), CAM_ORDER_ATTACK, {
-		pos: camMakePos("gammaBaseTrigger"),
-		repair: 60,
-		repairPos: camMakePos("NXAssembly")
-	});
 }
 
 function vtolAttack()
@@ -71,7 +65,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2.5)), "NXcommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2.5)), "NXcommandCenter", ext);
 }
 
 // Focus on important player structures
@@ -90,7 +84,7 @@ function vtolStrike()
 		dynamic: true,
 		callback: "getStrikeTargets" // Used to get targets for VTOL strikes
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2.5)), "NXcommandCenter", ext);
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2.5)), "NXcommandCenter", ext);
 }
 
 // Returns a list of objects to be targeted by Devastator VTOL strikes
@@ -116,17 +110,6 @@ function getStrikeTargets()
 
 function setupPatrolGroups()
 {
-	camManageGroup(camMakeGroup("NEgroup"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("patrolPos1"),
-			camMakePos("patrolPos2"),
-			camMakePos("patrolPos3"),
-		],
-		repairPos: camMakePos("NXAssembly"),
-		repair: 80,
-		interval: camSecondsToMilliseconds(35),
-	});
-
 	camManageGroup(camMakeGroup("Egroup"), CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("patrolPos1"),
@@ -139,18 +122,28 @@ function setupPatrolGroups()
 	});
 }
 
-//Either time based or triggered by discovering Gamma base.
-function enableAllFactories()
+// Either time based or triggered by discovering Gamma base.
+function enableFirstFactories()
+{
+	camEnableFactory("gammaCybFactory");
+	camEnableFactory("gammaNorthFactory");
+}
+
+function enableSecondFactories()
+{
+	camEnableFactory("NXsouthCybFac");
+	camEnableFactory("gammaCentralFactory");
+}
+
+function enableFinalFactories()
 {
 	camEnableFactory("NXbase1HeavyFacArti");
-	camEnableFactory("NXsouthCybFac");
-	camEnableFactory("NXcybFacArti");
-	camEnableFactory("NXvtolFacArti");
 }
 
 function discoverGammaBase()
 {
 	reunited = true;
+	camSetExtraObjectiveMessage();
 	const lz = getObject("landingZone");
 	setScrollLimits(0, 0, 64, 192); //top and middle portion.
 	restoreLimboMissionData();
@@ -166,11 +159,13 @@ function discoverGammaBase()
 	hackRemoveMessage("CM3C_GAMMABASE", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackRemoveMessage("CM3C_BETATEAM", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	enableAllFactories();
+	enableFirstFactories();
 
-	queue("ambushAttack", camChangeOnDiff(camMinutesToMilliseconds(1)));
+	queue("ambushAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("enableSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	queue("vtolStrike", camChangeOnDiff(camMinutesToMilliseconds(7)));
+	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(9)));
 }
 
 function findBetaUnitIds()
@@ -218,6 +213,20 @@ function betaAlive()
 	}
 }
 
+// Recycle the stashed EXP from Gamma 2
+function recycleExpStash()
+{
+	const droids = enumDroid(CAM_HUMAN_PLAYER, DROID_WEAPON);
+	for (const droid of droids)
+	{
+		if (droid.name === "*EXP Stash*")
+		{
+			orderDroid(droid, DORDER_RECYCLE);
+		}
+	}
+	queue("removeLimboRepair", camSecondsToMilliseconds(0.6));
+}
+
 // Remove the repair facilities placed in the limbo LZ
 function removeLimboRepair()
 {
@@ -251,25 +260,16 @@ function eventStartLevel()
 	setNoGoArea(limboLZ.x, limboLZ.y, limboLZ.x2, limboLZ.y2, -1);
 	setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)));
 
-	const droids = enumDroid(CAM_HUMAN_PLAYER, DROID_WEAPON);
-	for (const droid of droids)
-	{
-		// Recycle the stashed EXP from Gamma 2
-		if (droid.name === "*EXP Stash*")
-		{
-			orderDroid(droid, DORDER_RECYCLE);
-		}
-	}
-	queue("removeLimboRepair", camSecondsToMilliseconds(0.4));
+	queue("recycleExpStash", camSecondsToMilliseconds(0.1));
 
 	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
 	camCompleteRequiredResearch(mis_gammaAllyRes, MIS_GAMMA_PLAYER);
 
 	camSetArtifacts({
-		"NXsouthCybFac": { tech: "R-Wpn-Flamer-Plasmite" }, // Plasmite Flamer
+		"NXsouthCybFac": { tech: "R-Wpn-RailGun02" }, // Rail Gun
 		"NXbase1HeavyFacArti": { tech: "R-Wpn-MissileBB2" }, // Devastator Missile
 		"gammaResearch": { tech: "R-Struc-Research-Upgrade03" }, // Neural Synapse Research Brain
-		"gammaWhirlwind": { tech: "R-Wpn-AAGun-Damage05" }, // AA HEAP Flak Mk2
+		"gammaWhirlwind": { tech: "R-Wpn-AAGun-Damage06" }, // AA HEAP Flak Mk3
 		"gammaHellstorm": { tech: "R-Wpn-Howitzer03-Rot" }, // Hellstorm
 		"NXcommandCenter": { tech: "R-Vehicle-Body07" }, // Retribution
 	});
@@ -332,7 +332,7 @@ function eventStartLevel()
 			assembly: "NXAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(100)),
 			data: {
 				repair: 45,
 				repairPos: camMakePos("NXAssembly")
@@ -343,7 +343,7 @@ function eventStartLevel()
 			assembly: "NXAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
 				repair: 40,
 				repairPos: camMakePos("NXAssembly")
@@ -354,7 +354,7 @@ function eventStartLevel()
 			assembly: "gammaNorthAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
 				regroup: true,
 				repair: 75,
@@ -366,7 +366,7 @@ function eventStartLevel()
 			assembly: "gammaNorthAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				repair: 50,
 			},
@@ -376,7 +376,7 @@ function eventStartLevel()
 			assembly: "gammaCentralAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 6,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				repair: 50,
 			},
@@ -389,7 +389,7 @@ function eventStartLevel()
 	changePlayerColour(MIS_GAMMA_PLAYER, playerData[0].colour);
 
 	queue("setupPatrolGroups", camSecondsToMilliseconds(10));
-	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("enableFirstFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
 
 	// Darken the fog to 3/4 default brightness
 	camSetFog(137, 167, 177);
