@@ -360,7 +360,10 @@ function eventStartLevel()
 		"COArtiHRA": { tech: "R-Wpn-Rocket02-MRLHvy" }, // Heavy Rocket Array
 	});
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	}
 	setPower(PLAYER_POWER, CAM_HUMAN_PLAYER);
 
 	// Grant research and tech

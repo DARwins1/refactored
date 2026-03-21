@@ -1338,7 +1338,7 @@ function __camResetPower()
 function __camGetPowerLimit()
 {
 	let powerLimit;
-	if (!tweakOptions.ref_timerlessMode || (camDef(__camNextLevel) && (__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A0_OUT)))
+	if (!tweakOptions.ref_timerlessMode || (camDef(__camNextLevel) && (__camNextLevel === CAM_GAMMA_OUT || __camNextLevel === CAM_GAMMA_OUT)))
 	{
 		powerLimit = __camPowerLimits[difficulty];
 	}
@@ -1348,18 +1348,16 @@ function __camGetPowerLimit()
 		powerLimit = __camTimerlessPowerLimits[difficulty];
 	}
 
-	// Increase the power limits as the player progresses through the acts
+	// Increase the power limits as the player progresses through the campaign
 	const __CAM_NUM = camDiscoverCampaign();
 	if (difficulty >= MEDIUM && __CAM_NUM > 1)
 	{
-		// Increase by 20% per Act after the Prologue.
-		powerLimit += (powerLimit * 0.2) * (__CAM_NUM - 1);
+		// Increase by 50% per campaign.
+		powerLimit += (powerLimit * 0.5) * (__CAM_NUM - 1);
 	}
 
 	return powerLimit;
 }
-
-
 
 // Grant the player momentary vision of all objects specified by camSetObjectVision()
 function __camViewObjects()

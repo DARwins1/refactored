@@ -254,7 +254,10 @@ function eventStartLevel()
 
 	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
 
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
+	}
 	camPlayVideos({video: "MB1CA_MSG", type: CAMP_MSG});
 
 	// New Paradigm LZs

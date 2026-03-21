@@ -135,7 +135,10 @@ function eventStartLevel()
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
 	camPlayVideos([{video: "MB2_B_MSG", type: CAMP_MSG}, {video: "MB2_B_MSG2", type: MISS_MSG}]);
 
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
@@ -251,7 +254,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COMiddleBase",
-			rebuildTruck: (tweakOptions.ref_timerlessMode),
+			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck3"),
 			structset: camAreaToStructSet("base4Cleanup")

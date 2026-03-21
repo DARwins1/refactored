@@ -77,7 +77,10 @@ function eventStartLevel()
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	}
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_6, true);
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 	setAlliance(CAM_SCAV_6, CAM_SCAV_7, true);
@@ -121,6 +124,35 @@ function eventStartLevel()
 			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 	});
+
+	if (tweakOptions.ref_timerlessMode)
+	{
+		// Set up Timerless mode-exclusive cranes
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base4group",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane, // Scavenger constructor
+				structset: camAreaToStructSet("enemybase4").filter((struct) => (struct.stat !== "A0PowerGenerator"))
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base2group",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("enemybase2")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base3group",
+				rebuildTruck: (difficulty === INSANE),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("enemybase3")
+		});
+	}
 
 	camPlayVideos({video: "MB1B_MSG", type: MISS_MSG});
 	camDetectEnemyBase("base4group"); // power surge detected

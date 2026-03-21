@@ -13,7 +13,10 @@ function eventStartLevel()
 	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
 	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
 	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
+	}
 	camPlayVideos([{video: "MB2_1_MSG", type: CAMP_MSG}, {video: "MB2_1_MSG2", type: MISS_MSG}]);
 
 	// Darken the fog to 1/2 default brightness

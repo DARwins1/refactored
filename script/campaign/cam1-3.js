@@ -199,6 +199,33 @@ function eventStartLevel()
 		},
 	});
 
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: false, // Can't rebuild this truck
+			truckDroid: getObject("NPTruck"), // Use the pre-placed truck on the map
+			structset: camAreaToStructSet("NPBase")
+	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		// Set up Timerless mode-exclusive cranes
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavBaseGroup",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavBaseGroupSouth",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("SouthScavBase")
+		});
+	}
+
 	hackAddMessage("C1-3_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); // south-west beacon
 
 	camSetFactories({
@@ -267,14 +294,6 @@ function eventStartLevel()
 				repair: 66,
 			},
 			repair: 66,
-	});
-
-	camManageTrucks(
-		CAM_NEW_PARADIGM, {
-			label: "NPBaseGroup",
-			rebuildTruck: false, // Can't rebuild this truck
-			truckDroid: getObject("NPTruck"), // Use the pre-placed truck on the map
-			structset: camAreaToStructSet("NPBase")
 	});
 
 	// Upgrade NP structures on higher difficulties

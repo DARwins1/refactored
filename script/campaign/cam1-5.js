@@ -317,11 +317,35 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPBaseGroup",
-			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			rebuildTruck: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck2"),
 			structset: camAreaToStructSet("NPBase")
 	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavNorthGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavNorth")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthWestGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthWest")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthEastGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthEast")
+		});
+	}
 
 	queue("enableSouthScavFactories", camChangeOnDiff(camMinutesToMilliseconds(0.5)));
 	queue("enableNorthFactories", camChangeOnDiff(camMinutesToMilliseconds(4)));

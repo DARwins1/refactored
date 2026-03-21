@@ -194,7 +194,10 @@ function eventStartLevel()
 	const tExt = getObject("transporterExit");
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.gamma2.pre);
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

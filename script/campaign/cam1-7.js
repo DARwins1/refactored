@@ -257,6 +257,33 @@ function eventStartLevel()
 			area: "NPBuildArea",
 			structset: camAreaToStructSet("NPBuildArea")
 	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavMiddleGroup",
+				rebuildBase: true,
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavMiddle")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthEastGroup",
+				rebuildBase: true,
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavSouthEast")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavNorthEastGroup",
+				rebuildBase: true,
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavNorth")
+		});
+	}
 
 	// If below Insane difficulty, remove NP LZ structs at the start
 	if (difficulty < INSANE)

@@ -107,6 +107,35 @@ function eventStartLevel()
 		},
 	});
 
+	if (tweakOptions.ref_timerlessMode)
+	{
+		// Set up Timerless mode-exclusive cranes
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "NorthGroup",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("NorthBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "WestGroup",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("WestBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "NorthWestGroup",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("NorthWestBase")
+		});
+	}
+
 	camDetectEnemyBase("ScavLabGroup");
 
 	camSetFactories({

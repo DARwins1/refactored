@@ -761,7 +761,10 @@ function eventStartLevel()
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setMissionTime(camMinutesToSeconds(45));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camMinutesToSeconds(45));
+	}
 
 	setPower(playerPower(CAM_HUMAN_PLAYER) + 5000);
 	playSound(cam_sounds.powerTransferred);

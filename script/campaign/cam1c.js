@@ -125,7 +125,10 @@ function eventStartLevel()
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
 
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 
@@ -309,6 +312,37 @@ function eventStartLevel()
 			truckDroid: getObject("npTruck6"),
 			structset: camAreaToStructSet("NPLZ2")
 	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthDerrickGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthDerrick")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthEastHighgroundGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthEastHighground")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavNorthBaseGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavNorthBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavEastOutpostGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavEastOutpost")
+		});
+	}
 
 	// Rank changes on difficulty:
 	// Rookie (SUPEREASY/EASY/MEDIUM)

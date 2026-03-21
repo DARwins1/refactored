@@ -97,7 +97,10 @@ camAreaEvent("LandingZoneTrigger", function()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
 	// Give extra 40 minutes.
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(40)) + getMissionTime());
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(40)) + getMissionTime());
+	}
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha9.pre, {
 		area: "RTLZ",
 		message: "C1-4_LZ",
@@ -257,6 +260,30 @@ function eventStartLevel()
 			truckDroid: getObject("npTruck3"),
 			structset: camAreaToStructSet("NPBase")
 	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "SouthScavBaseGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("SouthScavBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "NorthScavBaseGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("NorthScavBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "WestScavBaseGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("WestScavBase")
+		});
+	}
 
 	queue("enableSouthScavFactory", camChangeOnDiff(camSecondsToMilliseconds(10)));
 

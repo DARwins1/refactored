@@ -233,7 +233,10 @@ function eventStartLevel()
 		"COResearchLab2": { tech: "R-Wpn-Mortar3" }, // Pepperpot
 	});
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
 
 	setAlliance(CAM_THE_COLLECTIVE, CAM_SCAV_7, true);
 	setAlliance(CAM_HUMAN_PLAYER, CAM_SCAV_7, true);

@@ -1050,7 +1050,7 @@ function sendCollectiveTransporter()
 function missionSetup()
 {
 	camSetExtraObjectiveMessage(_("Send off as many transporters as you can and bring at least one truck"));
-	setMissionTime(camMinutesToSeconds(30));
+	setMissionTime(camMinutesToSeconds(30)); // NOTE: This timer stays even in Timerless mode
 	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
 	playSound(cam_sounds.lz.returnToLZ);
 

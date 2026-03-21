@@ -593,7 +593,10 @@ function eventStartLevel()
 	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
 	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
 
-	setMissionTime(camMinutesToSeconds(45));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camMinutesToSeconds(45));
+	}
 
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
 

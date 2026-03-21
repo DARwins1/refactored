@@ -128,11 +128,8 @@ function empAttack()
 // Temporarily blue-ify the skies whenever the EMP fires
 function empEffects()
 {
-	camSetFog(91, 113, 236);
-	camSetSunIntensity(0.1, 0.1, 0.6);
-
-	// const mis_defaultFog = {r:182, g:225, b:236};
-	// const mis_defaultSun = {r:0.5, g:0.5, b:0.5};
+	camSetFog(91, 113, 236); // Unaltered: r:10, g:10, b:10
+	camSetSunIntensity(0.1, 0.1, 0.6); // Unaltered: r:0.35, g:0.35, b:0.4
 
 	camGradualFog(camSecondsToMilliseconds(6), mis_defaultFog.r, mis_defaultFog.g, mis_defaultFog.b);
 	camGradualSunIntensity(camSecondsToMilliseconds(6), mis_defaultSun.r, mis_defaultSun.g, mis_defaultSun.b);

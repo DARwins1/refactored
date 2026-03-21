@@ -46,17 +46,20 @@ camAreaEvent("launchScavAttack", function(droid)
 	});
 
 	// Activate mission timer, unlike the original campaign.
-	if (difficulty <= MEDIUM)
+	if (!tweakOptions.ref_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
-	}
-	else if (difficulty === HARD)
-	{
-		setMissionTime(camMinutesToSeconds(40));
-	}
-	else if (difficulty >= INSANE)
-	{
-		setMissionTime(camMinutesToSeconds(30));
+		if (difficulty <= MEDIUM)
+		{
+			setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+		}
+		else if (difficulty === HARD)
+		{
+			setMissionTime(camMinutesToSeconds(40));
+		}
+		else if (difficulty >= INSANE)
+		{
+			setMissionTime(camMinutesToSeconds(30));
+		}
 	}
 });
 

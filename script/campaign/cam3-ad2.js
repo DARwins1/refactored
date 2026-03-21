@@ -733,7 +733,7 @@ function eventStartLevel()
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setMissionTime(camMinutesToSeconds(5));
+	setMissionTime(camMinutesToSeconds(5)); // NOTE: This stays even in Timerless mode
 	queue("setupMission", camMinutesToMilliseconds(5) - camSecondsToMilliseconds(2));
 	enableResearch(mis_researchTargets.resistance, CAM_HUMAN_PLAYER);
 

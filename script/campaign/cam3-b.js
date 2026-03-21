@@ -97,7 +97,10 @@ function trapSprung()
 	camSetObjectVision(MIS_GAMMA_PLAYER, false); // Stop granting vision to the player
 
 	// Add an extra hour
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(60)) + getMissionTime());
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(60)) + getMissionTime());
+	}
 	enableAllFactories();
 
 	sendNXTransporter();
@@ -240,7 +243,10 @@ function eventStartLevel()
 	const lz = getObject("landingZone");
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.gamma4.pre);
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(30))); // For the rescue mission.
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(30))); // For the rescue mission.
+	}
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

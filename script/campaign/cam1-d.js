@@ -321,21 +321,22 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastGroup",
-			rebuildTruck: false,
+			rebuildTruck: (tweakOptions.ref_timerlessMode && difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode AND on Medium+
 			truckDroid: getObject("npTruck2"),
 			structset: camAreaToStructSet("NPNorthEast")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPMiddleGroup",
-			rebuildTruck: false,
+			rebuildTruck: ref_timerlessMode,
 			truckDroid: getObject("npTruck3"),
 			structset: camAreaToStructSet("NPMiddle")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPLZGroup",
-			rebuildTruck: false,
+			rebuildBase: ((difficulty === INSANE) || (ref_timerlessMode && difficulty >= HARD)),
+			rebuildTruck: ref_timerlessMode,
 			truckDroid: getObject("npTruck4"),
 			structset: camAreaToStructSet("NPLZBaseCleanup")
 	});

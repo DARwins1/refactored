@@ -316,6 +316,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COEastBase",
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck1"),
@@ -324,6 +325,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COWestBase",
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= MEDIUM),
 			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("coTruck2"),

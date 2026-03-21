@@ -148,7 +148,10 @@ function discoverGammaBase()
 	setScrollLimits(0, 0, 64, 192); //top and middle portion.
 	restoreLimboMissionData();
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(80)) + getMissionTime());
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(80)) + getMissionTime());
+	}
 	setPower(playerPower(CAM_HUMAN_PLAYER) + camChangeOnDiff(10000));
 
 	playSound(cam_sounds.powerTransferred);
@@ -258,7 +261,10 @@ function eventStartLevel()
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(limboLZ.x, limboLZ.y, limboLZ.x2, limboLZ.y2, -1);
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(10)));
+	}
 
 	queue("recycleExpStash", camSecondsToMilliseconds(0.1));
 

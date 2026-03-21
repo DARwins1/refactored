@@ -236,6 +236,7 @@ function eventStartLevel()
 		CAM_NEXUS, {
 			label: "NXOutpost",
 			rebuildBase: tweakOptions.ref_timerlessMode,
+			rebuildTruck: false,
 			truckDroid: getObject("nxTruck"),
 			structset: camAreaToStructSet("baseCleanup")
 	});
