@@ -101,6 +101,12 @@
 	},
 
 
+	"position_17": {
+		"label": "COCyborgFactorySAssembly",
+		"pos": [2481, 9178]
+	},
+
+
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [11008, 12672],
@@ -151,24 +157,31 @@
 
 
 	"area_7": {
-		"label": "base3Trigger",
-		"subscriber": 0,
-		"pos1": [2432, 7808],
-		"pos2": [6016, 8832]
-	},
-
-
-	"area_8": {
 		"label": "COLandingZone",
 		"pos1": [6272, 10624],
 		"pos2": [6528, 10880]
 	},
 
 
-	"area_9": {
+	"area_8": {
 		"label": "vtolGroup1",
 		"pos1": [1408, 1024],
 		"pos2": [1536, 1664]
+	},
+
+
+	"area_9": {
+		"label": "base3Trigger",
+		"subscriber": 0,
+		"pos1": [0, 7808],
+		"pos2": [6016, 8832]
+	},
+
+
+	"area_10": {
+		"label": "mortarBaseCleanup",
+		"pos1": [1280, 8320],
+		"pos2": [3072, 9728]
 	},
 
 
@@ -269,14 +282,6 @@
 
 
 	"object_12": {
-		"label": "COResearchLab",
-		"id": 4743,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_13": {
 		"label": "COVtolFacRight",
 		"id": 4680,
 		"player": 2,
@@ -284,7 +289,7 @@
 	},
 
 
-	"object_14": {
+	"object_13": {
 		"label": "coTruck3",
 		"id": 4821,
 		"player": 2,
@@ -292,7 +297,7 @@
 	},
 
 
-	"object_15": {
+	"object_14": {
 		"label": "coCommanderShepard",
 		"id": 4822,
 		"player": 2,
@@ -300,7 +305,7 @@
 	},
 
 
-	"object_16": {
+	"object_15": {
 		"label": "coTruck4",
 		"id": 3468,
 		"player": 2,
@@ -308,9 +313,41 @@
 	},
 
 
-	"object_17": {
+	"object_16": {
 		"label": "coVtolTowerW",
 		"id": 4795,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_17": {
+		"label": "COResearchLab1",
+		"id": 4743,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_18": {
+		"label": "COResearchLab2",
+		"id": 4933,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_19": {
+		"label": "coTruck5",
+		"id": 4938,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_20": {
+		"label": "COCyborgFactoryS",
+		"id": 4932,
 		"player": 2,
 		"type": 1
 	}

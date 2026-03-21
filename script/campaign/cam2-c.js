@@ -9,7 +9,7 @@ const mis_collectiveRes = [
 	"R-Wpn-MG-Damage06", "R-Wpn-MG-ROF02",
 	"R-Wpn-Flamer-Damage05", "R-Wpn-Flamer-ROF02",
 	"R-Wpn-Cannon-Damage05", "R-Wpn-Cannon-ROF03", "R-Wpn-Cannon-Accuracy02",
-	"R-Wpn-Mortar-Damage05", "R-Wpn-Mortar-ROF02", "R-Wpn-Mortar-Acc01", 
+	"R-Wpn-Mortar-Damage05", "R-Wpn-Mortar-ROF03", "R-Wpn-Mortar-Acc01", 
 	"R-Wpn-Rocket-Damage05", "R-Wpn-Rocket-ROF02", "R-Wpn-Rocket-Accuracy03",
 	"R-Wpn-AAGun-Damage02", "R-Wpn-AAGun-ROF02",
 	"R-Defense-WallUpgrade05", "R-Struc-Materials05",
@@ -24,11 +24,6 @@ const mis_collectiveRes = [
 //by destroying the air base or crossing the base3Trigger area.
 function videoTrigger()
 {
-	// camSetExtraObjectiveMessage(_("Rescue the civilians from The Collective before too many are captured"));
-	setMissionTime(getMissionTime() + camChangeOnDiff(camMinutesToSeconds(30)));
-	setTimer("civilianOrders", camSecondsToMilliseconds(2));
-	setTimer("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(10)));
-
 	hackRemoveMessage("C2C_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 	camPlayVideos({video: "MB2_C_MSG2", type: MISS_MSG});
 	hackAddMessage("C2C_OBJ2", PROX_MSG, CAM_HUMAN_PLAYER, false);
@@ -234,7 +229,8 @@ function eventStartLevel()
 		"COVtolFacRight": { tech: "R-Vehicle-Body02" }, // Leopard
 		"COVtolFacLeft": { tech: "R-Vehicle-Prop-VTOL" }, // VTOL Propulsion
 		"COInfernoEmplacement-Arti": { tech: "R-Wpn-Flamer-ROF02" }, // Flamer Autoloader Mk2
-		"COResearchLab": { tech: "R-Wpn-Cannon5" }, // Assault Cannon
+		"COResearchLab1": { tech: "R-Wpn-Cannon5" }, // Assault Cannon
+		"COResearchLab2": { tech: "R-Wpn-Mortar3" }, // Pepperpot
 	});
 
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
@@ -261,6 +257,12 @@ function eventStartLevel()
 		"COtransportBase": {
 			cleanup: "transportBaseCleanup",
 			detectMsg: "C2C_BASE3",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+		"COmortarBase": {
+			cleanup: "mortarBaseCleanup",
+			detectMsg: "C2C_BASE4",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
@@ -308,6 +310,16 @@ function eventStartLevel()
 				repair: 40,
 			},
 			templates: [cTempl.cybth, cTempl.scymc, cTempl.cybla]
+		},
+		"COCyborgFactoryS": {
+			assembly: "COCyborgFactorySAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			data: {
+				repair: 40,
+			},
+			templates: [cTempl.cybhg, cTempl.scymc, cTempl.scygr]
 		},
 		"COVtolFacLeft": {
 			order: CAM_ORDER_ATTACK,
@@ -435,6 +447,14 @@ function eventStartLevel()
 			truckDroid: getObject("coTruck4"),
 			structset: camAreaToStructSet("transportBaseCleanup")
 	});
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "COmortarBase",
+			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("coTruck5"),
+			structset: camAreaToStructSet("mortarBaseCleanup")
+	});
 
 	// Just turn everything on all at once :P
 	camEnableFactory("COHeavyFacR");
@@ -448,6 +468,9 @@ function eventStartLevel()
 	hackAddMessage("C2C_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 	queue("activateGroups", camChangeOnDiff(camMinutesToMilliseconds(1)));
+
+	setTimer("civilianOrders", camSecondsToMilliseconds(2));
+	setTimer("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(10)));
 
 	// Darken the fog to 2/3 default brightness
 	camSetFog(11, 11, 43);

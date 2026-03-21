@@ -2394,7 +2394,7 @@
         "name": "HEAP Mortar Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage05",
-            "R-Wpn-Mortar3"
+            "R-Wpn-Howitzer-Damage01"
         ],
         "researchPoints": 2800,
         "researchPower": 412,

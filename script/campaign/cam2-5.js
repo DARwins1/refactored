@@ -5,7 +5,7 @@ const mis_collectiveRes = [
 	"R-Wpn-MG-Damage06", "R-Wpn-MG-ROF02",
 	"R-Wpn-Flamer-Damage05", "R-Wpn-Flamer-ROF02",
 	"R-Wpn-Cannon-Damage05", "R-Wpn-Cannon-ROF03", "R-Wpn-Cannon-Accuracy02",
-	"R-Wpn-Mortar-Damage05", "R-Wpn-Mortar-ROF02", "R-Wpn-Mortar-Acc01", 
+	"R-Wpn-Mortar-Damage05", "R-Wpn-Mortar-ROF03", "R-Wpn-Mortar-Acc01", 
 	"R-Wpn-Rocket-Damage05", "R-Wpn-Rocket-ROF02", "R-Wpn-Rocket-Accuracy03",
 	"R-Wpn-AAGun-Damage02", "R-Wpn-AAGun-ROF02",
 	"R-Defense-WallUpgrade05", "R-Struc-Materials05",

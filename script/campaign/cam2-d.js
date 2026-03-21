@@ -89,7 +89,6 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"COResearchLab": { tech: "R-Struc-Research-Upgrade02" }, // Dedicated Synaptic Link Data Analysis
-		"COCentralFactoryR": { tech: "R-Wpn-Mortar3" }, // Pepperpot
 		"COCentralFactoryL": { tech: "R-Wpn-Cannon3Mk1" }, // Heavy Cannon
 		"COVtolFactory": { tech: "R-Wpn-Bomb-Damage01" }, // HE Bomb Shells
 		"COHowitzerEmplacement": { tech: "R-Wpn-HowitzerMk1" }, // Howitzer

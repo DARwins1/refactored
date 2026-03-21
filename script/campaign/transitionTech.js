@@ -185,6 +185,8 @@ const mis_betaResearchNew = [
 	"R-Wpn-Flamer-Damage05",
 	"R-Wpn-Cannon5", // Artifact
 	"R-Defense-Wall-VulcanCan", "R-Cyborg-Hvywpn-Acannon", "R-Wpn-Cannon-ROF03",
+	"R-Wpn-Mortar3", // Artifact
+	"R-Defense-RotMor", "R-Wpn-Mortar-ROF03",
 
 	// 6
 	"R-Struc-Power-Upgrade01", // Artifact
@@ -198,11 +200,9 @@ const mis_betaResearchNew = [
 	"R-Sys-Sensor-Upgrade01", // Artifact
 
 	// 7
-	"R-Wpn-Mortar3", // Artifact
-	"R-Defense-RotMor", "R-Wpn-Mortar-ROF03", "R-Wpn-Mortar-Damage06",
 	"R-Wpn-HowitzerMk1", // Artifact
 	"R-Defense-Howitzer", "R-Wpn-Howitzer-Damage01", "R-Wpn-Howitzer-ROF01",
-	"R-Wpn-Howitzer-Accuracy01",
+	"R-Wpn-Howitzer-Accuracy01", "R-Wpn-Mortar-Damage06",
 	"R-Wpn-Bomb-Damage01", // Artifact
 	"R-Struc-Research-Upgrade02", // Artifact
 	"R-Wpn-Howitzer-Accuracy02", "R-Wpn-AAGun-Accuracy02",  "R-Wpn-Mortar-Acc03",
