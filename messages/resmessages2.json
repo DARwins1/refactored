@@ -28,6 +28,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Assault Gun",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and hover vehicles",
             "Ineffective against: Tracked vehicles and structures",
             "Can attack aerial targets",
@@ -240,6 +241,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy dual flame-thrower firing Propylene Oxide gel",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -617,6 +619,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops High Explosive Cluster bombs",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Provides substantial bonus HP",
@@ -630,6 +633,7 @@
         "text": [
             "New Heavy Bomb Bay Available",
             "Drops High Explosive Armor Piercing bombs",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Provides substantial bonus HP",
@@ -644,6 +648,7 @@
         "text": [
             "New Weapon Turret Available",
             "Rapid fire 76mm rotary auto-cannon",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
@@ -657,6 +662,7 @@
         "text": [
             "New Weapon Turret Available",
             "Versatile hyper-velocity cannon firing 88mm rounds",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Only causes damage on direct hit; no splash damage",
@@ -684,6 +690,7 @@
         "text": [
             "New Weapon Turret Available",
             "155mm Howitzer may be assigned to a sensor",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -700,6 +707,7 @@
         "text": [
             "New Weapon Turret Available",
             "105mm Howitzer firing explosive artillery shells",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -748,6 +756,7 @@
         "text": [
             "New Weapon Turret Available",
             "105mm Howitzer firing incendiary artillery shells",
+            "Damage type: Artillery",
             "Effective against: Cyborgs, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -765,6 +774,7 @@
         "text": [
             "New Weapon Turret Available",
             "Rotary artillery weapon firing explosive mortar shells in rapid succession",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",

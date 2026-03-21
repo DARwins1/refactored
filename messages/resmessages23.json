@@ -138,6 +138,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops incendiary phosphorus bombs",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -153,6 +154,7 @@
         "text": [
             "New Weapon Turret Available",
             "Multi-barrel, rapid-fire machinegun",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and Hover vehicles",
             "Ineffective against: Structures and Tracked vehicles",
             "Can attack aerial targets",
@@ -188,6 +190,7 @@
         "text": [
             "New Weapon Turret Available",
             "105mm multi-barrel rotary Howitzer firing explosive artillery shells",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",

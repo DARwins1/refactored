@@ -83,6 +83,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Scourge Missile Launcher",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Greater accuracy at longer ranges",
@@ -97,6 +98,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Flashlight laser",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and Hover vehicles",
             "Ineffective against: Structures and Tracked vehicles",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -123,6 +125,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Needle Gun",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Darts can hit multiple units",
@@ -824,6 +827,7 @@
         "text": [
             "New Weapon Turret Available",
             "Sophisticated missile launcher firing anti-tank missiles",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Infantry and structures",
             "Greater accuracy at longer ranges",
@@ -837,6 +841,7 @@
         "text": [
             "New Weapon Turret Available",
             "Short-ranged artillery firing guided anti-material missiles",
+            "Damage type: Anti-Structure",
             "Effective against: Structures",
             "Ineffective against: Cyborgs and vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -862,6 +867,7 @@
         "text": [
             "New Bomb Bay Available",
             "Drops high intensity thermite bombs",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -933,6 +939,7 @@
         "text": [
             "New Weapon Turret Available",
             "Generates and concentrates bursts of laser energy",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and Hover vehicles",
             "Ineffective against: Structures and Tracked vehicles",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -947,6 +954,7 @@
         "text": [
             "New Weapon Turret Available",
             "Generates and concentrates pulses of laser energy",
+            "Damage type: Anti-Personnel",
             "Effective against: Cyborgs and Hover vehicles",
             "Ineffective against: Structures and Tracked vehicles",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -1017,6 +1025,7 @@
         "text": [
             "New Weapon Turret Available",
             "Missile artillery weapon firing salvos of guided high-explosive missiles",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -1058,6 +1067,7 @@
         "text": [
             "New Weapon Turret Available",
             "Short-ranged artillery firing salvos of guided high-explosive missiles",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -1105,6 +1115,7 @@
         "text": [
             "New Weapon Turret Available",
             "Rail gun accelerating needle darts at extreme velocities",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
@@ -1118,6 +1129,7 @@
         "text": [
             "New Weapon Turret Available",
             "Rail gun accelerating armor-piercing darts at extreme velocities",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",
@@ -1131,6 +1143,7 @@
         "sequenceName": "res_weapons.ogg",
         "text": [
             "Heavy rail gun accelerating large kinetic energy darts at extreme velocities",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Provides substantial bonus HP",

@@ -130,6 +130,7 @@
         "text": [
             "New Weapon Turret Available",
             "Specialized shaped charge rocket designed to penetrate layers of concrete",
+            "Damage type: Anti-Structure",
             "Effective against: Structures",
             "Ineffective against: Vehicles and Cyborgs",
             "Greater accuracy at longer ranges"
@@ -142,6 +143,7 @@
         "text": [
             "New Weapon Turret Available",
             "Dual-mounted anti-tank rocket launchers",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Greater accuracy at longer ranges"
@@ -165,6 +167,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Grenade Launcher",
+            "Damage type: Artillery",
             "Effective against: Infantry, wheeled vehicles and structures",
             "Ineffective against: Bunkers and tracked vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -180,6 +183,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Thermite Flamer",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -197,6 +201,7 @@
         "text": [
             "New Cyborg Available",
             "Armed with Cyborg Plasmite Flamer",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -246,6 +251,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy flame-thrower firing superheated Plasmite gel",
+            "Damage type: Incendiary",
             "Effective against: Infantry, vehicles and bunkers",
             "Ineffective against: Non-bunker structures",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -284,6 +290,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Assault Cannon",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Obsoletes and replaces Super Heavy-Gunner Cyborg",
@@ -297,6 +304,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Scourge Missile Launcher",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Greater accuracy at longer ranges",
@@ -311,6 +319,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Hyper Velocity Cannon",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Only causes damage on direct hit; no splash damage",
@@ -326,6 +335,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Medium Cannon",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Obsoletes Heavy Gunner Cyborg",
@@ -339,6 +349,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Pulse Laser",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and Hover vehicles",
             "Ineffective against: Structures and Tracked vehicles",
             "Thermal weapon; Damage bypasses kinetic armor of target",
@@ -355,6 +366,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Rail Gun",
+            "Damage type: All Rounder",
             "Effective against: Vehicles and structures",
             "Ineffective against: Bunkers and cyborgs",
             "Darts can hit multiple units",
@@ -370,6 +382,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Tank Killer Rockets",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Greater accuracy at longer ranges",
@@ -443,18 +456,6 @@
             "Or damaged units may be selected as target"
         ]
     },
-    "RES_W_RK_LTAT1MK1": {
-        "id": "RES_W_RK_LTAT1MK1",
-        "imdName": "MICAPSUL.pie",
-        "sequenceName": "res_weapons.ogg",
-        "text": [
-            "New Weapon Turret Available",
-            "Single-shot anti-tank rocket launcher",
-            "Effective against: Vehicles",
-            "Ineffective against: Infantry and structures",
-            "Greater accuracy at longer ranges"
-        ]
-    },
     "RES_IMORT": {
         "id": "RES_IMORT",
         "imdName": "MICAPSUL.PIE",
@@ -462,6 +463,7 @@
         "text": [
             "New Weapon Turret Available",
             "Artillery weapon firing incendiary mortar shells",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -512,6 +514,7 @@
         "sequenceName": "res_droid.ogg",
         "text": [
             "Armed with Cyborg Heavy Machinegun",
+            "Damage type: Anti-Personnel",
             "Effective against: Infantry and wheeled vehicles",
             "Ineffective against: Structures and tracked vehicles",
             "Can attack aerial targets",
@@ -526,6 +529,7 @@
         "text": [
             "New Weapon Turret Available",
             "Short-ranged artillery firing salvos of high-explosive rockets",
+            "Damage type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -551,6 +555,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Heavy Grenade Launcher",
+            "Damage type: Artillery",
             "Effective against: Infantry, wheeled vehicles and structures",
             "Ineffective against: Bunkers and tracked vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -567,6 +572,7 @@
         "text": [
             "New Super Cyborg Available",
             "Armed with Cyborg Seraph Missile Launcher",
+            "Damage type: Artillery",
             "Effective against: Infantry, wheeled vehicles and structures",
             "Ineffective against: Bunkers and tracked vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -582,6 +588,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy rocket launcher firing powerful, long range anti-tank rockets",
+            "Damage type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Cyborgs and structures",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
