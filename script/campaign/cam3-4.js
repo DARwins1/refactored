@@ -280,7 +280,7 @@ function eventStartLevel()
 				repair: 75,
 				count: -1,
 			},
-			templates: [cTempl.scyhc, cTempl.scytk, cTempl.scygr]
+			templates: [cTempl.scyhc, cTempl.scytk, cTempl.scyhr]
 		},
 		"NX-NEFactory": {
 			assembly: "NX-NEFactoryAssembly",

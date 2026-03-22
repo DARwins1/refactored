@@ -160,7 +160,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.cybag, cTempl.scytk]
+			templates: [cTempl.cybag, cTempl.scytk, cTempl.scyhr]
 		},
 		"COCyborgFactory-b2": {
 			assembly: "COb2-Assembly",

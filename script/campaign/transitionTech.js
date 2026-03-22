@@ -139,8 +139,8 @@ const mis_betaResearchNew = [
 	"R-Sys-CBSensor-Turret01", // Artifact
 	"R-Sys-CBSensor-Tower01", 
 	"R-Wpn-Rocket02-MRLHvy", // Artifact
-	"R-Defense-MRLHvy", "R-Wpn-Rocket-ROF02", "R-Wpn-Cannon-ROF02",
-	"R-Wpn-Mortar-ROF02",
+	"R-Defense-MRLHvy", "Cyb-Hvywpn-HRA", "R-Wpn-Rocket-ROF02",
+	"R-Wpn-Mortar-ROF02", "R-Wpn-Cannon-ROF02",
 	"R-Wpn-Cannon-Damage04", // Granted (available to research at the start of the level)
 	"R-Wpn-Mortar-Damage04", // Granted
 	"R-Wpn-AAGun-Damage01", // Granted

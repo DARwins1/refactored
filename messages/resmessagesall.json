@@ -565,6 +565,21 @@
             "Requires Cyborg factory to produce"
         ]
     },
+    "RES_CYW_HRA": {
+        "id": "RES_CYW_HRA",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "New Super Cyborg Available",
+            "Armed with Cyborg Heavy Rocket Launcher",
+            "Damage type: Artillery",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Bunkers and tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Requires Cyborg factory to produce"
+        ]
+    },
     "RES_CYW_SERAPH": {
         "id": "RES_CYW_SERAPH",
         "imdName": "MICAPSUL.pie",
@@ -577,7 +592,7 @@
             "Ineffective against: Bunkers and tracked vehicles",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
             "Greater accuracy at longer ranges",
-            "Obsoletes and replaces Super Heavy Grenadier Cyborg",
+            "Obsoletes and replaces Super Heavy Grenadier Cyborg and Super Heavy Rocket Cyborg",
             "Requires Cyborg factory to produce"
         ]
     },

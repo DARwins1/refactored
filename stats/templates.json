@@ -944,6 +944,17 @@
             "Cyb-Hvywpn-Grenade"
         ]
     },
+    "Cyb-Hvy-HRA": {
+        "available": true,
+        "body": "CyborgHeavyBody",
+        "id": "Cyb-Hvy-HRA",
+        "name": "Super Heavy Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "Cyb-Hvywpn-HRA"
+        ]
+    },
     "Cyb-Hvy-Seraph": {
         "available": true,
         "body": "CyborgHeavyBody",

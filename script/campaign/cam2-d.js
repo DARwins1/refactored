@@ -183,7 +183,7 @@ function eventStartLevel()
 			data: {
 				repair: 40,
 			},
-			templates: [cTempl.scytk, cTempl.scygr] // Tank Killers & Grenadiers
+			templates: [cTempl.scytk, cTempl.scyhr] // Heavy Rockets & Tank Killers
 		},
 		"COVtolFactory": {
 			order: CAM_ORDER_ATTACK,

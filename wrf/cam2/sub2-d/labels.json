@@ -130,23 +130,23 @@
 
 
 	"area_4": {
-		"label": "cybAmbushGroup",
-		"pos1": [9216, 384],
-		"pos2": [9856, 640]
-	},
-
-
-	"area_5": {
 		"label": "eastComGroup",
 		"pos1": [8576, 2816],
 		"pos2": [9472, 3072]
 	},
 
 
-	"area_6": {
+	"area_5": {
 		"label": "southComGroup",
 		"pos1": [1024, 8448],
 		"pos2": [1920, 8704]
+	},
+
+
+	"area_6": {
+		"label": "cybAmbushGroup",
+		"pos1": [9216, 384],
+		"pos2": [9856, 768]
 	},
 
 

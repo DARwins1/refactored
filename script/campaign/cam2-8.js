@@ -115,23 +115,22 @@ function eventStartLevel()
 		"COCyborgFac-b1": {
 			assembly: "COCyborgFac-b1Assembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 6,
+			groupSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
 			data: {
 				repair: 40,
-				count: -1,
 			},
-			templates: [cTempl.cybag, cTempl.cybth]
+			templates: [cTempl.cybag, cTempl.cybth, cTempl.scygr]
 		},
 		"COCyborgFac-b2": {
 			assembly: "COCyborgFac-b2Assembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
+			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
 			data: {
 				repair: 40,
 			},
-			templates: [cTempl.scytk, cTempl.scygr, cTempl.scyac]
+			templates: [cTempl.scytk, cTempl.scyhr, cTempl.scyac]
 		},
 		"COHeavyFacL-b2": {
 			assembly: "COHeavyFacL-b2Assembly",

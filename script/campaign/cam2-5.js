@@ -185,7 +185,7 @@ function eventStartLevel()
 			data: {
 				repair: 30,
 			},
-			templates: [cTempl.cybag, cTempl.cybth, cTempl.cybla]
+			templates: [cTempl.cybag, cTempl.cybth, cTempl.scygr]
 		},
 		"COCyborgFactoryR": {
 			assembly: "COCyborgFactoryRAssembly",

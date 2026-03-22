@@ -200,7 +200,7 @@ function eventStartLevel()
 			data: {
 				repair: 40,
 			},
-			templates: [cTempl.scygr, cTempl.scymc]
+			templates: [cTempl.scygr, cTempl.scyhr]
 		},
 		"COCybFacR-b2": {
 			assembly: "COCybFacR-b2Assembly",
@@ -230,7 +230,7 @@ function eventStartLevel()
 			data: {
 				repair: 40,
 			},
-			templates: [cTempl.cybca, cTempl.cybhg]
+			templates: [cTempl.scymc, cTempl.cybhg]
 		},
 	});
 

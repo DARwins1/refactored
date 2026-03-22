@@ -220,16 +220,16 @@
 
 
 	"object_9": {
-		"label": "COSensorTower",
-		"id": 627,
+		"label": "COWhirlwind",
+		"id": 620,
 		"player": 2,
 		"type": 1
 	},
 
 
 	"object_10": {
-		"label": "COWhirlwind",
-		"id": 620,
+		"label": "COSensorTower",
+		"id": 627,
 		"player": 2,
 		"type": 1
 	},

@@ -390,6 +390,7 @@ function groundAssaultWave(index)
 					cTempl.cybag, cTempl.cybag, cTempl.cybag, cTempl.cybag, // 4 Assault Gunners
 					cTempl.cybla, cTempl.cybla, cTempl.cybla,
 					cTempl.cybla, cTempl.cybla, cTempl.cybla, // 6 Lancer Cyborgs
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 Super HRAs
 				],
 				[ // Southwest entry templates
 					cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, // 4 Tank Killers
@@ -887,6 +888,7 @@ function sendSupportWave(entrance)
 					cTempl.comhpvht, cTempl.comhpvht, // 2 HVCs
 					cTempl.cybth, cTempl.cybth, cTempl.cybth, // 3 Thermite Flamers
 					cTempl.cybag, cTempl.cybag, cTempl.cybag, // 3 Assault Gunners
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 Super HRAs
 				];
 			}
 			break;
@@ -1019,6 +1021,7 @@ function sendCollectiveTransporter()
 		cTempl.cybag, // Assault Gunner Cyborg
 		cTempl.scytk, // Super TK Cyborg
 		cTempl.scygr, // Super Grenadier Cyborg
+		cTempl.scyhr, // Super Heavy Rocket Cyborg
 		cTempl.scyac, // Super Auto Gunner Cyborg
 		cTempl.comhatht, // Tank Killer
 		cTempl.comhpvht, // HVC

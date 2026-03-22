@@ -48,11 +48,7 @@ function camEnemyBaseDetected_COAirBase()
 		obj.type === DROID && obj.group === null
 	));
 
-	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
-		count: -1,
-		regroup: false,
-		repair: 67
-	});
+	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {repair: 67});
 }
 
 //Enable Groups after 8 minutes or player enters groupTrigger area.
@@ -302,7 +298,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.scytk, cTempl.scyac, cTempl.cybag]
+			templates: [cTempl.scytk, cTempl.scyac, cTempl.scyhr]
 		},
 		"COCyborgFactoryR": {
 			assembly: "COCyborgFactoryRAssembly",

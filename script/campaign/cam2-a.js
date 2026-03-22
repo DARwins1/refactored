@@ -113,7 +113,7 @@ function mapEdgeDroids()
 		return; // CC Destroyed
 	}
 
-	const units = [cTempl.cybhg, cTempl.scymc, cTempl.scygr, cTempl.cohhct];
+	const units = [cTempl.cybhg, cTempl.scymc, cTempl.scygr, cTempl.scyhr, cTempl.cohhct];
 	const LIMIT = 8 + camRand(5);
 	const droids = [];
 	for (let i = 0; i < LIMIT; i++)

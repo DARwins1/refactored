@@ -554,6 +554,7 @@ function sendCollectiveTransporter()
 		cTempl.cybag, // Assault Gunner Cyborg
 		cTempl.scytk, // Super TK Cyborg
 		cTempl.scygr, // Super Grenadier Cyborg
+		cTempl.scyhr, // Super Heavy Rocket Cyborg
 		cTempl.scyac, // Super Auto Gunner Cyborg
 		cTempl.comhatht, // Tank Killer
 		cTempl.comhpvht, // HVC

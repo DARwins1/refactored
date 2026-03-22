@@ -568,7 +568,7 @@ function eventStartLevel()
 				repair: 75,
 				count: -1,
 			},
-			templates: [cTempl.scyhc, cTempl.scygr, cTempl.cybrp]
+			templates: [cTempl.scyhc, cTempl.scyhr, cTempl.cybrp]
 		},
 	});
 

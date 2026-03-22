@@ -565,6 +565,22 @@
         ],
         "statID": "Cyb-Hvywpn-Grenade"
     },
+    "R-Cyb-Hvywpn-HRA": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-HRA",
+        "msgName": "RES_CYW_HRA",
+        "name": "Super Heavy Rocket Cyborg",
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRLHvy",
+            "R-Cyb-Hvywpn-Grenade"
+        ],
+        "researchPoints": 1800,
+        "researchPower": 160,
+        "resultComponents": [
+            "Cyb-Hvywpn-HRA"
+        ],
+        "statID": "Cyb-Hvywpn-HRA"
+    },
     "R-Cyb-Hvywpn-Seraph": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Hvywpn-Seraph",

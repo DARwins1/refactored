@@ -192,7 +192,7 @@ function eventStartLevel()
 				repair: 40,
 				count: -1,
 			},
-			templates: [cTempl.scyac, cTempl.cybla]
+			templates: [cTempl.scyac, cTempl.scyhr]
 		},
 		"COHeavyFac-b4": {
 			assembly: "base4Assembly",
