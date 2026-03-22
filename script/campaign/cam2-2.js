@@ -57,6 +57,16 @@ camAreaEvent("escapeZone", function(droid)
 	resetLabel("escapeZone", CAM_THE_COLLECTIVE);
 });
 
+// Put a red dot on the minimap over the artifact holder's current position
+function trackArtiHolder()
+{
+	const artiHolder = getObject("COCommander");
+	if (artiHolder !== null && playerWarned)
+	{
+		playSound(cam_sounds.tracker, artiHolder.x, artiHolder.y, artiHolder.z);
+	}
+}
+
 function enableAllFactories()
 {
 	camEnableFactory("COFactoryWest");
@@ -346,6 +356,7 @@ function eventStartLevel()
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("startConvoy", camChangeOnDiff(camMinutesToMilliseconds(3.5)));
 	setTimer("convoyTick", camSecondsToMilliseconds(1));
+	setTimer("trackArtiHolder", camSecondsToMilliseconds(3));
 
 	// Stop the rain
 	camSetWeather(CAM_WEATHER_CLEAR);
