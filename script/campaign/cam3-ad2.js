@@ -370,7 +370,7 @@ function vtolAttack()
 		alternate: true,
 		dynamic: true
 	};
-	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
 }
 
 // Focus on important player structures
@@ -386,7 +386,7 @@ function vtolDevastatorStrike()
 		dynamic: true,
 		callback: "getDevastatorTargets" // Used to get targets for VTOL strikes
 	};
-	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
 }
 
 // Focus on important player units
@@ -402,7 +402,7 @@ function vtolScourgeStrike()
 		dynamic: true,
 		callback: "getScourgeTargets" // Used to get targets for VTOL strikes
 	};
-	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
+	camSetVtolData(CAM_NEXUS, mis_vtolPositions, "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
 }
 
 // Returns a list of objects to be targeted by Devastator VTOL strikes
@@ -627,7 +627,7 @@ function setupMission()
 	queue("vtolScourgeStrike", camChangeOnDiff(camMinutesToMilliseconds(12)));
 
 	// LasSat logic
-	setTimer("initLasSat", camSecondsToMilliseconds(40)); // Target choosing
+	setTimer("initLasSat", camSecondsToMilliseconds(30)); // Target choosing
 	setTimer("laserSatTick", camSecondsToMilliseconds(0.1)); // Aiming & firing logic
 	setTimer("expandBlastZone", camChangeOnDiff(camSecondsToMilliseconds(15))); // Expand the LasSat's domain
 }
