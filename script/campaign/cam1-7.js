@@ -223,7 +223,7 @@ function eventStartLevel()
 			assembly: "middleAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			data: {
 				regroup: true,
 				count: -1,
@@ -234,14 +234,14 @@ function eventStartLevel()
 			assembly: "southAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.firetruck, cTempl.gbjeep, cTempl.gbjeep, cTempl.buscan ]
 		},
 		"scavNorthEastFactory": {
 			assembly: "northAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
 			rdata: {
 				regroup: true,
 				count: -1,
@@ -259,11 +259,12 @@ function eventStartLevel()
 	});
 	if (tweakOptions.ref_timerlessMode)
 	{
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
 		camManageTrucks(
 			CAM_SCAV_7, {
 				label: "ScavMiddleGroup",
 				rebuildBase: true,
-				respawnDelay: TRUCK_TIME,
+				respawnDelay: CRANE_TIME,
 				template: cTempl.crane,
 				structset: camAreaToStructSet("scavMiddle")
 		});
@@ -271,7 +272,7 @@ function eventStartLevel()
 			CAM_SCAV_7, {
 				label: "ScavSouthEastGroup",
 				rebuildBase: true,
-				respawnDelay: TRUCK_TIME,
+				respawnDelay: CRANE_TIME,
 				template: cTempl.crane,
 				structset: camAreaToStructSet("scavSouthEast")
 		});
@@ -279,7 +280,7 @@ function eventStartLevel()
 			CAM_SCAV_7, {
 				label: "ScavNorthEastGroup",
 				rebuildBase: true,
-				respawnDelay: TRUCK_TIME,
+				respawnDelay: CRANE_TIME,
 				template: cTempl.crane,
 				structset: camAreaToStructSet("scavNorth")
 		});
@@ -298,8 +299,8 @@ function eventStartLevel()
 	hackAddMessage("C1-7_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false); //Canyon
 	queue("enableScavFactories", camChangeOnDiff(camSecondsToMilliseconds(30)));
 	queue("npAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
-	queue("startConvoy", camChangeOnDiff(camMinutesToMilliseconds(5)));
-	setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	queue("startConvoy", camMinutesToMilliseconds(6));
+	setTimer("sendTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	setTimer("trackArtiHolder", camSecondsToMilliseconds(3));
 
 	// Darken the fog to 1/3 default brightness

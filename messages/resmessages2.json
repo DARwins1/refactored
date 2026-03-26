@@ -146,6 +146,17 @@
             "Defensive Strength: Bunker"
         ]
     },
+    "RES_EMP_HVATM": {
+        "id": "RES_EMP_HVATM",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored bunker with Scourge Missile",
+            "Automatically targets enemies in range",
+            "Defensive Strength: Bunker"
+        ]
+    },
     "RES_EMP_HVFL": {
         "id": "RES_EMP_HVFL",
         "imdName": "MICAPSUL.pie",

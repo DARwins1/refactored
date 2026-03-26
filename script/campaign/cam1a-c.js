@@ -148,7 +148,7 @@ function spawnAttackWave(index)
 	}
 	if (difficulty == INSANE)
 	{
-		attackDroids[0].push(cTempl.npmhct, cTempl.npmhct); // 2 Heavy Cannons
+		attackDroids[0].push(cTempl.nphhct, cTempl.nphhct); // 2 Heavy Cannons
 		attackDroids[1].push(cTempl.npmmorbht, cTempl.npmmorbht); // 2 Bombards
 		attackDroids[2].push(cTempl.nphhct, cTempl.nphhct); // 2 Heavy Cannons
 		attackDroids[3].push(cTempl.npmbbht, cTempl.npmbbht); // 2 Bunker Busters

@@ -317,7 +317,7 @@ function __camPlayerDead()
 		});
 		dead = droidCount <= 0 && !haveFactories;
 		//Finish Beta-end early if they have no units and factories.
-		if (dead && (difficulty <= HARD) && (__camNextLevel === cam_levels.gamma1))
+		if (dead && (__camNextLevel === cam_levels.gamma1))
 		{
 			cam_eventMissionTimeout(); //Early victory trigger
 			return false;

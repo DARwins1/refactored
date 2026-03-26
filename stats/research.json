@@ -587,10 +587,12 @@
         "msgName": "RES_CYW_SERAPH",
         "name": "Super Seraph Cyborg",
         "redComponents": [
-            "Cyb-Hvywpn-Grenade"
+            "Cyb-Hvywpn-Grenade",
+            "Cyb-Hvywpn-HRA"
         ],
         "replacedComponents": [
-            "Cyb-Hvywpn-Grenade:Cyb-Hvywpn-Seraph"
+            "Cyb-Hvywpn-Grenade:Cyb-Hvywpn-Seraph",
+            "Cyb-Hvywpn-HRA:Cyb-Hvywpn-Seraph"
         ],
         "requiredResearch": [
             "R-Wpn-MdArtMissile",
@@ -4630,7 +4632,7 @@
     "R-Defense-ATMiss": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-ATMiss",
-        "msgName": "RES_EMP_HVATR",
+        "msgName": "RES_EMP_HVATM",
         "name": "Scourge Missile Bunker",
         "redStructures": [
             "PillBoxTK"

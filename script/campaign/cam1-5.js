@@ -140,7 +140,7 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha10, {
 		area: "RTLZ",
 		message: "C1-5_LZ",
-		reinforcements: camMinutesToSeconds(3),
+		reinforcements: camMinutesToSeconds(2),
 		annihilate: true
 	});
 

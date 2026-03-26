@@ -13,7 +13,7 @@ const mis_newParadigmRes = [
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
-	"R-Wpn-Mortar-Damage01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Damage01",
 ];
 
 var NPCommander;
@@ -76,31 +76,19 @@ function sendScouts()
 	});
 }
 
-camAreaEvent("ScavTrigger", function(droid)
-{
-	camEnableFactory("ScavFactory");
-});
-
 camAreaEvent("NPTrigger", function(droid)
 {
 	camCallOnce("enableReinforcements");
 });
 
-function eventAttacked(victim, attacker) {
-	if (!camDef(victim) || !victim || victim.player === CAM_HUMAN_PLAYER)
-	{
-		return;
-	}
-	if (victim.player === CAM_NEW_PARADIGM)
-	{
-		
-	}
-}
-
 function eventDestroyed(obj)
 {
 	if (obj.type !== FEATURE && obj.player === CAM_NEW_PARADIGM)
 	{
+		if (obj.type === STRUCTURE && obj.status === BEING_BUILT)
+		{
+			return; // Don't aggro when the NP demolishes one of their own structures
+		}
 		camCallOnce("enableNP");
 	}
 }
@@ -114,6 +102,15 @@ function enableReinforcements()
 		reinforcements: camMinutesToSeconds(2), // changes!
 		annihilate: true
 	});
+
+	// Also enable the scavenger factories
+	camEnableFactory("ScavFactory");
+	camEnableFactory("ScavFactorySouth");
+}
+
+function camEnemyBaseDetected_NPBaseGroup()
+{
+	queue("camCallOnce", camSecondsToMilliseconds(1), "enableReinforcements");
 }
 
 function camEnemyBaseDetected_ScavBaseGroup()
@@ -123,8 +120,6 @@ function camEnemyBaseDetected_ScavBaseGroup()
 
 function camEnemyBaseDetected_ScavBaseGroupSouth()
 {
-	camEnableFactory("ScavFactory");
-	camEnableFactory("ScavFactorySouth");
 	camManageGroup(camMakeGroup("SouthConvoyForce"), CAM_ORDER_COMPROMISE, {
 		pos: camMakePos("SouthConvoyLoc"),
 		regroup: true,
@@ -169,8 +164,8 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"ScavFactory": { tech: "R-Wpn-Rocket05-MiniPod" }, // Mini-Rocket Pod
-		"NPFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
-		"NPLab": { tech: "R-Vehicle-Body04" }, // Bug
+		"NPFactory": { tech: "R-Vehicle-Body04" }, // Bug
+		"NPLab": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"NPCRC": { tech: "R-Struc-CommandRelay" }, // Command Relay Post
 		"NPHQ": { tech: "R-Defense-HardcreteWall" }, // Hardcrete
 		"NPRepair": { tech: "R-Struc-RepairFacility" }, // Repair Facility
@@ -231,21 +226,19 @@ function eventStartLevel()
 	camSetFactories({
 		"ScavFactory": {
 			assembly: "ScavAssembly",
-			order: CAM_ORDER_COMPROMISE,
+			order: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("RTLZ"),
-				radius: 8
+				pos: camMakePos("RTLZ")
 			},
 			groupSize: 4,
 			maxSize: 10,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
 			templates: [ cTempl.rbuggy, cTempl.bloke, cTempl.rbjeep, cTempl.buggy ]
 		},
 		"NPFactory": {
 			assembly: "NPAssembly",
 			order: CAM_ORDER_ATTACK,
 			data: {
-				regroup: false,
 				repair: 30,
 			},
 			groupSize: 4, // sic! scouts, at most
@@ -262,7 +255,7 @@ function eventStartLevel()
 			},
 			groupSize: 4,
 			maxSize: 10,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
 			templates: [ cTempl.rbjeep, cTempl.buscan, cTempl.rbuggy, cTempl.firetruck ]
 		},
 	});
@@ -300,13 +293,13 @@ function eventStartLevel()
 	if (difficulty == HARD)
 	{
 		// Only replace once destroyed
-		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower01", true); // Sensor Tower
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Tower
 		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "PillBox2", "PillBox1", true); // MG Bunker
 	}
 	else if (difficulty == INSANE)
 	{
 		// Proactively demolish/replace these
-		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower01");
+		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "Sys-SensoTower01", "Sys-SensoTower02");
 		camTruckObsoleteStructure(CAM_NEW_PARADIGM, "PillBox2", "PillBox1");
 	}
 

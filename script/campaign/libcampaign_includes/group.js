@@ -323,12 +323,15 @@ function __camGetMissingGroupTemplates(group, returnFirst, factory)
 	{
 		const __GROUP_ORDER = __camGroupInfo[group].order;
 		const groupLeader = __camGroupInfo[group].data.leader;
-		if (camDef(__GROUP_ORDER) && __GROUP_ORDER === CAM_ORDER_FOLLOW // Has the follow order...
-			&& camDef(groupLeader) && groupLeader !== null && groupLeader.type === DROID && groupLeader.droidType === DROID_COMMAND) // Has a live commander leader...
+		if (camDef(__GROUP_ORDER) && __GROUP_ORDER === CAM_ORDER_FOLLOW && camDef(groupLeader)) // Has the follow order...
 		{
-			// Object is a live command droid
-			// Limit the maximum amount of missing droids to the commander's capacity minus the droids already in the group
-			maxMissing = (6 + camGetDroidRank(groupLeader) * 2) - droidList.length;
+			const leader = getObject(groupLeader);
+			if (leader !== null && leader.type === DROID && leader.droidType === DROID_COMMAND) // Has a live commander leader...
+			{
+				// Object is a live command droid
+				// Limit the maximum amount of missing droids to the commander's capacity minus the droids already in the group
+				maxMissing = (6 + camGetDroidRank(groupLeader) * 2) - droidList.length;
+			}
 		}
 
 		if (maxMissing <= 0)

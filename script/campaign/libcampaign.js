@@ -339,15 +339,15 @@ const __camPowerLimits = [ // Power limits
 	100000, // EASY
 	50000, // MEDIUM
 	20000, // HARD
-	10000, // INSANE
+	12000, // INSANE
 ];
 const __camTimerlessPowerLimits = [ // Timerless mode power limits 
 	// Note that these are MUCH lower
 	50000, // SUPEREASY
 	24000, // EASY
 	12000, // MEDIUM
-	6000, // HARD
-	4000, // INSANE
+	8000, // HARD
+	6000, // INSANE
 ];
 var __camCalledOnce = {};
 var __camExpLevel;

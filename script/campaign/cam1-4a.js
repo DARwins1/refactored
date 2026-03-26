@@ -234,7 +234,7 @@ function eventStartLevel()
 	if (difficulty >= HARD)
 	{
 		// Swap Mortars for Bombards
-		camUpgradeOnMapTemplates(cTempl.npmmorht, cTempl.npmmorbht);
+		camUpgradeOnMapTemplates(cTempl.npmmorht, cTempl.npmmorbht, CAM_NEW_PARADIGM);
 	}
 
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));

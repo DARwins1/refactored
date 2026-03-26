@@ -3,7 +3,6 @@ include("script/campaign/templates.js");
 
 var civilianPosIndex; //Current location of civilian groups.
 var shepardCommander; //Enemy commander that protects civilians.
-var hvyCommander;
 var lastSoundTime; //Only play the "civilian rescued" sound every so often.
 const mis_collectiveRes = [
 	"R-Wpn-MG-Damage06", "R-Wpn-MG-ROF02",
@@ -49,29 +48,6 @@ function camEnemyBaseDetected_COAirBase()
 	));
 
 	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {repair: 67});
-}
-
-//Enable Groups after 8 minutes or player enters groupTrigger area.
-//GroundWaypoint1 is included, but is unused in the WZScript version. Also
-//the defense group patrols are unused, but cause path problems anyway.
-function activateGroups()
-{
-	camManageGroup(hvyCommander, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("groundWayPoint1"),
-			camMakePos("groundWayPoint2"),
-		],
-		interval: camSecondsToMilliseconds(70),
-		repair: 67
-	});
-
-	camManageGroup(camMakeGroup("cyborgGroup1"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("oilDerrick"),
-			camMakePos("centerOfPlayerBase"),
-		],
-		interval: camSecondsToMilliseconds(40),
-	});
 }
 
 //This controls the collective cyborg shepard groups and moving civilians
@@ -272,7 +248,7 @@ function eventStartLevel()
 			assembly: "COHeavyFacLAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				repair: 20,
 			},
@@ -282,7 +258,7 @@ function eventStartLevel()
 			assembly: "COHeavyFacRAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			data: {
 				repair: 20,
 			},
@@ -292,7 +268,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryLAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			data: {
 				regroup: true,
 				repair: 40,
@@ -304,7 +280,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryRAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
 				repair: 40,
 			},
@@ -314,7 +290,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactorySAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 6,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
 				repair: 40,
 			},
@@ -323,13 +299,13 @@ function eventStartLevel()
 		"COVtolFacLeft": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			templates: [cTempl.colcbv, cTempl.colpbv, cTempl.colcbv, cTempl.colpbv]
 		},
 		"COVtolFacRight": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			templates: [cTempl.colagv, cTempl.colatv, cTempl.colagv, cTempl.colatv]
 		},
 	});
@@ -348,7 +324,14 @@ function eventStartLevel()
 	camSetDroidRank(getObject("coCommanderHeavy"), COMMANDER_RANK);
 	camSetDroidRank(getObject("coCommanderShepard"), COMMANDER_RANK);
 
-	hvyCommander = camMakeGroup("coCommanderHeavy"); // Wait for orders later
+	camManageGroup(camMakeGroup("coCommanderHeavy"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("groundWayPoint1"),
+			camMakePos("groundWayPoint2"),
+		],
+		interval: camSecondsToMilliseconds(70),
+		repair: 67
+	});
 	camMakeRefillableGroup(
 		camMakeGroup("heavyGroup1"), {
 			templates: [
@@ -413,6 +396,14 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK
 	});
 
+	camManageGroup(camMakeGroup("cyborgGroup1"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("oilDerrick"),
+			camMakePos("centerOfPlayerBase"),
+		],
+		interval: camSecondsToMilliseconds(40),
+	});
+
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.ref_timerlessMode) ? 90 : 180));
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
@@ -466,10 +457,8 @@ function eventStartLevel()
 	camPlayVideos({video: "MB2_C_MSG", type: MISS_MSG});
 	hackAddMessage("C2C_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
-	queue("activateGroups", camChangeOnDiff(camMinutesToMilliseconds(1)));
-
 	setTimer("civilianOrders", camSecondsToMilliseconds(2));
-	setTimer("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(10)));
+	setTimer("captureCivilians", camChangeOnDiff(camSecondsToMilliseconds(30)));
 
 	// Darken the fog to 2/3 default brightness
 	camSetFog(11, 11, 43);

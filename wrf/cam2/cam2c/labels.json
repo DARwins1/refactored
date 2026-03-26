@@ -290,6 +290,14 @@
 
 
 	"object_13": {
+		"label": "coTruck5",
+		"id": 4938,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_14": {
 		"label": "coTruck3",
 		"id": 4821,
 		"player": 2,
@@ -297,7 +305,7 @@
 	},
 
 
-	"object_14": {
+	"object_15": {
 		"label": "coCommanderShepard",
 		"id": 4822,
 		"player": 2,
@@ -305,7 +313,7 @@
 	},
 
 
-	"object_15": {
+	"object_16": {
 		"label": "coTruck4",
 		"id": 3468,
 		"player": 2,
@@ -313,17 +321,9 @@
 	},
 
 
-	"object_16": {
-		"label": "coVtolTowerW",
-		"id": 4795,
-		"player": 2,
-		"type": 1
-	},
-
-
 	"object_17": {
-		"label": "COResearchLab1",
-		"id": 4743,
+		"label": "COCyborgFactoryS",
+		"id": 4932,
 		"player": 2,
 		"type": 1
 	},
@@ -338,16 +338,16 @@
 
 
 	"object_19": {
-		"label": "coTruck5",
-		"id": 4938,
+		"label": "coVtolTowerW",
+		"id": 4795,
 		"player": 2,
-		"type": 0
+		"type": 1
 	},
 
 
 	"object_20": {
-		"label": "COCyborgFactoryS",
-		"id": 4932,
+		"label": "COResearchLab1",
+		"id": 4743,
 		"player": 2,
 		"type": 1
 	}

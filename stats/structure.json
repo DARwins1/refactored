@@ -1312,8 +1312,8 @@
     "Emplacement-MdART-pit": {
         "armour": 10,
         "breadth": 1,
-        "buildPoints": 600,
-        "buildPower": 450,
+        "buildPoints": 300,
+        "buildPower": 250,
         "ecmID": "ZNULLECM",
         "height": 1,
         "hitpoints": 400,

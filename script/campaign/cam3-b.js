@@ -101,18 +101,27 @@ function trapSprung()
 	{
 		setMissionTime(camChangeOnDiff(camMinutesToSeconds(60)) + getMissionTime());
 	}
+	else
+	{
+		setMissionTime(-1); // Remove the mission timer from the previous level
+	}
 	enableAllFactories();
 
 	sendNXTransporter();
 	changePlayerColour(MIS_GAMMA_PLAYER, CAM_NEXUS); // Black painting.
 	playSound(cam_sounds.nexus.synapticLinksActivated);
 
-	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	setTimer("sendNXTransporter", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	queue("aggroGammaCommander", camMinutesToMilliseconds(12));
 
 	// FIXME: If this isn't here, NEXUS' attack droids will get stuck behind their own gates.
 	camUpgradeOnMapStructures("A0HardcreteMk1Gate", "A0HardcreteMk1Gate", MIS_GAMMA_PLAYER);
 	camUpgradeOnMapStructures("A0HardcreteMk1Gate", "A0HardcreteMk1Gate", CAM_NEXUS);
+}
+
+function enableNXCyborgFactory()
+{
+	camEnableFactory("NXCyborgFactory");
 }
 
 function enableAllFactories()
@@ -451,6 +460,7 @@ function eventStartLevel()
 	setAlliance(MIS_GAMMA_PLAYER, CAM_HUMAN_PLAYER, true);
 
 	queue("transferPower", camSecondsToMilliseconds(3));
+	queue("enableNXCyborgFactory", camChangeOnDiff(camMinutesToMilliseconds(6)))
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(8)));
 
 	// Darken the fog to 3/4 default brightness

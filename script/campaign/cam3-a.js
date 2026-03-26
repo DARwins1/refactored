@@ -198,6 +198,10 @@ function eventStartLevel()
 	{
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	}
+	else
+	{
+		setMissionTime(-1); // Remove the mission timer from the previous level
+	}
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

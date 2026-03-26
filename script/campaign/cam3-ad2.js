@@ -134,13 +134,14 @@ function initLasSat()
 		const dr = targets.filter((obj) => (obj.type === DROID));
 		const st = targets.filter((obj) => (obj.type === STRUCTURE && obj.stattype !== WALL && obj.stattype !== GATE && obj.status === BUILT));
 
-		if (dr.length)
+		if (dr.length && camRand(2) === 0)
 		{
-			// Prioritize droids
+			// Target a droid
 			target = camRandFrom(dr);
 		}
 		else if (st.length)
 		{
+			// Target a structure
 			target = camRandFrom(st);
 		}
 	}

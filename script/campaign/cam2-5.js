@@ -18,7 +18,7 @@ const mis_collectiveRes = [
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
-	if ((droid.player !== CAM_HUMAN_PLAYER))
+	if (droid.player !== CAM_HUMAN_PLAYER)
 	{
 		camSafeRemoveObject(droid, false);
 	}
@@ -171,7 +171,7 @@ function eventStartLevel()
 			assembly: "COMediumFactoryAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				repair: 20,
 			},
@@ -181,7 +181,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryLAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
 			data: {
 				repair: 30,
 			},
@@ -191,7 +191,7 @@ function eventStartLevel()
 			assembly: "COCyborgFactoryRAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
 			data: {
 				regroup: true,
 				repair: 30,

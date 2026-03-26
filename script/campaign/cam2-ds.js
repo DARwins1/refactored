@@ -14,7 +14,7 @@ function eventStartLevel()
 	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
 	if (!tweakOptions.ref_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camMinutesToSeconds(75)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.5)));
 	}
 	camPlayVideos({video: "MB2_DI_MSG", type: MISS_MSG});
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.beta7.offWorld);

@@ -140,14 +140,14 @@
 
 
 	"area_7": {
-		"label": "NXEastBaseCleanup",
+		"label": "NXWestBaseCleanup",
 		"pos1": [512, 5632],
 		"pos2": [1408, 7168]
 	},
 
 
 	"area_8": {
-		"label": "NXWestBaseCleanup",
+		"label": "NXEastBaseCleanup",
 		"pos1": [5760, 5248],
 		"pos2": [7296, 6912]
 	},

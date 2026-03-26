@@ -311,7 +311,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase1",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			template: cTempl.comtruckht,
 			structset: camAreaToStructSet("COBase1Cleanup")
@@ -319,7 +319,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase2",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			template: cTempl.comtruckht,
 			structset: camAreaToStructSet("COBase2Cleanup")
@@ -327,7 +327,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase3",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			template: cTempl.comtruckt,
 			structset: camAreaToStructSet("COBase3Cleanup")
@@ -335,7 +335,7 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "COBase4",
-			rebuildBase: (tweakOptions.ref_timerlessMode || difficulty >= MEDIUM),
+			rebuildBase: tweakOptions.ref_timerlessMode,
 			respawnDelay: TRUCK_TIME,
 			template: cTempl.comtruckt,
 			structset: camAreaToStructSet("COBase4Cleanup")

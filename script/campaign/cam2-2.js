@@ -94,10 +94,6 @@ function vtolAttack()
 function startConvoy()
 {
 	hackRemoveMessage("C22_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
-	camManageGroup(commanderGroup, CAM_ORDER_DEFEND, {
-		pos: camMakePos("wayPoint"),
-		radius: 0
-	});
 
 	setTimer("convoyTick", camSecondsToMilliseconds(1));
 }
@@ -121,6 +117,7 @@ function eventAttacked(victim, attacker)
 		// If the commander is attacked and the escort group is missing too many droids, fall back to base
 		commanderAdvancing = false;
 		playerWarned = false;
+		wayPointReached = false;
 		camManageGroup(commanderGroup, CAM_ORDER_DEFEND, {
 			pos: camMakePos("wayPoint"),
 			radius: 6,
@@ -148,21 +145,32 @@ function convoyTick()
 		return; // Commander is dead
 	}
 
-	if (!wayPointReached && camWithinArea("COCommander", "westBaseCleanup"))
+	if (!wayPointReached)
 	{
-		wayPointReached = true;
+		if (camWithinArea("COCommander", "westBaseCleanup"))
+		{
+			wayPointReached = true;
+		}
+		else
+		{
+			// Move towards the NW base
+			camManageGroup(commanderGroup, CAM_ORDER_DEFEND, {
+				pos: camMakePos("wayPoint"),
+				radius: 0
+			});
+		}
 	}
 
 	if (wayPointReached && !commanderAdvancing)
 	{
 		const MISSING_DROIDS = camGetRefillableGroupTemplates(escortGroup).length;
-
 		if (MISSING_DROIDS < 4 && getObject("COCommander").health > 95)
 		{
 			// Order the commander to advance if it's fully healed and the escort group is missing less than 4 droids
 			commanderAdvancing = true;
 			camManageGroup(commanderGroup, CAM_ORDER_COMPROMISE, {
-				pos: camMakePos("escapePos")
+				pos: camMakePos("escapePos"),
+				repair: 67
 			});
 		}
 	}	
@@ -355,7 +363,6 @@ function eventStartLevel()
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("startConvoy", camChangeOnDiff(camMinutesToMilliseconds(3.5)));
-	setTimer("convoyTick", camSecondsToMilliseconds(1));
 	setTimer("trackArtiHolder", camSecondsToMilliseconds(3));
 
 	// Stop the rain

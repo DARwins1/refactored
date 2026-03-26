@@ -66,12 +66,7 @@ function setupCyborgGroups()
 //Checks if the downed transport has been destroyed and issue a game lose.
 function checkCrashedTeam()
 {
-	if (!victoryFlag && getObject("transporter") === null)
-	{
-		return false;
-	}
-
-	if (camDef(transUnitIDs) && victoryFlag)
+	if (transUnitIDs.length > 0 && victoryFlag)
 	{
 		// If the units were rescued, make sure they stay alive
 		let rescueAlive = false;
@@ -80,19 +75,12 @@ function checkCrashedTeam()
 		{
 			if (getObject(DROID, CAM_HUMAN_PLAYER, ID) !== null)
 			{
-				rescueAlive = true;
+				rescueAlive = true; // All is well with the world
 				break;
 			}
 		}
 
-		if (rescueAlive === false)
-		{
-			return false; // All transport units are dead :(
-		}
-		else
-		{
-			return true; // All is well with the world
-		}
+		return rescueAlive;
 	}
 }
 

@@ -54,13 +54,14 @@ function initLasSat()
 		const dr = targets.filter((obj) => (obj.type === DROID));
 		const st = targets.filter((obj) => (obj.type === STRUCTURE && obj.stattype !== WALL && obj.stattype !== GATE && obj.status === BUILT));
 
-		if (dr.length)
+		if (dr.length && camRand(2) === 0)
 		{
-			// Prioritize droids
+			// Target a droid
 			target = camRandFrom(dr);
 		}
 		else if (st.length)
 		{
+			// Target a structure
 			target = camRandFrom(st);
 		}
 	}
@@ -467,7 +468,7 @@ function eventStartLevel()
 			assembly: "NxVtolAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			data: {
 				repair: 67,
 			},
@@ -477,7 +478,7 @@ function eventStartLevel()
 			assembly: "NXb1CybAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
 				regroup: true,
 				repair: 45,
@@ -490,7 +491,7 @@ function eventStartLevel()
 			assembly: "NXb2Assembly1",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
 			data: {
 				regroup: true,
 				repair: 60,
@@ -503,7 +504,7 @@ function eventStartLevel()
 			assembly: "NXb2Assembly2",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(120)),
 			data: {
 				regroup: true,
 				repair: 40,
@@ -516,7 +517,7 @@ function eventStartLevel()
 			assembly: "NXb2Assembly2",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
 			data: {
 				regroup: true,
 				repair: 45,
@@ -529,7 +530,7 @@ function eventStartLevel()
 			assembly: "NXb2Assembly2",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
 			data: {
 				regroup: true,
 				repair: 50,
@@ -542,7 +543,7 @@ function eventStartLevel()
 			assembly: "gammaAssembly1",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 7,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
 			data: {
 				repair: 75,
 			},
@@ -552,7 +553,7 @@ function eventStartLevel()
 			assembly: "gammaAssembly2",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
 			data: {
 				repair: 50,
 			},
@@ -562,7 +563,7 @@ function eventStartLevel()
 			assembly: "gammaCybAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 8,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
 			data: {
 				regroup: true,
 				repair: 75,

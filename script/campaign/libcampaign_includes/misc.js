@@ -1322,8 +1322,15 @@ function __camAiPowerReset()
 // This used to be in `rules.js``
 function __camResetPower()
 {	
-	// Rate changes by 15% per difficulty level, with Normal at 100%
-	let powerProductionRate = 100 - (15 * (difficulty - 2));
+	let powerProductionRate = 100;
+	if (difficulty === EASY)
+	{
+		powerProductionRate = 115; // 115% power rate on EASY
+	}
+	else if (difficulty === SUPEREASY)
+	{
+		powerProductionRate = 130; // 130% power rate on SUPER EASY
+	}
 	
 	const __POWER_LIMIT = __camGetPowerLimit();
 

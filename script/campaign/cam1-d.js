@@ -184,7 +184,7 @@ function eventStartLevel()
 		"NPLZGroup": {
 			cleanup: "NPLZBaseCleanup",
 			detectMsg: "C1D_LZ2",
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 			player: CAM_NEW_PARADIGM // required for LZ-type bases
 		},
 	});
@@ -310,11 +310,12 @@ function eventStartLevel()
 			repair: 50,
 	});
 
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(180));
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastGroup",
 			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Medium+)
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(180)),
+			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck1"), // Use the truck already on the map
 			structset: camAreaToStructSet("NPNorthEast")
 	});
@@ -322,21 +323,24 @@ function eventStartLevel()
 		CAM_NEW_PARADIGM, {
 			label: "NPNorthEastGroup",
 			rebuildTruck: (tweakOptions.ref_timerlessMode && difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode AND on Medium+
+			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck2"),
 			structset: camAreaToStructSet("NPNorthEast")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPMiddleGroup",
-			rebuildTruck: ref_timerlessMode,
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck3"),
 			structset: camAreaToStructSet("NPMiddle")
 	});
 	camManageTrucks(
 		CAM_NEW_PARADIGM, {
 			label: "NPLZGroup",
-			rebuildBase: ((difficulty === INSANE) || (ref_timerlessMode && difficulty >= HARD)),
-			rebuildTruck: ref_timerlessMode,
+			rebuildBase: ((difficulty === INSANE) || (tweakOptions.ref_timerlessMode && difficulty >= HARD)),
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
 			truckDroid: getObject("npTruck4"),
 			structset: camAreaToStructSet("NPLZBaseCleanup")
 	});
