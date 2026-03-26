@@ -321,7 +321,7 @@ function eventStartLevel()
 		];
 
 		const artPool = [ // Pepperpots, Ballistas, and HRAs
-			cTempl.prhrotmht, cTempl.prhbalht, cTempl.cohhraht,
+			cTempl.prhrotmht, cTempl.prhbalht, cTempl.cohhraht, cTempl.scyhr,
 		];
 
 		const vtolPool = [ // Misc. VTOLs

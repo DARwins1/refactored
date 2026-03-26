@@ -87,7 +87,7 @@ const mis_alphaResearchNew = [
 	"R-Struc-Factory-Cyborg", "R-Cyborg-Wpn-HvyMG",
 	"R-Cyborg-Wpn-Cannon", "R-Cyborg-Wpn-Flamer", "R-Cyborg-Wpn-Rocket",
 	"R-Cyb-Sys-Repair", "R-Cyb-Sys-Construct", "R-Cyb-Wpn-Grenade",
-	"R-Cyborg-Metals01", "R-Cyborg-Metals02",
+	"R-Cyb-Wpn-MRL", "R-Cyborg-Metals01", "R-Cyborg-Metals02",
 	"R-Struc-Factory-Upgrade01", // Artifact
 	"R-Struc-RprFac-Upgrade01",
 	"R-Defense-WallUpgrade03", // Artifact

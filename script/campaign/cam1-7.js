@@ -102,7 +102,7 @@ function sendTransport()
 	}
 
 	// Cyborgs...
-	let templates  = [cTempl.cybca, cTempl.cybla, cTempl.cybgr, cTempl.cybhg];
+	let templates  = [cTempl.cybca, cTempl.cybla, cTempl.cybmr, cTempl.cybhg];
 	const COUNT = (difficulty <= HARD) ? 8 : 10;
 	const droids = [];
 	for (let i = 0; i < COUNT; ++i)

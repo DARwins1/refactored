@@ -889,6 +889,17 @@
             "Cyb-Wpn-Grenade"
         ]
     },
+    "Cyb-MRL": {
+        "available": true,
+        "body": "CyborgLightBody",
+        "id": "Cyb-MRL",
+        "name": "Mini-Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "Cyb-Wpn-MRL"
+        ]
+    },
     "Cyb-Hvy-A-T": {
         "available": true,
         "body": "CyborgHeavyBody",

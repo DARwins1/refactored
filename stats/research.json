@@ -570,6 +570,9 @@
         "id": "R-Cyborg-Hvywpn-HRA",
         "msgName": "RES_CYW_HRA",
         "name": "Super Heavy Rocket Cyborg",
+        "redComponents": [
+            "Cyb-Wpn-MRL"
+        ],
         "requiredResearch": [
             "R-Wpn-Rocket02-MRLHvy",
             "R-Cyb-Hvywpn-Grenade"
@@ -700,6 +703,22 @@
             "Cyb-Wpn-Grenade"
         ],
         "statID": "Cyb-Wpn-Grenade"
+    },
+    "R-Cyb-Wpn-MRL": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Wpn-MRL",
+        "msgName": "RES_CYW_MOR",
+        "name": "Mini-Rocket Cyborg",
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRL",
+            "R-Struc-Factory-Cyborg"
+        ],
+        "researchPoints": 1600,
+        "researchPower": 82,
+        "resultComponents": [
+            "Cyb-Wpn-MRL"
+        ],
+        "statID": "Cyb-Wpn-MRL"
     },
     "R-Cyborg-Wpn-Flamer": {
         "iconID": "IMAGE_RES_CYBORGTECH",

@@ -425,7 +425,7 @@ function eventStartLevel()
 		];
 
 		const artPool = [ // Bombards, MRAs, and Grenadiers
-			cTempl.prhmorbht, cTempl.prhmraht, cTempl.scygr,
+			cTempl.prhmorbht, cTempl.prhmraht, cTempl.scygr, cTempl.cybmr,
 		];
 
 		// Store units "offworld", so that the player can bring them in via transport.

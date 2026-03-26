@@ -119,7 +119,7 @@ function spawnAttackWave(index)
 		[ // Attack 8 (Northwest)
 			cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, // Heavy Machinegunners
 			cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, // Flamers
-			cTempl.npmmraht, cTempl.npmmraht, cTempl.npmmraht, cTempl.npmmraht, // MRAs
+			cTempl.cybmr, cTempl.cybmr, cTempl.cybmr, cTempl.cybmr, // MRA Cyborgs
 		],
 	];
 
@@ -243,7 +243,7 @@ function sendTransport()
 	}
 
 	// Cyborgs...
-	let templates  = [cTempl.cybca, cTempl.cybla, cTempl.cybgr, cTempl.cybrp];
+	let templates  = [cTempl.cybca, cTempl.cybla, cTempl.cybgr, cTempl.cybrp, cTempl.cybmr];
 	const COUNT = (difficulty <= HARD) ? 8 : 10;
 	const droids = [];
 	for (let i = 0; i < COUNT; ++i)

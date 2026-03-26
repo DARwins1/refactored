@@ -249,14 +249,14 @@ function eventStartLevel()
 		"NPCybFactoryE": {
 			assembly: "NPCybFactoryEAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
+			groupSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
 			data: {
 				regroup: false,
 				repair: 33,
 				count: -1,
 			},
-			templates: [ cTempl.cybca, cTempl.cybrp ] // Cannons and mechanics
+			templates: [ cTempl.cybca, cTempl.cybrp, cTempl.cybmr ] // Cannons, Mechanics and MRAs
 		},
 		"NPCybFactoryNE": {
 			assembly: "NPCybFactoryNEAssembly",
