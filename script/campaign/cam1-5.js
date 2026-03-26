@@ -1,53 +1,52 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 const mis_newParadigmRes = [
-	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade02",
-	"R-Struc-Materials02", "R-Struc-Factory-Upgrade02", "R-Vehicle-Engine02",
-	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Damage03",
-	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Mortar-Damage03",
-	"R-Wpn-Mortar-Acc01", "R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Damage03",
-	"R-Wpn-Rocket-ROF02", "R-Wpn-RocketSlow-Damage02", "R-Struc-RprFac-Upgrade03",
+	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Defense-WallUpgrade03",
+	"R-Struc-Materials03", "R-Vehicle-Engine02",
+	"R-Vehicle-Metals02", "R-Cyborg-Metals02", "R-Wpn-Cannon-Damage02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01", "R-Wpn-Cannon-ROF01",
+	"R-Wpn-Mortar-Damage02", "R-Wpn-Rocket-Accuracy02", "R-Wpn-Cannon-Accuracy01",
+	"R-Wpn-Rocket-Damage02", "R-Wpn-Rocket-ROF01", "R-Sys-Engineering01",
+	"R-Wpn-Mortar-ROF01", "R-Struc-RprFac-Upgrade01",
 ];
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-Damage02",
-	"R-Wpn-Cannon-Damage03", "R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01",
-	"R-Wpn-Rocket-Accuracy02", "R-Wpn-Rocket-ROF03", "R-Vehicle-Metals02",
-	"R-Defense-WallUpgrade03", "R-Struc-Materials03", "R-Wpn-Cannon-Accuracy01",
-	"R-Wpn-Mortar-Acc01",
+	"R-Wpn-Cannon-Damage02", "R-Wpn-Mortar-Damage02", "R-Wpn-Mortar-ROF01",
+	"R-Wpn-Rocket-ROF01", "R-Vehicle-Metals01",
+	"R-Defense-WallUpgrade02", "R-Struc-Materials02",
 ];
-
 var useHeavyReinforcement;
+var npCommander;
 
 //Get some droids for the New Paradigm transport
-function getDroidsForNPLZ(args)
+function getDroidsForNPLZ()
 {
 	let lightAttackerLimit = 8;
-	let heavyAttackerLimit = 3;
+	let heavyAttackerLimit = 6;
 	let unitTemplates;
 	const list = [];
 
 	if (difficulty === HARD)
 	{
 		lightAttackerLimit = 9;
-		heavyAttackerLimit = 4;
+		heavyAttackerLimit = 7;
 	}
-	else if (difficulty === INSANE)
+	else if (difficulty >= INSANE)
 	{
 		lightAttackerLimit = 10;
-		heavyAttackerLimit = 5;
+		heavyAttackerLimit = 8;
 	}
 
 	if (useHeavyReinforcement)
 	{
-		const artillery = [cTempl.npmor];
-		const other = [cTempl.npmmct];
+		const artillery = [cTempl.npmmorbht];
+		const other = (difficulty >= HARD) ? [cTempl.nphmct] : [cTempl.npmmct];
 		if (camRand(2) > 0)
 		{
 			//Add a sensor if artillery was chosen for the heavy units
-			list.push(cTempl.npsens);
+			list.push(cTempl.npmsensht);
 			unitTemplates = artillery;
 		}
 		else
@@ -57,7 +56,7 @@ function getDroidsForNPLZ(args)
 	}
 	else
 	{
-		unitTemplates = [cTempl.nppod, cTempl.npmrl, cTempl.npsmc];
+		unitTemplates = [cTempl.nplatht, cTempl.nplmraht, cTempl.npmbbht];
 	}
 
 	const LIM = useHeavyReinforcement ? heavyAttackerLimit : lightAttackerLimit;
@@ -70,61 +69,38 @@ function getDroidsForNPLZ(args)
 	return list;
 }
 
-//These enable Scav and NP factories when close enough
-camAreaEvent("NorthScavFactoryTrigger", function(droid)
-{
-	camEnableFactory("ScavNorthFactory");
-	camEnableFactory("NPCyborgFactory");
-	camEnableFactory("NPLeftFactory");
-	camEnableFactory("NPRightFactory");
-});
-
-camAreaEvent("SouthWestScavFactoryTrigger", function(droid)
+// Enable the two southern scav factories
+function enableSouthScavFactories()
 {
 	camEnableFactory("ScavSouthWestFactory");
-});
-
-camAreaEvent("SouthEastScavFactoryTrigger", function(droid)
-{
 	camEnableFactory("ScavSouthEastFactory");
-});
+}
 
-camAreaEvent("NPFactoryTrigger", function(droid)
+// Enable the northern scav factory and the NP Cyborg factory
+function enableNorthFactories()
 {
-	if (camIsTransporter(droid) === false)
-	{
-		camEnableFactory("NPCyborgFactory");
-		camEnableFactory("NPLeftFactory");
-		camEnableFactory("NPRightFactory");
-	}
-	else
-	{
-		resetLabel("NPFactoryTrigger", CAM_HUMAN_PLAYER);
-	}
-});
+	camEnableFactory("NPCyborgFactory");
+	camEnableFactory("ScavNorthFactory");
+}
 
-//Land New Paradigm transport in the LZ area (protected by four hardpoints in the New Paradigm base)
-camAreaEvent("NPLZTriggerEast", function()
+// Enable the NP vehicle factories
+function enableNPVehicleFactories()
 {
-	camCallOnce("activateNPLZTransporter");
-});
-
-camAreaEvent("NPLZTrigger", function()
-{
-	camCallOnce("activateNPLZTransporter");
-});
+	camEnableFactory("NPLeftFactory");
+	camEnableFactory("NPRightFactory");
+}
 
 function activateNPLZTransporter()
 {
-	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	setTimer("sendNPTransport", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	sendNPTransport();
 }
 
 function sendNPTransport()
 {
-	const nearbyDefense = enumArea("LandingZone2", CAM_NEW_PARADIGM, false).filter(function(obj) {
-		return (obj.type === STRUCTURE && obj.stattype === DEFENSE);
-	});
+	const nearbyDefense = enumArea("LandingZone2", CAM_NEW_PARADIGM, false).filter((obj) => (
+		obj.type === STRUCTURE && obj.stattype === DEFENSE
+	));
 
 	if (nearbyDefense.length > 0)
 	{
@@ -132,26 +108,15 @@ function sendNPTransport()
 		camSendReinforcement(CAM_NEW_PARADIGM, camMakePos("NPTransportPos"), list, CAM_REINFORCE_TRANSPORT, {
 			entry: { x: 2, y: 42 },
 			exit: { x: 2, y: 42 },
-			order: CAM_ORDER_ATTACK,
-			data: {
-				regroup: true,
-				count: -1,
-				pos: camMakePos("NPBase"),
-				repair: 66,
-			},
+			order: CAM_ORDER_ATTACK
 		});
-	}
-	else
-	{
-		removeTimer("sendNPTransport");
 	}
 }
 
-function enableNPFactories()
+// Make the NP commander more aggressive towards the player (if it's still alive)
+function aggroNPCommander()
 {
-	camEnableFactory("NPCyborgFactory");
-	camEnableFactory("NPLeftFactory");
-	camEnableFactory("NPRightFactory");
+	camManageGroup(npCommander, CAM_ORDER_ATTACK, {repair: 66});
 }
 
 //Destroying the New Paradigm base will activate all scav factories
@@ -172,22 +137,20 @@ function camEnemyBaseEliminated_NPBaseGroup()
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM_1A-C", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha10, {
 		area: "RTLZ",
 		message: "C1-5_LZ",
-		reinforcements: camMinutesToSeconds(3),
+		reinforcements: camMinutesToSeconds(2),
 		annihilate: true
 	});
 
 	useHeavyReinforcement = false; //Start with a light unit reinforcement first
 	const lz = getObject("LandingZone1"); //player lz
-	const lz2 = getObject("LandingZone2"); //new paradigm lz
-	const tent = getObject("TransporterEntry");
-	const text = getObject("TransporterExit");
+	const tEnt = getObject("TransporterEntry");
+	const tExt = getObject("TransporterExit");
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	setNoGoArea(lz2.x, lz2.y, lz2.x2, lz2.y2, CAM_NEW_PARADIGM);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
 
 	//Transporter is the only droid of the player's on the map
 	const transporter = enumDroid();
@@ -199,39 +162,38 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_newParadigmRes, CAM_NEW_PARADIGM);
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
+	camSetArtifacts({
+		"NPRightFactory": { tech: "R-Struc-Factory-Upgrade01" }, // Automated Manufacturing
+		"NPCommandCenter": { tech: "R-Defense-WallUpgrade03" }, // Improved Hardcrete Mk3
+		"NPResearchFacility": { tech: "R-Comp-SynapticLink" }, // Synaptic Link
+	});
+
 	camSetEnemyBases({
 		"ScavNorthGroup": {
 			cleanup: "ScavNorth",
 			detectMsg: "C1-5_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"ScavSouthWestGroup": {
 			cleanup: "ScavSouthWest",
 			detectMsg: "C1-5_BASE2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"ScavSouthEastGroup": {
 			cleanup: "ScavSouthEast",
 			detectMsg: "C1-5_BASE3",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"NPBaseGroup": {
 			cleanup: "NPBase",
 			detectMsg: "C1-5_OBJ1",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 			player: CAM_NEW_PARADIGM
 		},
-	});
-
-	camSetArtifacts({
-		"NPCyborgFactory": { tech: "R-Struc-Factory-Upgrade03" },
-		"NPRightFactory": { tech: "R-Vehicle-Engine02" },
-		"NPLeftFactory": { tech: "R-Vehicle-Body08" }, //scorpion body
-		"NPResearchFacility": { tech: "R-Comp-SynapticLink" },
 	});
 
 	camSetFactories({
@@ -239,8 +201,8 @@ function eventStartLevel()
 			assembly: "NPLeftAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.npmrl, cTempl.npmmct, cTempl.npsmc, cTempl.nppod ],
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			templates: [ cTempl.npmmcht, cTempl.npmflamht, cTempl.npmhmght, cTempl.nplmraht ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -250,9 +212,9 @@ function eventStartLevel()
 		"NPRightFactory": {
 			assembly: "NPRightAssembly",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
-			templates: [ cTempl.npmor, cTempl.npsens, cTempl.npsmc, cTempl.npflam ],
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
+			templates: [ cTempl.nphmct, cTempl.npmmct, cTempl.npmmct ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -264,7 +226,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
-			templates: [ cTempl.npcybc, cTempl.npcybf, cTempl.npcybm ],
+			templates: [ cTempl.cybca, cTempl.cybfl, cTempl.cybhg ],
 			data: {
 				regroup: false,
 				repair: 40,
@@ -276,7 +238,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firecan, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.firetruck, cTempl.rbjeep, cTempl.rbuggy, cTempl.kevbloke ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -287,7 +249,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firecan, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.kevlance, cTempl.rbjeep, cTempl.kevbloke ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -298,7 +260,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			templates: [ cTempl.firecan, cTempl.rbjeep, cTempl.rbuggy, cTempl.bloke ],
+			templates: [ cTempl.buscan, cTempl.rbjeep, cTempl.gbjeep, cTempl.kevlance, cTempl.minitruck ],
 			data: {
 				regroup: false,
 				count: -1,
@@ -306,5 +268,93 @@ function eventStartLevel()
 		},
 	});
 
-	queue("enableNPFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	// Rank changes on difficulty:
+	// Green (SUPEREASY/EASY/MEDIUM)
+	// Trained (HARD)
+	// Regular (INSANE)
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? 1 : (difficulty - 1);
+	camSetDroidRank(getObject("npCommander"), COMMANDER_RANK);
+
+	npCommander = camManageGroup(camMakeGroup("npCommander"), CAM_ORDER_PATROL, {
+		pos: [ // These orders are overwritten later
+			camMakePos("patrolPos1"),
+			camMakePos("patrolPos2"),
+			camMakePos("patrolPos3"),
+		],
+		interval: camSecondsToMilliseconds(30),
+		repair: 66
+	});
+	camMakeRefillableGroup(
+		camMakeGroup("NPCommandGroup"), {
+			templates: [
+				cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, cTempl.npmmct, // Medium Cannons
+				cTempl.nphmct, cTempl.nphmct, // Medium Cannons (Mantis)
+				cTempl.npmrept, cTempl.npmrept, // Repair Turrets
+				cTempl.nphmct, cTempl.nphmct, // More Medium Cannons (Hard+)
+				cTempl.npmatt, cTempl.npmatt, // Lancers (Insane)
+			],
+			obj: "npCommander",
+			globalFill: true,
+			player: CAM_NEW_PARADIGM
+		}, CAM_ORDER_FOLLOW, {
+			leader: "npCommander",
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 33,
+			},
+			repair: 66,
+	});
+
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("npTruck1"), // Use the truck already on the map
+			structset: camAreaToStructSet("NPBase")
+	});
+	camManageTrucks(
+		CAM_NEW_PARADIGM, {
+			label: "NPBaseGroup",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("npTruck2"),
+			structset: camAreaToStructSet("NPBase")
+	});
+	if (tweakOptions.ref_timerlessMode)
+	{
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavNorthGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavNorth")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthWestGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthWest")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "ScavSouthEastGroup",
+				respawnDelay: TRUCK_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("ScavSouthEast")
+		});
+	}
+
+	queue("enableSouthScavFactories", camChangeOnDiff(camMinutesToMilliseconds(0.5)));
+	queue("enableNorthFactories", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("enableNPVehicleFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	queue("activateNPLZTransporter", camChangeOnDiff(camMinutesToMilliseconds(9)));
+	queue("aggroNPCommander", camChangeOnDiff(camMinutesToMilliseconds(14)));
+
+	// Darken the fog to 2/3 default brightness
+	camSetFog(117, 95, 63);
+	// Move the sun slightly towards the east
+	camSetSunPos(-425, -400, 450);
 }

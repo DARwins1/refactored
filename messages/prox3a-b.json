@@ -1,0 +1,10 @@
+{
+    "type": "wz2100.proxmsgs.v1",
+    "msgs": {
+        "CM3AB_LZ1": { "audio": "pcv396.ogg", "message": "NEXLZ_MSG", "type": 0, "x": 6208, "y": 6592, "z": 0 },
+        "CM3AB_LZ2": { "audio": "pcv396.ogg", "message": "NEXLZ_MSG", "type": 0, "x": 6848, "y": 1216, "z": 0 },
+        "CM3AB_LZ3": { "audio": "pcv396.ogg", "message": "NEXLZ_MSG", "type": 0, "x": 1088, "y": 6848, "z": 0 },
+        "CM3AB_LZ4": { "audio": "pcv396.ogg", "message": "NEXLZ_MSG", "type": 0, "x": 1728, "y": 11200, "z": 0 },
+        "CM3AB_LZ4": { "audio": "pcv396.ogg", "message": "NEXLZ_MSG", "type": 0, "x": 4160, "y": 14656, "z": 0 }
+    }
+}

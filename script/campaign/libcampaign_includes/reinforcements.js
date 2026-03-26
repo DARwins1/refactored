@@ -6,6 +6,7 @@
 //;; ## camSendReinforcement(playerId, position, templates, kind[, data])
 //;;
 //;; Give a single bunch of droids (template list) for a player at a position label. Kind can be one of:
+//;; * `CAM_REINFORCE_NONE` Reinforcements are skipped this call.
 //;; * `CAM_REINFORCE_GROUND` Reinforcements magically appear on the ground.
 //;; * `CAM_REINFORCE_TRANSPORT` Reinforcements are unloaded from a transporter.
 //;;   **NOTE:** the game engine doesn't seem to support two simultaneous incoming transporters for the same player.
@@ -18,17 +19,18 @@
 //;;   * `data` Order data.
 //;;   **NOTE:** the game engine doesn't seem to support two simultaneous incoming transporters for the same player.
 //;;   If a transporter is already on map, it will be correctly queued up and sent later.
+//;;   If the reinforcement type is CAM_REINFORCE_GROUND, this function will return the group ID of the newly created group. 
 //;;
 //;; @param {number} playerId
 //;; @param {string|Object|undefined} position
 //;; @param {Object[]} templates
 //;; @param {number} kind
 //;; @param {Object} [data]
-//;; @returns {void}
+//;; @returns {number|undefined} group
 //;;
 function camSendReinforcement(playerId, position, templates, kind, data)
 {
-	const pos = camMakePos(position);
+	let pos = camMakePos(position);
 	let order = CAM_ORDER_ATTACK;
 	let order_data = { regroup: false, count: -1 };
 	if (camDef(data) && camDef(data.order))
@@ -41,29 +43,40 @@ function camSendReinforcement(playerId, position, templates, kind, data)
 	}
 	switch (kind)
 	{
+		case CAM_REINFORCE_NONE:
+		{
+			break; // Do nothing.
+		}
 		case CAM_REINFORCE_GROUND:
 		{
 			const droids = [];
 			for (let i = 0, l = templates.length; i < l; ++i)
 			{
+				if (camDef(position.x2))
+				{
+					// If position is an area, choose random coordinates inside of it
+					pos = camRandPosIn(position);
+				}
+
 				const template = templates[i];
-				const __PROP = __camChangePropulsion(template.prop, playerId);
-				const droid = addDroid(playerId, pos.x, pos.y, "Reinforcement", template.body, __PROP, "", "", template.weap);
-				camSetDroidExperience(droid);
+				const __PROP = template.prop;
+				const droid = camAddDroid(playerId, pos, template);
 				droids.push(droid);
 			}
-			camManageGroup(camMakeGroup(droids), order, order_data);
-			break;
+			const __GROUP = camMakeGroup(droids);
+			camManageGroup(__GROUP, order, order_data);
+			return __GROUP;
 		}
 		case CAM_REINFORCE_TRANSPORT:
 		{
 			__camTransporterQueue.push({
 				player: playerId,
-				position: position,
+				position: pos,
 				list: templates,
 				data: data,
 				order: order,
-				order_data: order_data
+				order_data: order_data,
+				silent: data.silent
 			});
 			__camDispatchTransporterSafe();
 			break;

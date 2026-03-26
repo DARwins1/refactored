@@ -3,36 +3,131 @@
 		"label": "startPosition",
 		"pos": [7360, 15296]
 	},
+
+
 	"position_1": {
-		"label": "vtolAppearPos",
-		"pos": [7552, 640]
+		"label": "vtolAppearPos1",
+		"pos": [7747, 320]
 	},
+
+
 	"position_2": {
-		"label": "vtolRemovePos",
-		"pos": [128, 10240]
+		"label": "nxETransPos",
+		"pos": [6144, 6528]
 	},
+
+
 	"position_3": {
-		"label": "healthRetreatPos",
-		"pos": [6976, 15168]
+		"label": "vtolAppearPos2",
+		"pos": [3501, 16614]
 	},
+
+
 	"position_4": {
-		"label": "SWPhantomFactory",
-		"pos": [64, 10816]
+		"label": "nxNETransPos",
+		"pos": [6875, 1219]
 	},
+
+
 	"position_5": {
-		"label": "NWPhantomFactory",
-		"pos": [64, 3328]
+		"label": "nxNWTransPos",
+		"pos": [1078, 6851]
 	},
+
+
+	"position_6": {
+		"label": "nxWTransPos",
+		"pos": [1734, 11206]
+	},
+
+
+	"position_7": {
+		"label": "nxSTransPos",
+		"pos": [4161, 14783]
+	},
+
 
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [7040, 15232],
 		"pos2": [7296, 15488]
 	},
+
+
 	"area_1": {
-		"label": "NXlandingZone",
-		"pos1": [896, 6656],
-		"pos2": [1152, 6912]
+		"label": "SWPhantomFactory",
+		"pos1": [128, 10752],
+		"pos2": [384, 10880]
+	},
+
+
+	"area_2": {
+		"label": "NWPhantomFactory",
+		"pos1": [128, 3072],
+		"pos2": [384, 3712]
+	},
+
+
+	"area_3": {
+		"label": "NEPhantomFactory1",
+		"pos1": [6784, 128],
+		"pos2": [7296, 384]
+	},
+
+
+	"area_4": {
+		"label": "NEPhantomFactory2",
+		"pos1": [7808, 896],
+		"pos2": [8064, 1280]
+	},
+
+
+	"area_5": {
+		"label": "EPhantomFactory",
+		"pos1": [7808, 6400],
+		"pos2": [8064, 6656]
+	},
+
+
+	"area_6": {
+		"label": "SPhantomFactory",
+		"pos1": [4608, 16000],
+		"pos2": [4992, 16256]
+	},
+
+
+	"area_7": {
+		"label": "structZoneE",
+		"pos1": [5888, 6144],
+		"pos2": [7040, 7040]
+	},
+
+
+	"area_8": {
+		"label": "structZoneNE",
+		"pos1": [6016, 640],
+		"pos2": [7552, 1792]
+	},
+
+
+	"area_9": {
+		"label": "structZoneNW",
+		"pos1": [384, 6016],
+		"pos2": [1536, 7296]
+	},
+
+
+	"area_10": {
+		"label": "structZoneW",
+		"pos1": [1152, 10496],
+		"pos2": [2176, 11648]
+	},
+
+
+	"area_11": {
+		"label": "structZoneS",
+		"pos1": [3584, 14208],
+		"pos2": [4608, 15232]
 	},
 
 	"radius_0": {

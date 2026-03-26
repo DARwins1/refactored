@@ -2,32 +2,37 @@ include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 include("script/campaign/transitionTech.js");
 
-const ALPHA = 1; //Team alpha units belong to player 1.
+const MIS_ALPHA_PLAYER = 1; //Team alpha units belong to player 1.
 const mis_nexusRes = [
-	"R-Defense-WallUpgrade08", "R-Struc-Materials08", "R-Struc-Factory-Upgrade06",
-	"R-Struc-VTOLPad-Upgrade06", "R-Vehicle-Engine09", "R-Vehicle-Metals07",
-	"R-Cyborg-Metals07", "R-Vehicle-Armor-Heat05", "R-Cyborg-Armor-Heat05",
-	"R-Sys-Engineering03", "R-Vehicle-Prop-Hover02", "R-Vehicle-Prop-VTOL02",
-	"R-Wpn-Bomb-Damage03", "R-Wpn-Energy-Accuracy01", "R-Wpn-Energy-Damage02",
-	"R-Wpn-Energy-ROF02", "R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage01",
-	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF02", "R-Sys-Sensor-Upgrade01",
-	"R-Sys-NEXUSrepair", "R-Wpn-Flamer-Damage07", "R-Wpn-Flamer-ROF03",
+	"R-Wpn-MG-Damage08", "R-Wpn-MG-ROF03",
+	"R-Wpn-Flamer-Damage07", "R-Wpn-Flamer-ROF03",
+	"R-Wpn-Cannon-Damage07", "R-Wpn-Cannon-ROF04", "R-Wpn-Cannon-Accuracy02",
+	"R-Wpn-Mortar-Damage06", "R-Wpn-Mortar-ROF04", "R-Wpn-Mortar-Acc03", 
+	"R-Wpn-Rocket-Damage07", "R-Wpn-Rocket-ROF03", "R-Wpn-Rocket-Accuracy04",
+	"R-Wpn-AAGun-Damage05", "R-Wpn-AAGun-ROF05", "R-Wpn-AAGun-Accuracy03",
+	"R-Wpn-Howitzer-Damage05", "R-Wpn-Howitzer-ROF03", "R-Wpn-Howitzer-Accuracy03",
+	"R-Wpn-Bomb-Damage02",
+	"R-Wpn-Missile-Damage02", "R-Wpn-Missile-ROF02", "R-Wpn-Missile-Accuracy01",
+	"R-Wpn-Rail-Damage02", "R-Wpn-Rail-ROF01", "R-Wpn-Rail-Accuracy01",
+	"R-Wpn-Energy-Damage02", "R-Wpn-Energy-ROF01", "R-Wpn-Energy-Accuracy01",
+	"R-Defense-WallUpgrade08", "R-Struc-Materials08",
+	"R-Sys-Engineering03", "R-Sys-Sensor-Upgrade01",
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
+	"R-Vehicle-Metals08", "R-Cyborg-Metals08",
+	"R-Vehicle-Armor-Heat04", "R-Cyborg-Armor-Heat04",
+	"R-Vehicle-Engine08",
+	"R-Sys-NEXUSrepair",
 ];
-var edgeMapIndex;
 var alphaUnitIDs;
-var startExtraLoss;
+var flamerGroup;
 
 //Remove Nexus VTOL droids.
 camAreaEvent("vtolRemoveZone", function(droid)
 {
 	if (droid.player !== CAM_HUMAN_PLAYER)
 	{
-		if (isVTOL(droid))
-		{
-			camSafeRemoveObject(droid, false);
-		}
+		camSafeRemoveObject(droid, false);
 	}
-
 	resetLabel("vtolRemoveZone", CAM_NEXUS);
 });
 
@@ -36,203 +41,152 @@ camAreaEvent("vtolRemoveZone", function(droid)
 camAreaEvent("rescueTrigger", function(droid)
 {
 	hackRemoveMessage("C3-2_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
-	camManageGroup(camMakeGroup("laserTankGroup"), CAM_ORDER_ATTACK, {
-		regroup: true,
-		count: -1,
-		morale: 90,
-		fallback: camMakePos("healthRetreatPos")
-	});
+	
 	//Activate edge map queue and donate all of alpha to the player.
-	phantomFactorySE();
-	setAlliance(ALPHA, CAM_NEXUS, false);
-	camAbsorbPlayer(ALPHA, CAM_HUMAN_PLAYER);
-
-	queue("getAlphaUnitIDs", camSecondsToMilliseconds(2));
+	camAbsorbPlayer(MIS_ALPHA_PLAYER, CAM_HUMAN_PLAYER);
+	queue("phantomFactorySE", camChangeOnDiff(camSecondsToMilliseconds(60)));
 	setTimer("phantomFactorySE", camChangeOnDiff(camMinutesToMilliseconds(5)));
 
 	camPlayVideos({video: "MB3_2_MSG4", type: MISS_MSG});
 });
 
-//Play videos, donate alpha to the player and setup reinforcements.
 camAreaEvent("phantomFacTrigger", function(droid)
 {
-	vtolAttack();
-	camPlayVideos(["pcv456.ogg", {video: "MB3_2_MSG3", type: CAMP_MSG}]); //Warn about VTOLs.
-	queue("enableReinforcements", camSecondsToMilliseconds(5));
+	camCallOnce("alphaWarning");
 });
 
-function setAlphaExp()
+// Play videos and setup reinforcements.
+function alphaWarning()
 {
-	const DROID_EXP = 512; //Hero rank.
-	const alphaDroids = enumArea("alphaPit", ALPHA, false).filter(function(obj) {
-		return obj.type === DROID;
-	});
+	camPlayVideos([cam_sounds.incoming.incomingIntelligenceReport, {video: "MB3_2_MSG3", type: CAMP_MSG}]); //Warn about VTOLs.
+	queue("enableReinforcements", camSecondsToMilliseconds(5));
+	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
 
-	for (let i = 0, l = alphaDroids.length; i < l; ++i)
-	{
-		const dr = alphaDroids[i];
-		if (!camIsSystemDroid(dr))
-		{
-			setDroidExperience(dr, DROID_EXP);
-		}
-	}
-}
-
-//Get the IDs of Alpha units after they were donated to the player.
-function getAlphaUnitIDs()
-{
-	alphaUnitIDs = [];
-	const alphaDroids = enumArea("alphaPit", CAM_HUMAN_PLAYER, false).filter(function(obj) {
-		return obj.type === DROID && obj.experience === 512;
-	});
-
-	for (let i = 0, l = alphaDroids.length; i < l; ++i)
-	{
-		const dr = alphaDroids[i];
-		alphaUnitIDs.push(dr.id);
-	}
-	startExtraLoss = true;
-}
-
-function phantomFactoryNE()
-{
-	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
-	sendEdgeMapDroids(6, "NE-PhantomFactory", list);
-}
-
-function phantomFactorySW()
-{
-	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas];
-	sendEdgeMapDroids(8, "SW-PhantomFactory", list);
-}
-
-function phantomFactorySE()
-{
-	const list = [cTempl.nxcyrail, cTempl.nxcyscou, cTempl.nxcylas, cTempl.nxlflash, cTempl.nxmrailh, cTempl.nxmlinkh, cTempl.nxmplash];
-	sendEdgeMapDroids(10 + camRand(6), "SE-PhantomFactory", list); //10-15 units
-}
-
-function sendEdgeMapDroids(droidCount, location, list)
-{
-	const droids = [];
-	for (let i = 0; i < droidCount; ++i)
-	{
-		droids.push(list[camRand(list.length)]);
-	}
-
-	camSendReinforcement(CAM_NEXUS, camMakePos(location), droids, CAM_REINFORCE_GROUND, {
-		data: {regroup: true, count: -1}
-	});
-}
-
-function setupPatrolGroups()
-{
-	camManageGroup(camMakeGroup("cyborgGroup1"), CAM_ORDER_ATTACK, {
-		regroup: true,
-		count: -1,
-		morale: 90,
-		fallback: camMakePos("healthRetreatPos")
-	});
-
-	camManageGroup(camMakeGroup("cyborgGroup2"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("upperMiddlePos"),
-			camMakePos("upperMiddleEastPos"),
-			camMakePos("playerLZ"),
-			camMakePos("upperMiddleWest"),
-			camMakePos("upperMiddleHill"),
-		],
-		interval: camSecondsToMilliseconds(20),
+	// Also start moving some groups around
+	// This group carries an artifact
+	camManageGroup(flamerGroup, CAM_ORDER_ATTACK, {
 		regroup: true,
 		count: -1
 	});
-
-	camManageGroup(camMakeGroup("cyborgGroup3"), CAM_ORDER_PATROL, {
+	camManageGroup(camMakeGroup("laserTankGroup"), CAM_ORDER_PATROL, {
 		pos: [
-			camMakePos("upperMiddleWest"),
-			camMakePos("upperMiddleHill"),
-			camMakePos("lowerMiddleEast"),
-			camMakePos("lowerMiddleHill"),
-		],
-		interval: camSecondsToMilliseconds(20),
-		regroup: true,
-		count: -1
-	});
-
-	camManageGroup(camMakeGroup("cyborgGroup4"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("lowerMiddleEast"),
-			camMakePos("lowerMiddleHill"),
-			camMakePos("lowerMiddleWest"),
-			camMakePos("SWCorner"),
-			camMakePos("alphaDoorway"),
+			camMakePos("patrolPos1"),
+			camMakePos("patrolPos2"),
+			camMakePos("patrolPos3"),
+			camMakePos("patrolPos4"),
 		],
 		interval: camSecondsToMilliseconds(25),
-		regroup: true,
-		count: -1
+		repair: 60,
+		repairPos: camMakePos("healthRetreatPos")
 	});
-
-	camManageGroup(camMakeGroup("cyborgGroup5"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("upperMiddlePos"),
-			camMakePos("upperMiddleEastPos"),
-			camMakePos("playerLZ"),
-			camMakePos("upperMiddleWest"),
-			camMakePos("upperMiddleHill"),
-			camMakePos("lowerMiddleEast"),
-			camMakePos("lowerMiddleHill"),
-			camMakePos("lowerMiddleWest"),
-			camMakePos("SWCorner"),
-			camMakePos("alphaDoorway"),
-			camMakePos("NE-PhantomFactory"),
-			camMakePos("SW-PhantomFactory"),
-			camMakePos("SE-PhantomFactory"),
-		],
-		interval: camSecondsToMilliseconds(35),
-		regroup: true,
-		count: -1
-	});
-}
-
-//Setup Nexus VTOL hit and runners.
-function vtolAttack()
-{
-	const list = [cTempl.nxlscouv, cTempl.nxmtherv];
-	const ext = {
-		limit: [2, 4], //paired with template list
-		alternate: true,
-		altIdx: 0
-	};
-	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemovePos", list, camChangeOnDiff(camMinutesToMilliseconds(2)), undefined, ext);
 }
 
 //Reinforcements not available until team Alpha brief about VTOLS.
 function enableReinforcements()
 {
-	playSound("pcv440.ogg"); // Reinforcements are available.
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM3A-B", {
+	playSound(cam_sounds.reinforcementsAreAvailable);
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.gamma5, {
 		area: "RTLZ",
 		message: "C32_LZ",
-		reinforcements: camMinutesToSeconds(3),
+		reinforcements: camMinutesToSeconds(2),
 		callback: "alphaTeamAlive",
 		retlz: true
 	});
 }
 
+// Store the IDs of the transport units when they're given to the player
+function eventObjectTransfer(obj, from)
+{
+	if (obj.type === DROID && obj.player === CAM_HUMAN_PLAYER && from === MIS_ALPHA_PLAYER)
+	{
+		if (!camDef(alphaUnitIDs))
+		{
+			alphaUnitIDs = [];
+		}
+
+		alphaUnitIDs.push(obj.id);
+	}
+}
+
+function phantomFactoryNE()
+{
+	const droids = [
+		cTempl.ncypl, // 1 Plasmite Flamer
+		cTempl.ncyne, cTempl.ncyne, cTempl.ncyne, // 3 Needler Gunners
+		cTempl.ncysc, cTempl.ncysc, // 2 Scourges
+	];
+	camSendReinforcement(CAM_NEXUS, getObject("NE-PhantomFactory"), droids, CAM_REINFORCE_GROUND);
+}
+
+function phantomFactorySW()
+{
+	const list = [cTempl.ncyne, cTempl.ncysc, cTempl.ncyla];
+	const droids = [
+		cTempl.ncypl, // 1 Plasmite Flamer
+		cTempl.ncyla, cTempl.ncyla, cTempl.ncyla, cTempl.ncyla, // 4 Flashlight Gunners
+		cTempl.ncysc, cTempl.ncysc, cTempl.ncysc, // 3 Scourges
+	];
+	camSendReinforcement(CAM_NEXUS, camMakePos("SW-PhantomFactory"), droids, CAM_REINFORCE_GROUND);
+}
+
+function phantomFactorySE()
+{
+	const droids = [
+		cTempl.nxhserh, // 1 Seraph Missile
+		cTempl.nxlflash, cTempl.nxlflash, cTempl.nxlflash, cTempl.nxlflash, // 4 Flashlights
+		cTempl.nxmrailh, cTempl.nxmrailh, // 2 Rail Guns
+		cTempl.nxmscouh, cTempl.nxmscouh, // 2 Scourge Missiles
+		cTempl.nxmplash, cTempl.nxmplash, // 2 Plasmite Flamers
+	];
+	camSendReinforcement(CAM_NEXUS, getObject("SE-PhantomFactory"), droids, CAM_REINFORCE_GROUND);
+}
+
+function sendEdgeMapDroids(droidCount, location, list)
+{
+	camSendGenericSpawn(CAM_REINFORCE_GROUND, CAM_NEXUS, CAM_REINFORCE_CONDITION_NONE, location, list, droidCount);
+}
+
+function cyborgAttack()
+{
+	camManageGroup(camMakeGroup("cyborgGroup"), CAM_ORDER_ATTACK, {
+		regroup: true,
+		count: -1,
+		repairPos: 60,
+		repairPos: camMakePos("healthRetreatPos")
+	});
+}
+
+function vtolAttack()
+{
+	if (getObject("NXCommandCenter") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
+
+	// Needle Guns, Scourge Missiles and Flashlights
+	const templates = [cTempl.nxlneedv, cTempl.nxlscouv, cTempl.nxlflasv];
+	const ext = {
+		limit: [2, 2, 4],
+		alternate: true,
+		dynamic: true
+	};
+	camSetVtolData(CAM_NEXUS, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "NXCommandCenter", ext);
+}
+
 function alphaTeamAlive()
 {
-	if (camDef(alphaUnitIDs) && startExtraLoss)
+	if (camDef(alphaUnitIDs))
 	{
 		let alphaAlive = false;
-		const alive = enumArea(0, 0, mapWidth, mapHeight, CAM_HUMAN_PLAYER, false).filter(function(obj) {
-			return obj.type === DROID;
-		});
+		const alive = enumArea(0, 0, mapWidth, mapHeight, CAM_HUMAN_PLAYER, false).filter((obj) => (
+			obj.type === DROID
+		));
 
-		for (let i = 0, l = alive.length; i < l; ++i)
+		for (const droid of alive)
 		{
-			for (let x = 0, c = alphaUnitIDs.length; x < c; ++x)
+			for (const ALPHA_ID of alphaUnitIDs)
 			{
-				if (alive[i].id === alphaUnitIDs[x])
+				if (droid.id === ALPHA_ID)
 				{
 					alphaAlive = true;
 					break;
@@ -240,15 +194,7 @@ function alphaTeamAlive()
 			}
 		}
 
-		if (alphaAlive === false)
-		{
-			return false;
-		}
-
-		if (alphaAlive === true && alive.length > 0)
-		{
-			return true;
-		}
+		return alphaAlive;
 	}
 }
 
@@ -256,13 +202,12 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Rescue Alpha team from Nexus"));
 
-	const startpos = getObject("startPosition");
+	const startPos = getObject("startPosition");
 	const lz = getObject("landingZone");
-	const tent = getObject("transporterEntry");
-	const text = getObject("transporterExit");
-	startExtraLoss = false;
+	const tEnt = getObject("transporterEntry");
+	const tExt = getObject("transporterExit");
 
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM3A-B", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.gamma5, {
 		area: "RTLZ",
 		message: "C32_LZ",
 		reinforcements: -1,
@@ -270,27 +215,62 @@ function eventStartLevel()
 		retlz: true
 	});
 
-	centreView(startpos.x, startpos.y);
-	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
-
-	const enemyLz = getObject("NXlandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_NEXUS);
-
 	camCompleteRequiredResearch(mis_nexusRes, CAM_NEXUS);
-	camCompleteRequiredResearch(mis_gammaAllyRes, ALPHA);
-	setAlliance(ALPHA, CAM_NEXUS, true);
-	setAlliance(ALPHA, CAM_HUMAN_PLAYER, true);
-	changePlayerColour(ALPHA, playerData[0].colour);
+	camCompleteRequiredResearch(mis_gammaAllyRes, MIS_ALPHA_PLAYER);
 
-	phantomFactoryNE();
-	phantomFactorySW();
+	camSetArtifacts({
+		"NXartiFlamer": { tech: "R-Wpn-Flamer-Plasmite" }, // Plasmite Flamer
+	});
+
+	camSetEnemyBases({
+		"NXOutpost": {
+			cleanup: "baseCleanup",
+			detectMsg: "C3-2_BASE",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		}
+	});
+
+	// NOTE: This truck is never rebuilt
+	camManageTrucks(
+		CAM_NEXUS, {
+			label: "NXOutpost",
+			rebuildBase: tweakOptions.ref_timerlessMode,
+			rebuildTruck: false,
+			truckDroid: getObject("nxTruck"),
+			structset: camAreaToStructSet("baseCleanup")
+	});
+
+	centreView(startPos.x, startPos.y);
+	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	setAlliance(MIS_ALPHA_PLAYER, CAM_NEXUS, true);
+	setAlliance(MIS_ALPHA_PLAYER, CAM_HUMAN_PLAYER, true);
+	changePlayerColour(MIS_ALPHA_PLAYER, playerData[0].colour);
+
+	const alphaDroids = enumDroid(MIS_ALPHA_PLAYER);
+	for (const droid of alphaDroids)
+	{
+		camSetDroidRank(droid, "Hero");
+	}
+
+	flamerGroup = camMakeGroup("flamerGroup");
 
 	hackAddMessage("C3-2_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
-	queue("setAlphaExp", camSecondsToMilliseconds(2));
-	queue("setupPatrolGroups", camSecondsToMilliseconds(15));
 
-	setTimer("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(3)));
-	setTimer("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("cyborgAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	queue("camCallOnce", camMinutesToMilliseconds(10), "alphaWarning");
+
+	setTimer("phantomFactoryNE", camChangeOnDiff(camMinutesToMilliseconds(4.5)));
+	setTimer("phantomFactorySW", camChangeOnDiff(camMinutesToMilliseconds(6.5)));
+
+	// Darken the fog to be nearly pitch black
+	camSetFog(10, 10, 10);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Move the sun towards the east
+	camSetSunPos(-225, -600, 450);
+	camSetSkyType(CAM_SKY_NIGHT);
 }

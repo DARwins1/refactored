@@ -19,9 +19,20 @@
         "hitpoints": 35,
         "id": "CyborgSpade",
         "mountModel": "cybody.pie",
-        "name": "*Combat Engineer*",
+        "name": "Combat Engineer Cyborg",
         "sensorModel": "cy_con.pie",
         "weight": 150
+    },
+    "ScavCrane": {
+        "buildPoints": 25,
+        "buildPower": 10,
+        "constructPoints": 4,
+        "droidType": "DROID_CONSTRUCT",
+        "hitpoints": 35,
+        "id": "ScavCrane",
+        "name": "Crane",
+        "sensorModel": "excranearm.pie",
+        "weight": 800
     },
     "ZNULLCONSTRUCT": {
         "id": "ZNULLCONSTRUCT",

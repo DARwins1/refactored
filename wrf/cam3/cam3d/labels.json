@@ -1,0 +1,306 @@
+{
+	"position_0": {
+		"label": "startPosition",
+		"pos": [1472, 23232]
+	},
+
+
+	"position_1": {
+		"label": "missileSiloRetreat",
+		"pos": [5568, 31296]
+	},
+
+
+	"position_2": {
+		"label": "NxVtolAssembly",
+		"pos": [832, 30272]
+	},
+
+
+	"position_3": {
+		"label": "northPos1",
+		"pos": [1152, 25607]
+	},
+
+
+	"position_4": {
+		"label": "northPos2",
+		"pos": [3328, 26508]
+	},
+
+
+	"position_5": {
+		"label": "northPos3",
+		"pos": [6293, 26502]
+	},
+
+
+	"position_6": {
+		"label": "NXb1CybAssembly",
+		"pos": [1609, 30834]
+	},
+
+
+	"position_7": {
+		"label": "NXb2Assembly1",
+		"pos": [4807, 30075]
+	},
+
+
+	"position_8": {
+		"label": "NXb2Assembly2",
+		"pos": [6229, 30841]
+	},
+
+
+	"position_9": {
+		"label": "gammaAssembly1",
+		"pos": [5997, 28536]
+	},
+
+
+	"position_10": {
+		"label": "gammaCybAssembly",
+		"pos": [7024, 28579]
+	},
+
+
+	"position_11": {
+		"label": "gammaAssembly2",
+		"pos": [6866, 27312]
+	},
+
+
+	"position_12": {
+		"label": "gammaDefensePos",
+		"pos": [5908, 27296]
+	},
+
+
+	"area_0": {
+		"label": "landingZone",
+		"pos1": [7040, 15232],
+		"pos2": [7296, 15488]
+	},
+
+
+	"area_1": {
+		"label": "landingZone2",
+		"pos1": [6272, 31232],
+		"pos2": [6528, 31488]
+	},
+
+
+	"area_2": {
+		"label": "NXpatrolGroup",
+		"pos1": [2624, 25664],
+		"pos2": [3264, 26304]
+	},
+
+
+	"area_3": {
+		"label": "missileSilos",
+		"pos1": [5248, 31232],
+		"pos2": [6016, 31488]
+	},
+
+
+	"area_4": {
+		"label": "NXlandingZone",
+		"pos1": [896, 6656],
+		"pos2": [1152, 6912]
+	},
+
+
+	"area_5": {
+		"label": "vtolGroup1",
+		"pos1": [768, 30464],
+		"pos2": [1024, 30720]
+	},
+
+
+	"area_6": {
+		"label": "commandGroup",
+		"pos1": [6272, 28416],
+		"pos2": [6912, 28928]
+	},
+
+
+	"area_7": {
+		"label": "mainBaseCleanup",
+		"pos1": [3968, 29568],
+		"pos2": [7808, 32128]
+	},
+
+
+	"area_8": {
+		"label": "vtolBaseCleanup",
+		"pos1": [256, 28288],
+		"pos2": [2432, 32128]
+	},
+
+
+	"area_9": {
+		"label": "rampartsBaseCleanup",
+		"pos1": [4224, 25856],
+		"pos2": [7680, 29440]
+	},
+
+
+	"area_10": {
+		"label": "vtolGroup2",
+		"pos1": [768, 30720],
+		"pos2": [1024, 30976]
+	},
+
+
+	"area_11": {
+		"label": "vtolGroup3",
+		"pos1": [512, 30976],
+		"pos2": [1024, 31232]
+	},
+
+
+	"object_0": {
+		"label": "gammaFactory1",
+		"id": 1857,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_1": {
+		"label": "NXbase2CyborgFac2",
+		"id": 1494,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_2": {
+		"label": "gammaFactory2",
+		"id": 1655,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "NXbase1CyborgFac",
+		"id": 1907,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_4": {
+		"label": "NXbase2HeavyFac2",
+		"id": 1386,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_5": {
+		"label": "NXvindicator",
+		"id": 1713,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_6": {
+		"label": "NXarchEmp",
+		"id": 1711,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_7": {
+		"label": "NXcommandCenter",
+		"id": 810,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_8": {
+		"label": "NXbase1VtolFacArti",
+		"id": 1371,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_9": {
+		"label": "gammaCybFactory",
+		"id": 1660,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_10": {
+		"label": "nxVtolStrike",
+		"id": 1584,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_11": {
+		"label": "gammaCommander",
+		"id": 1604,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_12": {
+		"label": "gammaResearch",
+		"id": 1874,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_13": {
+		"label": "NXbase2HeavyFac1",
+		"id": 1617,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_14": {
+		"label": "NXbase2CyborgFac1",
+		"id": 1493,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_15": {
+		"label": "nxVtolTowerE",
+		"id": 1883,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_16": {
+		"label": "nxVtolTowerW",
+		"id": 1882,
+		"player": 3,
+		"type": 1
+	},
+
+
+	"object_17": {
+		"label": "gammaVtolTower",
+		"id": 1881,
+		"player": 3,
+		"type": 1
+	}
+}

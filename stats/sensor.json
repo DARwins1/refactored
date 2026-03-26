@@ -20,7 +20,7 @@
         "mountModel": "TRLSNSR1.PIE",
         "name": "*CC Sensor*",
         "power": 1000,
-        "range": 2304,
+        "range": 2048,
         "sensorModel": "misensor.PIE",
         "type": "STANDARD",
         "weight": 1
@@ -55,17 +55,17 @@
         "type": "STANDARD",
         "weight": 100
     },
-    "SensorTower2Mk1": {
+    "RustySensorTower1Mk1": {
         "buildPoints": 25,
         "buildPower": 5,
         "hitpoints": 200,
-        "id": "SensorTower2Mk1",
+        "id": "RustySensorTower1Mk1",
         "location": "TURRET",
-        "mountModel": "TRMSNSR2.PIE",
-        "name": "Hardened Sensor Tower",
+        "mountModel": "RUTRLSNSR1.PIE",
+        "name": "Rusty Sensor Tower",
         "power": 100,
         "range": 2048,
-        "sensorModel": "GNLSNSR1.PIE",
+        "sensorModel": "RUGNLSNSR1.PIE",
         "type": "STANDARD",
         "weight": 100
     },
@@ -110,7 +110,7 @@
         "mountModel": "TRMSNSR2.PIE",
         "name": "CB Radar Turret",
         "power": 1000,
-        "range": 2048,
+        "range": 1536,
         "sensorModel": "GNMECM2.PIE",
         "type": "INDIRECT CB",
         "weight": 100
@@ -140,7 +140,7 @@
         "mountModel": "TRHSNSR3.PIE",
         "name": "VTOL CB Radar Turret",
         "power": 1000,
-        "range": 2048,
+        "range": 1536,
         "sensorModel": "GNHSNSR3.PIE",
         "type": "VTOL CB",
         "weight": 100
@@ -164,12 +164,13 @@
         "buildPower": 20,
         "designable": 1,
         "droidType": "DROID_SENSOR",
+        "hitpoints": 200,
         "id": "Sys-VstrikeTurret01",
         "location": "TURRET",
-        "mountModel": "TRLSNSR1.PIE",
+        "mountModel": "TRMECM2.PIE",
         "name": "VTOL Strike Turret",
         "power": 1000,
-        "range": 2048,
+        "range": 1536,
         "sensorModel": "GNMSNSR2.PIE",
         "type": "VTOL INTERCEPT",
         "weight": 100

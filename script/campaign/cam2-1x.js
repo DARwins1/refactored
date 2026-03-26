@@ -1,63 +1,53 @@
-/*
-SUB_2_1 Script
-Authors: Cristian Odorico (Alpha93) / KJeff01
- */
-include ("script/campaign/libcampaign.js");
-include ("script/campaign/templates.js");
-include ("script/campaign/transitionTech.js");
-var victoryFlag;
+include("script/campaign/libcampaign.js");
+include("script/campaign/templates.js");
+include("script/campaign/transitionTech.js");
 
-const TRANSPORT_TEAM = 1;
+var victoryFlag;
+var transUnitIDs;
+
+const MIS_TRANSPORT_TEAM_PLAYER = 1;
 const mis_collectiveRes = [
-	"R-Defense-WallUpgrade03", "R-Struc-Materials03", "R-Vehicle-Engine04",
-	"R-Vehicle-Metals04", "R-Cyborg-Metals04", "R-Wpn-Cannon-Accuracy02",
-	"R-Wpn-Cannon-Damage04", "R-Wpn-Cannon-ROF01", "R-Wpn-Flamer-Damage04", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-MG-Damage04", "R-Wpn-MG-ROF02", "R-Sys-Sensor-Upgrade01",
-	"R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01", "R-Wpn-RocketSlow-Accuracy03",
-	"R-Wpn-RocketSlow-Damage03",
+	"R-Wpn-MG-Damage05", "R-Wpn-MG-ROF02",
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Cannon-Damage04", "R-Wpn-Cannon-ROF01", "R-Wpn-Cannon-Accuracy02",
+	"R-Wpn-Mortar-Damage03", "R-Wpn-Mortar-ROF01", "R-Wpn-Mortar-Acc01", 
+	"R-Wpn-Rocket-Damage04", "R-Wpn-Rocket-ROF01", "R-Wpn-Rocket-Accuracy02",
+	"R-Defense-WallUpgrade04", "R-Struc-Materials04",
+	"R-Sys-Engineering02",
+	"R-Struc-RprFac-Upgrade01",
+	"R-Vehicle-Metals03", "R-Cyborg-Metals03",
+	"R-Vehicle-Engine03",
 ];
 
 //trigger event when droid reaches the downed transport.
 camAreaEvent("crashSite", function(droid)
 {
 	//Unlikely to happen.
-	if (!enumDroid(TRANSPORT_TEAM).length)
+	if (!enumDroid(MIS_TRANSPORT_TEAM_PLAYER).length)
 	{
 		gameOverMessage(false);
 		return;
 	}
 
-	const GOODSND = "pcv615.ogg";
-	playSound(GOODSND);
+	playSound(cam_sounds.rescue.unitsRescued);
 
 	hackRemoveMessage("C21_OBJECTIVE", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	const droids = enumDroid(TRANSPORT_TEAM);
-	for (let i = 0; i < droids.length; ++i)
-	{
-		donateObject(droids[i], CAM_HUMAN_PLAYER);
-	}
+	// Donate the lost squad to the player
+	camEnsureDonateObject(enumDroid(MIS_TRANSPORT_TEAM_PLAYER), CAM_HUMAN_PLAYER);
 
-	//Give the donation enough time to transfer them to the player. Otherwise
-	//the level will end too fast and will trigger asserts in the next level.
-	queue("triggerWin", camSecondsToMilliseconds(2));
+	// Allow the player to escape
+	victoryFlag = true;
+	camSetExtraObjectiveMessage(_("At least one transporter unit must survive"));
 });
 
-//function that applies damage to units in the downed transport transport team.
-function preDamageUnits()
+// Store the IDs of the transport units when they're given to the player
+function eventObjectTransfer(obj, from)
 {
-	setHealth(getObject("transporter"), 40);
-	const droids = enumDroid(TRANSPORT_TEAM);
-	for (let j = 0; j < droids.length; ++j)
+	if (obj.type === DROID && obj.player === CAM_HUMAN_PLAYER && from === MIS_TRANSPORT_TEAM_PLAYER)
 	{
-		setHealth(droids[j], 40 + camRand(20));
+		transUnitIDs.push(obj.id);
 	}
-}
-
-//victory callback will thus complete the level.
-function triggerWin()
-{
-	victoryFlag = true;
 }
 
 function setupCyborgGroups()
@@ -67,45 +57,30 @@ function setupCyborgGroups()
 		regroup: false
 	});
 
-	//East cyborg group patrols around the bombard pits
-	camManageGroup(camMakeGroup("cyborgPositionEast"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos ("cybEastPatrol1"),
-			camMakePos ("cybEastPatrol2"),
-			camMakePos ("cybEastPatrol3"),
-		],
-		interval: camSecondsToMilliseconds(20),
+	//create group of cyborgs and send them on war path
+	camManageGroup(camMakeGroup("cyborgPositionEast"), CAM_ORDER_ATTACK, {
 		regroup: false
 	});
-}
-
-function setCrashedTeamExp()
-{
-	const DROID_EXP = 32;
-	const droids = enumDroid(TRANSPORT_TEAM).filter(function(dr) {
-		return !camIsSystemDroid(dr) && !camIsTransporter(dr);
-	});
-
-	for (let i = 0; i < droids.length; ++i)
-	{
-		const droid = droids[i];
-		setDroidExperience(droid, DROID_EXP);
-	}
-
-	preDamageUnits();
 }
 
 //Checks if the downed transport has been destroyed and issue a game lose.
 function checkCrashedTeam()
 {
-	if (getObject("transporter") === null)
+	if (transUnitIDs.length > 0 && victoryFlag)
 	{
-		return false;
-	}
+		// If the units were rescued, make sure they stay alive
+		let rescueAlive = false;
 
-	if (camDef(victoryFlag) && victoryFlag)
-	{
-		return true;
+		for (const ID of transUnitIDs)
+		{
+			if (getObject(DROID, CAM_HUMAN_PLAYER, ID) !== null)
+			{
+				rescueAlive = true; // All is well with the world
+				break;
+			}
+		}
+
+		return rescueAlive;
 	}
 }
 
@@ -113,58 +88,73 @@ function eventStartLevel()
 {
 	camSetExtraObjectiveMessage(_("Locate and rescue your units from the shot down transporter"));
 
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "CAM_2B", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.beta3, {
 		area: "RTLZ",
 		message: "C21_LZ",
 		reinforcements: -1,
-		callback: "checkCrashedTeam"
+		callback: "checkCrashedTeam",
+		retlz: true
 	});
 
 	const subLandingZone = getObject("landingZone");
-	const startpos = getObject("startingPosition");
-	const tent = getObject("transporterEntry");
-	const text = getObject("transporterExit");
-	centreView(startpos.x, startpos.y);
-	setNoGoArea(subLandingZone.x, subLandingZone.y, subLandingZone.x2, subLandingZone.y2);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
-
-	const enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
+	const startPos = getObject("startingPosition");
+	const tEnt = getObject("transporterEntry");
+	const tExt = getObject("transporterExit");
+	centreView(startPos.x, startPos.y);
+	setNoGoArea(subLandingZone.x, subLandingZone.y, subLandingZone.x2, subLandingZone.y2, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
 
 	//Add crash site blip and from an alliance with the crashed team.
 	hackAddMessage("C21_OBJECTIVE", PROX_MSG, CAM_HUMAN_PLAYER, false);
-	setAlliance(CAM_HUMAN_PLAYER, TRANSPORT_TEAM, true);
+	setAlliance(CAM_HUMAN_PLAYER, MIS_TRANSPORT_TEAM_PLAYER, true);
+	setAlliance(MIS_TRANSPORT_TEAM_PLAYER, CAM_THE_COLLECTIVE, true);
 
-	//set downed transport team colour to match the player.
-	changePlayerColour(TRANSPORT_TEAM, playerData[0].colour);
+	//set downed transport team colour to be the player's colour.
+	changePlayerColour(MIS_TRANSPORT_TEAM_PLAYER, playerData[0].colour);
 
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
-	camCompleteRequiredResearch(mis_alphaResearchNew, TRANSPORT_TEAM);
-	camCompleteRequiredResearch(mis_playerResBeta, TRANSPORT_TEAM);
+	camCompleteRequiredResearch(mis_alphaResearchNew, MIS_TRANSPORT_TEAM_PLAYER);
+	camCompleteRequiredResearch(mis_playerResBeta, MIS_TRANSPORT_TEAM_PLAYER);
 
 	camSetEnemyBases({
 		"COHardpointBase": {
 			cleanup: "hardpointBaseCleanup",
 			detectMsg: "C21_BASE1",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 		"COBombardBase": {
 			cleanup: "bombardBaseCleanup",
 			detectMsg: "C21_BASE2",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 		"COBunkerBase": {
 			cleanup: "bunkerBaseCleanup",
 			detectMsg: "C21_BASE3",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 	});
 
-	setCrashedTeamExp();
+	// Damage and rank the transport group
+	setHealth(getObject("transporter"), 40);
+	const droids = enumDroid(MIS_TRANSPORT_TEAM_PLAYER);
+	for (const droid of droids)
+	{
+		setHealth(droid, 40 + camRand(20));
+		camSetDroidRank(droid, "Professional");
+	}
+
 	victoryFlag = false;
+	transUnitIDs = [];
 	queue("setupCyborgGroups", camSecondsToMilliseconds(5));
+
+	// Darken the fog to 1/2 default brightness
+	camSetFog(8, 8, 32);
+	// Darken the lighting and add a slight blue hue
+	camSetSunIntensity(.35, .35, .45);
+	// Move the sun towards the west
+	camSetSunPos(425, -300, 350);
 }

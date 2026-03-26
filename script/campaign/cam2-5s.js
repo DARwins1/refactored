@@ -1,12 +1,29 @@
 include("script/campaign/libcampaign.js");
 
+const mis_Labels = {
+	startPos: {x: 88, y: 101},
+	lz: {x: 86, y: 99, x2: 88, y2: 101},
+	trPlace: {x: 87, y: 100},
+	trExit: {x: 32, y: 1}
+};
+
 function eventStartLevel()
 {
-    camSetupTransporter(87, 100, 32, 1);
-    centreView(88, 101);
-    setNoGoArea(86, 99, 88, 101, CAM_HUMAN_PLAYER);
-    //setNoGoArea(49, 83, 51, 85, CAM_THE_COLLECTIVE);
-    setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
-    camPlayVideos([{video: "MB2_5_MSG", type: CAMP_MSG}, {video: "MB2_5_MSG2", type: MISS_MSG}]);
-    camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "SUB_2_5");
+	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
+	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
+	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
+	}
+	camPlayVideos([{video: "MB2_5_MSG", type: CAMP_MSG}, {video: "MB2_5_MSG2", type: MISS_MSG}]);
+	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.beta6.offWorld);
+
+	// Darken the fog to 2/3 default brightness
+	camSetFog(11, 11, 43);
+	// Darken the lighting slightly and add a blue hue
+	camSetSunIntensity(.4, .4, .45);
+	// Move the sun towards the west
+	camSetSunPos(425, -300, 250);
+
 }

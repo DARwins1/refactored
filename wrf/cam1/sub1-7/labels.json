@@ -1,0 +1,131 @@
+{
+	"position_0": {
+		"label": "startPosition",
+		"pos": [896, 7168]
+	},
+
+
+	"position_1": {
+		"label": "transporterEntry",
+		"pos": [128, 6912]
+	},
+
+
+	"position_2": {
+		"label": "transporterExit",
+		"pos": [640, 7936]
+	},
+
+
+	"position_3": {
+		"label": "middleAssembly",
+		"pos": [4288, 5770]
+	},
+
+
+	"position_4": {
+		"label": "southAssembly",
+		"pos": [5568, 5952]
+	},
+
+
+	"position_5": {
+		"label": "northAssembly",
+		"pos": [5696, 576]
+	},
+
+
+	"area_0": {
+		"label": "RTLZ",
+		"pos1": [0, 6528],
+		"pos2": [1536, 7936]
+	},
+
+
+	"area_1": {
+		"label": "scavMiddle",
+		"pos1": [3136, 4288],
+		"pos2": [5056, 7616]
+	},
+
+
+	"area_2": {
+		"label": "scavSouthEast",
+		"pos1": [5696, 5312],
+		"pos2": [8000, 8000]
+	},
+
+
+	"area_3": {
+		"label": "scavNorth",
+		"pos1": [3392, 448],
+		"pos2": [8000, 1984]
+	},
+
+
+	"area_4": {
+		"label": "landingZone",
+		"pos1": [640, 6912],
+		"pos2": [1152, 7424]
+	},
+
+
+	"area_5": {
+		"label": "convoyEntrance",
+		"pos1": [128, 3584],
+		"pos2": [384, 4224]
+	},
+
+
+	"area_6": {
+		"label": "NPBuildArea",
+		"pos1": [1280, 1152],
+		"pos2": [2944, 3584]
+	},
+
+
+	"area_7": {
+		"label": "NPLZ",
+		"pos1": [1408, 1152],
+		"pos2": [2048, 1792]
+	},
+
+
+	"area_8": {
+		"label": "npAttackGroup",
+		"pos1": [3584, 1280],
+		"pos2": [4096, 1664]
+	},
+
+
+	"object_0": {
+		"label": "scavNorthEastFactory",
+		"id": 311,
+		"player": 7,
+		"type": 1
+	},
+
+
+	"object_1": {
+		"label": "scavSouthEastFactory",
+		"id": 198,
+		"player": 7,
+		"type": 1
+	},
+
+
+	"object_2": {
+		"label": "scavMiddleFactory",
+		"id": 284,
+		"player": 7,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "npTruck",
+		"id": 334,
+		"player": 1,
+		"type": 0
+	}
+}

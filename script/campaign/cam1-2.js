@@ -1,22 +1,23 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 const mis_scavengerRes = [
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Flamer-ROF01",
-	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01",
-	"R-Wpn-Mortar-ROF01", "R-Wpn-Rocket-ROF01",
+	"R-Wpn-MG-Damage02", "R-Wpn-Cannon-Damage01",
+	"R-Wpn-Mortar-Damage01", "R-Wpn-Rocket-Damage01",
 ];
 
 function exposeNorthBase()
 {
 	camDetectEnemyBase("NorthGroup"); // no problem if already detected
 	camPlayVideos({video: "SB1_2_MSG2", type: MISS_MSG});
+	camEnableFactory("NorthFactory");
 }
 
 function camArtifactPickup_ScavLab()
 {
 	camCallOnce("exposeNorthBase");
+	camCallOnce("enableNWFactory");
 	camSetFactoryData("WestFactory", {
 		assembly: "WestAssembly",
 		order: CAM_ORDER_COMPROMISE,
@@ -31,7 +32,7 @@ function camArtifactPickup_ScavLab()
 		groupSize: 5,
 		maxSize: 9,
 		throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
-		templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
+		templates: [cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep]
 	});
 	camEnableFactory("WestFactory");
 }
@@ -40,12 +41,6 @@ function camEnemyBaseDetected_NorthGroup()
 {
 	camCallOnce("exposeNorthBase");
 }
-
-camAreaEvent("NorthBaseTrigger", function(droid)
-{
-	// frankly, this one happens silently
-	camEnableFactory("NorthFactory");
-});
 
 function enableWestFactory()
 {
@@ -57,23 +52,33 @@ function enableWestFactory()
 	});
 }
 
+function enableNWFactory()
+{
+	camEnableFactory("NorthWestFactory");
+}
+
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "SUB_1_3S", {
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, cam_levels.alpha5.pre, {
 		area: "RTLZ",
 		message: "C1-2_LZ",
 		reinforcements: 60,
 		retlz: true
 	});
 
-	const startpos = getObject("StartPosition");
+	const startPos = getObject("StartPosition");
 	const lz = getObject("LandingZone");
-	const tent = getObject("TransporterEntry");
-	const text = getObject("TransporterExit");
-	centreView(startpos.x, startpos.y);
+	const tEnt = getObject("TransporterEntry");
+	const tExt = getObject("TransporterExit");
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	startTransporterEntry(tent.x, tent.y, CAM_HUMAN_PLAYER);
-	setTransporterExit(text.x, text.y, CAM_HUMAN_PLAYER);
+	startTransporterEntry(tEnt.x, tEnt.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(tExt.x, tExt.y, CAM_HUMAN_PLAYER);
+
+	camSetArtifacts({
+		"ScavLab": { tech: "R-Wpn-Mortar01Lt" }, // Mortar
+		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracked Propulsion
+	});
 
 	camCompleteRequiredResearch(mis_scavengerRes, CAM_SCAV_7);
 
@@ -81,14 +86,20 @@ function eventStartLevel()
 		"NorthGroup": {
 			cleanup: "NorthBase",
 			detectMsg: "C1-2_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"WestGroup": {
 			cleanup: "WestBase",
 			detectMsg: "C1-2_BASE2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg"
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
+		},
+		"NorthWestGroup": {
+			cleanup: "NorthWestBase",
+			detectMsg: "C1-2_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
 		},
 		"ScavLabGroup": {
 			cleanup: "ScavLabCleanup",
@@ -96,48 +107,89 @@ function eventStartLevel()
 		},
 	});
 
-	camDetectEnemyBase("ScavLabGroup");
+	if (tweakOptions.ref_timerlessMode)
+	{
+		// Set up Timerless mode-exclusive cranes
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "NorthGroup",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("NorthBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "WestGroup",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("WestBase")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "NorthWestGroup",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("NorthWestBase")
+		});
+	}
 
-	camSetArtifacts({
-		"ScavLab": { tech: "R-Wpn-Mortar01Lt" },
-		"NorthFactory": { tech: "R-Vehicle-Prop-Halftracks" },
-	});
+	camDetectEnemyBase("ScavLabGroup");
 
 	camSetFactories({
 		"NorthFactory": {
 			assembly: "NorthAssembly",
-			order: CAM_ORDER_COMPROMISE,
+			order: CAM_ORDER_PATROL,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
 			data: {
 				pos: [
 					camMakePos("NorthAssembly"),
 					camMakePos("ScavLabPos"),
 					camMakePos("RTLZ"),
 				],
-				radius: 8
+				interval: camSecondsToMilliseconds(20),
+				regroup: false,
+				count: -1,
 			},
-			groupSize: 5,
-			maxSize: 9,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
 			group: camMakeGroup("NorthTankGroup"),
-			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
+			templates: [ cTempl.trike, cTempl.kevbloke, cTempl.buggy, cTempl.bjeep ]
 		},
 		"WestFactory": {
 			assembly: "WestAssembly",
-			order: CAM_ORDER_COMPROMISE,
+			order: CAM_ORDER_PATROL,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			data: {
 				pos: [
 					camMakePos("WestAssembly"),
 					camMakePos("GatesPos"),
 					camMakePos("ScavLabPos"),
 				],
-				radius: 8
+				interval: camSecondsToMilliseconds(20),
+				regroup: false,
+				count: -1,
 			},
-			groupSize: 5,
-			maxSize: 9,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
+		},
+		"NorthWestFactory": {
+			assembly: "WestAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			templates: [ cTempl.bloke, cTempl.trike, cTempl.bloke, cTempl.kevbloke, cTempl.firetruck ]
 		},
 	});
 
-	queue("enableWestFactory", camSecondsToMilliseconds(30));
+	queue("enableWestFactory", camChangeOnDiff(camSecondsToMilliseconds(30)));
+	queue("enableNWFactory", camChangeOnDiff(camMinutesToMilliseconds(4)));
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(44, 36, 24);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

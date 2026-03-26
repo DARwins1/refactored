@@ -2,41 +2,43 @@ include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
 const mis_collectiveRes = [
-	"R-Defense-WallUpgrade03", "R-Struc-Materials04", "R-Struc-Factory-Upgrade04",
-	"R-Struc-VTOLPad-Upgrade01", "R-Vehicle-Engine04", "R-Vehicle-Metals04",
-	"R-Cyborg-Metals04", "R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04", "R-Wpn-Cannon-ROF02",
-	"R-Wpn-Flamer-Damage05", "R-Wpn-Flamer-ROF02", "R-Wpn-MG-Damage05",
-	"R-Wpn-MG-ROF03", "R-Wpn-Mortar-Acc02", "R-Wpn-Mortar-Damage04",
-	"R-Wpn-Mortar-ROF02", "R-Wpn-Rocket-Accuracy02", "R-Wpn-Rocket-Damage05",
-	"R-Wpn-Rocket-ROF03", "R-Wpn-RocketSlow-Accuracy03",
-	"R-Wpn-RocketSlow-Damage03", "R-Sys-Sensor-Upgrade01",
+	"R-Wpn-MG-Damage06", "R-Wpn-MG-ROF02",
+	"R-Wpn-Flamer-Damage04", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Cannon-Damage05", "R-Wpn-Cannon-ROF01", "R-Wpn-Cannon-Accuracy02",
+	"R-Wpn-Mortar-Damage04", "R-Wpn-Mortar-ROF01", "R-Wpn-Mortar-Acc01", 
+	"R-Wpn-Rocket-Damage05", "R-Wpn-Rocket-ROF01", "R-Wpn-Rocket-Accuracy03",
+	"R-Defense-WallUpgrade05", "R-Struc-Materials05",
+	"R-Sys-Engineering02",
+	"R-Struc-RprFac-Upgrade02",
+	"R-Vehicle-Metals04", "R-Cyborg-Metals04",
+	"R-Vehicle-Engine04",
 ];
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
-	if (isVTOL(droid))
+	if ((droid.player !== CAM_HUMAN_PLAYER))
 	{
 		camSafeRemoveObject(droid, false);
 	}
 	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
 });
 
-camAreaEvent("factoryTrigger", function(droid)
+function enableAllFactories()
 {
 	camEnableFactory("COHeavyFacL-b1");
 	camEnableFactory("COCybFacL-b2");
 	camEnableFactory("COHeavyFacR-b1");
 	camEnableFactory("COCybFacR-b2");
-});
+}
 
 function camEnemyBaseDetected_COMiddleBase()
 {
 	hackRemoveMessage("C2B_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	const droids = enumArea("base4Cleanup", CAM_THE_COLLECTIVE, false).filter(function(obj) {
-		return obj.type === DROID && obj.group === null;
-	});
-
+	// Order any idle droids in the base to attack
+	const droids = enumArea("base4Cleanup", CAM_THE_COLLECTIVE, false).filter((obj) => (
+		obj.type === DROID && obj.group === null
+	));
 	camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
 		count: -1,
 		regroup: false,
@@ -44,21 +46,48 @@ function camEnemyBaseDetected_COMiddleBase()
 	});
 }
 
-function activateBase1Defenders()
-{
+function ambushPlayer()
+{	
+	// Rank changes on difficulty:
+	// Trained (SUPEREASY/EASY)
+	// Regular (MEDIUM)
+	// Professional (HARD)
+	// Veteran (INSANE)
+	camSetDroidRank(getObject("COCommander"), (difficulty <= EASY) ? 2 : (difficulty + 1));
+	camManageGroup(camMakeGroup("COCommander"), CAM_ORDER_ATTACK, {repair: 67});
+	camMakeRefillableGroup(
+		camMakeGroup("centralBaseGroup"), {
+			templates: [
+				cTempl.cohhct, cTempl.cohhct, // Heavy Cannons
+				cTempl.cohbbt, cTempl.cohbbt, // Bunker Busters
+				cTempl.comit, cTempl.comit, cTempl.comit, cTempl.comit, // Infernos
+				cTempl.comsenst, // Sensor
+				cTempl.comrept, // Repair Turret
+				cTempl.comrept, cTempl.comrept, // Repair Turrets (Medium+)
+				cTempl.comhpvt, cTempl.comhpvt, // Hyper Velocity Cannons (Hard+)
+				cTempl.comhpvt, cTempl.comhpvt, // More Hyper Velocity Cannons (Insane)
+			],
+			obj: "COCommander",
+			globalFill: true
+		}, CAM_ORDER_FOLLOW, {
+			leader: "COCommander",
+			repair: 67,
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				repair: 67
+			}
+	});
+
 	camManageGroup(camMakeGroup("NBaseGroup"), CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("leftSideAmbushPos1"),
 			camMakePos("leftSideAmbushPos2"),
 			camMakePos("leftSideAmbushPos3"),
 		],
-		interval: camSecondsToMilliseconds(60),
-		regroup: false,
+		patrolType: CAM_PATROL_CYCLE,
+		interval: camSecondsToMilliseconds(60)
 	});
-}
 
-function activateBase1Defenders2()
-{
 	camManageGroup(camMakeGroup("NBaseGroup-below"), CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("grp2Pos1"),
@@ -67,93 +96,78 @@ function activateBase1Defenders2()
 			camMakePos("grp2Pos4"),
 			camMakePos("grp2Pos5"),
 		],
-		interval: camSecondsToMilliseconds(60),
-		regroup: false,
-	});
-}
-
-function ambushPlayer()
-{
-	camManageGroup(camMakeGroup("centralBaseGroup"), CAM_ORDER_ATTACK, {
-		count: -1,
-		regroup: false,
-		repair: 67
+		patrolType: CAM_PATROL_CYCLE,
+		interval: camSecondsToMilliseconds(60)
 	});
 }
 
 function vtolAttack()
 {
-	const list = [cTempl.colcbv, cTempl.colatv];
-	const ext = {
-		limit: [4, 4], //paired with list array
-		alternate: true,
-		altIdx: 0
-	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemove", list, camChangeOnDiff(camMinutesToMilliseconds(5)), "COCommandCenter", ext);
-}
-
-function truckDefense()
-{
-	if (enumDroid(CAM_THE_COLLECTIVE, DROID_CONSTRUCT).length === 0)
+	if (getObject("COCommandCenter") !== null)
 	{
-		removeTimer("truckDefense");
-		return;
+		playSound(cam_sounds.enemyVtolsDetected);
 	}
 
-	const list = ["CO-Tower-MG3", "CO-Tower-LtATRkt", "CO-Tower-MdCan", "CO-Tower-LtATRkt"];
-	camQueueBuilding(CAM_THE_COLLECTIVE, list[camRand(list.length)]);
+	// Focus towards the player's LZ
+	const templates = [cTempl.colcbv, cTempl.colatv]; // Cluster Bombs and Lancers
+	const ext = {
+		limit: [2, 3],
+		alternate: true,
+		pos: camMakePos("landingZone"),
+		dynamic: true // Change attack rate based on how many VTOLs are shot down
+	};
+	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAppearPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "COCommandCenter", ext);
 }
 
 function transferPower()
 {
 	//increase player power level and play sound
-     setPower(playerPower(CAM_HUMAN_PLAYER) + 4000);
-     playSound("power-transferred.ogg");
+	setPower(playerPower(CAM_HUMAN_PLAYER) + 4000);
+	playSound(cam_sounds.powerTransferred);
 }
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_2_2S");
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.beta4.pre);
 
-	const startpos = getObject("startPosition");
+	const startPos = getObject("startPosition");
 	const lz = getObject("landingZone"); //player lz
-	centreView(startpos.x, startpos.y);
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	const enemyLz = getObject("COLandingZone");
-	setNoGoArea(enemyLz.x, enemyLz.y, enemyLz.x2, enemyLz.y2, CAM_THE_COLLECTIVE);
-
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
 	camPlayVideos([{video: "MB2_B_MSG", type: CAMP_MSG}, {video: "MB2_B_MSG2", type: MISS_MSG}]);
 
-	camSetArtifacts({
-		"COResearchLab": { tech: "R-Wpn-Flame2" },
-		"COHeavyFac-b4": { tech: "R-Wpn-RocketSlow-ROF01" },
-		"COHeavyFacL-b1": { tech: "R-Wpn-MG-ROF03" },
-		"COCommandCenter": { tech: "R-Vehicle-Body06" }, //Panther
-		"COCybFacL-b2": { tech: "R-Cyborg-Hvywpn-Mcannon" }, //Super Heavy-Gunner
-	});
-
 	camCompleteRequiredResearch(mis_collectiveRes, CAM_THE_COLLECTIVE);
+
+	camSetArtifacts({
+		"COResearchLab": { tech: "R-Wpn-Cannon4AMk1" }, // Hyper Velocity Cannon
+		"COHeavyFac-b4": { tech: "R-Wpn-Flame2" }, // Inferno
+		"COHeavyFacL-b1": { tech: "R-Struc-Factory-Upgrade02" }, // Robotic Manufacturing
+		"COCommandCenter": { tech: "R-Vehicle-Body06" }, // Panther
+	});
 
 	camSetEnemyBases({
 		"CONorthBase": {
 			cleanup: "base1Cleanup",
 			detectMsg: "C2B_BASE1",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 		"COCentralBase": {
 			cleanup: "base2Cleanup",
 			detectMsg: "C2B_BASE2",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 		"COMiddleBase": {
 			cleanup: "base4Cleanup",
 			detectMsg: "C2B_BASE4",
-			detectSnd: "pcv379.ogg",
-			eliminateSnd: "pcv394.ogg",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
 	});
 
@@ -162,13 +176,11 @@ function eventStartLevel()
 			assembly: "COHeavyFacL-b1Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
 			data: {
-				regroup: false,
 				repair: 30,
-				count: -1,
 			},
-			templates: [cTempl.comatt, cTempl.cohct, cTempl.comct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.cohhrat, cTempl.cohhct, cTempl.comit]
 		},
 		"COHeavyFacR-b1": {
 			assembly: "COHeavyFacR-b1Assembly",
@@ -176,35 +188,29 @@ function eventStartLevel()
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			data: {
-				regroup: false,
 				repair: 30,
-				count: -1,
 			},
-			templates: [cTempl.comatt, cTempl.cohct, cTempl.comct, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comatt, cTempl.comhpvt, cTempl.comhmgt]
 		},
 		"COCybFacL-b2": {
 			assembly: "COCybFacL-b2Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
 			data: {
-				regroup: false,
 				repair: 40,
-				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.scygr, cTempl.scyhr]
 		},
 		"COCybFacR-b2": {
 			assembly: "COCybFacR-b2Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
 			data: {
-				regroup: false,
 				repair: 40,
-				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.npcybf, cTempl.npcybm, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.cybla, cTempl.cybth, cTempl.cybhg]
 		},
 		"COHeavyFac-b4": {
 			assembly: "COHeavyFac-b4Assembly",
@@ -212,28 +218,48 @@ function eventStartLevel()
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			data: {
-				regroup: false,
 				repair: 30,
-				count: -1,
 			},
-			templates: [cTempl.comatt, cTempl.comit, cTempl.comrlt, cTempl.copodt]
+			templates: [cTempl.comatt, cTempl.comit, cTempl.commct]
 		},
 		"COCybFac-b4": {
 			assembly: "COCybFac-b4Assembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
 			data: {
-				regroup: false,
 				repair: 40,
-				count: -1,
 			},
-			templates: [cTempl.npcybc, cTempl.npcybr, cTempl.npcybf, cTempl.coscymc, cTempl.npcybg]
+			templates: [cTempl.scymc, cTempl.cybhg]
 		},
 	});
 
-	camManageTrucks(CAM_THE_COLLECTIVE);
-	truckDefense();
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.ref_timerlessMode) ? 90 : 180));
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "CONorthBase",
+			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("coTruck1"),
+			structset: camAreaToStructSet("base1Cleanup")
+	});
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "COCentralBase",
+			rebuildTruck: (tweakOptions.ref_timerlessMode || difficulty >= HARD),
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("coTruck2"),
+			structset: camAreaToStructSet("base2Cleanup")
+	});
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "COMiddleBase",
+			rebuildTruck: tweakOptions.ref_timerlessMode,
+			respawnDelay: TRUCK_TIME,
+			truckDroid: getObject("coTruck3"),
+			structset: camAreaToStructSet("base4Cleanup")
+	});
+
 	hackAddMessage("C2B_OBJ1", PROX_MSG, CAM_HUMAN_PLAYER, false);
 
 	camEnableFactory("COHeavyFac-b4");
@@ -242,7 +268,13 @@ function eventStartLevel()
 	queue("transferPower", camSecondsToMilliseconds(2));
 	queue("ambushPlayer", camSecondsToMilliseconds(3));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(4)));
-	queue("activateBase1Defenders2", camChangeOnDiff(camMinutesToMilliseconds(20)));
-	queue("activateBase1Defenders", camChangeOnDiff(camMinutesToMilliseconds(30)));
-	setTimer("truckDefense", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(4, 4, 16);
+	// Darken the lighting
+	camSetSunIntensity(.35, .35, .35);
+	// Move the sun towards the east
+	camSetSunPos(-225, -600, 450);
+	camSetSkyType(CAM_SKY_NIGHT);
 }

@@ -16,13 +16,11 @@ function camIsTransporter(gameObject)
 	{
 		return false;
 	}
-
 	if (gameObject.type !== DROID)
 	{
 		camTrace("Attempted to check if a non-droid object is a transporter.");
 		return false;
 	}
-
 	return gameObject.droidType === DROID_SUPERTRANSPORTER;
 }
 
@@ -39,7 +37,7 @@ function camIsTransporter(gameObject)
 //;;
 function camSetupTransporter(placeX, placeY, exitX, exitY)
 {
-	addDroid(CAM_HUMAN_PLAYER, placeX, placeY, "Transport", "TransporterBody", "V-Tol", "", "", "MG3-VTOL");
+	addDroid(CAM_HUMAN_PLAYER, placeX, placeY, cam_trComps.name, cam_trComps.body, cam_trComps.propulsion, "", "", cam_trComps.weapon);
 	setTransporterExit(exitX, exitY, CAM_HUMAN_PLAYER);
 }
 
@@ -57,6 +55,19 @@ function camRemoveEnemyTransporterBlip()
 		__camTransporterMessage = undefined;
 	}
 }
+
+//;; ## camGetTransporterDroids(player)
+//;;
+//;; Returns a list of droids being delivered by the given player's transport.
+//;; NOTE: This list can only be accessed when the transport is still on the map!
+//;;
+//;; @returns {Object}
+//;;
+function camGetTransporterDroids(player)
+{
+	return __camIncomingTransports[player].droids;
+}
+
 
 //////////// privates
 
@@ -86,18 +97,17 @@ function __camDispatchTransporterUnsafe()
 	{
 		camTrace("Creating a transporter for player", __PLAYER);
 		__camPlayerTransports[__PLAYER] = addDroid(__PLAYER, -1, -1,
-		                                         "Transporter",
-		                                         "TransporterBody",
-		                                         "V-Tol", "", "",
-		                                         "MG3-VTOL");
+		                                         cam_trComps.name,
+		                                         cam_trComps.body,
+		                                         cam_trComps.propulsion, "", "",
+		                                         cam_trComps.weapon);
 	}
 	const transporter = __camPlayerTransports[__PLAYER];
 	const droids = [];
 	for (let i = 0, l = list.length; i < l; ++i)
 	{
 		const template = list[i];
-		const __PROP = __camChangePropulsion(template.prop, __PLAYER);
-		const droid = addDroid(__PLAYER, -1, -1, "Reinforcement", template.body, __PROP, "", "", template.weap);
+		const droid = camAddDroid(__PLAYER, -1, template);
 		droids.push(droid);
 		addDroidToTransporter(transporter, droid);
 	}
@@ -110,20 +120,16 @@ function __camDispatchTransporterUnsafe()
 	camTrace("Incoming transport with", droids.length,
 	         "droids for player", __PLAYER +
 	         ", queued transports", __camTransporterQueue.length);
-
 	setNoGoArea(pos.x - __OFFSET, pos.y - __OFFSET, pos.x + __OFFSET, pos.y + __OFFSET, __PLAYER);
-
-	//Delete previous enemy reinforcement transport blip
 	if (__PLAYER !== CAM_HUMAN_PLAYER)
 	{
-		camRemoveEnemyTransporterBlip();
+		const __DEFINED_BLIP_REMOVAL = camDef(data.ignoreBlipRemoval);
+		if (!__DEFINED_BLIP_REMOVAL || (__DEFINED_BLIP_REMOVAL && !data.ignoreBlipRemoval))
+		{
+			camRemoveEnemyTransporterBlip(); //Delete previous enemy reinforcement transport blip.
+		}
+		playSound(cam_sounds.transport.enemyTransportDetected);
 	}
-
-	if (__PLAYER !== CAM_HUMAN_PLAYER)
-	{
-		playSound("pcv381.ogg"); //Enemy transport detected.
-	}
-
 	setTransporterExit(data.exit.x, data.exit.y, __PLAYER);
 	// will guess which transporter to start, automagically
 	startTransporterEntry(data.entry.x, data.entry.y, __PLAYER);
@@ -156,15 +162,8 @@ function __camLandTransporter(player, pos)
 		__camTransporterMessage = undefined;
 	}
 	camTrace("Landing transport for player", player);
-	playSound("pcv395.ogg", pos.x, pos.y, 0); //Incoming enemy transport.
+	// playSound(cam_sounds.transport.incomingEnemyTransport, pos.x, pos.y, 0);
 	camManageGroup(camMakeGroup(ti.droids), ti.order, ti.data);
-	if (player !== CAM_HUMAN_PLAYER)
-	{
-		for (let i = 0, len = ti.droids.length; i < len; ++i)
-		{
-			camSetDroidExperience(ti.droids[i]);
-		}
-	}
 }
 
 function __camRemoveIncomingTransporter(player)
@@ -173,5 +172,11 @@ function __camRemoveIncomingTransporter(player)
 	if (camDef(__camIncomingTransports[player]))
 	{
 		delete __camIncomingTransports[player];
+	}
+
+	// Also place the no-build area in the corner of the map where it won't annoy anybody
+	if (player !== CAM_HUMAN_PLAYER)
+	{
+		setNoGoArea(0, 0, 3, 3, player);
 	}
 }

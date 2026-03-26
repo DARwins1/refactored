@@ -1,11 +1,28 @@
 include("script/campaign/libcampaign.js");
 
+const mis_Labels = {
+	startPos: {x: 13, y: 52},
+	lz: {x: 10, y: 51, x2: 12, y2: 53},
+	trPlace: {x: 11, y: 52},
+	trExit: {x: 100, y: 126}
+};
+
 function eventStartLevel()
 {
-	camSetupTransporter(11, 52, 100, 126);
-	centreView(13, 52);
-	setNoGoArea(10, 51, 12, 53, CAM_HUMAN_PLAYER);
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	camSetupTransporter(mis_Labels.trPlace.x, mis_Labels.trPlace.y, mis_Labels.trExit.x, mis_Labels.trExit.y);
+	centreView(mis_Labels.startPos.x, mis_Labels.startPos.y);
+	setNoGoArea(mis_Labels.lz.x, mis_Labels.lz.y, mis_Labels.lz.x2, mis_Labels.lz.y2, CAM_HUMAN_PLAYER);
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	}
 	camPlayVideos({video: "SB1_5_MSG", type: MISS_MSG});
-	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "SUB_1_5");
+	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, cam_levels.alpha9.offWorld);
+
+	// Darken the fog to 1/4 default brightness
+	camSetFog(44, 36, 24);
+	// Darken the lighting and add a slight orange hue
+	camSetSunIntensity(.42, .42, .4);
+	// Move the sun towards the east
+	camSetSunPos(-425, -400, 450);
 }

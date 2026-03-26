@@ -3,23 +3,22 @@
 // * Enable unit design and minimap only when an HQ exists
 receiveAllEvents(true); //Needed to allow enemy research to apply to them
 
-include("script/weather.js");
-
 var mainReticule = false;
+var lastHitTime = 0;
 const CREATE_LIKE_EVENT = 0;
 const DESTROY_LIKE_EVENT = 1;
 const TRANSFER_LIKE_EVENT = 2;
 
 function reticuleManufactureCheck()
 {
-	var structureComplete = false;
-	var facs = [FACTORY, CYBORG_FACTORY, VTOL_FACTORY,];
+	let structureComplete = false;
+	const facs = [FACTORY, CYBORG_FACTORY, VTOL_FACTORY,];
 
 	for (let i = 0, len = facs.length; i < len; ++i)
 	{
-		var facType = facs[i];
-		var offWorldFacs = enumStructOffWorld(selectedPlayer, facType);
-		var onMapFacs = enumStruct(selectedPlayer, facType);
+		const facType = facs[i];
+		const offWorldFacs = enumStructOffWorld(selectedPlayer, facType);
+		const onMapFacs = enumStruct(selectedPlayer, facType);
 
 		if (offWorldFacs !== null)
 		{
@@ -62,14 +61,14 @@ function reticuleManufactureCheck()
 
 function reticuleResearchCheck()
 {
-	var structureComplete = false;
-	var labs = [RESEARCH_LAB,];
+	let structureComplete = false;
+	const labs = [RESEARCH_LAB,];
 
 	for (let i = 0, len = labs.length; i < len; ++i)
 	{
-		var resType = labs[i];
-		var offWorldLabs = enumStructOffWorld(selectedPlayer, resType);
-		var onMapLabs = enumStruct(selectedPlayer, resType);
+		const resType = labs[i];
+		const offWorldLabs = enumStructOffWorld(selectedPlayer, resType);
+		const onMapLabs = enumStruct(selectedPlayer, resType);
 
 		if (offWorldLabs !== null)
 		{
@@ -124,14 +123,14 @@ function reticuleBuildCheck()
 
 function reticuleDesignCheck()
 {
-	var structureComplete = false;
-	var hqs = [HQ,];
+	let structureComplete = false;
+	const hqs = [HQ,];
 
 	for (let i = 0, len = hqs.length; i < len; ++i)
 	{
-		var hqType = hqs[i];
-		var offWorldHq = enumStructOffWorld(selectedPlayer, hqType);
-		var onMapHq = enumStruct(selectedPlayer, hqType);
+		const hqType = hqs[i];
+		const offWorldHq = enumStructOffWorld(selectedPlayer, hqType);
+		const onMapHq = enumStruct(selectedPlayer, hqType);
 
 		if (offWorldHq !== null)
 		{
@@ -199,7 +198,7 @@ function setMainReticule()
 
 function reticuleUpdate(obj, eventType)
 {
-	var update_reticule = false;
+	let update_reticule = false;
 
 	if (eventType === TRANSFER_LIKE_EVENT)
 	{
@@ -267,7 +266,6 @@ function setupGame()
 	showInterface(); // init buttons. This MUST come before setting the reticule button data
 	setMainReticule();
 	mainReticule = true;
-	queue("resetPower", 1000);
 }
 
 function eventGameLoaded()
@@ -281,83 +279,14 @@ function eventGameInit()
 	setTimer("autoSave", 10*60*1000);
 }
 
-function setLimits()
-{
-	setDroidLimit(selectedPlayer, 101, DROID_ANY); //note: the transporter is a unit you own
-	setDroidLimit(selectedPlayer, 10, DROID_COMMAND);
-	setDroidLimit(selectedPlayer, 15, DROID_CONSTRUCT);
-
-	for (let i = 0; i < maxPlayers; ++i)
-	{
-		setStructureLimits("A0PowerGenerator", 5, i);
-		setStructureLimits("A0ResourceExtractor", 200, i);
-		setStructureLimits("A0ResearchFacility", 5, i);
-		setStructureLimits("A0LightFactory", 5, i);
-		setStructureLimits("A0CyborgFactory", 5, i);
-		setStructureLimits("A0VTolFactory1", 5, i);
-		//non human players get five of these
-		setStructureLimits("A0CommandCentre", i === selectedPlayer ? 1 : 5, i);
-		setStructureLimits("A0ComDroidControl", i === selectedPlayer ? 1 : 5, i);
-		setStructureLimits("A0CommandCentreNP", 5, i);
-		setStructureLimits("A0CommandCentreCO", 5, i);
-		setStructureLimits("A0CommandCentreNE", 5, i);
-	}
-}
-
-function resetPower()
-{
-	var powerLimit = 999999;
-	var powerProductionRate = 100;
-
-	// set income modifier/power storage for player 0 (human)
-	if (difficulty <= EASY)
-	{
-		powerProductionRate = 115;
-	}
-	else if (difficulty === HARD)
-	{
-		powerProductionRate = 85;
-		powerLimit = 20000; //base value for Alpha
-
-		if (tilesetType === "URBAN")
-		{
-			powerLimit += 5000;
-		}
-		else if (tilesetType === "ROCKIES")
-		{
-			powerLimit += 10000;
-		}
-	}
-	else if (difficulty === INSANE)
-	{
-		powerProductionRate = 70;
-		powerLimit = 12000; //base value for Alpha
-
-		if (tilesetType === "URBAN")
-		{
-			powerLimit += 2000;
-		}
-		else if (tilesetType === "ROCKIES")
-		{
-			powerLimit += 4000;
-		}
-	}
-
-	setPowerModifier(powerProductionRate);
-	setPowerStorageMaximum(powerLimit);
-	if (playerPower(selectedPlayer) >= powerLimit)
-	{
-		setPower(powerLimit - 1, selectedPlayer);
-	}
-}
-
 function eventStartLevel()
 {
-	setLimits();
-	if (tilesetType === "URBAN" || tilesetType === "ROCKIES")
+	if (getMissionType() === LDS_EXPAND_LIMBO)
 	{
-		weatherCycle();
-		setTimer("weatherCycle", 45000);
+		//eventGameInit is too early to notice units placed from eventStartLevel.
+		//Fire off a reticule button update again after all of the eventStartLevel events happen.
+		const TICK_TIME = 100;
+		queue("setMainReticule", TICK_TIME);
 	}
 }
 
@@ -409,8 +338,26 @@ function eventObjectTransfer(obj, from)
 	}
 }
 
-//Could be the last remaining trucks are on it.
+//Could be the last remaining trucks/commanders are on it.
 function eventTransporterLanded(transport)
+{
+	if (transport.player === selectedPlayer)
+	{
+		reticuleUpdate(transport, TRANSFER_LIKE_EVENT);
+	}
+}
+
+//Maybe no more truck/commanders on the map.
+function eventTransporterEmbarked(transport)
+{
+	if (transport.player === selectedPlayer)
+	{
+		reticuleUpdate(transport, TRANSFER_LIKE_EVENT);
+	}
+}
+
+//Maybe no more truck/commanders on the map.
+function eventTransporterDisembarked(transport)
 {
 	if (transport.player === selectedPlayer)
 	{
@@ -430,16 +377,16 @@ function eventAttacked(victim, attacker)
 	if ((victim.player === selectedPlayer && attacker.player !== selectedPlayer) && gameTime > lastHitTime + 2000)
 	{
 		lastHitTime = gameTime;
-		var newRecord = [];
-		var soundWorthy = true; // Whether an attack alert sound should be played
-		for (var i in attackRecord)
+		const newRecord = [];
+		let soundWorthy = true; // Whether an attack alert sound should be played
+		for (let i in attackRecord)
 		{
 			if (attackRecord[i].time < gameTime - 20000)
 			{
 				// This attack happened over 20 seconds ago, forget about it
 				continue;
 			}
-			var oldAttack = attackRecord[i];
+			const oldAttack = attackRecord[i];
 			newRecord.push(oldAttack);
 			if (oldAttack.type === victim.type 
 				&& distBetweenTwoPoints(victim.x, victim.y, oldAttack.x, oldAttack.y) <= 12)

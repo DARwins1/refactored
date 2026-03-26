@@ -14,7 +14,7 @@ function camNexusLaugh()
 	const __LAUGH_CHANCE = 45;
 	if (camRand(100) < __LAUGH_CHANCE)
 	{
-		const laughs = [CAM_LAUGH1_SND, CAM_LAUGH2_SND, CAM_LAUGH3_SND];
+		const laughs = [cam_sounds.nexus.laugh1, cam_sounds.nexus.laugh2, cam_sounds.nexus.laugh3];
 		playSound(laughs[camRand(laughs.length)]);
 	}
 }
@@ -38,9 +38,7 @@ function camAbsorbPlayer(who, to)
 	{
 		to = CAM_NEXUS;
 	}
-
 	const units = enumDroid(who);
-
 	for (let i = 0, len = units.length; i < len; ++i)
 	{
 		const droid = units[i];
@@ -49,7 +47,6 @@ function camAbsorbPlayer(who, to)
 			camSafeRemoveObject(droid, false);
 		}
 	}
-
 	const structs = enumStruct(who);
 	for (let i = 0, len = structs.length; i < len; ++i)
 	{
@@ -59,94 +56,8 @@ function camAbsorbPlayer(who, to)
 			camSafeRemoveObject(structure, false);
 		}
 	}
-
 	camTrace("Player " + who + " has been absorbed by player" + to);
 	changePlayerColour(who, to);
-}
-
-//;; ## camHackIntoPlayer([player[, to]])
-//;;
-//;; Steal a droid or structure from a player if the NEXUS hack state is active.
-//;; Will default to `CAM_HUMAN_PLAYER` and `CAM_NEXUS` respectively.
-//;;
-//;; @param {number} [player]
-//;; @param {number} [to]
-//;; @returns {void}
-//;;
-function camHackIntoPlayer(player, to)
-{
-	if (!camGetNexusState())
-	{
-		return;
-	}
-
-	const __GIFT_CHANCE = 70; //Else neutralized
-	let target;
-	let objects;
-
-	if (!camDef(player))
-	{
-		player = CAM_HUMAN_PLAYER;
-	}
-	if (!camDef(to))
-	{
-		to = CAM_NEXUS;
-	}
-	if (!camDef(__camLastNexusAttack))
-	{
-		__camLastNexusAttack = 0;
-	}
-
-	objects = __camChooseNexusTarget(player);
-	if (objects.length === 0)
-	{
-		return;
-	}
-
-	__camLastNexusAttack = gameTime;
-	target = objects[camRand(objects.length)];
-
-	if ((camRand(100) < __GIFT_CHANCE) && !(target.type === STRUCTURE && target.stattype === WALL))
-	{
-		camTrace("Hacking " + target.name + " at (x,y): " + target.x + " " + target.y);
-		//Gift sounds are done in eventObjectTransfer.
-		if (!donateObject(target, to))
-		{
-			camSafeRemoveObject(target, true); //Explode it then.
-		}
-	}
-	else
-	{
-		camTrace("Neutralized " + target.name + " at (x,y): " + target.x + " " + target.y);
-		if (target.player === CAM_HUMAN_PLAYER)
-		{
-			let sound;
-			//Nexus neutralize sounds
-			if (target.type === STRUCTURE)
-			{
-				if (target.stattype === DEFENSE)
-				{
-					sound = CAM_DEFENSE_NEUTRALIZE_SND;
-				}
-				else
-				{
-					sound = CAM_STRUCTURE_NEUTRALIZE_SND;
-				}
-			}
-			else if (target.type === DROID)
-			{
-				sound = CAM_UNIT_NEUTRALIZE_SND;
-			}
-
-			if (camDef(sound))
-			{
-				playSound(sound);
-			}
-
-			camSafeRemoveObject(target, true);
-			queue("camNexusLaugh", camSecondsToMilliseconds(1.5));
-		}
-	}
 }
 
 //;; ## camSetNexusState(flag)
@@ -174,112 +85,90 @@ function camGetNexusState()
 
 //////////// privates
 
-function __camChooseNexusTarget(player)
+// Start managing a factory that was stolen from the player by NEXUS
+function __camManageCapturedFactory(factory)
 {
-	if (!camDef(player))
+	// Select templates based on the type of factory that was captured
+	let templates;
+	let throttle;
+	// Instead of a pre-defined list, sample all of the player's units on the map...
+	const droids = enumDroid(CAM_HUMAN_PLAYER);
+	templates = [];
+	for (const droid of droids)
 	{
-		player = CAM_HUMAN_PLAYER;
-	}
-
-	//Try stealing the HQ first.
-	if (__camLastNexusAttack === 0)
-	{
-		__camLastNexusAttack = gameTime;
-		return enumStruct(player, HQ);
-	}
-
-	const __TARGET_UNIT_CHANCE = (getResearch("R-Sys-Resistance-Upgrade01").done) ? 40 : 20;
-	let objects = [];
-
-	if (camRand(100) < __TARGET_UNIT_CHANCE)
-	{
-		objects = enumDroid(player).filter((d) => (!camIsTransporter(d)));
-
-		const exp = {
-			rookie: 0,
-			green: 4,
-			trained: 8,
-			regular: 16,
-			professional: 32,
-			veteran: 64,
-			elite: 128,
-			special: 256,
-			hero: 512,
-		};
-
-		//As the player researches more resistance upgrades their higher exp units will become more safe
-		//Trucks get a little more safe with each upgrade also.
-		objects = objects.filter((d) => {
-			if (__camNextLevel === CAM_GAMMA_OUT) //Final mission has a static fail chance to hack everything (except for hero units).
-			{
-				if (d.droidType === DROID_CONSTRUCT)
-				{
-					return true;
-				}
-				return d.experience < exp.hero; 
-			}
-			else if (getResearch("R-Sys-Resistance-Upgrade04").done)
-			{
-				return false; //Everything is safe
-			}
-			else if (getResearch("R-Sys-Resistance-Upgrade03").done)
-			{
-				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 66)
-				{
-					return false;
-				}
-				return d.experience < exp.regular;
-			}
-			else if (getResearch("R-Sys-Resistance-Upgrade02").done)
-			{
-				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 50)
-				{
-					return false;
-				}
-				return d.experience < exp.veteran;
-			}
-			else if (getResearch("R-Sys-Resistance-Upgrade01").done)
-			{
-				if (d.droidType === DROID_CONSTRUCT && camRand(100) < 20)
-				{
-					return false;
-				}
-				return d.experience < exp.special;
-			}
-			else
-			{
-				if (d.droidType === DROID_CONSTRUCT)
-				{
-					return true;
-				}
-				return d.experience < exp.hero; //Never absorb hero-ranked units
-			}
-		});
-	}
-
-	if (objects.length === 0)
-	{
-		//Has explicit chances to target factories or research labs.
-		switch (camRand(8))
+		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_COMMAND &&
+			droid.droidType !== DROID_REPAIR && droid.droidType !== DROID_SENSOR &&
+			droid.droidType !== DROID_SUPERTRANSPORTER)
 		{
-			case 0: objects = enumStruct(player, FACTORY).filter((s) => (s.status === BUILT)); break;
-			case 1: objects = enumStruct(player, CYBORG_FACTORY).filter((s) => (s.status === BUILT)); break;
-			case 2: objects = enumStruct(player, VTOL_FACTORY).filter((s) => (s.status === BUILT)); break;
-			case 3: objects = enumStruct(player, RESEARCH_LAB).filter((r) => (r.status === BUILT)); break;
-			default: //do nothing
+			// NOTE: This assumes that the player doesn't have any multi-weapon units!
+			templates.push({body: droid.body, prop: droid.propulsion, weap: droid.weapons[0].name});
 		}
+	}
+	// templates = camRemoveDuplicates(templates);
 
-		if (objects.length === 0)
+	if (factory.stattype === FACTORY) // Standard factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(60));
+		templates = templates.filter((temp) => (temp.prop !== "CyborgLegs" && temp.prop !== "V-Tol")); // Filter out all cyborgs and VTOLs
+		if (factory.modules < 2)
 		{
-			objects = enumStruct(player).filter((s) => (s.status === BUILT));
+			templates = templates.filter((temp) => ( // Filter out all heavy bodies
+				temp.body !== "Body11ABT" && 
+				temp.body !== "Body12SUP" && 
+				temp.body !== "Body9REC" &&
+				temp.body !== "Body10MBT"
+			));
 		}
-
-		objects = objects.filter((s) => (
-			//cam3-ab is way too annoying if Nexus can still take factories after the second resistance upgrade.
-			!(getResearch("R-Sys-Resistance-Upgrade02").done &&
-			(s.stattype === FACTORY || s.stattype === CYBORG_FACTORY || s.stattype === VTOL_FACTORY))
-		));
+		if (factory.modules < 1)
+		{
+			templates = templates.filter((temp) => ( // Filter out all medium bodies
+				temp.body !== "Body5REC" &&
+				temp.body !== "Body8MBT" &&
+				temp.body !== "Body6SUPP" &&
+				temp.body !== "Body7ABT"
+			));
+		}
+	}
+	else if (factory.stattype === CYBORG_FACTORY) // Cyborg factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(40));
+		templates = templates.filter((temp) => (temp.prop === "CyborgLegs")); // Filter out all non-cyborgs
+	}
+	else // VTOL factory
+	{
+		throttle = camChangeOnDiff(camSecondsToMilliseconds(70));
+		templates = templates.filter((temp) => (temp.prop === "V-Tol")); // Filter out all non-VTOLs
+		if (factory.modules < 2)
+		{
+			templates = templates.filter((temp) => ( // Filter out all heavy bodies
+				temp.body !== "Body11ABT" && 
+				temp.body !== "Body12SUP" && 
+				temp.body !== "Body9REC" &&
+				temp.body !== "Body10MBT"
+			));
+		}
+		if (factory.modules < 1)
+		{
+			templates = templates.filter((temp) => ( // Filter out all medium bodies
+				temp.body !== "Body5REC" &&
+				temp.body !== "Body8MBT" &&
+				temp.body !== "Body6SUPP" &&
+				temp.body !== "Body7ABT"
+			));
+		}
 	}
 
-	return objects;
+	// Start managing the factory!
+	const fLabel = "capturedFactory" + __camCapturedFactoryIdx++;
+	addLabel(factory, fLabel);
+	camSetFactoryData(fLabel, {
+		order: CAM_ORDER_ATTACK,
+		throttle: throttle,
+		groupSize: 3,
+		data: {
+			repair: 50,
+		},
+		templates: templates
+	});
+	camEnableFactory(fLabel);
 }

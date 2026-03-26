@@ -1,4 +1,3 @@
-
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
@@ -19,8 +18,8 @@ camAreaEvent("AttackArea1", function(droid)
 	camEnableFactory("base1factory");
 	// sic! hill factory
 	camSetFactoryData("base2factory", {
- 		assembly: "assembly2",
-		order: CAM_ORDER_ATTACK,  // changes
+		assembly: "assembly2",
+		order: CAM_ORDER_ATTACK, // changes
 		data: { pos: "playerBase" }, // changes
 		groupSize: 10, // changes
 		maxSize: 10,
@@ -72,53 +71,88 @@ camAreaEvent("NPSensorRemove", function(droid)
 
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "SUB_1_1S");
-	const startpos = getObject("startPosition");
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, cam_levels.alpha3.pre);
+	const startPos = getObject("startPosition");
 	const lz = getObject("landingZone");
-	centreView(startpos.x, startpos.y);
+	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	if (!tweakOptions.ref_timerlessMode)
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+	}
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_6, true);
 	setAlliance(CAM_NEW_PARADIGM, CAM_SCAV_7, true);
 	setAlliance(CAM_SCAV_6, CAM_SCAV_7, true);
 
-	camCompleteRequiredResearch(mis_scavengerRes, 6);
-	camCompleteRequiredResearch(mis_scavengerRes, 7);
+	if (difficulty >= MEDIUM)
+	{
+		camCompleteRequiredResearch(mis_scavengerRes, 6);
+		camCompleteRequiredResearch(mis_scavengerRes, 7);
+	}
 
 	camSetArtifacts({
-		"base1factory": { tech: "R-Wpn-Flamer-ROF01" },
-		"base2factory": { tech: "R-Wpn-MG2Mk1" },
-		"base3sensor": { tech: "R-Sys-Sensor-Turret01" },
-		"base4gen": { tech: "R-Struc-PowerModuleMk1" },
+		"base1factory": { tech: "R-Wpn-Flamer-ROF01" }, // Flamer Autoloader
+		"base2factory": { tech: "R-Wpn-MG2Mk1" }, // Twin Machinegun
+		"base3sensor": { tech: "R-Sys-Sensor-Turret01" }, // Sensor Turret
+		"base4gen": { tech: "R-Struc-PowerModuleMk1" }, // Power Module
 	});
 
 	camSetEnemyBases({
 		"base1group": {
 			cleanup: "enemybase1",
 			detectMsg: "C1B_BASE1",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 		"base2group": {
 			cleanup: "enemybase2",
 			detectMsg: "C1B_BASE0",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 		"base3group": {
 			cleanup: "enemybase3",
-			detectMsg: "C1B_OBJ1",
-			detectSnd: "pcv375.ogg",
-			eliminateSnd: "pcv391.ogg",
+			detectMsg: "C1B_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated,
 		},
 		"base4group": {
 			cleanup: "enemybase4",
 			detectMsg: "C1B_BASE2",
-			detectSnd: "pcv374.ogg",
-			eliminateSnd: "pcv392.ogg",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 	});
+
+	if (tweakOptions.ref_timerlessMode)
+	{
+		// Set up Timerless mode-exclusive cranes
+		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base4group",
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane, // Scavenger constructor
+				structset: camAreaToStructSet("enemybase4").filter((struct) => (struct.stat !== "A0PowerGenerator"))
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base2group",
+				rebuildTruck: (difficulty >= HARD),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("enemybase2")
+		});
+		camManageTrucks(
+			CAM_SCAV_7, {
+				label: "base3group",
+				rebuildTruck: (difficulty === INSANE),
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("enemybase3")
+		});
+	}
 
 	camPlayVideos({video: "MB1B_MSG", type: MISS_MSG});
 	camDetectEnemyBase("base4group"); // power surge detected
@@ -150,7 +184,7 @@ function eventStartLevel()
 			assembly: "assembly4",
 			order: CAM_ORDER_ATTACK,
 			data: { pos: "playerBase" },
- 			groupSize: 8,
+			groupSize: 8,
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.trike, cTempl.bloke, cTempl.buggy, cTempl.bjeep ]
@@ -166,4 +200,21 @@ function eventStartLevel()
 	camNeverGroupDroid(NPScout);
 	const pos = getObject("NPSensorWatch");
 	orderDroidLoc(NPScout, DORDER_MOVE, pos.x, pos.y);
+
+	// Darken the fog to 1/2 default brightness
+	// NOTE: default RGB is (176, 143, 95)
+	camSetFog(88, 72, 48);
+	// Darken the lighting and add a slight orange hue
+	// NOTE: default brightness is (.5, .5, .5)
+	camSetSunIntensity(.45, .45, .4);
+	// Move the sun towards the west
+	// NOTE: default position is (x: 225.0, y: -600.0, z: 450.0)
+	// Sun coordinates and their corresponding sun directions (where the sun is relative to the world):
+	// -x: EAST, +x: WEST
+	// -y: UP, +y: DOWN
+	// -z: NORTH, +z: SOUTH
+	// (remember that shadows are casted in the OPPOSITE direction of the sun)
+	// Also remember that these coordinates are normalized; the values of each axis only matter in respect to each other.
+	// e.g. (5, 4, 3) == (500, 400, 300)
+	camSetSunPos(425, -400, 450);
 }

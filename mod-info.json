@@ -5,9 +5,9 @@
     "type": "alternateCampaign",
     "license": "GPL-2.0-or-later",
     "minVersionSupported": "4.6.1",
-    "maxVersionTested": "4.6.1",
+    "maxVersionTested": "4.6.3",
     "description": {
-        "en": "A mod for the WZ 2100 Campaign that aims to bring the Multiplayer and Campaign experience closer together."
+        "en": "A mod that rebalances the Warzone 2100 Campaign to be more in-line with the Multiplayer/Skirmish experience."
     },
     "updatesUrl": "https://github.com/DARwins1/refactored/releases/latest",
     "campaigns": [
@@ -18,10 +18,28 @@
     "universe": "wz2100",
     "difficultyLevels": "default",
     "camTweakOptions": [
-        {
-            "id": "autosavesOnly",
-            "default": false,
-            "userEditable": true
-        }
-    ]
+    {
+      "id": "autosavesOnly",
+      "default": false,
+      "userEditable": true
+    },
+    {
+      "id": "victoryHints",
+      "default": true,
+      "userEditable": true
+    }
+  ],
+  "customTweakOptions": [
+    {
+      "id": "ref_timerlessMode",
+      "type": "bool",
+      "default": false,
+      "displayName": {
+        "en": "Timerless Mode"
+      },
+      "description": {
+        "en": "Disables the mission timer on most missions, but also lowers the amount of power you can store and causes enemies to rebuild more frequently."
+      }
+    }
+  ]
 }
