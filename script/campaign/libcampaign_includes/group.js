@@ -330,7 +330,7 @@ function __camGetMissingGroupTemplates(group, returnFirst, factory)
 			{
 				// Object is a live command droid
 				// Limit the maximum amount of missing droids to the commander's capacity minus the droids already in the group
-				maxMissing = (6 + camGetDroidRank(groupLeader) * 2) - droidList.length;
+				maxMissing = (6 + camGetDroidRank(leader) * 2) - droidList.length;
 			}
 		}
 
