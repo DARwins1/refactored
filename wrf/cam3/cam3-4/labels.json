@@ -396,6 +396,14 @@
 
 
 	"object_16": {
+		"label": "gammaTruck1",
+		"id": 1460,
+		"player": 3,
+		"type": 0
+	},
+
+
+	"object_17": {
 		"label": "gammaCommander",
 		"id": 1447,
 		"player": 3,
@@ -403,17 +411,9 @@
 	},
 
 
-	"object_17": {
+	"object_18": {
 		"label": "gammaTruck2",
 		"id": 1461,
-		"player": 3,
-		"type": 0
-	},
-
-
-	"object_18": {
-		"label": "gammaTruck1",
-		"id": 1460,
 		"player": 3,
 		"type": 0
 	},

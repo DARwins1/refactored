@@ -176,6 +176,21 @@
             "Requires Cyborg factory to produce"
         ]
     },
+    "RES_CYW_MRA": {
+        "id": "RES_CYW_MRA",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_droid.ogg",
+        "text": [
+            "New Cyborg Available",
+            "Armed with Cyborg Mini-Rocket Launcher",
+            "Damage Type: Artillery",
+            "Effective against: Infantry, wheeled vehicles and structures",
+            "Ineffective against: Bunkers and tracked vehicles",
+            "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
+            "Greater accuracy at longer ranges",
+            "Requires Cyborg factory to produce"
+        ]
+    },
     "RES_CYW_MRL": {
         "id": "RES_CYW_MRL",
         "imdName": "MICAPSUL.pie",

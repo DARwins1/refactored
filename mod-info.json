@@ -1,13 +1,13 @@
 {
     "name": "Refactored",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "author": "DARwins",
     "type": "alternateCampaign",
     "license": "GPL-2.0-or-later",
-    "minVersionSupported": "4.6.1",
-    "maxVersionTested": "4.6.3",
+    "minVersionSupported": "4.7.0",
+    "maxVersionTested": "4.7.0",
     "description": {
-        "en": "A mod that rebalances the Warzone 2100 Campaign to be more in-line with the Multiplayer/Skirmish experience."
+        "en": "A mod that modifies the Warzone 2100 Campaign to match Reclamation's balance scheme."
     },
     "updatesUrl": "https://github.com/DARwins1/refactored/releases/latest",
     "campaigns": [

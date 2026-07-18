@@ -68,7 +68,7 @@ function captureCivilians()
 		const NUM = 1 + camRand(3);
 		for (let i = 0; i < NUM; ++i)
 		{
-			camAddDroid(CAM_SCAV_7, currPos, cTempl.civ);
+			camAddDroid(CAM_SCAV_7, currPos, cTempl.civ, _("Civilian"));
 		}
 
 		//Only count civilians that are not in the the transporter base.
@@ -299,13 +299,13 @@ function eventStartLevel()
 		"COVtolFacLeft": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(90)),
 			templates: [cTempl.colcbv, cTempl.colpbv, cTempl.colcbv, cTempl.colpbv]
 		},
 		"COVtolFacRight": {
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			templates: [cTempl.colagv, cTempl.colatv, cTempl.colagv, cTempl.colatv]
 		},
 	});

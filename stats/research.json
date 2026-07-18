@@ -707,7 +707,7 @@
     "R-Cyb-Wpn-MRL": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-MRL",
-        "msgName": "RES_CYW_MOR",
+        "msgName": "RES_CYW_MRA",
         "name": "Mini-Rocket Cyborg",
         "requiredResearch": [
             "R-Wpn-Rocket02-MRL",
@@ -6672,7 +6672,6 @@
     "R-Sys-VTOLCBS-Tower01": {
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-VTOLCBS-Tower01",
-        "keyTopic": 1,
         "msgName": "RES_SY_VCBSTW1",
         "name": "VTOL CB Tower",
         "requiredResearch": [

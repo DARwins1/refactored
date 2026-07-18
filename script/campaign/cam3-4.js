@@ -544,7 +544,7 @@ function eventStartLevel()
 			callback: "allowGammaCommanderRebuild"
 		}, CAM_ORDER_PATROL, {
 			pos: [
-				camMakePos("NWPatrolPos2"),
+				// camMakePos("NWPatrolPos2"),
 				camMakePos("NWPatrolPos3"),
 				camMakePos("NWPatrolPos4"),
 			],
