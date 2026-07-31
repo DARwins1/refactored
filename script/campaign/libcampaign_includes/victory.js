@@ -264,7 +264,17 @@ function __camPlayerDead()
 		dead = false;
 	}
 
-	if (enumDroid(CAM_HUMAN_PLAYER, DROID_CONSTRUCT).length > 0)
+	if (__camNextLevel === cam_levels.gamma2.pre)
+	{
+		//Check for any construction units.
+		//NOTE: countDroid() will return the counts of construction units in
+		//apsLimboDroids between Gamma 3 to Gamma 5.
+		if (countDroid(DROID_CONSTRUCT) > 0)
+		{
+			dead = false;
+		}
+	}
+	else if (enumDroid(CAM_HUMAN_PLAYER, DROID_CONSTRUCT).length > 0)
 	{
 		//A construction unit is currently on the map.
 		dead = false;
